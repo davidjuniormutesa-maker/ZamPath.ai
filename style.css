@@ -1,0 +1,2286 @@
+/* ============================================================ */
+/* CAREER QUEST - COMPLETE STYLESHEET                          */
+/* All styling for the career guidance web application           */
+/* Zambia-themed design with green, red, orange, and black      */
+/* ============================================================ */
+
+/* ============================================================ */
+/* CSS CUSTOM PROPERTIES (Design Tokens)                        */
+/* These are like variables that we use throughout the CSS      */
+/* Changing them here changes the style everywhere!             */
+/* ============================================================ */
+
+:root {
+    /* ============================================================ */
+    /* ZAMBIA FLAG COLORS - Our theme colors                        */
+    /* ============================================================ */
+    --zm-green: #008000;        /* Zambia Green - primary brand color */
+    --zm-green-dark: #006600;   /* Darker green for hover states */
+    --zm-green-light: #e8f5e9;  /* Light green for backgrounds */
+    --zm-green-glow: rgba(0, 128, 0, 0.15); /* Glow effect for shadows */
+    --zm-red: #DE2010;          /* Zambia Red - accent color */
+    --zm-red-light: #fce4e4;    /* Light red for backgrounds */
+    --zm-orange: #EF7D00;       /* Zambia Orange - accent color */
+    --zm-orange-light: #fff3e0; /* Light orange for backgrounds */
+    --zm-black: #1a1a2e;        /* Zambia Black - dark text */
+
+    /* ============================================================ */
+    /* NEUTRAL COLORS - For text, backgrounds, and borders         */
+    /* ============================================================ */
+    --bg-primary: #f0f4f8;      /* Main page background - light gray-blue */
+    --bg-secondary: #ffffff;    /* Card and container background - white */
+    --bg-tertiary: #f8f9fa;     /* Slightly darker background for contrast */
+    --bg-hover: #f0fff0;        /* Background when hovering over items */
+    --text-primary: #1a202c;    /* Main text color - dark */
+    --text-secondary: #4a5568;  /* Secondary text - medium gray */
+    --text-muted: #718096;      /* Muted text - light gray */
+    --text-inverse: #ffffff;    /* Text on colored backgrounds */
+    --border-light: #e2e8f0;    /* Light border color */
+    --border-medium: #cbd5e0;   /* Medium border color */
+
+    /* ============================================================ */
+    /* CLUSTER COLORS - Each career cluster has its own color      */
+    /* This helps users visually identify career categories        */
+    /* ============================================================ */
+    --cluster-stem: #3b82f6;          /* STEM - Blue */
+    --cluster-stem-bg: #eff6ff;       /* STEM background - light blue */
+    --cluster-healthcare: #ef4444;    /* Healthcare - Red */
+    --cluster-healthcare-bg: #fef2f2; /* Healthcare background - light red */
+    --cluster-business: #f59e0b;      /* Business - Yellow/Gold */
+    --cluster-business-bg: #fffbeb;   /* Business background - light yellow */
+    --cluster-creative: #a855f7;      /* Creative - Purple */
+    --cluster-creative-bg: #faf5ff;   /* Creative background - light purple */
+    --cluster-helping: #10b981;       /* Helping - Green */
+    --cluster-helping-bg: #ecfdf5;    /* Helping background - light green */
+    --cluster-outdoor: #22c55e;       /* Outdoor - Bright green */
+    --cluster-outdoor-bg: #f0fdf4;    /* Outdoor background - very light green */
+    --cluster-publicservice: #8b5cf6; /* Public Service - Violet */
+    --cluster-publicservice-bg: #f5f3ff; /* Public Service background - light violet */
+    --cluster-skilled: #f97316;       /* Skilled Trades - Orange */
+    --cluster-skilled-bg: #fff7ed;    /* Skilled Trades background - light orange */
+
+    /* ============================================================ */
+    /* SHADOWS - Used for depth and layering                       */
+    /* ============================================================ */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);   /* Small shadow */
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);   /* Medium shadow */
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12); /* Large shadow */
+    --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.15); /* Extra large shadow */
+    --shadow-green: 0 4px 15px rgba(0, 128, 0, 0.25); /* Green-tinted shadow */
+
+    /* ============================================================ */
+    /* BORDER RADIUS - Rounded corners for elements                */
+    /* ============================================================ */
+    --radius-sm: 8px;    /* Small rounding */
+    --radius-md: 12px;   /* Medium rounding */
+    --radius-lg: 20px;   /* Large rounding */
+    --radius-xl: 50px;   /* Extra large - makes pill/capsule shapes */
+
+    /* ============================================================ */
+    /* TRANSITIONS - Animation timing                              */
+    /* ============================================================ */
+    --transition-fast: 0.15s ease;  /* Fast animation */
+    --transition-base: 0.3s ease;   /* Standard animation */
+    --transition-slow: 0.5s ease;   /* Slow animation */
+
+    /* ============================================================ */
+    /* FONTS - Typography settings                                 */
+    /* ============================================================ */
+    --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; /* Main font */
+    --font-mono: 'SF Mono', 'Fira Code', monospace; /* For code/keys */
+}
+
+/* ============================================================ */
+/* DARK MODE VARIABLES - Overrides for dark theme               */
+/* When the user enables dark mode, these values replace the    */
+/* ones above, creating a dark-themed interface                 */
+/* ============================================================ */
+
+body.dark-mode {
+    /* Dark backgrounds */
+    --bg-primary: #0f172a;        /* Very dark blue-gray */
+    --bg-secondary: #1e293b;      /* Dark slate */
+    --bg-tertiary: #334155;       /* Medium dark slate */
+    --bg-hover: #1e3a2e;          /* Dark green hover */
+    
+    /* Light text on dark backgrounds */
+    --text-primary: #f1f5f9;      /* Very light gray */
+    --text-secondary: #94a3b8;    /* Light gray */
+    --text-muted: #64748b;        /* Medium gray */
+    
+    /* Dark borders */
+    --border-light: #334155;      /* Dark border */
+    --border-medium: #475569;     /* Slightly lighter dark border */
+    
+    /* Dark shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.6);
+    --shadow-green: 0 4px 15px rgba(0, 128, 0, 0.3);
+    
+    /* Darker light colors for backgrounds */
+    --zm-green-light: #052e16;
+    --zm-red-light: #2d0a0a;
+    --zm-orange-light: #2d1a00;
+    
+    /* Dark cluster backgrounds */
+    --cluster-stem-bg: #172554;
+    --cluster-healthcare-bg: #450a0a;
+    --cluster-business-bg: #451a03;
+    --cluster-creative-bg: #2e1065;
+    --cluster-helping-bg: #022c22;
+    --cluster-outdoor-bg: #052e16;
+    --cluster-publicservice-bg: #1e1b4b;
+    --cluster-skilled-bg: #2d1a00;
+}
+
+/* ============================================================ */
+/* RESET & BASE STYLES                                          */
+/* Resets default browser styles so we start from a clean slate */
+/* ============================================================ */
+
+/* The * selector means "everything" - this resets all elements */
+*,
+*::before,
+*::after {
+    margin: 0;           /* Remove default margins */
+    padding: 0;          /* Remove default padding */
+    box-sizing: border-box; /* Makes sizing more predictable */
+}
+
+/* HTML element - smooth scrolling and font rendering */
+html {
+    scroll-behavior: smooth; /* Makes internal links scroll smoothly */
+    -webkit-text-size-adjust: 100%; /* Prevents text resizing on mobile */
+}
+
+/* Body - the main page container */
+body {
+    font-family: var(--font-family); /* Use our defined font */
+    background: var(--bg-primary); /* Use the primary background color */
+    /* Subtle decorative gradient in the background using Zambia colors */
+    background-image: radial-gradient(ellipse at 20% 50%, rgba(0, 128, 0, 0.05) 0%, transparent 50%),
+                       radial-gradient(ellipse at 80% 20%, rgba(222, 32, 16, 0.03) 0%, transparent 50%),
+                       radial-gradient(ellipse at 50% 80%, rgba(239, 125, 0, 0.03) 0%, transparent 50%);
+    min-height: 100vh; /* At least the full height of the viewport */
+    padding: 20px; /* Space around the app */
+    color: var(--text-primary); /* Main text color */
+    line-height: 1.6; /* Space between lines of text */
+    transition: background var(--transition-slow), color var(--transition-slow); /* Smooth theme switching */
+    -webkit-font-smoothing: antialiased; /* Makes text look smoother on Mac */
+    -moz-osx-font-smoothing: grayscale; /* Makes text look smoother on Mac */
+}
+
+/* Focus visible - shows a highlight when keyboard users navigate */
+/* This is important for accessibility */
+:focus-visible {
+    outline: 3px solid var(--zm-green); /* Green outline */
+    outline-offset: 2px; /* Space between the outline and the element */
+    border-radius: 4px; /* Rounded corners on the outline */
+}
+
+/* When an element has focus but not visible focus, remove the outline */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Selection color - when users highlight text */
+::selection {
+    background: var(--zm-green); /* Green background */
+    color: white; /* White text */
+}
+
+/* ============================================================ */
+/* SKIP LINK - For accessibility                                */
+/* Allows keyboard users to skip navigation and go to content   */
+/* ============================================================ */
+
+.skip-link {
+    position: absolute; /* Removed from normal flow */
+    top: -100%; /* Hidden off-screen initially */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center adjustment */
+    background: var(--zm-green); /* Green background */
+    color: white; /* White text */
+    padding: 12px 24px; /* Padding inside */
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm); /* Rounded bottom corners */
+    z-index: 10000; /* Very high z-index to appear above everything */
+    font-weight: 600; /* Bold text */
+    text-decoration: none; /* Remove underline */
+    transition: top var(--transition-fast); /* Animate when appearing */
+}
+
+/* When the skip link is focused (tab key), bring it into view */
+.skip-link:focus {
+    top: 0; /* Slide down into view */
+}
+
+/* ============================================================ */
+/* MAIN APP CONTAINER                                          */
+/* The white card that holds everything                         */
+/* ============================================================ */
+
+#app {
+    max-width: 960px; /* Maximum width of the app */
+    margin: 0 auto; /* Center horizontally */
+    background: var(--bg-secondary); /* White/light background */
+    border-radius: var(--radius-lg); /* Rounded corners */
+    padding: 0; /* No padding on the container itself */
+    box-shadow: var(--shadow-xl); /* Big shadow for depth */
+    position: relative; /* For positioning child elements */
+    overflow: hidden; /* Prevents content from spilling out */
+    transition: background var(--transition-slow), box-shadow var(--transition-slow); /* Smooth theme change */
+    border: 1px solid var(--border-light); /* Subtle border */
+}
+
+/* ============================================================ */
+/* TOP NAVIGATION BAR                                           */
+/* The sticky header with app name and dark mode toggle         */
+/* ============================================================ */
+
+.top-bar {
+    display: flex; /* Flexbox layout */
+    justify-content: space-between; /* Space between left and right */
+    align-items: center; /* Vertically centered */
+    padding: 12px 24px; /* Spacing inside */
+    background: var(--bg-secondary); /* Match app background */
+    border-bottom: 1px solid var(--border-light); /* Subtle separator */
+    position: sticky; /* Sticks to the top when scrolling */
+    top: 0; /* Stick at the very top */
+    z-index: 100; /* Above other content */
+    backdrop-filter: blur(10px); /* Blur effect behind the bar */
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+}
+
+/* Left side of the top bar - brand name and icon */
+.top-bar-brand {
+    display: flex; /* Flex layout */
+    align-items: center; /* Center vertically */
+    gap: 8px; /* Space between icon and text */
+    font-weight: 700; /* Bold text */
+    font-size: 16px; /* Text size */
+    color: var(--zm-green); /* Green color */
+    letter-spacing: -0.3px; /* Slightly tighter spacing */
+    user-select: none; /* Prevents text from being selected */
+}
+
+/* The emoji icon in the brand */
+.top-bar-brand .brand-icon {
+    font-size: 22px; /* Larger emoji */
+}
+
+/* Right side of the top bar - actions like dark mode toggle */
+.top-bar-actions {
+    display: flex; /* Flex layout */
+    align-items: center; /* Center vertically */
+    gap: 8px; /* Space between buttons */
+}
+
+/* ============================================================ */
+/* DARK MODE TOGGLE BUTTON                                      */
+/* ============================================================ */
+
+.dark-mode-toggle {
+    background: var(--bg-tertiary); /* Subtle background */
+    border: 1px solid var(--border-light); /* Border */
+    border-radius: var(--radius-xl); /* Pill shape */
+    padding: 6px 14px; /* Padding inside */
+    cursor: pointer; /* Pointer on hover */
+    font-size: 14px; /* Text size */
+    color: var(--text-secondary); /* Text color */
+    display: flex; /* Flex layout */
+    align-items: center; /* Center vertically */
+    gap: 6px; /* Space between icon and text */
+    transition: all var(--transition-fast); /* Smooth hover transition */
+    font-family: inherit; /* Use the same font as the rest */
+}
+
+/* Hover effect for dark mode toggle */
+.dark-mode-toggle:hover {
+    background: var(--bg-hover); /* Slightly different background */
+    border-color: var(--zm-green); /* Green border on hover */
+    color: var(--zm-green); /* Green text on hover */
+}
+
+/* ============================================================ */
+/* SCREENS - The different views (welcome, quiz, results)      */
+/* ============================================================ */
+
+/* All screens are hidden by default */
+.screen {
+    display: none; /* Hidden */
+    padding: 30px; /* Padding inside each screen */
+}
+
+/* When a screen has the "active" class, it's shown */
+.screen.active {
+    display: block; /* Show the screen */
+    animation: screenIn 0.4s ease-out; /* Fade-in animation */
+}
+
+/* Screen entrance animation - fades in and slides up slightly */
+@keyframes screenIn {
+    from {
+        opacity: 0; /* Start invisible */
+        transform: translateY(16px); /* Start slightly down */
+    }
+    to {
+        opacity: 1; /* End fully visible */
+        transform: translateY(0); /* End in normal position */
+    }
+}
+
+/* ============================================================ */
+/* WELCOME SCREEN                                               */
+/* ============================================================ */
+
+.welcome-content {
+    text-align: center; /* Center all text */
+    padding: 50px 20px 40px; /* Top, sides, bottom */
+}
+
+/* The large emoji logo at the top */
+.logo {
+    font-size: 80px; /* Very large */
+    margin-bottom: 12px; /* Space below */
+    display: inline-block; /* Allows animation */
+    animation: logoFloat 3s ease-in-out infinite; /* Floating animation */
+}
+
+/* Floating animation for the logo */
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0); } /* Start and end at normal position */
+    50% { transform: translateY(-8px); } /* Middle of animation - float up */
+}
+
+/* Main heading. */
+.welcome-content h1 {
+    font-size: 48px; /* Large text */
+    font-weight: 800; /* Very bold */
+    color: var(--zm-green); /* Green color */
+    margin-bottom: 8px; /* Space below */
+    letter-spacing: -0.5px; /* Tighter letter spacing */
+    /* Gradient text effect */
+    background: linear-gradient(135deg, var(--zm-green), #00b800);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Subtitle - the smaller text under the heading */
+.subtitle {
+    font-size: 22px; /* Slightly smaller */
+    color: var(--zm-red); /* Red color - Zambia flag */
+    font-weight: 600; /* Semi-bold */
+    margin-bottom: 20px; /* Space below */
+}
+
+/* Description paragraph */
+.description {
+    font-size: 17px; /* Readable size */
+    color: var(--text-secondary); /* Slightly muted color */
+    max-width: 560px; /* Maximum width for readability */
+    margin: 0 auto 35px; /* Center and space below */
+    line-height: 1.7; /* Good line spacing */
+}
+
+/* Container for the two main buttons */
+.welcome-buttons {
+    display: flex; /* Flex layout */
+    gap: 14px; /* Space between buttons */
+    justify-content: center; /* Center horizontally */
+    flex-wrap: wrap; /* Wrap on small screens */
+    margin-bottom: 24px; /* Space below */
+}
+
+/* The small note at the bottom with features */
+.note {
+    font-size: 13px; /* Small text */
+    color: var(--text-muted); /* Muted color */
+    margin-top: 24px; /* Space above */
+    display: flex; /* Flex layout */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    gap: 16px; /* Space between items */
+    flex-wrap: wrap; /* Wrap on small screens */
+}
+
+/* Each item in the note has a dot before it */
+.note span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0.8; /* Slightly transparent */
+}
+
+/* The dot before each note item */
+.note span::before {
+    content: '•'; /* Bullet point */
+    color: var(--zm-green); /* Green color */
+    font-weight: bold; /* Bold dot */
+}
+
+/* ============================================================ */
+/* SAVED PROGRESS BANNER - Shows when user has saved progress   */
+/* ============================================================ */
+
+.saved-progress {
+    background: var(--zm-green-light); /* Light green background */
+    border: 1px solid var(--zm-green); /* Green border */
+    border-radius: var(--radius-md); /* Rounded corners */
+    padding: 12px 20px; /* Padding inside */
+    margin-bottom: 20px; /* Space below */
+    display: flex; /* Flex layout */
+    align-items: center; /* Center vertically */
+    justify-content: space-between; /* Space between text and button */
+    font-size: 14px; /* Text size */
+    color: var(--zm-green-dark); /* Dark green text */
+    animation: slideDown 0.3s ease; /* Slide-in animation */
+}
+
+/* In dark mode, use a lighter green text */
+body.dark-mode .saved-progress {
+    color: #86efac; /* Light green */
+}
+
+/* Slide down animation */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); } /* Start above */
+    to { opacity: 1; transform: translateY(0); } /* End in place */
+}
+
+/* The button inside the saved progress banner */
+.saved-progress button {
+    background: var(--zm-green); /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 6px 16px; /* Padding inside */
+    border-radius: var(--radius-xl); /* Pill shape */
+    cursor: pointer; /* Pointer on hover */
+    font-size: 13px; /* Text size */
+    font-weight: 600; /* Semi-bold */
+    font-family: inherit; /* Same font */
+    transition: background var(--transition-fast); /* Smooth hover */
+}
+
+/* Hover effect for the button */
+.saved-progress button:hover {
+    background: var(--zm-green-dark); /* Darker green on hover */
+}
+
+/* ============================================================ */
+/* BUTTONS - Primary and secondary styles                      */
+/* ============================================================ */
+
+/* Primary button - used for main actions (green, prominent) */
+.btn-primary {
+    background: linear-gradient(135deg, var(--zm-green), #00b800); /* Gradient green */
+    color: var(--text-inverse); /* White text */
+    border: none; /* No border */
+    padding: 14px 36px; /* Padding */
+    border-radius: var(--radius-xl); /* Pill shape */
+    font-size: 17px; /* Text size */
+    font-weight: 700; /* Bold */
+    cursor: pointer; /* Pointer on hover */
+    transition: all var(--transition-base); /* Smooth transitions */
+    box-shadow: var(--shadow-green); /* Green glow shadow */
+    font-family: inherit; /* Same font */
+    position: relative; /* For pseudo-elements */
+    overflow: hidden; /* Hide overflow */
+}
+
+/* Decorative shine effect on the button */
+.btn-primary::after {
+    content: ''; /* Empty content */
+    position: absolute; /* Positioned absolutely */
+    inset: 0; /* Cover the entire button */
+    background: linear-gradient(135deg, transparent, rgba(255,255,255,0.15)); /* White shine */
+    opacity: 0; /* Hidden by default */
+    transition: opacity var(--transition-fast); /* Smooth appearance */
+}
+
+/* Hover effect for primary button */
+.btn-primary:hover {
+    transform: translateY(-2px); /* Lift up slightly */
+    box-shadow: 0 6px 24px rgba(0, 128, 0, 0.35); /* Larger shadow */
+}
+
+/* Show the shine on hover */
+.btn-primary:hover::after {
+    opacity: 1; /* Make shine visible */
+}
+
+/* Active/pressed state */
+.btn-primary:active {
+    transform: translateY(0); /* Return to normal position */
+}
+
+/* Disabled state */
+.btn-primary:disabled {
+    opacity: 0.5; /* Half opacity */
+    cursor: not-allowed; /* Not allowed cursor */
+    transform: none; /* No transform */
+    box-shadow: none; /* No shadow */
+}
+
+/* Secondary button - used for alternative actions */
+.btn-secondary {
+    background: var(--bg-tertiary); /* Subtle background */
+    color: var(--text-primary); /* Text color */
+    border: 2px solid var(--border-light); /* Border */
+    padding: 14px 36px; /* Padding */
+    border-radius: var(--radius-xl); /* Pill shape */
+    font-size: 17px; /* Text size */
+    font-weight: 600; /* Semi-bold */
+    cursor: pointer; /* Pointer on hover */
+    transition: all var(--transition-base); /* Smooth transitions */
+    font-family: inherit; /* Same font */
+}
+
+/* Hover effect for secondary button */
+.btn-secondary:hover {
+    border-color: var(--zm-green); /* Green border on hover */
+    background: var(--bg-hover); /* Slightly different background */
+    transform: translateY(-2px); /* Lift up */
+    box-shadow: var(--shadow-sm); /* Small shadow */
+}
+
+/* Disabled state for secondary button */
+.btn-secondary:disabled {
+    opacity: 0.5; /* Half opacity */
+    cursor: not-allowed; /* Not allowed cursor */
+    transform: none; /* No transform */
+}
+
+/* Small variant of buttons */
+.btn-small {
+    padding: 8px 20px; /* Smaller padding */
+    font-size: 14px; /* Smaller text */
+}
+
+/* ============================================================ */
+/* QUIZ SCREEN                                                  */
+/* ============================================================ */
+
+.quiz-container {
+    padding: 10px 0; /* Top and bottom padding */
+}
+
+/* Header with question counter */
+.quiz-header {
+    display: flex; /* Flex layout */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center vertically */
+    margin-bottom: 8px; /* Space below */
+    flex-wrap: wrap; /* Wrap on small screens */
+    gap: 8px; /* Space when wrapped */
+}
+
+/* Question counter text (e.g., "Question 3 of 15") */
+#question-counter {
+    font-size: 14px; /* Text size */
+    color: var(--text-muted); /* Muted color */
+    font-weight: 600; /* Semi-bold */
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+/* Progress bar container */
+.progress-bar {
+    width: 100%; /* Full width */
+    height: 6px; /* Height of the bar */
+    background: var(--border-light); /* Light background */
+    border-radius: 10px; /* Rounded */
+    overflow: hidden; /* Hide overflow */
+    margin-bottom: 28px; /* Space below */
+}
+
+/* The fill part of the progress bar */
+.progress-fill {
+    height: 100%; /* Full height of container */
+    background: linear-gradient(90deg, var(--zm-green), #00cc00, var(--zm-green)); /* Green gradient */
+    background-size: 200% 100%; /* For animation */
+    border-radius: 10px; /* Rounded */
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth width change */
+    width: 0%; /* Start at 0% */
+    position: relative; /* For pseudo-elements */
+}
+
+/* Shimmer animation on the progress bar */
+.progress-fill::after {
+    content: ''; /* Empty content */
+    position: absolute; /* Positioned absolutely */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); /* Shine effect */
+    animation: shimmer 2s infinite; /* Continuous animation */
+}
+
+/* Shimmer keyframes - moves the shine across the bar */
+@keyframes shimmer {
+    0% { transform: translateX(-100%); } /* Start off-screen left */
+    100% { transform: translateX(100%); } /* End off-screen right */
+}
+
+/* Question container - holds the question and options */
+#question-container {
+    background: var(--bg-tertiary); /* Subtle background */
+    padding: 32px; /* Padding inside */
+    border-radius: var(--radius-md); /* Rounded corners */
+    border: 1px solid var(--border-light); /* Subtle border */
+    min-height: 260px; /* Minimum height */
+    transition: background var(--transition-slow), border-color var(--transition-slow); /* Smooth theme change */
+}
+
+/* Question entry animation */
+.question-enter {
+    animation: questionIn 0.35s ease-out; /* Slide in animation */
+}
+
+@keyframes questionIn {
+    from {
+        opacity: 0; /* Start invisible */
+        transform: translateX(30px); /* Start from the right */
+    }
+    to {
+        opacity: 1; /* End visible */
+        transform: translateX(0); /* End in place */
+    }
+}
+
+/* Question exit animation */
+.question-exit {
+    animation: questionOut 0.2s ease-in; /* Slide out animation */
+}
+
+@keyframes questionOut {
+    from {
+        opacity: 1; /* Start visible */
+        transform: translateX(0); /* Start in place */
+    }
+    to {
+        opacity: 0; /* End invisible */
+        transform: translateX(-30px); /* End off-screen left */
+    }
+}
+
+/* Question text */
+#question-text {
+    font-size: 21px; /* Readable size */
+    color: var(--text-primary); /* Main text color */
+    margin-bottom: 24px; /* Space below */
+    line-height: 1.5; /* Good line spacing */
+    font-weight: 600; /* Semi-bold */
+}
+
+/* Container for answer options */
+#options-container {
+    display: flex; /* Flex layout */
+    flex-direction: column; /* Stack vertically */
+    gap: 10px; /* Space between options */
+}
+
+/* Individual option button */
+.option-btn {
+    display: flex; /* Flex layout */
+    align-items: center; /* Center vertically */
+    width: 100%; /* Full width */
+    text-align: left; /* Left-aligned text */
+    padding: 14px 20px; /* Padding inside */
+    background: var(--bg-secondary); /* Background */
+    border: 2px solid var(--border-light); /* Border */
+    border-radius: var(--radius-sm); /* Rounded corners */
+    font-size: 15px; /* Text size */
+    cursor: pointer; /* Pointer on hover */
+    transition: all var(--transition-fast); /* Smooth transitions */
+    font-family: inherit; /* Same font */
+    color: var(--text-primary); /* Text color */
+    position: relative; /* For pseudo-elements */
+    overflow: hidden; /* Hide overflow */
+}
+
+/* Decorative left-to-right fill effect on hover */
+.option-btn::before {
+    content: ''; /* Empty content */
+    position: absolute; /* Positioned absolutely */
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0; /* Start with zero width */
+    background: var(--zm-green-light); /* Light green background */
+    transition: width var(--transition-base); /* Smooth width change */
+    z-index: 0; /* Behind text */
+}
+
+/* Ensure text stays above the background fill */
+.option-btn > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hover effect for options */
+.option-btn:hover {
+    border-color: var(--zm-green); /* Green border on hover */
+    transform: translateX(4px); /* Slight shift right */
+}
+
+/* Expand the fill on hover */
+.option-btn:hover::before {
+    width: 100%; /* Full width on hover */
+}
+
+/* Selected option */
+.option-btn.selected {
+    border-color: var(--zm-green); /* Green border */
+    background: var(--zm-green-light); /* Light green background */
+    box-shadow: 0 0 0 3px var(--zm-green-glow); /* Green glow */
+}
+
+/* Selected option fill - full width */
+.option-btn.selected::before {
+    width: 100%; /* Full width */
+}
+
+/* Keyboard focus indicator for options */
+.option-btn.kb-focus {
+    border-color: var(--cluster-stem); /* Blue border for keyboard focus */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); /* Blue glow */
+}
+
+/* Option letter indicator - shows A, B, C, etc. */
+.option-letter {
+    display: inline-flex; /* Inline flex */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    width: 28px; /* Width */
+    height: 28px; /* Height - makes it a circle */
+    border-radius: 50%; /* Perfect circle */
+    background: var(--border-light); /* Background */
+    color: var(--text-muted); /* Text color */
+    font-weight: 700; /* Bold */
+    font-size: 13px; /* Text size */
+    margin-right: 14px; /* Space to the right */
+    flex-shrink: 0; /* Don't shrink */
+    transition: all var(--transition-fast); /* Smooth transitions */
+}
+
+/* Selected option's letter */
+.option-btn.selected .option-letter {
+    background: var(--zm-green); /* Green background */
+    color: white; /* White text */
+}
+
+/* Hover effect for the letter */
+.option-btn:hover .option-letter {
+    background: var(--zm-green); /* Green background */
+    color: white; /* White text */
+}
+
+/* "Not Sure" option - special styling */
+.option-btn.not-sure {
+    border-style: dashed; /* Dashed border */
+    border-color: var(--zm-orange); /* Orange border */
+    color: var(--zm-orange); /* Orange text */
+}
+
+/* "Not Sure" option letter */
+.option-btn.not-sure .option-letter {
+    background: var(--zm-orange-light); /* Light orange background */
+    color: var(--zm-orange); /* Orange text */
+}
+
+/* Hover effect for "Not Sure" */
+.option-btn.not-sure:hover {
+    background: var(--zm-orange-light); /* Light orange background */
+    border-color: var(--zm-orange); /* Orange border */
+}
+
+/* Hover effect for "Not Sure" letter */
+.option-btn.not-sure:hover .option-letter {
+    background: var(--zm-orange); /* Orange background */
+    color: white; /* White text */
+}
+
+/* Selected "Not Sure" option */
+.option-btn.not-sure.selected {
+    background: var(--zm-orange-light); /* Light orange background */
+    border-color: var(--zm-orange); /* Orange border */
+    box-shadow: 0 0 0 3px rgba(239, 125, 0, 0.2); /* Orange glow */
+}
+
+/* Selected "Not Sure" letter */
+.option-btn.not-sure.selected .option-letter {
+    background: var(--zm-orange); /* Orange background */
+    color: white; /* White text */
+}
+
+/* Navigation buttons at the bottom of the quiz */
+.quiz-navigation {
+    display: flex; /* Flex layout */
+    justify-content: space-between; /* Space between buttons */
+    margin-top: 24px; /* Space above */
+    gap: 12px; /* Space between buttons */
+}
+
+/* Keyboard shortcut tips */
+.quiz-tip {
+    text-align: center; /* Center text */
+    margin-top: 16px; /* Space above */
+    font-size: 13px; /* Small text */
+    color: var(--text-muted); /* Muted color */
+}
+
+/* Keyboard key styling */
+.quiz-tip kbd {
+    background: var(--bg-tertiary); /* Background */
+    border: 1px solid var(--border-light); /* Border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 1px 6px; /* Padding inside */
+    font-family: var(--font-mono); /* Monospace font */
+    font-size: 12px; /* Small text */
+}
+
+/* ============================================================ */
+/* RESULTS SCREEN                                               */
+/* ============================================================ */
+
+.results-container {
+    padding: 10px 0; /* Top and bottom padding */
+}
+
+/* Results header */
+.results-header {
+    text-align: center; /* Center text */
+    padding: 16px 0 28px; /* Padding */
+    border-bottom: 2px solid var(--border-light); /* Bottom border */
+    margin-bottom: 28px; /* Space below */
+}
+
+.results-header h1 {
+    font-size: 34px; /* Large text */
+    color: var(--zm-green); /* Green color */
+    margin-bottom: 8px; /* Space below */
+}
+
+#results-subtitle {
+    font-size: 17px; /* Readable size */
+    color: var(--text-secondary); /* Secondary color */
+    max-width: 600px; /* Maximum width */
+    margin: 0 auto; /* Center */
+}
+
+/* ============================================================ */
+/* STATS SUMMARY - Cards showing key numbers                   */
+/* ============================================================ */
+
+.stats-summary {
+    display: grid; /* Grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Responsive columns */
+    gap: 12px; /* Space between cards */
+    margin-bottom: 28px; /* Space below */
+}
+
+/* Individual stat card */
+.stat-card {
+    background: var(--bg-tertiary); /* Background */
+    border: 1px solid var(--border-light); /* Border */
+    border-radius: var(--radius-md); /* Rounded corners */
+    padding: 16px; /* Padding inside */
+    text-align: center; /* Center text */
+    transition: all var(--transition-base); /* Smooth transitions */
+}
+
+/* Hover effect for stat cards */
+.stat-card:hover {
+    transform: translateY(-2px); /* Lift up */
+    box-shadow: var(--shadow-md); /* Shadow */
+}
+
+/* The big number in the stat card */
+.stat-value {
+    font-size: 28px; /* Large number */
+    font-weight: 800; /* Very bold */
+    color: var(--zm-green); /* Green color */
+    display: block; /* Block display */
+}
+
+/* The label below the number */
+.stat-label {
+    font-size: 12px; /* Small text */
+    color: var(--text-muted); /* Muted color */
+    text-transform: uppercase; /* ALL CAPS */
+    letter-spacing: 0.5px; /* Spacing between letters */
+    margin-top: 4px; /* Space above */
+}
+
+/* ============================================================ */
+/* SEARCH & FILTER BAR                                          */
+/* ============================================================ */
+
+.results-toolbar {
+    display: flex; /* Flex layout */
+    gap: 12px; /* Space between elements */
+    margin-bottom: 20px; /* Space below */
+    flex-wrap: wrap; /* Wrap on small screens */
+    align-items: center; /* Center vertically */
+}
+
+/* Search input */
+.search-bar {
+    flex: 1; /* Take available space */
+    min-width: 200px; /* Minimum width */
+    padding: 10px 16px 10px 40px; /* Padding with space for icon */
+    border: 2px solid var(--border-light); /* Border */
+    border-radius: var(--radius-xl); /* Pill shape */
+    font-size: 14px; /* Text size */
+    background: var(--bg-secondary); /* Background */
+    color: var(--text-primary); /* Text color */
+    font-family: inherit; /* Same font */
+    transition: border-color var(--transition-fast); /* Smooth border change */
+    /* Magnifying glass icon as background */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+    background-repeat: no-repeat; /* Don't repeat the icon */
+    background-position: 14px center; /* Position the icon */
+}
+
+/* Placeholder text style */
+.search-bar::placeholder {
+    color: var(--text-muted); /* Muted color */
+}
+
+/* Focus state for search bar */
+.search-bar:focus {
+    border-color: var(--zm-green); /* Green border on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 0 3px var(--zm-green-glow); /* Green glow */
+}
+
+/* Filter chips - small buttons to filter careers */
+.filter-chips {
+    display: flex; /* Flex layout */
+    gap: 6px; /* Space between chips */
+    flex-wrap: wrap; /* Wrap on small screens */
+}
+
+/* Individual filter chip */
+.filter-chip {
+    padding: 6px 14px; /* Padding inside */
+    border-radius: var(--radius-xl); /* Pill shape */
+    border: 1px solid var(--border-light); /* Border */
+    background: var(--bg-secondary); /* Background */
+    color: var(--text-secondary); /* Text color */
+    font-size: 13px; /* Text size */
+    cursor: pointer; /* Pointer on hover */
+    font-family: inherit; /* Same font */
+    font-weight: 500; /* Medium weight */
+    transition: all var(--transition-fast); /* Smooth transitions */
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+/* Hover effect for filter chips */
+.filter-chip:hover {
+    border-color: var(--zm-green); /* Green border on hover */
+    color: var(--zm-green); /* Green text on hover */
+}
+
+/* Active filter chip */
+.filter-chip.active {
+    background: var(--zm-green); /* Green background */
+    color: white; /* White text */
+    border-color: var(--zm-green); /* Green border */
+}
+
+/* ============================================================ */
+/* CAREER MATCHES LIST - The main results                      */
+/* ============================================================ */
+
+#career-matches {
+    display: flex; /* Flex layout */
+    flex-direction: column; /* Stack vertically */
+    gap: 12px; /* Space between cards */
+    margin-bottom: 28px; /* Space below */
+}
+
+/* Individual career card */
+.career-card {
+    background: var(--bg-tertiary); /* Background */
+    border: 1px solid var(--border-light); /* Border */
+    border-radius: var(--radius-md); /* Rounded corners */
+    padding: 16px 20px; /* Padding inside */
+    display: flex; /* Flex layout */
+    justify-content: space-between; /* Space between left and right */
+    align-items: center; /* Center vertically */
+    cursor: pointer; /* Pointer on hover */
+    transition: all var(--transition-base); /* Smooth transitions */
+    flex-wrap: wrap; /* Wrap on small screens */
+    gap: 12px; /* Space when wrapped */
+    position: relative; /* For pseudo-elements */
+    overflow: hidden; /* Hide overflow */
+    /* Staggered reveal animation */
+    opacity: 0; /* Start invisible */
+    transform: translateY(20px); /* Start slightly down */
+}
+
+/* When revealed, fade in and slide up */
+.career-card.revealed {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Normal position */
+}
+
+/* Green left border on hover */
+.career-card::before {
+    content: ''; /* Empty content */
+    position: absolute; /* Absolute position */
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px; /* Thin border */
+    background: var(--zm-green); /* Green color */
+    border-radius: 0 2px 2px 0; /* Rounded right side */
+    opacity: 0; /* Hidden by default */
+    transition: opacity var(--transition-fast); /* Smooth appearance */
+}
+
+/* Show the green border on hover */
+.career-card:hover {
+    border-color: var(--zm-green); /* Green border */
+    box-shadow: var(--shadow-md); /* Shadow */
+    transform: translateY(-2px); /* Lift up */
+}
+
+/* Show the green border on hover */
+.career-card:hover::before {
+    opacity: 1; /* Fully visible */
+}
+
+/* Left side of career card - icon, name, cluster */
+.career-card-left {
+    display: flex; /* Flex layout */
+    align-items: center; /* Center vertically */
+    gap: 14px; /* Space between items */
+    flex: 1; /* Take available space */
+    min-width: 200px; /* Minimum width */
+}
+
+/* Career icon/emoji */
+.career-icon {
+    font-size: 30px; /* Large emoji */
+    flex-shrink: 0; /* Don't shrink */
+}
+
+/* Career info container */
+.career-card-info {
+    display: flex; /* Flex layout */
+    flex-direction: column; /* Stack vertically */
+    gap: 4px; /* Space between name and cluster */
+}
+
+/* Career name */
+.career-name {
+    font-size: 16px; /* Readable size */
+    font-weight: 700; /* Bold */
+    color: var(--text-primary); /* Main text color */
+}
+
+/* Career cluster tag */
+.career-cluster {
+    font-size: 11px; /* Small text */
+    padding: 2px 10px; /* Padding inside */
+    border-radius: var(--radius-xl); /* Pill shape */
+    color: var(--text-muted); /* Muted color */
+    background: var(--bg-secondary); /* Background */
+    border: 1px solid var(--border-light); /* Border */
+    display: inline-block; /* Inline block */
+    width: fit-content; /* Fit content width */
+}
+
+/* Cluster-specific tag colors */
+.career-cluster[data-cluster="STEM"] { color: var(--cluster-stem); background: var(--cluster-stem-bg); border-color: transparent; }
+.career-cluster[data-cluster="Healthcare"] { color: var(--cluster-healthcare); background: var(--cluster-healthcare-bg); border-color: transparent; }
+.career-cluster[data-cluster="Business"] { color: var(--cluster-business); background: var(--cluster-business-bg); border-color: transparent; }
+.career-cluster[data-cluster="Creative"] { color: var(--cluster-creative); background: var(--cluster-creative-bg); border-color: transparent; }
+.career-cluster[data-cluster="Helping"] { color: var(--cluster-helping); background: var(--cluster-helping-bg); border-color: transparent; }
+.career-cluster[data-cluster="Outdoor"] { color: var(--cluster-outdoor); background: var(--cluster-outdoor-bg); border-color: transparent; }
+.career-cluster[data-cluster="Public Service"] { color: var(--cluster-publicservice); background: var(--cluster-publicservice-bg); border-color: transparent; }
+.career-cluster[data-cluster="Skilled Trades"] { color: var(--cluster-skilled); background: var(--cluster-skilled-bg); border-color: transparent; }
+
+/* Right side of career card - score and details button */
+.career-card-right {
+    display: flex; /* Flex layout */
+    align-items: center; /* Center vertically */
+    gap: 12px; /* Space between items */
+}
+
+/* Match score percentage */
+.career-score {
+    font-size: 18px; /* Large text */
+    font-weight: 800; /* Bold */
+    color: var(--zm-green); /* Green color */
+    min-width: 55px; /* Minimum width */
+    text-align: right; /* Right-aligned */
+    font-variant-numeric: tabular-nums; /* Monospace numbers */
+}
+
+/* Score bar container */
+.score-bar {
+    width: 90px; /* Width */
+    height: 8px; /* Height */
+    background: var(--border-light); /* Background */
+    border-radius: 10px; /* Rounded */
+    overflow: hidden; /* Hide overflow */
+}
+
+/* Score bar fill */
+.score-fill {
+    height: 100%; /* Full height */
+    background: linear-gradient(90deg, var(--zm-green), #00cc00); /* Green gradient */
+    border-radius: 10px; /* Rounded */
+    width: 0%; /* Start at 0% */
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth fill */
+}
+
+/* Score color variants based on percentage */
+.score-fill.high { background: linear-gradient(90deg, var(--zm-green), #22c55e); } /* High score - bright green */
+.score-fill.medium { background: linear-gradient(90deg, var(--zm-orange), #f59e0b); } /* Medium score - orange */
+.score-fill.low { background: linear-gradient(90deg, var(--zm-red), #f87171); } /* Low score - red */
+
+/* Details button on career cards */
+.view-details-btn {
+    background: transparent; /* Transparent background */
+    border: 1.5px solid var(--zm-green); /* Green border */
+    color: var(--zm-green); /* Green text */
+    padding: 5px 14px; /* Padding inside */
+    border-radius: var(--radius-xl); /* Pill shape */
+    cursor: pointer; /* Pointer on hover */
+    font-size: 12px; /* Small text */
+    font-weight: 600; /* Semi-bold */
+    transition: all var(--transition-fast); /* Smooth transitions */
+    font-family: inherit; /* Same font */
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+/* Hover effect for details button */
+.view-details-btn:hover {
+    background: var(--zm-green); /* Green background */
+    color: white; /* White text */
+}
+
+/* No results message */
+.no-results {
+    text-align: center; /* Center text */
+    padding: 40px 20px; /* Padding */
+    color: var(--text-muted); /* Muted color */
+}
+
+.no-results .no-results-icon {
+    font-size: 48px; /* Large icon */
+    margin-bottom: 12px; /* Space below */
+}
+
+/* ============================================================ */
+/* SUBJECT RECOMMENDATIONS                                      */
+/* ============================================================ */
+
+.subject-recommendations {
+    background: var(--cluster-stem-bg); /* Light blue background */
+    border: 1px solid var(--border-light); /* Border */
+    border-radius: var(--radius-md); /* Rounded corners */
+    padding: 22px 24px; /* Padding inside */
+    margin-bottom: 28px; /* Space below */
+    transition: background var(--transition-slow); /* Smooth theme change */
+}
+
+.subject-recommendations h2 {
+    color: var(--cluster-stem); /* Blue color */
+    margin-bottom: 14px; /* Space below */
+    font-size: 18px; /* Text size */
+}
+
+/* Label for subject sections (MUST HAVE, RECOMMENDED) */
+.subject-section-label {
+    margin-bottom: 8px; /* Space below */
+    font-size: 14px; /* Text size */
+    font-weight: 700; /* Bold */
+    color: var(--text-primary); /* Main text color */
+}
+
+/* Row of subject tags */
+.subject-tags-row {
+    display: flex; /* Flex layout */
+    flex-wrap: wrap; /* Wrap on small screens */
+    gap: 8px; /* Space between tags */
+    margin-bottom: 12px; /* Space below */
+}
+
+/* Individual subject tag */
+.subject-tag {
+    background: var(--bg-secondary); /* Background */
+    padding: 7px 16px; /* Padding inside */
+    border-radius: var(--radius-xl); /* Pill shape */
+    border: 1.5px solid var(--zm-green); /* Green border */
+    color: var(--zm-green); /* Green text */
+    font-weight: 600; /* Semi-bold */
+    font-size: 13px; /* Text size */
+    transition: all var(--transition-fast); /* Smooth transitions */
+}
+
+/* Required subject tag - solid green */
+.subject-tag.required {
+    background: var(--zm-green); /* Green background */
+    color: white; /* White text */
+    border-color: var(--zm-green); /* Green border */
+}
+
+/* Small note at the bottom of subject recommendations */
+.subject-note {
+    font-size: 13px; /* Small text */
+    color: var(--text-muted); /* Muted color */
+    font-style: italic; /* Italic text */
+    margin-top: 4px; /* Space above */
+}
+
+/* ============================================================ */
+/* CAREER WEB MAP                                               */
+/* ============================================================ */
+
+.career-web {
+    margin-bottom: 28px; /* Space below */
+}
+
+.career-web > h2 {
+    margin-bottom: 4px; /* Space below */
+    font-size: 18px; /* Text size */
+}
+
+.web-instruction {
+    color: var(--text-muted); /* Muted color */
+    font-size: 14px; /* Text size */
+    margin-bottom: 14px; /* Space below */
+}
+
+/* Grid of cluster cards */
+#career-clusters {
+    display: grid; /* Grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Responsive columns */
+    gap: 12px; /* Space between cards */
+}
+
+/* Individual cluster card */
+.cluster-card {
+    background: var(--bg-tertiary); /* Background */
+    border: 1px solid var(--border-light); /* Border */
+    border-radius: var(--radius-md); /* Rounded corners */
+    padding: 16px 12px; /* Padding inside */
+    text-align: center; /* Center text */
+    cursor: pointer; /* Pointer on hover */
+    transition: all var(--transition-base); /* Smooth transitions */
+    position: relative; /* For pseudo-elements */
+    overflow: hidden; /* Hide overflow */
+}
+
+/* Hover effect for cluster cards */
+.cluster-card:hover {
+    border-color: var(--zm-green); /* Green border on hover */
+    transform: translateY(-3px); /* Lift up */
+    box-shadow: var(--shadow-md); /* Shadow */
+}
+
+/* Cluster icon */
+.cluster-card .cluster-icon {
+    font-size: 28px; /* Large emoji */
+    display: block; /* Block display */
+    margin-bottom: 4px; /* Space below */
+}
+
+/* Cluster name */
+.cluster-card .cluster-name {
+    font-weight: 600; /* Semi-bold */
+    font-size: 13px; /* Text size */
+    color: var(--text-primary); /* Main text color */
+}
+
+/* Cluster score percentage */
+.cluster-card .cluster-score {
+    font-size: 12px; /* Small text */
+    color: var(--text-muted); /* Muted color */
+    margin-top: 2px; /* Space above */
+}
+
+/* Score bar inside cluster card */
+.cluster-card .score-bar {
+    margin: 6px auto; /* Center horizontally */
+    width: 80%; /* Width */
+}
+
+/* Careers inside cluster - hidden by default, shown on click */
+.cluster-careers {
+    display: none; /* Hidden by default */
+    margin-top: 8px; /* Space above */
+    font-size: 12px; /* Small text */
+    color: var(--text-secondary); /* Secondary color */
+    line-height: 1.8; /* Line spacing */
+    text-align: left; /* Left-aligned */
+}
+
+/* When careers are shown */
+.cluster-careers.show {
+    display: block; /* Show */
+    animation: fadeInQuick 0.2s ease; /* Quick fade in */
+}
+
+@keyframes fadeInQuick {
+    from { opacity: 0; } /* Start invisible */
+    to { opacity: 1; } /* End visible */
+}
+
+/* Individual career item inside cluster */
+.cluster-career-item {
+    display: flex; /* Flex layout */
+    align-items: center; /* Center vertically */
+    gap: 4px; /* Space between items */
+    padding: 2px 0; /* Padding */
+    cursor: pointer; /* Pointer on hover */
+    color: var(--zm-green); /* Green text */
+    text-decoration: none; /* No underline */
+    font-weight: 500; /* Medium weight */
+    transition: color var(--transition-fast); /* Smooth color change */
+}
+
+/* Hover effect for career item */
+.cluster-career-item:hover {
+    color: var(--zm-green-dark); /* Darker green on hover */
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* ============================================================ */
+/* COMPARISON TOOL                                              */
+/* ============================================================ */
+
+.comparison-tool {
+    background: var(--bg-tertiary); /* Background */
+    border: 1px solid var(--border-light); /* Border */
+    border-radius: var(--radius-md); /* Rounded corners */
+    padding: 22px 24px; /* Padding inside */
+    margin-bottom: 28px; /* Space below */
+    transition: background var(--transition-slow); /* Smooth theme change */
+}
+
+.comparison-tool > h2 {
+    margin-bottom: 4px; /* Space below */
+    font-size: 18px; /* Text size */
+}
+
+.comparison-tool > p {
+    color: var(--text-muted); /* Muted color */
+    font-size: 14px; /* Text size */
+    margin-bottom: 14px; /* Space below */
+}
+
+/* Container for dropdown selectors */
+#comparison-selectors {
+    display: flex; /* Flex layout */
+    gap: 10px; /* Space between selectors */
+    flex-wrap: wrap; /* Wrap on small screens */
+    margin-bottom: 14px; /* Space below */
+}
+
+/* Individual dropdown selector */
+.comparison-select {
+    flex: 1; /* Take available space */
+    min-width: 150px; /* Minimum width */
+    padding: 10px 12px; /* Padding inside */
+    border: 2px solid var(--border-light); /* Border */
+    border-radius: var(--radius-sm); /* Rounded corners */
+    font-size: 14px; /* Text size */
+    background: var(--bg-secondary); /* Background */
+    color: var(--text-primary); /* Text color */
+    font-family: inherit; /* Same font */
+    cursor: pointer; /* Pointer on hover */
+    transition: border-color var(--transition-fast); /* Smooth border change */
+}
+
+/* Focus state for dropdown */
+.comparison-select:focus {
+    border-color: var(--zm-green); /* Green border on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Comparison table container */
+#comparison-table {
+    overflow-x: auto; /* Horizontal scroll if needed */
+    margin-top: 10px; /* Space above */
+    border-radius: var(--radius-sm); /* Rounded corners */
+}
+
+/* Comparison table */
+.comparison-table {
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Remove gaps between cells */
+    font-size: 13px; /* Text size */
+}
+
+/* Table headers and cells */
+.comparison-table th,
+.comparison-table td {
+    border: 1px solid var(--border-light); /* Border */
+    padding: 10px 14px; /* Padding inside */
+    text-align: left; /* Left-aligned */
+    color: var(--text-primary); /* Text color */
+}
+
+/* Table headers - green background */
+.comparison-table th {
+    background: var(--zm-green); /* Green background */
+    color: white; /* White text */
+    font-weight: 600; /* Semi-bold */
+    position: sticky; /* Sticky header */
+    top: 0; /* Stick to top */
+}
+
+/* Alternating row colors */
+.comparison-table tr:nth-child(even) {
+    background: var(--bg-tertiary); /* Subtle background for even rows */
+}
+
+/* Hover effect for rows */
+.comparison-table tr:hover td {
+    background: var(--bg-hover); /* Light green on hover */
+}
+
+/* ============================================================ */
+/* RESULTS ACTIONS - Buttons at the bottom                      */
+/* ============================================================ */
+
+.results-actions {
+    display: flex; /* Flex layout */
+    flex-wrap: wrap; /* Wrap on small screens */
+    gap: 12px; /* Space between items */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding-top: 20px; /* Space above */
+    border-top: 2px solid var(--border-light); /* Top border */
+    margin-top: 20px; /* Space above */
+}
+
+/* PDF options - color/B&W toggle */
+.pdf-options {
+    display: flex; /* Flex layout */
+    gap: 12px; /* Space between options */
+    align-items: center; /* Center vertically */
+    padding: 6px 16px; /* Padding inside */
+    background: var(--bg-tertiary); /* Background */
+    border-radius: var(--radius-xl); /* Pill shape */
+    border: 1px solid var(--border-light); /* Border */
+}
+
+.pdf-options label {
+    font-size: 13px; /* Text size */
+    cursor: pointer; /* Pointer on hover */
+    color: var(--text-secondary); /* Text color */
+    display: flex; /* Flex layout */
+    align-items: center; /* Center vertically */
+    gap: 4px; /* Space between checkbox and label */
+}
+
+/* Radio button styling */
+.pdf-options input[type="radio"] {
+    accent-color: var(--zm-green); /* Green accent color */
+}
+
+/* ============================================================ */
+/* DISCOVERY MODE - For students who have no idea               */
+/* ============================================================ */
+
+#discovery-mode {
+    background: var(--zm-orange-light); /* Light orange background */
+    border: 2px solid var(--zm-orange); /* Orange border */
+    border-radius: var(--radius-md); /* Rounded corners */
+    padding: 24px; /* Padding inside */
+    margin-top: 20px; /* Space above */
+}
+
+/* Discovery header */
+.discovery-header h2 {
+    color: var(--zm-orange); /* Orange text */
+    margin-bottom: 4px; /* Space below */
+}
+
+.discovery-header p {
+    color: var(--text-secondary); /* Secondary color */
+    margin-bottom: 18px; /* Space below */
+}
+
+/* Discovery content grid */
+#discovery-content {
+    display: grid; /* Grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Responsive columns */
+    gap: 14px; /* Space between cards */
+}
+
+/* Individual discovery card */
+.discovery-card {
+    background: var(--bg-secondary); /* Background */
+    border-radius: var(--radius-sm); /* Rounded corners */
+    padding: 16px; /* Padding inside */
+    box-shadow: var(--shadow-sm); /* Small shadow */
+    transition: all var(--transition-base); /* Smooth transitions */
+    cursor: pointer; /* Pointer on hover */
+    border: 1px solid var(--border-light); /* Border */
+}
+
+/* Hover effect for discovery cards */
+.discovery-card:hover {
+    transform: translateY(-3px); /* Lift up */
+    box-shadow: var(--shadow-md); /* Shadow */
+    border-color: var(--zm-orange); /* Orange border on hover */
+}
+
+/* Cluster icon in discovery card */
+.discovery-card .cluster-icon {
+    font-size: 26px; /* Large emoji */
+}
+
+/* Discovery card heading */
+.discovery-card h4 {
+    margin: 8px 0 4px; /* Margin */
+    color: var(--text-primary); /* Primary text color */
+    font-size: 15px; /* Text size */
+}
+
+/* Discovery card paragraph */
+.discovery-card p {
+    font-size: 13px; /* Small text */
+    color: var(--text-secondary); /* Secondary color */
+}
+
+/* "Try It Out" activity suggestion */
+.discovery-card .try-activity {
+    font-size: 12px; /* Small text */
+    color: var(--zm-green); /* Green text */
+    font-weight: 600; /* Semi-bold */
+    margin-top: 8px; /* Space above */
+    padding: 8px; /* Padding inside */
+    background: var(--zm-green-light); /* Light green background */
+    border-radius: 6px; /* Rounded corners */
+    line-height: 1.4; /* Line spacing */
+}
+
+/* Discovery career list - shows careers in a cluster */
+.discovery-career-list {
+    background: var(--bg-secondary); /* Background */
+    border: 1px solid var(--border-light); /* Border */
+    border-radius: var(--radius-sm); /* Rounded corners */
+    margin-top: 12px; /* Space above */
+    padding: 16px; /* Padding inside */
+    max-height: 300px; /* Maximum height */
+    overflow-y: auto; /* Scroll if needed */
+    animation: slideDown 0.3s ease; /* Slide down animation */
+}
+
+/* Individual career item in discovery list */
+.discovery-career-item {
+    padding: 10px 0; /* Padding */
+    border-bottom: 1px solid var(--border-light); /* Bottom border */
+    cursor: pointer; /* Pointer on hover */
+    transition: background var(--transition-fast); /* Smooth background change */
+}
+
+.discovery-career-item:last-child {
+    border-bottom: none; /* No border on last item */
+}
+
+.discovery-career-item:hover {
+    background: var(--bg-hover); /* Light green background on hover */
+}
+
+.discovery-career-item h5 {
+    color: var(--text-primary); /* Primary text color */
+    font-size: 14px; /* Text size */
+    margin-bottom: 2px; /* Space below */
+}
+
+.discovery-career-item h5:hover {
+    color: var(--zm-green); /* Green color on hover */
+}
+
+.discovery-career-item p {
+    font-size: 12px; /* Small text */
+    color: var(--text-muted); /* Muted color */
+    margin: 2px 0; /* Margin */
+}
+
+/* Tags for careers in discovery list */
+.discovery-career-item .career-tags {
+    display: flex; /* Flex layout */
+    gap: 4px; /* Space between tags */
+    flex-wrap: wrap; /* Wrap on small screens */
+    margin-top: 4px; /* Space above */
+}
+
+.discovery-career-item .career-tags span {
+    font-size: 11px; /* Small text */
+    padding: 1px 8px; /* Padding inside */
+    border-radius: 10px; /* Rounded */
+    background: var(--bg-tertiary); /* Background */
+    color: var(--text-muted); /* Muted color */
+}
+
+/* Next steps section in discovery mode */
+.discovery-next-steps {
+    background: var(--zm-green-light); /* Light green background */
+    padding: 20px; /* Padding inside */
+    border-radius: var(--radius-sm); /* Rounded corners */
+    margin-top: 14px; /* Space above */
+    grid-column: 1 / -1; /* Span all columns */
+}
+
+.discovery-next-steps h3 {
+    color: var(--zm-green); /* Green color */
+    margin-bottom: 10px; /* Space below */
+    font-size: 16px; /* Text size */
+}
+
+.discovery-next-steps ol {
+    padding-left: 20px; /* Indent the list */
+    line-height: 2; /* Line spacing */
+    color: var(--text-primary); /* Primary text color */
+    font-size: 14px; /* Text size */
+}
+
+.discovery-next-steps .italic-note {
+    margin-top: 10px; /* Space above */
+    font-style: italic; /* Italic text */
+    color: var(--text-secondary); /* Secondary color */
+    font-size: 13px; /* Text size */
+}
+
+/* ============================================================ */
+/* CAREER DETAIL MODAL                                          */
+/* ============================================================ */
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed position */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    z-index: 1000; /* Very high z-index */
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* Align to top */
+    padding: 40px 20px; /* Padding */
+    overflow-y: auto; /* Scroll if needed */
+    backdrop-filter: blur(4px); /* Blur effect behind modal */
+    -webkit-backdrop-filter: blur(4px); /* For Safari */
+}
+
+.modal.active {
+    display: flex; /* Show when active */
+}
+
+.modal-content {
+    background: var(--bg-secondary); /* Background */
+    border-radius: var(--radius-lg); /* Rounded corners */
+    max-width: 680px; /* Maximum width */
+    width: 100%; /* Full width */
+    padding: 32px; /* Padding inside */
+    position: relative; /* For positioning close button */
+    animation: modalIn 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); /* Entrance animation */
+    margin: auto 0; /* Center vertically */
+    transition: background var(--transition-slow); /* Smooth theme change */
+}
+
+@keyframes modalIn {
+    from {
+        transform: translateY(40px) scale(0.96); /* Start slightly down and smaller */
+        opacity: 0; /* Start invisible */
+    }
+    to {
+        transform: translateY(0) scale(1); /* End in normal position */
+        opacity: 1; /* End visible */
+    }
+}
+
+/* Close button (X) */
+.modal-close {
+    position: absolute; /* Absolute position */
+    top: 14px; /* Distance from top */
+    right: 18px; /* Distance from right */
+    font-size: 28px; /* Large X */
+    cursor: pointer; /* Pointer on hover */
+    color: var(--text-muted); /* Muted color */
+    transition: all var(--transition-fast); /* Smooth transitions */
+    width: 36px; /* Width */
+    height: 36px; /* Height - makes it a square */
+    display: flex; /* Flex layout */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    border-radius: 50%; /* Circle */
+    background: none; /* No background */
+    border: 1px solid transparent; /* Transparent border */
+    line-height: 1; /* Line height */
+    z-index: 10; /* Above content */
+}
+
+.modal-close:hover {
+    color: var(--text-primary); /* Primary color on hover */
+    background: var(--bg-tertiary); /* Background on hover */
+    border-color: var(--border-light); /* Border on hover */
+}
+
+/* Career detail content inside modal */
+#career-detail-content .detail-icon {
+    font-size: 48px; /* Large emoji */
+    display: block; /* Block display */
+    margin-bottom: 8px; /* Space below */
+}
+
+#career-detail-content h2 {
+    color: var(--zm-green); /* Green color */
+    margin-bottom: 12px; /* Space below */
+    font-size: 24px; /* Text size */
+}
+
+/* Tags in detail modal */
+.detail-tags {
+    display: flex; /* Flex layout */
+    flex-wrap: wrap; /* Wrap on small screens */
+    gap: 6px; /* Space between tags */
+    margin-bottom: 16px; /* Space below */
+}
+
+.detail-tag {
+    display: inline-block; /* Inline block */
+    background: var(--zm-green-light); /* Light green background */
+    color: var(--zm-green); /* Green text */
+    padding: 4px 14px; /* Padding inside */
+    border-radius: var(--radius-xl); /* Pill shape */
+    font-size: 12px; /* Small text */
+    font-weight: 600; /* Semi-bold */
+}
+
+.detail-tag.outlook {
+    background: var(--cluster-business-bg); /* Business background */
+    color: var(--cluster-business); /* Business color */
+}
+
+.detail-tag.global {
+    background: var(--cluster-stem-bg); /* STEM background */
+    color: var(--cluster-stem); /* STEM color */
+}
+
+/* Detail sections inside modal */
+.detail-section {
+    margin: 16px 0; /* Margin */
+    padding: 14px 16px; /* Padding inside */
+    background: var(--bg-tertiary); /* Background */
+    border-radius: var(--radius-sm); /* Rounded corners */
+    border-left: 3px solid var(--zm-green); /* Green left border */
+}
+
+.detail-section.international {
+    background: var(--cluster-stem-bg); /* STEM background */
+    border-left-color: var(--cluster-stem); /* STEM color */
+}
+
+.detail-section.story {
+    background: var(--cluster-business-bg); /* Business background */
+    border-left-color: var(--cluster-business); /* Business color */
+}
+
+.detail-section.activity {
+    background: var(--zm-green-light); /* Light green background */
+    border-left-color: var(--zm-green); /* Green border */
+}
+
+.detail-section h4 {
+    color: var(--text-primary); /* Primary color */
+    margin-bottom: 6px; /* Space below */
+    font-size: 15px; /* Text size */
+}
+
+.detail-section p,
+.detail-section li {
+    color: var(--text-secondary); /* Secondary color */
+    line-height: 1.7; /* Line spacing */
+    font-size: 14px; /* Text size */
+}
+
+.detail-section ol {
+    padding-left: 20px; /* Indent list */
+}
+
+.detail-section ul {
+    padding-left: 20px; /* Indent list */
+}
+
+/* ============================================================ */
+/* TOAST NOTIFICATIONS - Popup messages                         */
+/* ============================================================ */
+
+.toast-container {
+    position: fixed; /* Fixed position */
+    bottom: 24px; /* Distance from bottom */
+    right: 24px; /* Distance from right */
+    z-index: 2000; /* Very high z-index */
+    display: flex; /* Flex layout */
+    flex-direction: column; /* Stack vertically */
+    gap: 8px; /* Space between toasts */
+}
+
+.toast {
+    background: var(--bg-secondary); /* Background */
+    color: var(--text-primary); /* Text color */
+    padding: 12px 20px; /* Padding inside */
+    border-radius: var(--radius-sm); /* Rounded corners */
+    box-shadow: var(--shadow-lg); /* Shadow */
+    border-left: 4px solid var(--zm-green); /* Green left border */
+    font-size: 14px; /* Text size */
+    animation: toastIn 0.3s ease, toastOut 0.3s ease 2.7s forwards; /* Entrance and exit animations */
+    max-width: 320px; /* Maximum width */
+}
+
+@keyframes toastIn {
+    from { transform: translateX(100%); opacity: 0; } /* Start from right */
+    to { transform: translateX(0); opacity: 1; } /* End in place */
+}
+
+@keyframes toastOut {
+    from { transform: translateX(0); opacity: 1; } /* Start in place */
+    to { transform: translateX(100%); opacity: 0; } /* End off-screen right */
+}
+
+/* ============================================================ */
+/* CONFETTI CANVAS - Celebration animation                      */
+/* ============================================================ */
+
+.confetti-canvas {
+    position: fixed; /* Fixed position */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Let clicks pass through */
+    z-index: 999; /* High z-index */
+}
+
+/* ============================================================ */
+/* BACK TO TOP BUTTON                                           */
+/* ============================================================ */
+
+#back-to-top {
+    position: fixed; /* Fixed position */
+    bottom: 24px; /* Distance from bottom */
+    left: 24px; /* Distance from left */
+    width: 44px; /* Width */
+    height: 44px; /* Height - makes it a square */
+    border-radius: 50%; /* Circle */
+    background: var(--zm-green); /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer on hover */
+    font-size: 18px; /* Text size */
+    display: flex; /* Flex layout */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    box-shadow: var(--shadow-md); /* Shadow */
+    opacity: 0; /* Hidden by default */
+    transform: translateY(20px); /* Start down */
+    transition: all var(--transition-base); /* Smooth transitions */
+    z-index: 50; /* Above most content */
+}
+
+#back-to-top.visible {
+    opacity: 1; /* Visible when class added */
+    transform: translateY(0); /* Normal position */
+}
+
+#back-to-top:hover {
+    background: var(--zm-green-dark); /* Darker green on hover */
+    transform: translateY(-2px); /* Lift up */
+}
+
+/* ============================================================ */
+/* RESPONSIVE DESIGN - Adjusts for different screen sizes      */
+/* ============================================================ */
+
+/* Tablets and small screens */
+@media (max-width: 768px) {
+    body {
+        padding: 10px; /* Less padding on body */
+    }
+
+    .screen {
+        padding: 20px 16px; /* Less padding in screens */
+    }
+
+    .top-bar {
+        padding: 10px 16px; /* Less padding in top bar */
+    }
+
+    .welcome-content {
+        padding: 30px 10px; /* Less padding in welcome */
+    }
+
+    .welcome-content h1 {
+        font-size: 32px; /* Smaller heading */
+    }
+
+    .subtitle {
+        font-size: 18px; /* Smaller subtitle */
+    }
+
+    .description {
+        font-size: 15px; /* Smaller description */
+    }
+
+    .logo {
+        font-size: 60px; /* Smaller logo */
+    }
+
+    .welcome-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: center; /* Center buttons */
+    }
+
+    .welcome-buttons button {
+        width: 100%; /* Full width buttons */
+        max-width: 320px; /* Maximum width */
+    }
+
+    #question-text {
+        font-size: 18px; /* Smaller question text */
+    }
+
+    #question-container {
+        padding: 20px 16px; /* Less padding in question container */
+    }
+
+    .quiz-navigation {
+        flex-direction: column; /* Stack navigation buttons */
+        align-items: stretch; /* Full width buttons */
+    }
+
+    .quiz-navigation button {
+        width: 100%; /* Full width buttons */
+    }
+
+    .career-card {
+        flex-direction: column; /* Stack card content */
+        align-items: flex-start; /* Align to left */
+        padding: 14px 16px; /* Less padding */
+    }
+
+    .career-card-right {
+        width: 100%; /* Full width */
+        justify-content: space-between; /* Space between items */
+        padding-left: 44px; /* Align with icon */
+    }
+
+    .score-bar {
+        flex: 1; /* Take available space */
+    }
+
+    .results-toolbar {
+        flex-direction: column; /* Stack toolbar items */
+    }
+
+    .search-bar {
+        min-width: 100%; /* Full width search */
+    }
+
+    #career-clusters {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Smaller cards */
+    }
+
+    .results-actions {
+        flex-direction: column; /* Stack action buttons */
+        align-items: stretch; /* Full width buttons */
+    }
+
+    .results-actions button {
+        width: 100%; /* Full width buttons */
+    }
+
+    .pdf-options {
+        margin: 0; /* No margin */
+        width: 100%; /* Full width */
+        justify-content: center; /* Center options */
+    }
+
+    .modal-content {
+        padding: 20px 16px; /* Less padding in modal */
+        border-radius: var(--radius-md); /* Smaller rounding */
+    }
+
+    .modal {
+        padding: 20px 10px; /* Less padding */
+        align-items: flex-start; /* Align to top */
+    }
+
+    #discovery-content {
+        grid-template-columns: 1fr; /* Single column */
+    }
+
+    .stats-summary {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for stats */
+    }
+
+    .filter-chips {
+        width: 100%; /* Full width */
+        overflow-x: auto; /* Horizontal scroll if needed */
+        flex-wrap: nowrap; /* No wrap */
+        padding-bottom: 4px; /* Space below */
+        -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+    }
+
+    .filter-chip {
+        flex-shrink: 0; /* Don't shrink chips */
+    }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+    body {
+        padding: 6px; /* Even less padding */
+    }
+
+    .screen {
+        padding: 14px 12px; /* Even less padding in screens */
+    }
+
+    .welcome-content h1 {
+        font-size: 28px; /* Even smaller heading */
+    }
+
+    .logo {
+        font-size: 50px; /* Even smaller logo */
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 12px 24px; /* Less padding on buttons */
+        font-size: 15px; /* Smaller buttons */
+    }
+
+    #question-container {
+        padding: 16px 12px; /* Less padding */
+        min-height: 200px; /* Smaller minimum height */
+    }
+
+    .option-btn {
+        padding: 12px 14px; /* Less padding on options */
+        font-size: 14px; /* Smaller options */
+    }
+
+    .option-letter {
+        width: 24px; /* Smaller letter */
+        height: 24px; /* Smaller letter */
+        font-size: 11px; /* Smaller letter */
+        margin-right: 10px; /* Less space */
+    }
+
+    .career-name {
+        font-size: 14px; /* Smaller career name */
+    }
+
+    .career-icon {
+        font-size: 24px; /* Smaller icon */
+    }
+
+    .career-score {
+        font-size: 15px; /* Smaller score */
+    }
+
+    .comparison-select {
+        min-width: 100%; /* Full width selectors */
+    }
+
+    .results-header h1 {
+        font-size: 26px; /* Smaller heading */
+    }
+
+    .stat-value {
+        font-size: 22px; /* Smaller stat numbers */
+    }
+
+    .top-bar-brand {
+        font-size: 14px; /* Smaller brand text */
+    }
+
+    .dark-mode-toggle span {
+        display: none; /* Hide text on tiny screens */
+    }
+}
+
+/* ============================================================ */
+/* PRINT STYLES - For printing reports                          */
+/* ============================================================ */
+
+@media print {
+    /* Reset everything for print */
+    body {
+        background: white !important;
+        padding: 0 !important;
+        color: black !important;
+    }
+
+    /* Remove shadows and borders */
+    #app {
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        max-width: 100% !important;
+    }
+
+    /* Hide interactive elements */
+    .top-bar,
+    .skip-link,
+    #back-to-top,
+    .toast-container,
+    .confetti-canvas,
+    .modal,
+    .results-toolbar,
+    .results-actions,
+    .pdf-options,
+    .view-details-btn,
+    .quiz-tip {
+        display: none !important;
+    }
+
+    /* Only show results screen */
+    .screen:not(#results-screen) {
+        display: none !important;
+    }
+
+    #results-screen {
+        display: block !important;
+    }
+
+    /* Keep career cards together */
+    .career-card {
+        break-inside: avoid;
+        border: 1px solid #ddd !important;
+        background: #f9f9f9 !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .career-card::before {
+        display: none !important;
+    }
+
+    /* Keep other sections together */
+    .cluster-card {
+        break-inside: avoid;
+    }
+
+    .comparison-tool {
+        break-inside: avoid;
+    }
+
+    .subject-recommendations {
+        break-inside: avoid;
+    }
+
+    .stat-card {
+        break-inside: avoid;
+    }
+
+    .score-fill {
+        width: var(--print-score-width, 0%) !important;
+        transition: none !important;
+    }
+
+    /* Black and white print mode */
+    .bw-print .career-card {
+        background: #f5f5f5 !important;
+        border-color: #ccc !important;
+    }
+
+    .bw-print .career-score {
+        color: black !important;
+    }
+
+    .bw-print .score-fill {
+        background: #555 !important;
+    }
+
+    .bw-print .subject-tag.required {
+        background: #333 !important;
+        color: white !important;
+    }
+
+    .bw-print .subject-tag {
+        border-color: #999 !important;
+        color: #333 !important;
+    }
+
+    .bw-print .results-header h1 {
+        color: black !important;
+    }
+
+    .bw-print .subject-recommendations {
+        background: #f5f5f5 !important;
+        border-color: #ccc !important;
+    }
+
+    .bw-print .comparison-table th {
+        background: #333 !important;
+        color: white !important;
+    }
+
+    .bw-print .stat-value {
+        color: black !important;
+    }
+
+    .bw-print .career-cluster {
+        background: #eee !important;
+        color: #333 !important;
+        border-color: transparent !important;
+    }
+
+    .bw-print .cluster-card {
+        border-color: #ccc !important;
+    }
+}
+
+/* ============================================================ */
+/* REDUCED MOTION - For users who prefer less animation        */
+/* ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    /* Disable all animations */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto; /* Disable smooth scroll */
+    }
+}
+
+/* ============================================================ */
+/* HIGH CONTRAST MODE - For users with visual impairments       */
+/* ============================================================ */
+
+@media (forced-colors: active) {
+    /* Make sure borders are visible */
+    .option-btn.selected {
+        border: 3px solid Highlight;
+    }
+
+    .btn-primary {
+        border: 2px solid ButtonText;
+    }
+
+    .score-fill {
+        background: Highlight !important;
+    }
+}

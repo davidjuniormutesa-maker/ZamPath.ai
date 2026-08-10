@@ -1,0 +1,266 @@
+<!-- ================================================================ -->
+<!-- CAREER QUEST - Main HTML Structure                               -->
+<!-- A career guidance web app for Zambian Form 2 students            -->
+<!-- Built for JETS Competition - Digital Robotics & Intelligent Systems -->
+<!-- ================================================================ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ============================================================ -->
+    <!-- META TAGS - Information about the webpage                     -->
+    <!-- ============================================================ -->
+    <meta charset="UTF-8"> <!-- Tells the browser to use UTF-8 character encoding (supports all special characters) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes the page responsive on phones and tablets -->
+    <meta name="description" content="Career Quest - Free career guidance tool for Zambian students. Discover your perfect career path based on your interests and strengths."> <!-- Description shown in search results -->
+    <meta name="theme-color" content="#008000"> <!-- Sets the browser tab color to Zambia Green -->
+    <meta name="color-scheme" content="light dark"> <!-- Tells the browser we support both light and dark modes -->
+    
+    <!-- Page title shown in the browser tab -->
+    <title>🇿🇲 Career Quest - Find Your Path</title>
+    
+    <!-- Link to the external CSS file that contains all the styling -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ============================================================ -->
+    <!-- SKIP LINK - Accessibility feature for keyboard users         -->
+    <!-- Allows users to skip straight to the main content             -->
+    <!-- ============================================================ -->
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <!-- ============================================================ -->
+    <!-- CONFETTI CANVAS - For celebration animation when results show -->
+    <!-- Hidden by default, activated by JavaScript                   -->
+    <!-- ============================================================ -->
+    <canvas class="confetti-canvas" id="confetti-canvas" aria-hidden="true"></canvas>
+
+    <!-- ============================================================ -->
+    <!-- TOAST CONTAINER - Shows popup notifications to the user      -->
+    <!-- Like "PDF downloaded successfully!" or error messages         -->
+    <!-- ============================================================ -->
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- ============================================================ -->
+    <!-- BACK TO TOP BUTTON - Appears when user scrolls down          -->
+    <!-- Clicking it smoothly scrolls back to the top of the page      -->
+    <!-- ============================================================ -->
+    <button id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+
+    <!-- ============================================================ -->
+    <!-- MAIN APP CONTAINER - Wraps everything inside the app         -->
+    <!-- ============================================================ -->
+    <div id="app">
+        
+        <!-- ============================================================ -->
+        <!-- TOP NAVIGATION BAR - Sticky header at the top of the page    -->
+        <!-- Contains the app name and dark mode toggle button             -->
+        <!-- ============================================================ -->
+        <nav class="top-bar" role="navigation" aria-label="App navigation">
+            <!-- Left side - App brand/logo -->
+            <div class="top-bar-brand">
+                <span class="brand-icon" aria-hidden="true">🎓</span> <!-- The graduation cap emoji as logo -->
+                <span>Career Quest</span> <!-- The app name -->
+            </div>
+            <!-- Right side - Dark mode toggle button -->
+            <div class="top-bar-actions">
+                <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <span id="theme-icon" aria-hidden="true">🌙</span> <!-- Icon changes between moon and sun -->
+                    <span id="theme-label">Dark</span> <!-- Label changes between "Dark" and "Light" -->
+                </button>
+            </div>
+        </nav>
+
+        <!-- ============================================================ -->
+        <!-- MAIN CONTENT - All the screens of the app go here            -->
+        <!-- The "id" attribute is used by JavaScript to switch screens   -->
+        <!-- ============================================================ -->
+        <main id="main-content">
+
+            <!-- ============================================================ -->
+            <!-- WELCOME SCREEN - The first thing users see                    -->
+            <!-- ============================================================ -->
+            <section id="welcome-screen" class="screen active" role="region" aria-label="Welcome">
+                <div class="welcome-content">
+                    <!-- Large logo/icon at the top -->
+                    <div class="logo" aria-hidden="true">🎓</div>
+                    <!-- Main heading -->
+                    <h1>Career Quest</h1>
+                    <!-- Subtitle with description -->
+                    <p class="subtitle">Discover Your Path to a Bright Future</p>
+                    <!-- Longer description explaining what the app does -->
+                    <p class="description">
+                        Not sure what career is right for you? Don't worry!
+                        Answer a few questions and we'll help you discover your perfect career path.
+                    </p>
+                    <!-- Container for saved progress banner (if user has previous results) -->
+                    <div id="saved-progress-banner"></div>
+                    <!-- Two main action buttons -->
+                    <div class="welcome-buttons">
+                        <!-- Button to start the quiz normally -->
+                        <button id="start-quiz-btn" class="btn-primary">🚀 Get Started</button>
+                        <!-- Button for students who have no idea what they want -->
+                        <button id="i-dont-know-btn" class="btn-secondary">🤷 I Have No Idea</button>
+                    </div>
+                    <!-- Small note at the bottom with features -->
+                    <p class="note">
+                        <span>🇿🇲 Built for Zambian Students.</span> <!-- Shows it's Zambian-made -->
+                        <span>💻 Works Offline.</span> <!-- Shows it works without internet -->
+                        <span>💰 Free Forever.</span> <!-- Shows it's completely free -->
+                        <span>&copy; 2026 STUDY DOJO. All rights reserved by David Mutesa.</span> <!-- Shows its owened by me as the creator -->
+                        <span>Contact: davidmutesajunior@gmail.com</span> <!-- My contact information -->
+                        <span>“The only way to predict the future is to create it.” – Abraham lincon</span> <!-- Inspsirational quote -->
+                    </p>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- QUIZ SCREEN - Where students answer the questions            -->
+            <!-- ============================================================ -->
+            <section id="quiz-screen" class="screen" role="region" aria-label="Career Quiz">
+                <div class="quiz-container">
+                    <!-- Header showing progress -->
+                    <div class="quiz-header">
+                        <!-- Question counter (e.g., "Question 3 of 15") -->
+                        <span id="question-counter" aria-live="polite">Question 1 of 15</span>
+                    </div>
+                    <!-- Progress bar showing how far along the user is -->
+                    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
+                        <!-- The fill part of the progress bar that grows -->
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                    <!-- Container for the current question and options -->
+                    <div id="question-container" aria-live="polite">
+                        <!-- The question text goes here -->
+                        <h2 id="question-text">Loading question...</h2>
+                        <!-- The answer options go here (buttons or checkboxes) -->
+                        <div id="options-container" role="group" aria-label="Answer options">
+                        </div>
+                        <!-- Hint for multi-select questions -->
+                        <p id="multi-select-hint" style="font-size:13px;color:var(--text-muted);margin-top:8px;display:none;">
+                            💡 You can select <strong>MULTIPLE</strong> answers for this question. Choose all that apply!
+                        </p>
+                    </div>
+                    <!-- Navigation buttons at the bottom -->
+                    <div class="quiz-navigation">
+                        <!-- Previous button - hidden on first question -->
+                        <button id="prev-btn" class="btn-secondary" style="display:none;" aria-label="Previous question">⬅ Previous</button>
+                        <!-- Next button - changes to "See Results" on last question -->
+                        <button id="next-btn" class="btn-primary" disabled aria-label="Next question">➡ Next</button>
+                    </div>
+                    <!-- Keyboard shortcut tips for accessibility -->
+                    <p class="quiz-tip" aria-hidden="true">
+                        Tip: Use <kbd>1</kbd>-<kbd>9</kbd> to select, <kbd>Enter</kbd> for next, <kbd>Backspace</kbd> for previous
+                    </p>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- RESULTS SCREEN - Shows career matches after quiz             -->
+            <!-- ============================================================ -->
+            <section id="results-screen" class="screen" role="region" aria-label="Career Results">
+                <div class="results-container">
+                    <!-- Header with celebration -->
+                    <header class="results-header">
+                        <h1>🎉 Your Career Matches</h1>
+                        <p id="results-subtitle">Based on your answers, here are the best careers for you!</p>
+                    </header>
+
+                    <!-- Stats summary cards (top matches, clusters, etc.) -->
+                    <div class="stats-summary" id="stats-summary" aria-label="Result statistics"></div>
+
+                    <!-- Search and filter toolbar -->
+                    <div class="results-toolbar">
+                        <!-- Search input to filter careers -->
+                        <input type="search" class="search-bar" id="career-search" placeholder="🔍 Search careers..." aria-label="Search careers">
+                        <!-- Filter chips to filter by career cluster -->
+                        <div class="filter-chips" id="filter-chips" role="group" aria-label="Filter by cluster"></div>
+                    </div>
+
+                    <!-- Career matches list - shows the top matching careers -->
+                    <div id="career-matches" role="list" aria-label="Career match results"></div>
+
+                    <!-- Subject recommendations section -->
+                    <div class="subject-recommendations">
+                        <h2>📚 Your Recommended Subjects</h2>
+                        <div id="subject-list"></div>
+                        <p class="subject-note">
+                            💡 Check with your school to see which subjects are available.
+                            Talk to your guidance teacher for more advice!
+                        </p>
+                    </div>
+
+                    <!-- Career web map - visual display of career clusters -->
+                    <section class="career-web">
+                        <h2>🗺️ Career Web Map</h2>
+                        <p class="web-instruction">Click on any cluster to explore careers</p>
+                        <div id="career-clusters"></div>
+                    </section>
+
+                    <!-- Comparison tool - compare up to 3 careers -->
+                    <section class="comparison-tool">
+                        <h2>📊 Compare Careers</h2>
+                        <p>Select up to 3 careers to compare side by side</p>
+                        <div id="comparison-selectors"></div>
+                        <div id="comparison-table"></div>
+                    </section>
+
+                    <!-- Action buttons at the bottom -->
+                    <div class="results-actions">
+                        <button id="download-pdf-btn" class="btn-primary">📄 Download PDF Report</button>
+                        <button id="print-btn" class="btn-secondary">🖨️ Print Report</button>
+                        <button id="retake-btn" class="btn-secondary">🔄 Retake Quiz</button>
+                        <!-- PDF color options (Color or Black & White) -->
+                        <div class="pdf-options">
+                            <label>
+                                <input type="radio" name="color-mode" value="color" checked> 🎨 Color
+                            </label>
+                            <label>
+                                <input type="radio" name="color-mode" value="bw"> ⚫ Black & White
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Discovery mode - shown when user clicks "I Have No Idea" -->
+                    <div id="discovery-mode" style="display:none;">
+                        <div class="discovery-header">
+                            <h2>🔍 Discovery Mode</h2>
+                            <p>That's okay! Let's explore all your options together.</p>
+                        </div>
+                        <div id="discovery-content"></div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- CAREER DETAIL MODAL - Popup window showing career details    -->
+    <!-- Appears when user clicks "View Details" on a career          -->
+    <!-- ============================================================ -->
+    <div id="career-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-career-name">
+        <div class="modal-content">
+            <!-- Close button (X) in the top-right corner -->
+            <button class="modal-close" aria-label="Close details">&times;</button>
+            <!-- Container where career details are inserted -->
+            <div id="career-detail-content"></div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- EXTERNAL LIBRARIES - For PDF generation                      -->
+    <!-- These are loaded from the internet (CDN)                     -->
+    <!-- ============================================================ -->
+    <!-- html2canvas - Converts HTML to an image for the PDF          -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- jsPDF - Generates the actual PDF file                        -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- OUR JAVASCRIPT FILE - Contains all the app logic             -->
+    <!-- Everything from the career database to the scoring engine    -->
+    <!-- ============================================================ -->
+    <script src="script.js"></script>
+</body>
+</html>
