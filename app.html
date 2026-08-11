@@ -2,6 +2,7 @@
 <!-- CAREER QUEST - Main HTML Structure                               -->
 <!-- A career guidance web app for Zambian Form 2 students            -->
 <!-- Built for JETS Competition - Digital Robotics & Intelligent Systems -->
+<!-- ENHANCED with: Career Pathways, 5-Career Comparison, Discovery Mode -->
 <!-- ================================================================ -->
 
 <!DOCTYPE html>
@@ -127,7 +128,7 @@
                     <!-- Header showing progress -->
                     <div class="quiz-header">
                         <!-- Question counter (e.g., "Question 3 of 15") -->
-                        <span id="question-counter" aria-live="polite">Question 1 of 15</span>
+                        <span id="question-counter" aria-live="polite">Question 1 of 17</span>
                     </div>
                     <!-- Progress bar showing how far along the user is -->
                     <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
@@ -185,6 +186,17 @@
                     <!-- Career matches list - shows the top matching careers -->
                     <div id="career-matches" role="list" aria-label="Career match results"></div>
 
+                    <!-- ============================================================ -->
+                    <!-- NEW! PATHWAY RECOMMENDATIONS - Shows Form 1-4 pathways        -->
+                    <!-- ============================================================ -->
+                    <div class="pathway-recommendations">
+                        <h2>🗺️ Your Career Pathway</h2>
+                        <p>To pursue your recommended careers, you should follow this pathway in Form 1-4:</p>
+                        <div id="pathway-display">
+                            <!-- Pathway information will be inserted here by JavaScript -->
+                        </div>
+                    </div>
+
                     <!-- Subject recommendations section -->
                     <div class="subject-recommendations">
                         <h2>📚 Your Recommended Subjects</h2>
@@ -202,12 +214,20 @@
                         <div id="career-clusters"></div>
                     </section>
 
-                    <!-- Comparison tool - compare up to 3 careers -->
+                    <!-- ============================================================ -->
+                    <!-- UPGRADED COMPARISON TOOL - Compare up to 5 careers            -->
+                    <!-- ============================================================ -->
                     <section class="comparison-tool">
                         <h2>📊 Compare Careers</h2>
-                        <p>Select up to 3 careers to compare side by side</p>
-                        <div id="comparison-selectors"></div>
-                        <div id="comparison-table"></div>
+                        <p>Select up to <strong>5</strong> careers to compare side by side</p>
+                        <div id="comparison-selectors">
+                            <!-- 5 dropdown selectors will be inserted by JavaScript -->
+                        </div>
+                        <div id="comparison-table">
+                            <!-- Comparison table will be inserted by JavaScript -->
+                        </div>
+                        <!-- Clear comparison button -->
+                        <button id="clear-comparison-btn" class="btn-secondary btn-small" style="margin-top:12px;">🗑️ Clear All</button>
                     </section>
 
                     <!-- Action buttons at the bottom -->
@@ -226,14 +246,33 @@
                         </div>
                     </div>
 
-                    <!-- Discovery mode - shown when user clicks "I Have No Idea" -->
+                    <!-- ============================================================ -->
+                    <!-- ENHANCED DISCOVERY MODE - For "I Have No Idea" students       -->
+                    <!-- ============================================================ -->
                     <div id="discovery-mode" style="display:none;">
                         <div class="discovery-header">
                             <h2>🔍 Discovery Mode</h2>
                             <p>That's okay! Let's explore all your options together.</p>
+                            <p style="font-size:14px;color:var(--text-muted);">
+                                Click on a cluster below to see careers. Then click <strong>"Read More"</strong> for details or 
+                                <strong>"Add to Compare"</strong> to compare careers side-by-side.
+                            </p>
                         </div>
+                        <!-- Discovery content grid - clusters and careers -->
                         <div id="discovery-content"></div>
+                        <!-- Discovery comparison area -->
+                        <div class="discovery-comparison">
+                            <h3>📊 Your Discovery Comparison (<span id="discovery-compare-count">0</span>/5)</h3>
+                            <div id="discovery-compare-table">
+                                <p style="color:var(--text-muted);padding:20px;text-align:center;">
+                                    Add careers from the clusters above to compare them here.
+                                </p>
+                            </div>
+                            <!-- Clear discovery comparison button -->
+                            <button id="clear-discovery-compare-btn" class="btn-secondary btn-small" style="margin-top:12px;">🗑️ Clear All</button>
+                        </div>
                     </div>
+
                 </div>
             </section>
 
@@ -250,6 +289,10 @@
             <button class="modal-close" aria-label="Close details">&times;</button>
             <!-- Container where career details are inserted -->
             <div id="career-detail-content"></div>
+            <!-- Add to Compare button inside modal -->
+            <button id="modal-add-to-compare" class="btn-primary btn-small" style="margin-top:16px;display:none;">
+                ➕ Add to Compare
+            </button>
         </div>
     </div>
 

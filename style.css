@@ -2,7 +2,8 @@
 /* CAREER QUEST - COMPLETE STYLESHEET                          */
 /* All styling for the career guidance web application           */
 /* Zambia-themed design with green, red, orange, and black      */
-/* ENHANCED with modern UI, glassmorphism, and animations        */
+/* ENHANCED with: Pathway styling, 5-column comparison,         */
+/* Discovery Mode styling, and dark mode support                */
 /* ============================================================ */
 
 /* ============================================================ */
@@ -61,6 +62,22 @@
     --cluster-skilled-bg: #fff7ed;    /* Skilled Trades background - light orange */
 
     /* ============================================================ */
+    /* PATHWAY COLORS - Each career pathway has its own color       */
+    /* ============================================================ */
+    --pathway-natural-science: #1d4ed8;
+    --pathway-natural-science-bg: #dbeafe;
+    --pathway-social-science: #be185d;
+    --pathway-social-science-bg: #fce7f3;
+    --pathway-business-studies: #d97706;
+    --pathway-business-studies-bg: #fef3c7;
+    --pathway-stem: #047857;
+    --pathway-stem-bg: #d1fae5;
+    --pathway-creative-arts: #6d28d9;
+    --pathway-creative-arts-bg: #ede9fe;
+    --pathway-vocational: #c2410c;
+    --pathway-vocational-bg: #fed7aa;
+
+    /* ============================================================ */
     /* SHADOWS - Used for depth and layering                       */
     /* ============================================================ */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);   /* Small shadow */
@@ -103,28 +120,28 @@ body.dark-mode {
     --bg-secondary: #1e293b;      /* Dark slate */
     --bg-tertiary: #334155;       /* Medium dark slate */
     --bg-hover: #1e3a2e;          /* Dark green hover */
-    
+
     /* Light text on dark backgrounds */
     --text-primary: #f1f5f9;      /* Very light gray */
     --text-secondary: #94a3b8;    /* Light gray */
     --text-muted: #64748b;        /* Medium gray */
-    
+
     /* Dark borders */
     --border-light: #334155;      /* Dark border */
     --border-medium: #475569;     /* Slightly lighter dark border */
-    
+
     /* Dark shadows */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
     --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.6);
     --shadow-green: 0 4px 15px rgba(0, 128, 0, 0.3);
-    
+
     /* Darker light colors for backgrounds */
     --zm-green-light: #052e16;
     --zm-red-light: #2d0a0a;
     --zm-orange-light: #2d1a00;
-    
+
     /* Dark cluster backgrounds */
     --cluster-stem-bg: #172554;
     --cluster-healthcare-bg: #450a0a;
@@ -134,6 +151,14 @@ body.dark-mode {
     --cluster-outdoor-bg: #052e16;
     --cluster-publicservice-bg: #1e1b4b;
     --cluster-skilled-bg: #2d1a00;
+
+    /* Dark pathway backgrounds */
+    --pathway-natural-science-bg: #172554;
+    --pathway-social-science-bg: #2d0a0a;
+    --pathway-business-studies-bg: #451a03;
+    --pathway-stem-bg: #022c22;
+    --pathway-creative-arts-bg: #2e1065;
+    --pathway-vocational-bg: #2d1a00;
 }
 
 /* ============================================================ */
@@ -606,7 +631,7 @@ body.dark-mode .saved-progress {
     gap: 8px; /* Space when wrapped */
 }
 
-/* Question counter text (e.g., "Question 3 of 15") */
+/* Question counter text (e.g., "Question 3 of 17") */
 #question-counter {
     font-size: 14px; /* Text size */
     color: var(--text-muted); /* Muted color */
@@ -1212,6 +1237,67 @@ body.dark-mode .saved-progress {
 }
 
 /* ============================================================ */
+/* PATHWAY RECOMMENDATIONS - NEW!                              */
+/* Shows Form 1-4 career pathways                              */
+/* ============================================================ */
+
+.pathway-recommendations {
+    background: var(--cluster-publicservice-bg); /* Light violet background */
+    border: 1px solid var(--border-light); /* Border */
+    border-radius: var(--radius-md); /* Rounded corners */
+    padding: 22px 24px; /* Padding inside */
+    margin-bottom: 28px; /* Space below */
+    transition: background var(--transition-slow); /* Smooth theme change */
+}
+
+.pathway-recommendations h2 {
+    color: var(--cluster-publicservice); /* Violet color */
+    margin-bottom: 8px; /* Space below */
+    font-size: 18px; /* Text size */
+}
+
+.pathway-recommendations > p {
+    color: var(--text-secondary); /* Secondary color */
+    font-size: 14px; /* Text size */
+    margin-bottom: 16px; /* Space below */
+}
+
+/* Individual pathway card */
+.pathway-card {
+    background: var(--bg-secondary); /* Background */
+    border-radius: var(--radius-sm); /* Rounded corners */
+    padding: 16px 20px; /* Padding inside */
+    border-left: 4px solid var(--zm-green); /* Green left border */
+    margin-bottom: 12px; /* Space below */
+    transition: all var(--transition-fast); /* Smooth transitions */
+}
+
+.pathway-card:last-child {
+    margin-bottom: 0; /* No margin on last card */
+}
+
+.pathway-card:hover {
+    transform: translateX(4px); /* Slight shift right on hover */
+    box-shadow: var(--shadow-sm); /* Small shadow */
+}
+
+.pathway-card h3 {
+    font-size: 16px; /* Text size */
+    font-weight: 700; /* Bold */
+    color: var(--text-primary); /* Primary text color */
+    margin-bottom: 4px; /* Space below */
+}
+
+.pathway-card .pathway-subjects {
+    font-size: 14px; /* Text size */
+    color: var(--text-secondary); /* Secondary color */
+}
+
+.pathway-card .pathway-subjects strong {
+    color: var(--text-primary); /* Primary color for strong text */
+}
+
+/* ============================================================ */
 /* SUBJECT RECOMMENDATIONS                                      */
 /* ============================================================ */
 
@@ -1392,7 +1478,7 @@ body.dark-mode .saved-progress {
 }
 
 /* ============================================================ */
-/* COMPARISON TOOL                                              */
+/* COMPARISON TOOL - UPGRADED TO 5 COLUMNS                     */
 /* ============================================================ */
 
 .comparison-tool {
@@ -1415,27 +1501,27 @@ body.dark-mode .saved-progress {
     margin-bottom: 14px; /* Space below */
 }
 
-/* Container for dropdown selectors */
+/* Container for dropdown selectors - 5 columns */
 #comparison-selectors {
-    display: flex; /* Flex layout */
-    gap: 10px; /* Space between selectors */
-    flex-wrap: wrap; /* Wrap on small screens */
+    display: grid; /* Grid layout */
+    grid-template-columns: repeat(5, 1fr); /* 5 equal columns */
+    gap: 8px; /* Space between selectors */
     margin-bottom: 14px; /* Space below */
 }
 
 /* Individual dropdown selector */
 .comparison-select {
-    flex: 1; /* Take available space */
-    min-width: 150px; /* Minimum width */
-    padding: 10px 12px; /* Padding inside */
+    width: 100%; /* Full width of grid cell */
+    padding: 10px 8px; /* Padding inside */
     border: 2px solid var(--border-light); /* Border */
     border-radius: var(--radius-sm); /* Rounded corners */
-    font-size: 14px; /* Text size */
+    font-size: 13px; /* Text size */
     background: var(--bg-secondary); /* Background */
     color: var(--text-primary); /* Text color */
     font-family: inherit; /* Same font */
     cursor: pointer; /* Pointer on hover */
     transition: border-color var(--transition-fast); /* Smooth border change */
+    min-width: 0; /* Prevent overflow */
 }
 
 /* Focus state for dropdown */
@@ -1462,7 +1548,7 @@ body.dark-mode .saved-progress {
 .comparison-table th,
 .comparison-table td {
     border: 1px solid var(--border-light); /* Border */
-    padding: 10px 14px; /* Padding inside */
+    padding: 10px 12px; /* Padding inside */
     text-align: left; /* Left-aligned */
     color: var(--text-primary); /* Text color */
 }
@@ -1487,47 +1573,7 @@ body.dark-mode .saved-progress {
 }
 
 /* ============================================================ */
-/* RESULTS ACTIONS - Buttons at the bottom                      */
-/* ============================================================ */
-
-.results-actions {
-    display: flex; /* Flex layout */
-    flex-wrap: wrap; /* Wrap on small screens */
-    gap: 12px; /* Space between items */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    padding-top: 20px; /* Space above */
-    border-top: 2px solid var(--border-light); /* Top border */
-    margin-top: 20px; /* Space above */
-}
-
-/* PDF options - color/B&W toggle */
-.pdf-options {
-    display: flex; /* Flex layout */
-    gap: 12px; /* Space between options */
-    align-items: center; /* Center vertically */
-    padding: 6px 16px; /* Padding inside */
-    background: var(--bg-tertiary); /* Background */
-    border-radius: var(--radius-xl); /* Pill shape */
-    border: 1px solid var(--border-light); /* Border */
-}
-
-.pdf-options label {
-    font-size: 13px; /* Text size */
-    cursor: pointer; /* Pointer on hover */
-    color: var(--text-secondary); /* Text color */
-    display: flex; /* Flex layout */
-    align-items: center; /* Center vertically */
-    gap: 4px; /* Space between checkbox and label */
-}
-
-/* Radio button styling */
-.pdf-options input[type="radio"] {
-    accent-color: var(--zm-green); /* Green accent color */
-}
-
-/* ============================================================ */
-/* DISCOVERY MODE - For students who have no idea               */
+/* DISCOVERY MODE - Enhanced with cluster exploration          */
 /* ============================================================ */
 
 #discovery-mode {
@@ -1538,6 +1584,7 @@ body.dark-mode .saved-progress {
     margin-top: 20px; /* Space above */
 }
 
+/* Discovery header */
 .discovery-header h2 {
     color: var(--zm-orange); /* Orange text */
     margin-bottom: 4px; /* Space below */
@@ -1545,7 +1592,7 @@ body.dark-mode .saved-progress {
 
 .discovery-header p {
     color: var(--text-secondary); /* Secondary color */
-    margin-bottom: 18px; /* Space below */
+    margin-bottom: 8px; /* Space below */
 }
 
 /* Discovery content grid */
@@ -1610,16 +1657,15 @@ body.dark-mode .saved-progress {
     border-radius: var(--radius-sm); /* Rounded corners */
     margin-top: 12px; /* Space above */
     padding: 16px; /* Padding inside */
-    max-height: 300px; /* Maximum height */
+    max-height: 400px; /* Maximum height */
     overflow-y: auto; /* Scroll if needed */
     animation: slideDown 0.3s ease; /* Slide down animation */
 }
 
 /* Individual career item in discovery list */
 .discovery-career-item {
-    padding: 10px 0; /* Padding */
+    padding: 12px 0; /* Padding */
     border-bottom: 1px solid var(--border-light); /* Bottom border */
-    cursor: pointer; /* Pointer on hover */
     transition: background var(--transition-fast); /* Smooth background change */
 }
 
@@ -1633,8 +1679,9 @@ body.dark-mode .saved-progress {
 
 .discovery-career-item h5 {
     color: var(--text-primary); /* Primary text color */
-    font-size: 14px; /* Text size */
-    margin-bottom: 2px; /* Space below */
+    font-size: 15px; /* Text size */
+    margin-bottom: 4px; /* Space below */
+    cursor: pointer; /* Pointer on hover */
 }
 
 .discovery-career-item h5:hover {
@@ -1642,8 +1689,8 @@ body.dark-mode .saved-progress {
 }
 
 .discovery-career-item p {
-    font-size: 12px; /* Small text */
-    color: var(--text-muted); /* Muted color */
+    font-size: 13px; /* Small text */
+    color: var(--text-secondary); /* Secondary color */
     margin: 2px 0; /* Margin */
 }
 
@@ -1663,7 +1710,85 @@ body.dark-mode .saved-progress {
     color: var(--text-muted); /* Muted color */
 }
 
-/* Next steps section in discovery mode */
+/* Buttons inside discovery career items */
+.discovery-career-item .btn-small {
+    padding: 4px 12px; /* Small padding */
+    font-size: 12px; /* Small text */
+    border-radius: var(--radius-xl); /* Pill shape */
+    cursor: pointer; /* Pointer on hover */
+    font-family: inherit; /* Same font */
+    font-weight: 600; /* Semi-bold */
+    transition: all var(--transition-fast); /* Smooth transitions */
+    border: 1.5px solid transparent; /* Border */
+}
+
+/* Discovery "Add to Compare" button */
+.discovery-add-compare {
+    background: var(--zm-green); /* Green background */
+    color: white; /* White text */
+    border-color: var(--zm-green); /* Green border */
+}
+
+.discovery-add-compare:hover:not(:disabled) {
+    background: var(--zm-green-dark); /* Darker green on hover */
+    transform: translateY(-2px); /* Lift up */
+}
+
+.discovery-add-compare:disabled {
+    opacity: 0.5; /* Half opacity */
+    cursor: not-allowed; /* Not allowed cursor */
+}
+
+/* Discovery "Remove from Compare" button */
+.discovery-remove-compare {
+    background: var(--zm-red); /* Red background */
+    color: white; /* White text */
+    border-color: var(--zm-red); /* Red border */
+}
+
+.discovery-remove-compare:hover {
+    background: #b71c1c; /* Darker red on hover */
+    transform: translateY(-2px); /* Lift up */
+}
+
+/* Discovery "Read More" button */
+.discovery-read-more {
+    background: var(--bg-tertiary); /* Subtle background */
+    color: var(--text-primary); /* Primary text color */
+    border-color: var(--border-light); /* Border */
+}
+
+.discovery-read-more:hover {
+    border-color: var(--zm-green); /* Green border on hover */
+    color: var(--zm-green); /* Green text on hover */
+}
+
+/* ============================================================ */
+/* DISCOVERY COMPARISON TABLE                                  */
+/* ============================================================ */
+
+.discovery-comparison {
+    margin-top: 20px; /* Space above */
+    padding: 16px; /* Padding inside */
+    background: var(--bg-tertiary); /* Background */
+    border-radius: var(--radius-md); /* Rounded corners */
+    border: 1px solid var(--border-light); /* Border */
+}
+
+.discovery-comparison h3 {
+    font-size: 16px; /* Text size */
+    color: var(--text-primary); /* Primary text color */
+    margin-bottom: 12px; /* Space below */
+}
+
+#discovery-compare-table {
+    overflow-x: auto; /* Horizontal scroll if needed */
+}
+
+/* ============================================================ */
+/* NEXT STEPS IN DISCOVERY MODE                                */
+/* ============================================================ */
+
 .discovery-next-steps {
     background: var(--zm-green-light); /* Light green background */
     padding: 20px; /* Padding inside */
@@ -1690,6 +1815,46 @@ body.dark-mode .saved-progress {
     font-style: italic; /* Italic text */
     color: var(--text-secondary); /* Secondary color */
     font-size: 13px; /* Text size */
+}
+
+/* ============================================================ */
+/* RESULTS ACTIONS - Buttons at the bottom                      */
+/* ============================================================ */
+
+.results-actions {
+    display: flex; /* Flex layout */
+    flex-wrap: wrap; /* Wrap on small screens */
+    gap: 12px; /* Space between items */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding-top: 20px; /* Space above */
+    border-top: 2px solid var(--border-light); /* Top border */
+    margin-top: 20px; /* Space above */
+}
+
+/* PDF options - color/B&W toggle */
+.pdf-options {
+    display: flex; /* Flex layout */
+    gap: 12px; /* Space between options */
+    align-items: center; /* Center vertically */
+    padding: 6px 16px; /* Padding inside */
+    background: var(--bg-tertiary); /* Background */
+    border-radius: var(--radius-xl); /* Pill shape */
+    border: 1px solid var(--border-light); /* Border */
+}
+
+.pdf-options label {
+    font-size: 13px; /* Text size */
+    cursor: pointer; /* Pointer on hover */
+    color: var(--text-secondary); /* Text color */
+    display: flex; /* Flex layout */
+    align-items: center; /* Center vertically */
+    gap: 4px; /* Space between checkbox and label */
+}
+
+/* Radio button styling */
+.pdf-options input[type="radio"] {
+    accent-color: var(--zm-green); /* Green accent color */
 }
 
 /* ============================================================ */
@@ -1769,6 +1934,13 @@ body.dark-mode .saved-progress {
     color: var(--text-primary); /* Primary color on hover */
     background: var(--bg-tertiary); /* Background on hover */
     border-color: var(--border-light); /* Border on hover */
+}
+
+/* "Add to Compare" button inside modal */
+#modal-add-to-compare {
+    display: none; /* Hidden by default */
+    margin-top: 16px; /* Space above */
+    width: 100%; /* Full width */
 }
 
 /* Career detail content inside modal */
@@ -2050,6 +2222,16 @@ body.dark-mode .saved-progress {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Smaller cards */
     }
 
+    /* Comparison tool - 5 columns becomes 2 rows on tablets */
+    #comparison-selectors {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    }
+
+    /* Make comparison selectors span full width on small screens */
+    .comparison-select {
+        font-size: 12px; /* Smaller text */
+    }
+
     .results-actions {
         flex-direction: column; /* Stack action buttons */
         align-items: stretch; /* Full width buttons */
@@ -2149,8 +2331,14 @@ body.dark-mode .saved-progress {
         font-size: 15px; /* Smaller score */
     }
 
+    /* Comparison tool - 5 columns becomes 1 column on phones */
+    #comparison-selectors {
+        grid-template-columns: 1fr; /* 1 column */
+    }
+
     .comparison-select {
-        min-width: 100%; /* Full width selectors */
+        font-size: 13px; /* Larger text for easier tapping */
+        padding: 12px 10px; /* Larger touch target */
     }
 
     .results-header h1 {
@@ -2202,7 +2390,14 @@ body.dark-mode .saved-progress {
     .results-actions,
     .pdf-options,
     .view-details-btn,
-    .quiz-tip {
+    .quiz-tip,
+    .filter-chips,
+    .search-bar,
+    #clear-comparison-btn,
+    #clear-discovery-compare-btn,
+    .discovery-add-compare,
+    .discovery-remove-compare,
+    .discovery-read-more {
         display: none !important;
     }
 
@@ -2241,6 +2436,10 @@ body.dark-mode .saved-progress {
         break-inside: avoid;
     }
 
+    .pathway-recommendations {
+        break-inside: avoid;
+    }
+
     .stat-card {
         break-inside: avoid;
     }
@@ -2248,6 +2447,33 @@ body.dark-mode .saved-progress {
     .score-fill {
         width: var(--print-score-width, 0%) !important;
         transition: none !important;
+    }
+
+    /* Show discovery mode items in print */
+    #discovery-mode {
+        display: block !important;
+        border: 1px solid #ddd !important;
+        background: #f9f9f9 !important;
+    }
+
+    .discovery-card {
+        border: 1px solid #ddd !important;
+        background: #f9f9f9 !important;
+    }
+
+    .discovery-career-list {
+        display: block !important;
+        border: 1px solid #ddd !important;
+        background: #f9f9f9 !important;
+    }
+
+    .discovery-career-item {
+        border-bottom: 1px solid #ddd !important;
+    }
+
+    .discovery-comparison {
+        border: 1px solid #ddd !important;
+        background: #f9f9f9 !important;
     }
 
     /* Black and white print mode */
@@ -2283,6 +2509,11 @@ body.dark-mode .saved-progress {
         border-color: #ccc !important;
     }
 
+    .bw-print .pathway-recommendations {
+        background: #f5f5f5 !important;
+        border-color: #ccc !important;
+    }
+
     .bw-print .comparison-table th {
         background: #333 !important;
         color: white !important;
@@ -2299,6 +2530,26 @@ body.dark-mode .saved-progress {
     }
 
     .bw-print .cluster-card {
+        border-color: #ccc !important;
+    }
+
+    .bw-print .pathway-card {
+        border-left-color: #999 !important;
+        background: #f5f5f5 !important;
+    }
+
+    .bw-print .discovery-card {
+        background: #f5f5f5 !important;
+        border-color: #ccc !important;
+    }
+
+    .bw-print .discovery-career-list {
+        background: #f5f5f5 !important;
+        border-color: #ccc !important;
+    }
+
+    .bw-print .discovery-comparison {
+        background: #f5f5f5 !important;
         border-color: #ccc !important;
     }
 }
@@ -2338,5 +2589,13 @@ body.dark-mode .saved-progress {
 
     .score-fill {
         background: Highlight !important;
+    }
+
+    .pathway-card {
+        border-left: 4px solid ButtonText !important;
+    }
+
+    .discovery-card {
+        border: 2px solid ButtonText !important;
     }
 }
