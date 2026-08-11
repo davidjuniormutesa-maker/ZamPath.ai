@@ -2,6 +2,7 @@
 /* CAREER QUEST - COMPLETE STYLESHEET                          */
 /* All styling for the career guidance web application           */
 /* Zambia-themed design with green, red, orange, and black      */
+/* ENHANCED with modern UI, glassmorphism, and animations        */
 /* ============================================================ */
 
 /* ============================================================ */
@@ -232,6 +233,8 @@ body {
     overflow: hidden; /* Prevents content from spilling out */
     transition: background var(--transition-slow), box-shadow var(--transition-slow); /* Smooth theme change */
     border: 1px solid var(--border-light); /* Subtle border */
+    backdrop-filter: blur(20px); /* Glassmorphism effect */
+    -webkit-backdrop-filter: blur(20px); /* For Safari */
 }
 
 /* ============================================================ */
@@ -251,6 +254,7 @@ body {
     z-index: 100; /* Above other content */
     backdrop-filter: blur(10px); /* Blur effect behind the bar */
     -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    transition: background var(--transition-slow), border-color var(--transition-slow);
 }
 
 /* Left side of the top bar - brand name and icon */
@@ -263,6 +267,31 @@ body {
     color: var(--zm-green); /* Green color */
     letter-spacing: -0.3px; /* Slightly tighter spacing */
     user-select: none; /* Prevents text from being selected */
+    flex-wrap: wrap; /* Wrap on small screens */
+}
+
+/* Back to home link */
+.back-home-link {
+    transition: all var(--transition-fast) !important;
+}
+
+.back-home-link:hover {
+    color: var(--zm-green-dark) !important;
+    transform: translateX(-3px);
+}
+
+/* Brand divider */
+.brand-divider {
+    color: var(--border-light);
+    font-weight: 300;
+    margin: 0 4px;
+}
+
+/* Brand name */
+.brand-name {
+    font-weight: 700;
+    color: var(--zm-green);
+    letter-spacing: -0.3px;
 }
 
 /* The emoji icon in the brand */
@@ -354,7 +383,7 @@ body {
     50% { transform: translateY(-8px); } /* Middle of animation - float up */
 }
 
-/* Main heading. */
+/* Main heading */
 .welcome-content h1 {
     font-size: 48px; /* Large text */
     font-weight: 800; /* Very bold */
@@ -502,8 +531,8 @@ body.dark-mode .saved-progress {
 
 /* Hover effect for primary button */
 .btn-primary:hover {
-    transform: translateY(-2px); /* Lift up slightly */
-    box-shadow: 0 6px 24px rgba(0, 128, 0, 0.35); /* Larger shadow */
+    transform: translateY(-3px); /* Lift up slightly */
+    box-shadow: 0 8px 30px rgba(0, 128, 0, 0.35); /* Larger shadow */
 }
 
 /* Show the shine on hover */
@@ -688,13 +717,13 @@ body.dark-mode .saved-progress {
     align-items: center; /* Center vertically */
     width: 100%; /* Full width */
     text-align: left; /* Left-aligned text */
-    padding: 14px 20px; /* Padding inside */
+    padding: 16px 20px; /* Padding inside */
     background: var(--bg-secondary); /* Background */
     border: 2px solid var(--border-light); /* Border */
-    border-radius: var(--radius-sm); /* Rounded corners */
+    border-radius: var(--radius-md); /* Rounded corners */
     font-size: 15px; /* Text size */
     cursor: pointer; /* Pointer on hover */
-    transition: all var(--transition-fast); /* Smooth transitions */
+    transition: all var(--transition-base); /* Smooth transitions */
     font-family: inherit; /* Same font */
     color: var(--text-primary); /* Text color */
     position: relative; /* For pseudo-elements */
@@ -722,8 +751,9 @@ body.dark-mode .saved-progress {
 
 /* Hover effect for options */
 .option-btn:hover {
+    transform: translateX(6px); /* Slight shift right */
     border-color: var(--zm-green); /* Green border on hover */
-    transform: translateX(4px); /* Slight shift right */
+    box-shadow: var(--shadow-md); /* Shadow */
 }
 
 /* Expand the fill on hover */
@@ -735,7 +765,7 @@ body.dark-mode .saved-progress {
 .option-btn.selected {
     border-color: var(--zm-green); /* Green border */
     background: var(--zm-green-light); /* Light green background */
-    box-shadow: 0 0 0 3px var(--zm-green-glow); /* Green glow */
+    box-shadow: 0 0 0 4px var(--zm-green-glow); /* Green glow */
 }
 
 /* Selected option fill - full width */
@@ -884,18 +914,20 @@ body.dark-mode .saved-progress {
 
 /* Individual stat card */
 .stat-card {
-    background: var(--bg-tertiary); /* Background */
+    background: var(--bg-secondary); /* Background */
     border: 1px solid var(--border-light); /* Border */
     border-radius: var(--radius-md); /* Rounded corners */
-    padding: 16px; /* Padding inside */
+    padding: 20px; /* Padding inside */
     text-align: center; /* Center text */
     transition: all var(--transition-base); /* Smooth transitions */
+    box-shadow: var(--shadow-sm); /* Small shadow */
 }
 
 /* Hover effect for stat cards */
 .stat-card:hover {
-    transform: translateY(-2px); /* Lift up */
+    transform: translateY(-3px); /* Lift up */
     box-shadow: var(--shadow-md); /* Shadow */
+    border-color: var(--zm-green); /* Green border */
 }
 
 /* The big number in the stat card */
@@ -1008,7 +1040,7 @@ body.dark-mode .saved-progress {
     background: var(--bg-tertiary); /* Background */
     border: 1px solid var(--border-light); /* Border */
     border-radius: var(--radius-md); /* Rounded corners */
-    padding: 16px 20px; /* Padding inside */
+    padding: 18px 22px; /* Padding inside */
     display: flex; /* Flex layout */
     justify-content: space-between; /* Space between left and right */
     align-items: center; /* Center vertically */
@@ -1045,9 +1077,9 @@ body.dark-mode .saved-progress {
 
 /* Show the green border on hover */
 .career-card:hover {
+    transform: translateY(-4px); /* Lift up */
     border-color: var(--zm-green); /* Green border */
-    box-shadow: var(--shadow-md); /* Shadow */
-    transform: translateY(-2px); /* Lift up */
+    box-shadow: var(--shadow-lg); /* Shadow */
 }
 
 /* Show the green border on hover */
@@ -1217,13 +1249,18 @@ body.dark-mode .saved-progress {
 /* Individual subject tag */
 .subject-tag {
     background: var(--bg-secondary); /* Background */
-    padding: 7px 16px; /* Padding inside */
+    padding: 8px 18px; /* Padding inside */
     border-radius: var(--radius-xl); /* Pill shape */
     border: 1.5px solid var(--zm-green); /* Green border */
     color: var(--zm-green); /* Green text */
     font-weight: 600; /* Semi-bold */
     font-size: 13px; /* Text size */
     transition: all var(--transition-fast); /* Smooth transitions */
+}
+
+.subject-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
 /* Required subject tag - solid green */
@@ -1501,7 +1538,6 @@ body.dark-mode .saved-progress {
     margin-top: 20px; /* Space above */
 }
 
-/* Discovery header */
 .discovery-header h2 {
     color: var(--zm-orange); /* Orange text */
     margin-bottom: 4px; /* Space below */
@@ -1691,6 +1727,10 @@ body.dark-mode .saved-progress {
     animation: modalIn 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); /* Entrance animation */
     margin: auto 0; /* Center vertically */
     transition: background var(--transition-slow); /* Smooth theme change */
+    border: 1px solid var(--border-light); /* Border */
+    box-shadow: var(--shadow-xl); /* Shadow */
+    backdrop-filter: blur(20px); /* Glassmorphism */
+    -webkit-backdrop-filter: blur(20px);
 }
 
 @keyframes modalIn {
@@ -1921,6 +1961,20 @@ body.dark-mode .saved-progress {
         padding: 10px 16px; /* Less padding in top bar */
     }
 
+    .top-bar-brand {
+        font-size: 14px;
+        gap: 4px;
+        flex-wrap: wrap;
+    }
+
+    .back-home-link {
+        font-size: 12px !important;
+    }
+
+    .brand-divider {
+        display: none;
+    }
+
     .welcome-content {
         padding: 30px 10px; /* Less padding in welcome */
     }
@@ -2108,7 +2162,7 @@ body.dark-mode .saved-progress {
     }
 
     .top-bar-brand {
-        font-size: 14px; /* Smaller brand text */
+        font-size: 12px; /* Smaller brand text */
     }
 
     .dark-mode-toggle span {
@@ -2133,6 +2187,8 @@ body.dark-mode .saved-progress {
         box-shadow: none !important;
         border-radius: 0 !important;
         max-width: 100% !important;
+        backdrop-filter: none !important;
+        border: none !important;
     }
 
     /* Hide interactive elements */

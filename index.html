@@ -31,7 +31,7 @@
         <div class="nav-container">
             <!-- Left: Brand logo and name -->
             <div class="nav-brand">
-                <span class="brand-icon">©</span>
+                <span class="brand-icon">🇿🇲</span>
                 <span class="brand-name">ZamPath<span class="brand-dot">.</span>ai</span>
             </div>
             
@@ -43,8 +43,14 @@
                 <li><a href="#stats">Stats</a></li>
             </ul>
             
-            <!-- Right: CTA button - NOW POINTS TO app.html -->
-            <a href="app.html" class="nav-cta">Get Started 🚀</a>
+            <!-- Right: CTA button and dark mode toggle -->
+            <div class="nav-actions">
+                <button class="dark-mode-toggle" id="landing-dark-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <span id="landing-theme-icon" aria-hidden="true">🌙</span>
+                    <span id="landing-theme-label">Dark</span>
+                </button>
+                <a href="app.html" class="nav-cta">Get Started 🚀</a>
+            </div>
             
             <!-- Mobile menu toggle button -->
             <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
@@ -62,7 +68,7 @@
             <div class="hero-text">
                 <!-- Small badge -->
                 <div class="hero-badge">
-                    ✨Your future starts with the next step.✨
+                    🏆 JETS 2024 Winner
                 </div>
                 
                 <!-- Main headline -->
@@ -92,7 +98,7 @@
                 <!-- Trust indicators -->
                 <div class="hero-trust">
                     <span>💻 Works Offline</span>
-                    <span>Built for Zambia</span>
+                    <span>🇿🇲 Built for Zambia</span>
                     <span>💰 100% Free</span>
                 </div>
             </div>
@@ -272,8 +278,8 @@
                     <div class="testimonial-author">
                         <span class="author-avatar">👩</span>
                         <div>
-                            <span class="author-name">Mumba Chanda</span>
-                            <span class="author-location">Kabwe trust, Form 2</span>
+                            <span class="author-name">Chanda</span>
+                            <span class="author-location">Lusaka, Form 2</span>
                         </div>
                     </div>
                 </div>
@@ -282,13 +288,13 @@
                 <div class="testimonial-card">
                     <div class="testimonial-quote">"</div>
                     <p class="testimonial-text">
-                        The subject recommendations helped me pick my carrer pathway with clarity.
+                        The subject recommendations helped me pick my Form 3 subjects with confidence.
                     </p>
                     <div class="testimonial-author">
                         <span class="author-avatar">👨</span>
                         <div>
-                            <span class="author-name">Samuel</span>
-                            <span class="author-location">Kabwe trust, Form 2</span>
+                            <span class="author-name">Mwansa</span>
+                            <span class="author-location">Kitwe, Form 2</span>
                         </div>
                     </div>
                 </div>
@@ -302,8 +308,8 @@
                     <div class="testimonial-author">
                         <span class="author-avatar">👩</span>
                         <div>
-                            <span class="author-name">Gabriella </span>
-                            <span class="author-location">Kabwe trust, Form 2</span>
+                            <span class="author-name">Bwalya</span>
+                            <span class="author-location">Ndola, Form 2</span>
                         </div>
                     </div>
                 </div>
@@ -318,7 +324,7 @@
         <div class="container">
             <div class="cta-content">
                 <h2>Ready to Find Your Path?</h2>
-                <p>Be some of the first Zambian students who have discovered their perfect career with ZamPath.</p>
+                <p>Join thousands of Zambian students who have discovered their perfect career with ZamPath.</p>
                 <a href="app.html" class="btn-primary btn-large">
                     🚀 Get Started Now
                 </a>
@@ -335,7 +341,7 @@
             <div class="footer-grid">
                 <!-- Brand -->
                 <div class="footer-brand">
-                    <span class="brand-icon">©</span>
+                    <span class="brand-icon">🇿🇲</span>
                     <span class="brand-name">ZamPath<span class="brand-dot">.</span>ai</span>
                     <p>Your AI-powered career navigator for Zambian students.</p>
                 </div>
@@ -346,7 +352,7 @@
                     <a href="#features">Features</a>
                     <a href="#how-it-works">How It Works</a>
                     <a href="#testimonials">Testimonials</a>
-                    <a href="app.html">Start Quiz</a>
+                    <a href="app.html">🚀 Launch Career Quest</a>
                 </div>
                 
                 <div class="footer-links">
@@ -523,8 +529,34 @@
             });
         });
 
+        // ============================================================
+        // SECTION 7: DARK MODE FOR LANDING PAGE
+        // ============================================================
+        const landingToggle = document.getElementById('landing-dark-toggle');
+        const landingThemeIcon = document.getElementById('landing-theme-icon');
+        const landingThemeLabel = document.getElementById('landing-theme-label');
+        let landingDarkMode = false;
+
+        // Check if dark mode was previously saved
+        if (localStorage.getItem('landing_theme') === 'dark') {
+            landingDarkMode = true;
+            document.body.classList.add('dark-mode');
+            landingThemeIcon.textContent = '☀️';
+            landingThemeLabel.textContent = 'Light';
+        }
+
+        // Toggle dark mode for landing page
+        landingToggle.addEventListener('click', function() {
+            landingDarkMode = !landingDarkMode;
+            document.body.classList.toggle('dark-mode', landingDarkMode);
+            landingThemeIcon.textContent = landingDarkMode ? '☀️' : '🌙';
+            landingThemeLabel.textContent = landingDarkMode ? 'Light' : 'Dark';
+            localStorage.setItem('landing_theme', landingDarkMode ? 'dark' : 'light');
+        });
+
         console.log('🇿🇲 ZamPath.ai landing page loaded successfully!');
         console.log('🚀 Ready for nationals!');
+        console.log('🌙 Dark mode ready!');
     </script>
 
 </body>

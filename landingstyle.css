@@ -2,6 +2,7 @@
 /* ZAMPATH.AI - LANDING PAGE STYLES                            */
 /* Complete styling for the professional marketing page         */
 /* Zambia-themed with green, red, orange, and black             */
+/* ENHANCED with dark mode support                              */
 /* ============================================================ */
 
 /* ============================================================ */
@@ -21,7 +22,8 @@
     /* Neutrals */
     --bg-primary: #ffffff;
     --bg-secondary: #f8f9fa;
-    --bg-dark: #0f172a;
+    --bg-tertiary: #f4f6f9;
+    --bg-hover: #f0fff0;
     --text-primary: #1a202c;
     --text-secondary: #4a5568;
     --text-muted: #718096;
@@ -71,6 +73,7 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background var(--transition-slow), color var(--transition-slow);
 }
 
 /* ============================================================ */
@@ -170,6 +173,13 @@ body {
     width: 100%;
 }
 
+/* Navigation Actions (CTA + Dark Mode) */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 /* Navigation CTA Button */
 .nav-cta {
     background: var(--zm-green);
@@ -187,6 +197,28 @@ body {
     background: var(--zm-green-dark);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 128, 0, 0.35);
+}
+
+/* Dark Mode Toggle for Landing Page */
+#landing-dark-toggle {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all var(--transition-fast);
+    font-family: inherit;
+}
+
+#landing-dark-toggle:hover {
+    background: var(--bg-hover);
+    border-color: var(--zm-green);
+    color: var(--zm-green);
 }
 
 /* ============================================================ */
@@ -234,6 +266,7 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
+    transition: background var(--transition-slow);
 }
 
 .hero-container {
@@ -469,6 +502,7 @@ body {
 .features {
     padding: 80px 0;
     background: var(--bg-secondary);
+    transition: background var(--transition-slow);
 }
 
 .features-grid {
@@ -518,6 +552,7 @@ body {
 .how-it-works {
     padding: 80px 0;
     background: var(--bg-primary);
+    transition: background var(--transition-slow);
 }
 
 .steps-container {
@@ -627,6 +662,7 @@ body {
 .testimonials {
     padding: 80px 0;
     background: var(--bg-secondary);
+    transition: background var(--transition-slow);
 }
 
 .testimonials-grid {
@@ -694,6 +730,7 @@ body {
 .cta-section {
     padding: 100px 0;
     background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+    transition: background var(--transition-slow);
 }
 
 .cta-content {
@@ -812,6 +849,206 @@ body {
     color: rgba(255, 255, 255, 0.6);
     font-size: 14px;
     margin-bottom: 4px;
+}
+
+/* ============================================================ */
+/* DARK MODE FOR LANDING PAGE                                  */
+/* ============================================================ */
+
+body.dark-mode {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --bg-hover: #1e3a2e;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-light: #334155;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.6);
+    --shadow-green: 0 4px 15px rgba(0, 128, 0, 0.3);
+    --zm-green-light: #052e16;
+    --zm-orange-light: #2d1a00;
+}
+
+/* Dark mode navbar */
+body.dark-mode .navbar {
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom-color: var(--border-light);
+}
+
+body.dark-mode .navbar.scrolled {
+    box-shadow: var(--shadow-md);
+}
+
+body.dark-mode .nav-links a {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .nav-links a:hover {
+    color: var(--zm-green);
+}
+
+/* Dark mode hero */
+body.dark-mode .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+body.dark-mode .hero-text h1 {
+    color: var(--text-primary);
+}
+
+body.dark-mode .hero-description {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .hero-badge {
+    background: var(--zm-green-light);
+    color: var(--zm-green);
+}
+
+/* Dark mode feature cards */
+body.dark-mode .features {
+    background: var(--bg-secondary);
+}
+
+body.dark-mode .feature-card {
+    background: var(--bg-tertiary);
+    border-color: var(--border-light);
+}
+
+body.dark-mode .feature-card:hover {
+    border-color: var(--zm-green);
+}
+
+body.dark-mode .feature-card h3 {
+    color: var(--text-primary);
+}
+
+body.dark-mode .feature-card p {
+    color: var(--text-secondary);
+}
+
+/* Dark mode steps */
+body.dark-mode .step {
+    background: var(--bg-tertiary);
+    border-color: var(--border-light);
+}
+
+body.dark-mode .step:hover {
+    border-color: var(--zm-green);
+}
+
+body.dark-mode .step h3 {
+    color: var(--text-primary);
+}
+
+body.dark-mode .step p {
+    color: var(--text-secondary);
+}
+
+/* Dark mode stats - keep green! */
+body.dark-mode .stats {
+    background: linear-gradient(135deg, #006600, #004400);
+}
+
+/* Dark mode testimonials */
+body.dark-mode .testimonials {
+    background: var(--bg-secondary);
+}
+
+body.dark-mode .testimonial-card {
+    background: var(--bg-tertiary);
+    border-color: var(--border-light);
+}
+
+body.dark-mode .testimonial-text {
+    color: var(--text-primary);
+}
+
+body.dark-mode .author-name {
+    color: var(--text-primary);
+}
+
+body.dark-mode .author-location {
+    color: var(--text-muted);
+}
+
+/* Dark mode CTA */
+body.dark-mode .cta-section {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+body.dark-mode .cta-content h2 {
+    color: var(--text-primary);
+}
+
+body.dark-mode .cta-content p {
+    color: var(--text-secondary);
+}
+
+/* Dark mode footer */
+body.dark-mode .footer {
+    background: #0a0f1a;
+}
+
+/* Dark mode mobile menu */
+body.dark-mode .mobile-toggle span {
+    background: var(--text-primary);
+}
+
+body.dark-mode .nav-links.active {
+    background: var(--bg-secondary);
+    border-bottom-color: var(--border-light);
+}
+
+/* Dark mode center circle */
+body.dark-mode .center-circle {
+    background: linear-gradient(135deg, #006600, #008800);
+}
+
+/* Dark mode floating icons - keep them bright */
+body.dark-mode .floating-icon {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Dark mode trust indicators */
+body.dark-mode .hero-trust span {
+    color: var(--text-muted);
+}
+
+/* Dark mode toggle button in landing page */
+body.dark-mode #landing-dark-toggle {
+    background: var(--bg-tertiary);
+    border-color: var(--border-light);
+    color: var(--text-secondary);
+}
+
+body.dark-mode #landing-dark-toggle:hover {
+    background: var(--bg-hover);
+    border-color: var(--zm-green);
+    color: var(--zm-green);
+}
+
+/* ============================================================ */
+/* DARK MODE TOGGLE FOR MOBILE                                */
+/* ============================================================ */
+
+@media (max-width: 768px) {
+    .nav-actions {
+        gap: 8px;
+    }
+    
+    #landing-dark-toggle span:last-child {
+        display: none;
+    }
+    
+    #landing-dark-toggle {
+        padding: 6px 10px;
+        font-size: 16px;
+    }
 }
 
 /* ============================================================ */
@@ -994,6 +1231,10 @@ body {
 
     .footer-brand p {
         max-width: 100%;
+    }
+
+    body.dark-mode .nav-links.active {
+        background: var(--bg-secondary);
     }
 }
 
