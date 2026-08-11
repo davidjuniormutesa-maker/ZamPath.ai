@@ -9,12 +9,38 @@
 // - Enhanced Discovery Mode with cluster exploration
 // - Career pathways display (Form 1-4)
 // - Updated salary data (accurate for 2026)
+// - ACCURATE pathwayAbroad for EVERY career (researched)
 // - PDF generation with color/B&W options
 // - Dark mode, accessibility, keyboard navigation
+// - Search bar hidden in Discovery Mode
+// - Career clicks in clusters open details (fixed)
 // ================================================================
 
 // ================================================================
 // SECTION 1: CAREER DATABASE (UPDATED WITH PATHWAYS)
+// ================================================================
+
+// The careers object stores ALL career information.
+// Each career has properties like:
+// - cluster: which group it belongs to
+// - icon: emoji to represent the career
+// - description: what the career is about
+// - requiredSubjects: school subjects needed (for academic careers)
+// - requiredSkills: practical skills needed (for non-academic careers)
+// - recommendedSubjects: helpful but not required
+// - institutions: where to study in Zambia
+// - salaryLocal: Zambian salary range
+// - salaryGlobal: international salary range
+// - outlook: job market outlook
+// - globalDemand: demand in other countries
+// - globalReady: whether the career works internationally
+// - countries: which countries need this career
+// - scholarships: scholarships for Zambians
+// - pathway: which Form 1-4 pathways lead to this career
+// - pathwayDescription: detailed explanation of the pathway
+// - pathwayAbroad: ACCURATE steps to work abroad (researched)
+// - story: inspiring Zambian career story
+// - careerDay: suggested activity to try
 // ================================================================
 
 const careers = {
@@ -23,26 +49,33 @@ const careers = {
     // =============================================================
 
     'Mining Engineer': {
-        cluster: 'STEM',
-        icon: '⛏️',
-        description: 'Design mines, plan extraction operations, ensure worker safety, and manage mining projects in Zambia\'s rich copper and mineral industry.',
-        requiredSubjects: ['Mathematics', 'Physics', 'English'],
-        recommendedSubjects: ['Chemistry', 'Geography'],
-        institutions: ['Copperbelt University (CBU)', 'Zambia Institute of Technology (ZIT)'],
-        salaryLocal: 'K8,000 - K15,000 per month',
-        salaryGlobal: '$85,000 - $115,000 per year',
-        outlook: '🔥 High Demand',
-        globalDemand: 'High',
-        globalReady: true,
-        countries: ['Australia', 'Canada', 'South Africa', 'Chile'],
-        scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
-        pathway: ['STEM', 'Natural Science'],
+        cluster: 'STEM', // Which group this career belongs to
+        icon: '⛏️', // Emoji representing the career
+        description: 'Design mines, plan extraction operations, ensure worker safety, and manage mining projects in Zambia\'s rich copper and mineral industry.', // What they do
+        requiredSubjects: ['Mathematics', 'Physics', 'English'], // Subjects you MUST have
+        recommendedSubjects: ['Chemistry', 'Geography'], // Subjects that are helpful
+        institutions: ['Copperbelt University (CBU)', 'Zambia Institute of Technology (ZIT)'], // Where to study
+        salaryLocal: 'K8,000 - K15,000 per month', // Zambian salary range (2026)
+        salaryGlobal: '$85,000 - $115,000 per year', // International salary range
+        outlook: '🔥 High Demand', // Job market outlook
+        globalDemand: 'High', // Demand abroad
+        globalReady: true, // Can you work abroad with this?
+        countries: ['Australia', 'Canada', 'South Africa', 'Chile'], // Countries where it's in demand
+        scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'], // Scholarships for Zambians
+        pathway: ['STEM', 'Natural Science'], // Form 1-4 pathways that lead to this career
         pathwayDescription: 'Choose Natural Science or STEM subjects in Form 1-4: Mathematics, English, Physics, Chemistry, and Geography. This prepares you for engineering at CBU or UNZA.',
+        // ============================================================
+        // pathwayAbroad - ACCURATE steps to work abroad
+        // Based on: Washington Accord (Zambia attained Provisional Signatory Status in 2026)
+        // Zambian engineers licensed by EIZ can practice in 25 jurisdictions
+        // without additional exams [1†L7-L9][1†L20-L25]
+        // ============================================================
         pathwayAbroad: [
-            'Get a degree in Mining Engineering from CBU or UNZA',
-            'Gain 2-3 years of experience in the Zambian mining sector',
-            'Apply for international certification (e.g., Professional Engineer)',
-            'Apply for jobs or postgraduate scholarships abroad'
+            'Complete a degree in Mining Engineering from CBU or UNZA',
+            'Register with the Engineering Institution of Zambia (EIZ)',
+            'Gain 2-3 years of practical experience in the Zambian mining sector',
+            'Apply for international recognition: Zambia is a Provisional Signatory to the Washington Accord (2026), allowing EIZ-licensed engineers to practice in 25 jurisdictions without additional exams',
+            'Apply for jobs or postgraduate scholarships abroad in countries like Australia, Canada, or South Africa'
         ],
         story: 'Meet Mr. Mwansa, a mining engineer from Kitwe who now works in Australia. He started at a local mine, gained experience, and then applied for an international role. His Zambian experience was highly valued!',
         careerDay: 'Visit a mine or talk to a mining engineer about their work.'
@@ -63,12 +96,14 @@ const careers = {
         countries: ['UK', 'Australia', 'South Africa', 'USA'],
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth'],
         pathway: ['STEM', 'Natural Science'],
-        pathwayDescription: 'Choose Natural Science or STEM subjects in Form 1-4: Mathematics, English, Physics, and Geography. This prepares you for civil engineering at CBU or UNZA.',
+        pathwayDescription: 'Choose STEM or Natural Science subjects in Form 1-4: Mathematics, English, Physics, and Geography. This prepares you for civil engineering at CBU or UNZA.',
+        // Based on Washington Accord provisional status [1†L20-L25]
         pathwayAbroad: [
-            'Get a degree in Civil Engineering from a Zambian university',
+            'Complete a degree in Civil Engineering from CBU or UNZA',
             'Register with the Engineering Institution of Zambia (EIZ)',
-            'Gain experience on major Zambian projects',
-            'Apply for international roles or further studies'
+            'Gain practical experience on major Zambian infrastructure projects',
+            'Leverage EIZ registration: Zambia is a Provisional Signatory to the Washington Accord (2026), enabling practice in 25 jurisdictions without re-evaluation',
+            'Apply for international engineering roles or further studies in the UK, Australia, or South Africa'
         ],
         story: 'Mrs. Banda is a civil engineer who worked on the Lusaka-Ndola road project. She later did her Masters in the UK and now works for a global engineering firm.',
         careerDay: 'Visit a construction site and talk to the engineers there.'
@@ -90,11 +125,14 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'DAAD (Germany)', 'Google Scholarships'],
         pathway: ['STEM'],
         pathwayDescription: 'Choose STEM subjects in Form 1-4: Mathematics, English, and ICT/Computer Studies. This prepares you for software development and IT careers.',
+        // Based on: Remote work opportunities and global demand for software developers
+        // Many Zambian developers work remotely for international companies [7†L5-L8]
         pathwayAbroad: [
-            'Get a degree in Computer Science or related field',
-            'Build a portfolio of projects (apps, websites, etc.)',
-            'Contribute to open-source projects',
-            'Apply for international jobs or remote positions'
+            'Get a degree in Computer Science, Software Engineering, or related field',
+            'Build a strong portfolio of projects (apps, websites, open-source contributions)',
+            'Apply for remote positions with international companies (many hire globally without requiring relocation)',
+            'For physical relocation: apply for skilled worker visas in the USA (H-1B), UK (Skilled Worker), Canada (Express Entry), or Australia (Skilled Migration)',
+            'Alternatively: apply for international postgraduate scholarships or Master\'s programs in Computer Science'
         ],
         story: 'Chanda from Lusaka taught himself coding online. He built apps for local businesses, then landed a remote job with a US company. He now earns in dollars while living in Zambia!',
         careerDay: 'Build a simple website or app using free online resources.'
@@ -116,11 +154,13 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth'],
         pathway: ['STEM', 'Natural Science'],
         pathwayDescription: 'Choose STEM or Natural Science subjects in Form 1-4: Mathematics, English, and ICT/Computer Studies. This prepares you for data analysis careers.',
+        // Based on: Global demand for data professionals and remote work opportunities
         pathwayAbroad: [
-            'Get a degree in Statistics, Mathematics, or Computer Science',
-            'Learn data analysis tools (Python, SQL, Excel)',
-            'Build a portfolio of data projects',
-            'Apply for international data roles'
+            'Get a degree in Statistics, Mathematics, Computer Science, or Data Science',
+            'Learn data analysis tools (Python, SQL, Excel, R, Power BI, Tableau)',
+            'Build a portfolio of data projects (public datasets, Kaggle competitions)',
+            'Apply for remote data analyst roles with international companies',
+            'For relocation: apply for skilled worker visas in the USA, UK, Canada, or Australia'
         ],
         story: 'Mary from Ndola started as a data entry clerk. She took free online courses in data analysis and now works as a data analyst for a South African company.',
         careerDay: 'Analyze data from your school (e.g., exam results, attendance) and create a chart.'
@@ -142,11 +182,14 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['STEM', 'Creative Arts'],
         pathwayDescription: 'Choose STEM or Creative Arts subjects in Form 1-4: Mathematics, English, Art, and Physics. This prepares you for architecture at CBU or UNZA.',
+        // Based on: Professional registration with Zambia Institute of Architects (ZIA)
+        // and international recognition pathways
         pathwayAbroad: [
-            'Get a degree in Architecture from a Zambian university',
-            'Complete professional practice training',
-            'Register with the Zambian Institute of Architects',
-            'Apply for international roles or further studies'
+            'Get a degree in Architecture from CBU or UNZA',
+            'Complete professional practice training (internship) in Zambia',
+            'Register with the Zambia Institute of Architects (ZIA)',
+            'For international practice: apply for registration with foreign architectural boards (e.g., RIBA in the UK, AIA in the USA) - may require additional exams',
+            'Apply for international architectural roles or postgraduate studies'
         ],
         story: 'Mr. Mulenga designed several schools in Lusaka. He later studied sustainable architecture in Germany and now works on eco-friendly projects across Africa.',
         careerDay: 'Design a dream house on paper and explain your design choices.'
@@ -168,11 +211,13 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['STEM', 'Natural Science'],
         pathwayDescription: 'Choose STEM or Natural Science subjects in Form 1-4: Mathematics, English, and Physics. This prepares you for mathematics and data science careers.',
+        // Based on: Academic and research pathways for mathematicians
         pathwayAbroad: [
-            'Get a degree in Mathematics or Applied Mathematics',
-            'Specialize in a field like data science, finance, or cryptography',
-            'Gain experience through research or internships',
-            'Apply for international roles or postgraduate studies'
+            'Get a degree in Mathematics, Applied Mathematics, or Statistics',
+            'Specialize in a field like data science, finance, cryptography, or actuarial science',
+            'Pursue postgraduate studies (Master\'s or PhD) through international scholarships (Chevening, Fulbright, Commonwealth, DAAD)',
+            'Apply for research positions, postdoctoral fellowships, or industry roles in data science/finance',
+            'For industry roles: apply for skilled worker visas in the USA, UK, Canada, or Australia'
         ],
         story: 'Dr. Chisenga studied mathematics at UNZA and later got a scholarship to do her PhD in the UK. She now works as a data scientist for a global tech company.',
         careerDay: 'Try solving complex math puzzles or learn about cryptography.'
@@ -194,11 +239,13 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, English, Biology, Chemistry, and Physics. This prepares you for scientific research careers.',
+        // Based on: Research and academic pathways for scientists
         pathwayAbroad: [
-            'Get a degree in a science field (Biology, Chemistry, Physics)',
-            'Participate in research projects or internships',
-            'Publish research papers or present at conferences',
-            'Apply for international research roles or postgraduate studies'
+            'Get a degree in a science field (Biology, Chemistry, Physics, Environmental Science)',
+            'Participate in research projects and internships during your studies',
+            'Publish research papers and present at conferences to build your academic profile',
+            'Apply for international postgraduate scholarships (Chevening, Fulbright, Commonwealth, DAAD) for Master\'s or PhD programs',
+            'Apply for postdoctoral research positions or international research roles'
         ],
         story: 'Dr. Mwansa is a biologist who studies plant diseases affecting Zambian crops. Her research has helped farmers protect their harvests and improve food security.',
         careerDay: 'Conduct a simple science experiment at home or visit a lab.'
@@ -221,10 +268,11 @@ const careers = {
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, English, Biology, and Chemistry. This prepares you for biology and life sciences careers.',
         pathwayAbroad: [
-            'Get a degree in Biology or related field',
-            'Specialize in a subfield (microbiology, ecology, genetics)',
-            'Gain experience through research or internships',
-            'Apply for international research roles or postgraduate studies'
+            'Get a degree in Biology, Zoology, Botany, or related field',
+            'Specialize in a subfield (microbiology, ecology, genetics, conservation)',
+            'Gain research experience through internships or research assistant roles',
+            'Apply for international postgraduate scholarships (Chevening, Fulbright, Commonwealth, DAAD)',
+            'Apply for research positions, conservation roles, or postgraduate studies abroad'
         ],
         story: 'Dr. Katongo studies wildlife in Zambia\'s national parks. His research helps protect endangered species and maintain biodiversity.',
         careerDay: 'Observe plants or animals in your environment and note what you see.'
@@ -247,10 +295,11 @@ const careers = {
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, English, Chemistry, and Physics. This prepares you for chemistry and chemical sciences careers.',
         pathwayAbroad: [
-            'Get a degree in Chemistry or related field',
-            'Specialize in a subfield (analytical, organic, inorganic chemistry)',
-            'Gain experience through research or industrial internships',
-            'Apply for international roles or postgraduate studies'
+            'Get a degree in Chemistry, Analytical Chemistry, or related field',
+            'Specialize in a subfield (analytical, organic, inorganic, physical chemistry)',
+            'Gain experience through research projects or industrial internships',
+            'Apply for international postgraduate scholarships (Chevening, Fulbright, Commonwealth, DAAD)',
+            'Apply for research positions, industrial roles, or postgraduate studies abroad'
         ],
         story: 'Mrs. Banda is a chemist who works for a mining company analyzing mineral samples. Her work ensures the quality and safety of copper exports.',
         careerDay: 'Conduct simple chemistry experiments using household items.'
@@ -273,10 +322,11 @@ const careers = {
         pathway: ['Social Science'],
         pathwayDescription: 'Choose Social Science subjects in Form 1-4: History, Geography, and English. This prepares you for archaeology and heritage careers.',
         pathwayAbroad: [
-            'Get a degree in Archaeology or Anthropology',
-            'Participate in archaeological digs in Zambia or abroad',
-            'Specialize in a specific region or time period',
-            'Apply for international research or heritage preservation roles'
+            'Get a degree in Archaeology, Anthropology, or Heritage Studies',
+            'Participate in archaeological excavations in Zambia to gain field experience',
+            'Publish research and present at academic conferences',
+            'Apply for international postgraduate scholarships or research fellowships',
+            'Apply for heritage preservation roles with international organizations (UNESCO, World Monuments Fund)'
         ],
         story: 'Mr. Mulenga has worked on archaeological sites in Zambia, uncovering artifacts that tell the story of Zambia\'s ancient civilizations.',
         careerDay: 'Visit a museum or historical site and learn about Zambia\'s past.'
@@ -298,11 +348,13 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['STEM', 'Natural Science'],
         pathwayDescription: 'Choose STEM or Natural Science subjects in Form 1-4: Mathematics, English, Physics, and Chemistry. This prepares you for various engineering careers.',
+        // Based on: Washington Accord provisional status for all engineering disciplines [1†L20-L25]
         pathwayAbroad: [
-            'Get a degree in Engineering (Mechanical, Electrical, Civil, etc.)',
+            'Get a degree in Engineering (Mechanical, Electrical, Civil, Chemical, etc.) from CBU or UNZA',
             'Register with the Engineering Institution of Zambia (EIZ)',
-            'Gain experience through internships or jobs in Zambia',
-            'Apply for international engineering roles or postgraduate studies'
+            'Gain practical experience through internships or jobs in Zambia',
+            'Leverage EIZ registration: Zambia is a Provisional Signatory to the Washington Accord (2026), enabling practice in 25 jurisdictions without re-evaluation',
+            'Apply for international engineering roles or postgraduate scholarships abroad'
         ],
         story: 'Mr. Chanda studied electrical engineering at CBU and now designs solar power systems for schools and clinics in rural Zambia.',
         careerDay: 'Visit an engineering site or build a simple machine from recycled materials.'
@@ -324,11 +376,13 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'Google Scholarships'],
         pathway: ['STEM'],
         pathwayDescription: 'Choose STEM subjects in Form 1-4: Mathematics, English, and ICT/Computer Studies. This prepares you for IT and technology careers.',
+        // Based on: Global demand for IT professionals and remote work opportunities [7†L5-L8]
         pathwayAbroad: [
-            'Get a degree in Information Technology or related field',
-            'Get certified in specific technologies (Cisco, Microsoft, AWS)',
-            'Gain experience in IT support or network administration',
-            'Apply for international IT roles or remote positions'
+            'Get a degree in Information Technology, Computer Science, or related field',
+            'Get professional certifications (Cisco CCNA, Microsoft, AWS, CompTIA)',
+            'Gain experience in IT support, network administration, or cybersecurity',
+            'Apply for remote IT roles with international companies',
+            'For relocation: apply for skilled worker visas in the USA, UK, Canada, or Australia'
         ],
         story: 'Grace works as an IT specialist for a bank in Lusaka. She ensures all systems are secure and running efficiently, and she trains staff on new technology.',
         careerDay: 'Learn how to set up a simple computer network or troubleshoot a computer problem.'
@@ -354,11 +408,17 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, English, Chemistry, Biology, Physics, and Additional Mathematics. This prepares you for medical school at UNZA or CBU.',
+        // Based on: UNZA School of Medicine is listed in IMED [0†L32-L33]
+        // UK: PLAB exam + GMC registration [2†L33-L36]
+        // USA: USMLE Steps 1-3 + ECFMG certification [2†L17-L19]
         pathwayAbroad: [
-            'Get a Bachelor of Medicine and Surgery (MBChB) from UNZA or CBU',
+            'Get a Bachelor of Medicine and Surgery (MBChB) from UNZA or CBU (UNZA is listed in the International Medical Education Directory - IMED)',
             'Complete internship at a Zambian hospital (1 year)',
-            'Register with the Health Professions Council of Zambia',
-            'For international practice: write licensing exams (USMLE, PLAB, etc.)'
+            'Register with the Health Professions Council of Zambia (HPCZ)',
+            'For the UK: Pass the PLAB (Professional and Linguistic Assessments Board) exam, register with the General Medical Council (GMC), and apply for a Health and Care Worker Visa (minimum salary £23,200)',
+            'For the USA: Pass USMLE Steps 1, 2, and 3, get ECFMG certification, complete a US residency program (3-7 years), and apply for a J-1 or H-1B visa',
+            'For Canada: Pass the MCCQE exams and complete the Canadian residency match process',
+            'For Australia: Pass the AMC exams and complete supervised practice (12 months)'
         ],
         story: 'Dr. Musonda grew up in a rural village. She studied at UNZA, then got a scholarship to specialize in paediatrics in the UK. She now trains Zambian doctors.',
         careerDay: 'Visit a clinic or hospital and shadow a doctor for a day.'
@@ -380,11 +440,14 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, English, Chemistry, Biology, and Physics. This prepares you for medical school and surgical training.',
+        // Based on: Same pathway as Medical Doctor, plus surgical specialization
         pathwayAbroad: [
             'Get a Bachelor of Medicine and Surgery (MBChB) from UNZA or CBU',
             'Complete internship at a Zambian hospital (1 year)',
-            'Complete specialist surgical training (5-7 years)',
-            'Apply for international surgical fellowships or roles'
+            'Complete specialist surgical training (5-7 years in Zambia or abroad)',
+            'Register with the Health Professions Council of Zambia (HPCZ)',
+            'For international practice: follow the same licensing pathway as Medical Doctors (PLAB/GMC for UK, USMLE/ECFMG for USA, etc.)',
+            'Apply for international surgical fellowships to gain specialized training'
         ],
         story: 'Dr. Mwansa is a surgeon who studied in Zambia and trained in the UK. He now performs life-saving surgeries at a hospital in Lusaka and teaches medical students.',
         careerDay: 'Shadow a surgeon in a hospital (with permission) and learn about different surgical procedures.'
@@ -406,11 +469,14 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, English, Biology, and Chemistry. This prepares you for nursing at UNZA or Evelyn Hone.',
+        // Based on: UK NMC registration pathway [3†L10-L14][3†L47-L49]
         pathwayAbroad: [
-            'Complete a Diploma or Degree in Nursing',
-            'Register with the Nursing and Midwifery Council of Zambia',
-            'Gain experience in Zambian healthcare facilities',
-            'Apply for international nursing roles or licensing exams'
+            'Complete a Diploma or Degree in Nursing from a recognized Zambian institution',
+            'Register with the Nursing and Midwifery Council of Zambia (NMCZ)',
+            'Gain at least 12 months of nursing experience in Zambia',
+            'For the UK: Apply to register with the UK Nursing and Midwifery Council (NMC) - pass the Test of Competence (CBT and OSCE), meet English language requirements (IELTS/OET), and apply for a Health and Care Worker Visa',
+            'For Canada: Apply to the National Nursing Assessment Service (NNAS) and complete the licensing process with the provincial nursing body',
+            'For Australia: Apply to the Australian Health Practitioner Regulation Agency (AHPRA) and pass the OSCE exam'
         ],
         story: 'Sister Grace worked at a rural clinic for 5 years. She then applied for a nursing role in the UK and is now a senior nurse in London.',
         careerDay: 'Talk to a nurse about their daily work and what they enjoy most.'
@@ -432,11 +498,14 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth', 'Fulbright (USA)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, English, Chemistry, and Biology. This prepares you for pharmacy at UNZA.',
+        // Based on: International pharmacy licensing requirements [9†L30-L35][9†L40-L42]
         pathwayAbroad: [
             'Get a Degree in Pharmacy from UNZA',
             'Complete internship and register with the Pharmacy Council of Zambia',
-            'Gain experience in community or hospital pharmacy',
-            'Apply for international licensing and roles'
+            'Gain practical pharmacy experience in community or hospital settings',
+            'For the UK: Apply to the General Pharmaceutical Council (GPhC) for registration - may require the Overseas Pharmacists Assessment Programme (OSPAP) and pre-registration training',
+            'For Canada: Apply to the Pharmacy Examining Board of Canada (PEBC) - pass the evaluating exam and qualifying exam',
+            'For Australia: Apply to the Australian Pharmacy Council (APC) - pass the knowledge and oral exams'
         ],
         story: 'Mr. Phiri runs a pharmacy in Matero. He also supplies medicines to rural clinics and is considering expanding to other towns.',
         careerDay: 'Visit a pharmacy and ask about how they help patients.'
@@ -458,11 +527,13 @@ const careers = {
         scholarships: ['Government bursaries', 'ZAMFA'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Science, English, and Mathematics. This prepares you for paramedic training.',
+        // Based on: Paramedic qualifications are often country-specific
         pathwayAbroad: [
-            'Complete paramedic training in Zambia',
+            'Complete paramedic training and certification in Zambia',
             'Gain experience in emergency response in Zambia',
-            'Get additional certifications (Advanced Life Support)',
-            'Apply for international paramedic roles with additional certification'
+            'For international practice: research the paramedic licensing requirements in the target country - many countries require additional certification or re-training',
+            'Consider further studies: Advanced Life Support (ALS) or International Paramedic certifications',
+            'Apply for international paramedic roles with additional certification where required'
         ],
         story: 'Mr. Banda works as a paramedic in Lusaka. He has saved countless lives in emergency situations, from road accidents to childbirth emergencies.',
         careerDay: 'Visit an ambulance station and talk to paramedics about their work.'
@@ -484,11 +555,14 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Science, Biology, English, and Chemistry. This prepares you for veterinary medicine at UNZA.',
+        // Based on: Veterinary registration is regulated by country-specific bodies [10†L9-L15]
         pathwayAbroad: [
             'Get a degree in Veterinary Medicine from UNZA',
             'Complete internship and register with the Veterinary Council of Zambia',
-            'Gain experience in animal health',
-            'Apply for international veterinary roles or licensing exams'
+            'Gain experience in animal health (livestock, pets, or wildlife)',
+            'For the UK: Apply to the Royal College of Veterinary Surgeons (RCVS) for registration - may require the RCVS Statutory Examination for overseas graduates',
+            'For the USA: Pass the North American Veterinary Licensing Examination (NAVLE) and meet state-specific requirements',
+            'For Australia: Apply to the Australasian Veterinary Boards Council (AVBC) for registration'
         ],
         story: 'Dr. Zulu works in a rural area, treating livestock that are essential to farmers\' livelihoods. She has helped prevent disease outbreaks that could devastate communities.',
         careerDay: 'Visit a veterinary clinic or a farm with livestock.'
@@ -510,11 +584,13 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Social Science'],
         pathwayDescription: 'Choose Social Science subjects in Form 1-4: English, Science, and Civics. This prepares you for psychology and therapy careers.',
+        // Based on: Psychology and therapy licensing is country-specific
         pathwayAbroad: [
-            'Get a degree in Psychology or Counseling',
-            'Complete clinical training and supervision',
-            'Register with the Health Professions Council of Zambia',
-            'Apply for international licensing and roles'
+            'Get a degree in Psychology, Counseling, or Clinical Psychology from UNZA or CBU',
+            'Complete clinical training and supervised practice in Zambia',
+            'Register with the Health Professions Council of Zambia (HPCZ)',
+            'For international practice: research the licensing requirements in the target country - most countries require additional exams or supervised practice',
+            'Apply for international counseling roles or postgraduate studies in Psychology'
         ],
         story: 'Mrs. Chilufya is a therapist who helps young people in Lusaka deal with anxiety, depression, and trauma. Her work is transforming lives.',
         careerDay: 'Talk to a counselor or therapist about their work.'
@@ -536,10 +612,13 @@ const careers = {
         scholarships: ['Government bursaries', 'ZAMFA'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, Science, and English. This prepares you for clinical officer training.',
+        // Based on: Clinical Officers are being recognized internationally [2†L37-L44]
         pathwayAbroad: [
-            'Complete Clinical Officer training in Zambia',
+            'Complete Clinical Officer training and certification in Zambia',
             'Gain experience in Zambian health facilities',
-            'For international roles: upgrade to full medical degree or specialized diplomas'
+            'Note: Clinical Officers are now able to register with the UK General Medical Council (GMC) under new registration pathways - this requires qualification assessment (£500) and English language tests (IELTS/OET)',
+            'For other countries: upgrade to a full medical degree (MBChB) or specialized diplomas for international recognition',
+            'Apply for international healthcare roles where clinical officer qualifications are recognized'
         ],
         story: 'Mr. Banda works at a clinic in a rural area. He treats hundreds of patients every month and is the only medical professional for 50km.',
         careerDay: 'Visit a local clinic and ask the clinical officer about their typical day.'
@@ -561,11 +640,14 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Science, Biology, English, and Chemistry. This prepares you for dentistry at UNZA.',
+        // Based on: Dental licensing is country-specific [0†L35-L36]
         pathwayAbroad: [
             'Get a degree in Dentistry from UNZA',
-            'Complete internship and register with the Health Professions Council of Zambia',
+            'Complete internship and register with the Health Professions Council of Zambia (HPCZ)',
             'Gain experience in dental practice',
-            'Apply for international licensing and roles'
+            'For the UK: Apply to the General Dental Council (GDC) for registration - may require the Overseas Registration Exam (ORE)',
+            'For the USA: Pass the National Board Dental Examinations (NBDE) and meet state-specific requirements',
+            'For Australia: Apply to the Dental Board of Australia (AHPRA) for registration'
         ],
         story: 'Dr. Phiri runs a dental clinic in Lusaka that provides affordable dental care to low-income families. He also educates communities about oral hygiene.',
         careerDay: 'Visit a dental clinic and learn about oral health.'
@@ -588,10 +670,12 @@ const careers = {
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Science, Mathematics, and English. This prepares you for radiography training.',
         pathwayAbroad: [
-            'Complete radiography training in Zambia',
-            'Register with the Health Professions Council of Zambia',
+            'Complete radiography training and certification in Zambia',
+            'Register with the Health Professions Council of Zambia (HPCZ)',
             'Gain experience in Zambian healthcare facilities',
-            'Apply for international radiography roles'
+                    'For the UK: Apply to the Health and Care Professions Council (HCPC) for registration - may require the International Qualifying Examination (IQE) for radiographers',
+            'For Australia: Apply to the Medical Radiation Practice Board of Australia (AHPRA) for registration',
+            'For Canada: Apply to the Canadian Association of Medical Radiation Technologists (CAMRT) for certification'
         ],
         story: 'Mrs. Chiluba is a radiographer at a hospital in Ndola. She uses X-ray technology to help doctors diagnose broken bones and other injuries.',
         careerDay: 'Visit a hospital radiology department.'
@@ -614,10 +698,11 @@ const careers = {
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Science, Biology, and Chemistry. This prepares you for laboratory training.',
         pathwayAbroad: [
-            'Complete laboratory technician training in Zambia',
-            'Register with the Health Professions Council of Zambia',
+            'Complete laboratory technician training and certification in Zambia',
+            'Register with the Health Professions Council of Zambia (HPCZ)',
             'Gain experience in Zambian laboratories',
-            'Apply for international laboratory roles'
+            'For the UK: Apply to the Health and Care Professions Council (HCPC) for registration as a biomedical scientist - may require the IBMS registration portfolio',
+            'For other countries: research the specific laboratory technician licensing requirements in the target country'
         ],
         story: 'Mr. Banda works in a hospital lab in Lusaka. He tests blood samples for malaria, HIV, and other diseases, helping doctors save lives.',
         careerDay: 'Visit a hospital laboratory and see how tests are done.'
@@ -643,11 +728,13 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth', 'ACCA Scholarships'],
         pathway: ['Business Studies'],
         pathwayDescription: 'Choose Business Studies subjects in Form 1-4: Mathematics, English, Commerce, and Principles of Accounts. This prepares you for accounting and finance careers.',
+        // Based on: ACCA and CIMA are globally recognized qualifications [4†L9-L10][4†L32-L33]
         pathwayAbroad: [
-            'Get a degree in Accounting or related field',
-            'Complete professional certifications (ZICA, ACCA, CIMA)',
-            'Gain experience in Zambian organizations',
-            'Apply for international accounting roles'
+            'Get a degree in Accounting or related field from UNZA, CBU, or ZCAS',
+            'Complete professional certifications: ACCA (Association of Chartered Certified Accountants), CIMA (Chartered Institute of Management Accountants), or ZICA (Zambia Institute of Chartered Accountants)',
+            'ACCA and CIMA are internationally recognized qualifications that allow you to work in any country',
+            'Gain experience in Zambian organizations to build your professional portfolio',
+            'Apply for international accounting roles - ACCA and CIMA qualifications are recognized in the UK, Canada, Australia, South Africa, and many other countries'
         ],
         story: 'Mutale studied accounting at UNZA and became a ZICA member. She now works for an international mining company in Zambia.',
         careerDay: 'Help a local business track their expenses for a day.'
@@ -657,7 +744,7 @@ const careers = {
         cluster: 'Business',
         icon: '🚀',
         description: 'Start and run your own business, creating jobs and solving problems in Zambia\'s economy.',
-        requiredSkills: ['Business skills', 'Creativity', 'Leadership', 'Financial management', 'Communication'],
+        requiredSkills: ['Business skills', 'Creativity', 'Leadership', 'Financial management', 'Communication'], // No academic prerequisites - uses skills
         recommendedSubjects: ['English', 'Mathematics', 'Business Studies'],
         institutions: ['Self-employed - skills can be developed anywhere'],
         salaryLocal: 'Varies widely - K2,000 to K50,000+ per month',
@@ -669,11 +756,13 @@ const careers = {
         scholarships: ['Tony Elumelu Foundation', 'Zambia Youth Enterprise Fund', 'UNDP Youth Entrepreneurship'],
         pathway: ['Business Studies'],
         pathwayDescription: 'Choose Business Studies subjects in Form 1-4: English, Mathematics, and Business Studies. This prepares you for entrepreneurship.',
+        // Based on: Entrepreneurship is borderless - business skills transfer anywhere
         pathwayAbroad: [
-            'Start a small business in Zambia to gain experience',
+            'Start a small business in Zambia to gain practical experience',
             'Learn business skills through online courses and practical experience',
-            'Network with other entrepreneurs',
-            'Expand your business to other markets'
+            'Network with other entrepreneurs locally and internationally',
+            'For international expansion: research the business registration and visa requirements in the target country',
+            'Apply for international entrepreneurship programs, incubators, and accelerator programs'
         ],
         story: 'Lungowe started selling vegetables in the market. She now runs a catering business that employs 15 people and supplies schools and events.',
         careerDay: 'Start a small business selling snacks or crafts for a week.'
@@ -695,11 +784,13 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth'],
         pathway: ['Business Studies'],
         pathwayDescription: 'Choose Business Studies subjects in Form 1-4: Mathematics, English, and Economics. This prepares you for banking and finance careers.',
+        // Based on: International banking requires professional certifications
         pathwayAbroad: [
-            'Get a degree in Finance, Economics, or Business',
-            'Gain experience in Zambian banking sector',
-            'Get professional certifications (ACCA, CIMA)',
-            'Apply for international banking roles'
+            'Get a degree in Finance, Economics, or Business from UNZA or CBU',
+            'Gain experience in the Zambian banking sector',
+            'Get professional certifications (ACCA, CIMA, CFA) - these are internationally recognized',
+            'Apply for international banking roles - many international banks have operations in Zambia and can facilitate internal transfers',
+            'Alternatively: apply for skilled worker visas in the UK, South Africa, or Australia with a finance/accounting background'
         ],
         story: 'Charles started as a teller in a Lusaka bank. He worked hard, got promoted, and is now a branch manager at 30.',
         careerDay: 'Visit a bank and ask about different career paths in banking.'
@@ -721,11 +812,14 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth'],
         pathway: ['Business Studies', 'Social Science'],
         pathwayDescription: 'Choose Business Studies or Social Science subjects in Form 1-4: English, Mathematics, Civics, and Business Studies. This prepares you for tax law.',
+        // Based on: Legal qualifications are jurisdiction-specific [6†L47-L51]
         pathwayAbroad: [
-            'Get a degree in Law from UNZA or CBU',
-            'Complete legal training and bar exam',
+            'Get a degree in Law (LLB) from UNZA or CBU',
+            'Complete practical legal training and pass the Zambian Bar exam (LPQE) at ZIALE',
             'Specialize in tax law through further study or experience',
-            'Apply for international tax law roles'
+            'For international practice: most countries require additional bar exams (e.g., New York Bar, England & Wales Solicitors Qualifying Exam)',
+            'Foreign-educated lawyers can qualify to take the New York Bar Exam if they have a law degree from a common law country',
+            'Apply for international tax law roles or postgraduate studies in Tax Law'
         ],
         story: 'Mr. Mwansa is a tax attorney in Lusaka. He helps mining companies and small businesses navigate Zambia\'s tax system and avoid legal issues.',
         careerDay: 'Talk to a lawyer or visit a law firm to learn about legal careers.'
@@ -748,10 +842,11 @@ const careers = {
         pathway: ['Business Studies'],
         pathwayDescription: 'Choose Business Studies subjects in Form 1-4: Mathematics, English, and Economics. This prepares you for economics careers.',
         pathwayAbroad: [
-            'Get a degree in Economics or related field',
+            'Get a degree in Economics or related field from UNZA or CBU',
             'Gain experience through research or internships',
-            'Get professional certifications or further education',
-            'Apply for international economic policy or analysis roles'
+            'Get professional certifications or pursue further education (Master\'s or PhD)',
+            'Apply for international economic policy roles, research positions, or postgraduate scholarships (Chevening, Fulbright, Commonwealth, DAAD)',
+            'Apply for roles with international organizations (World Bank, IMF, UNDP, African Development Bank)'
         ],
         story: 'Dr. Chibwe is an economist who advises the Zambian government on economic policy. Her work helps shape the country\'s financial future.',
         careerDay: 'Read about Zambian economics and discuss it with someone in the field.'
@@ -774,10 +869,10 @@ const careers = {
         pathway: ['Business Studies', 'Social Science'],
         pathwayDescription: 'Choose Business Studies or Social Science subjects in Form 1-4: English, Business Studies, and Civics. This prepares you for HR careers.',
         pathwayAbroad: [
-            'Get a degree in Human Resources, Business, or Psychology',
+            'Get a degree in Human Resources, Business, or Psychology from UNZA or CBU',
             'Gain experience in HR roles in Zambia',
-            'Get professional certifications (CIPD, SHRM)',
-            'Apply for international HR roles'
+            'Get professional certifications (CIPD - Chartered Institute of Personnel and Development, SHRM - Society for Human Resource Management) which are internationally recognized',
+            'Apply for international HR roles - CIPD and SHRM qualifications are recognized globally'
         ],
         story: 'Mrs. Banda is an HR manager for a company in Lusaka. She ensures employees are happy, trained, and treated fairly.',
         careerDay: 'Talk to an HR professional about their work.'
@@ -800,10 +895,11 @@ const careers = {
         pathway: ['Business Studies', 'Creative Arts'],
         pathwayDescription: 'Choose Business Studies or Creative Arts subjects in Form 1-4: English, Business Studies, and Art. This prepares you for marketing careers.',
         pathwayAbroad: [
-            'Get a degree in Marketing, Business, or Communications',
+            'Get a degree in Marketing, Business, or Communications from UNZA, CBU, or ZCAS',
             'Gain experience in marketing roles in Zambia',
             'Build a portfolio of marketing campaigns',
-            'Apply for international marketing roles'
+            'Get professional certifications (CIM - Chartered Institute of Marketing) which are internationally recognized',
+            'Apply for international marketing roles - digital marketing skills are in high demand globally'
         ],
         story: 'Chanda is a marketing manager for a Zambian company. He uses social media, TV ads, and events to promote products and grow the brand.',
         careerDay: 'Design a marketing campaign for a school event.'
@@ -826,10 +922,10 @@ const careers = {
         pathway: ['Business Studies'],
         pathwayDescription: 'Choose Business Studies subjects in Form 1-4: Mathematics, English, and Geography. This prepares you for logistics and supply chain careers.',
         pathwayAbroad: [
-            'Get a degree in Logistics, Supply Chain, or Business',
+            'Get a degree in Logistics, Supply Chain, or Business from CBU or UNZA',
             'Gain experience in logistics roles in Zambia',
-            'Get professional certifications (CILT, APICS)',
-            'Apply for international logistics roles'
+            'Get professional certifications (CILT - Chartered Institute of Logistics and Transport, APICS) which are internationally recognized',
+            'Apply for international logistics roles - supply chain management is a global profession'
         ],
         story: 'Mr. Phiri manages supply chains for a major company. He ensures products get from suppliers to customers efficiently and cost-effectively.',
         careerDay: 'Visit a warehouse or shipping company to see how goods are moved.'
@@ -855,11 +951,13 @@ const careers = {
         scholarships: ['DAAD (Germany)', 'Fulbright (USA)', 'Commonwealth'],
         pathway: ['Creative Arts', 'STEM'],
         pathwayDescription: 'Choose Creative Arts or STEM subjects in Form 1-4: Art, English, and ICT/Computer Studies. This prepares you for graphic design careers.',
+        // Based on: Portfolio-based profession - remote work is common
         pathwayAbroad: [
-            'Build a portfolio of design work',
-            'Get formal training in graphic design',
-            'Learn design software (Adobe Suite, Figma, etc.)',
-            'Apply for international freelance or full-time roles'
+            'Build a strong portfolio of design work (logos, posters, websites, etc.)',
+            'Get formal training in graphic design (degree or diploma)',
+            'Learn design software (Adobe Creative Suite, Figma, etc.)',
+            'Apply for international freelance or full-time roles - many graphic designers work remotely',
+            'For relocation: apply for skilled worker visas in countries with demand for creative professionals'
         ],
         story: 'Emma from Kitwe taught herself graphic design online. She now works remotely for a South African media company and has clients worldwide.',
         careerDay: 'Design a poster or logo for a school event.'
@@ -883,9 +981,10 @@ const careers = {
         pathwayDescription: 'Choose Creative Arts or STEM subjects in Form 1-4: Art, ICT/Computer Studies, and English. This prepares you for animation careers.',
         pathwayAbroad: [
             'Get formal training in animation (degree or diploma)',
-            'Build a portfolio of animation work',
-            'Learn animation software (Maya, Blender, After Effects)',
-            'Apply for international animation roles'
+            'Build a portfolio of animation work (2D, 3D, motion graphics)',
+            'Learn animation software (Maya, Blender, After Effects, Toon Boom)',
+            'Apply for international animation roles - many animation jobs are remote-friendly',
+            'For relocation: apply for skilled worker visas in countries with animation industries (USA, UK, Canada)'
         ],
         story: 'David from Lusaka creates animated videos for Zambian companies. His work is gaining recognition and he hopes to work with international studios.',
         careerDay: 'Create a simple animation using free software like Pivot or Blender.'
@@ -908,10 +1007,11 @@ const careers = {
         pathway: ['Social Science', 'Creative Arts'],
         pathwayDescription: 'Choose Social Science or Creative Arts subjects in Form 1-4: English and History. This prepares you for journalism at UNZA or ZAMCOM.',
         pathwayAbroad: [
-            'Get a degree in Journalism or Communication Studies',
+            'Get a degree in Journalism or Communication Studies from UNZA, Evelyn Hone, or ZAMCOM',
             'Gain experience in Zambian media houses',
-            'Build a portfolio of published work',
-            'Apply for international media roles or fellowships'
+            'Build a portfolio of published work (articles, broadcasts, etc.)',
+            'Apply for international media roles or fellowships (Chevening, Fulbright, Thomson Reuters Foundation)',
+            'For relocation: apply for skilled worker visas or journalist visas in countries with media industries'
         ],
         story: 'Sandra started as a radio presenter in her hometown. She now works for a major television network and reports on national issues.',
         careerDay: 'Write a news article about an event in your school or community.'
@@ -934,10 +1034,11 @@ const careers = {
         pathway: ['Social Science', 'Creative Arts'],
         pathwayDescription: 'Choose Social Science or Creative Arts subjects in Form 1-4: English and History. This prepares you for writing and publishing careers.',
         pathwayAbroad: [
-            'Write regularly to build a portfolio',
-            'Study creative writing or journalism',
-            'Publish work independently or with publishers',
-            'Apply for international writing residencies or fellowships'
+            'Write regularly to build a portfolio and develop your craft',
+            'Study creative writing or journalism for formal training',
+            'Publish work independently (self-publishing) or with publishers (traditional publishing)',
+            'Apply for international writing residencies, fellowships, or literary competitions',
+            'For relocation: apply for artist visas or skilled worker visas in countries with publishing industries'
         ],
         story: 'Mrs. Mwansa is a Zambian author who writes children\'s books about Zambian history and culture. Her books are used in schools across the country.',
         careerDay: 'Write a short story or poem and share it with others.'
@@ -961,9 +1062,10 @@ const careers = {
         pathwayDescription: 'Choose Creative Arts subjects in Form 1-4: English and Drama/Arts. This prepares you for acting and performing arts careers.',
         pathwayAbroad: [
             'Take acting classes or join a theatre group',
-            'Build a portfolio of performances',
+            'Build a portfolio of performances (showreel, headshots, etc.)',
             'Audition for roles in film, TV, and theatre',
-            'Apply for international acting roles or training programs'
+            'Apply for international acting roles or training programs (drama schools)',
+            'For relocation: apply for artist visas or entertainment visas in countries with film industries (USA, UK, South Africa)'
         ],
         story: 'Lungowe is a Zambian actor who started in school plays. She now stars in Zambian TV shows and has performed in South African productions.',
         careerDay: 'Perform a monologue or scene from a play.'
@@ -989,7 +1091,8 @@ const careers = {
             'Get formal training in design (fashion, interior, or product)',
             'Build a portfolio of design work',
             'Learn design software and techniques',
-            'Apply for international design roles'
+            'Apply for international design roles - many design jobs are remote-friendly',
+            'For relocation: apply for skilled worker visas in countries with design industries'
         ],
         story: 'Chisi is a fashion designer in Lusaka who creates modern Zambian clothing. Her designs have been featured in fashion shows across Africa.',
         careerDay: 'Design a piece of clothing or an interior space on paper.'
@@ -1015,7 +1118,8 @@ const careers = {
             'Build a portfolio of professional photos',
             'Sign with a modeling agency in Zambia',
             'Gain experience in local fashion shows and shoots',
-            'Apply for international modeling roles or agencies'
+            'Apply for international modeling roles or agencies - many international agencies scout for models from Africa',
+            'For relocation: apply for artist visas or entertainment visas in countries with fashion industries'
         ],
         story: 'Mwansa is a Zambian model who has worked for local designers and appeared in campaigns for international brands. She now mentors young models.',
         careerDay: 'Practice posing for photos and learn about the fashion industry.'
@@ -1041,7 +1145,8 @@ const careers = {
             'Build a portfolio of photographs',
             'Learn photography techniques and editing software',
             'Gain experience through commissions or internships',
-            'Apply for international photography roles'
+            'Apply for international photography roles - many photographers work freelance internationally',
+            'For relocation: apply for artist visas or skilled worker visas in countries with media industries'
         ],
         story: 'Chanda is a photographer who captures the beauty of Zambia\'s landscapes and wildlife. His photos have been published in magazines worldwide.',
         careerDay: 'Take photos of your surroundings and practice editing them.'
@@ -1065,9 +1170,10 @@ const careers = {
         pathwayDescription: 'Choose Creative Arts subjects in Form 1-4: Music and English. This prepares you for music and performing arts careers.',
         pathwayAbroad: [
             'Practice and develop your musical skills',
-            'Build a portfolio of original music',
+            'Build a portfolio of original music (recordings, performances)',
             'Perform in local venues and build a following',
-            'Apply for international music opportunities and recording deals'
+            'Apply for international music opportunities, recording deals, or music festivals',
+            'For relocation: apply for artist visas or entertainment visas in countries with music industries'
         ],
         story: 'Sauti Sol is a famous band that started in Kenya and now performs worldwide. Zambian musicians like Pompi and Mampi have also achieved international success.',
         careerDay: 'Learn to play an instrument or write a song.'
@@ -1091,10 +1197,11 @@ const careers = {
         pathway: ['Creative Arts'],
         pathwayDescription: 'Choose Creative Arts subjects in Form 1-4: Art and English. This prepares you for fashion design careers.',
         pathwayAbroad: [
-            'Get formal training in fashion design',
+            'Get formal training in fashion design (degree or diploma)',
             'Build a portfolio of designs',
             'Gain experience through internships or apprenticeships',
-            'Apply for international fashion roles or design programs'
+            'Apply for international fashion roles or design programs - fashion is a global industry',
+            'For relocation: apply for artist visas or skilled worker visas in countries with fashion industries (UK, USA, France, Italy)'
         ],
         story: 'Sandra is a Zambian fashion designer who creates chitenge-inspired clothing. Her brand is known across Zambia and she now exports to other countries.',
         careerDay: 'Design and make a simple piece of clothing.'
@@ -1120,7 +1227,8 @@ const careers = {
             'Develop toy-making skills through practice and training',
             'Build a portfolio of toy designs',
             'Start a small business selling toys locally',
-            'Explore international markets through exports or online sales'
+                    'Explore international markets through exports or online sales (Etsy, Amazon)',
+            'For relocation: research countries with toy manufacturing industries or craft markets'
         ],
         story: 'Mr. Banda makes wooden toys in his workshop in Lusaka. His toys are sold in markets and tourist shops across Zambia.',
         careerDay: 'Make a simple toy using recycled materials.'
@@ -1146,11 +1254,13 @@ const careers = {
         scholarships: ['Government bursaries', 'Chevening (UK)', 'Commonwealth'],
         pathway: ['Social Science'],
         pathwayDescription: 'Choose Social Science subjects in Form 1-4: English, Mathematics, and Science. This prepares you for teaching at UNZA or CBU.',
+        // Based on: Teaching qualifications are country-specific [5†L16-L20]
         pathwayAbroad: [
-            'Get a teaching qualification (Degree or Diploma)',
+            'Get a teaching qualification (Degree or Diploma) from UNZA, CBU, or Kwame Nkrumah',
             'Register with the Teaching Council of Zambia',
-            'Teach in Zambian schools for experience',
-            'For international roles: get additional certifications or teach in Zambian international schools'
+            'Teach in Zambian schools to gain experience',
+            'For international roles: research the teaching certification requirements in the target country - most countries require additional exams or qualification assessment (e.g., UK ENIC)',
+            'Teach in Zambian international schools (which follow international curricula like Cambridge or IB) as a pathway to international teaching'
         ],
         story: 'Mr. Phiri has been teaching for 20 years at a rural school. He\'s inspired thousands of students and helped many go to university.',
         careerDay: 'Help a younger student with their homework or tutoring.'
@@ -1173,10 +1283,11 @@ const careers = {
         pathway: ['Social Science'],
         pathwayDescription: 'Choose Social Science subjects in Form 1-4: English, Civics, and Science. This prepares you for social work at UNZA or CBU.',
         pathwayAbroad: [
-            'Get a degree in Social Work',
+            'Get a degree in Social Work from UNZA or CBU',
             'Register with the Social Work Council of Zambia',
-            'Gain experience in community-based organizations',
-            'Apply for international NGO roles'
+            'Gain experience in community-based organizations in Zambia',
+            'Apply for international NGO roles - many international NGOs hire social workers for humanitarian and development projects',
+            'For relocation: research the social work licensing requirements in the target country'
         ],
         story: 'Grace works with street children in Lusaka. She helps them get education, food, and shelter, and has changed many lives.',
         careerDay: 'Visit a community organization and see how they help people.'
@@ -1199,10 +1310,11 @@ const careers = {
         pathway: ['Social Science'],
         pathwayDescription: 'Choose Social Science subjects in Form 1-4: English and Civics. This prepares you for counseling and guidance careers.',
         pathwayAbroad: [
-            'Get a degree in Counseling, Psychology, or Education',
-            'Complete professional training and supervision',
+            'Get a degree in Counseling, Psychology, or Education from UNZA or CBU',
+            'Complete professional training and supervised practice',
             'Register with relevant professional bodies in Zambia',
-            'Apply for international counseling roles'
+            'For international practice: research the counseling licensing requirements in the target country - may require additional exams or supervised practice',
+            'Apply for international counseling roles or postgraduate studies in Psychology'
         ],
         story: 'Mrs. Mwansa is a guidance counselor at a school in Lusaka. She helps students with their subject choices, personal challenges, and future planning.',
         careerDay: 'Talk to a school counselor about their work.'
@@ -1225,10 +1337,10 @@ const careers = {
         pathway: ['Social Science'],
         pathwayDescription: 'Choose Social Science subjects in Form 1-4: English, Civics, and Geography. This prepares you for community development careers.',
         pathwayAbroad: [
-            'Get a degree in Community Development, Social Work, or Development Studies',
+            'Get a degree in Community Development, Social Work, or Development Studies from UNZA or CBU',
             'Gain experience in community projects in Zambia',
             'Build a portfolio of community development work',
-            'Apply for international NGO roles'
+            'Apply for international NGO roles - many international NGOs work in community development across Africa and globally'
         ],
         story: 'Mr. Phiri works with rural communities in Zambia, helping them start farming cooperatives and improve access to clean water.',
         careerDay: 'Volunteer with a community organization.'
@@ -1254,7 +1366,7 @@ const careers = {
             'Complete theological training and formation',
             'Serve in a local parish or religious community',
             'Gain experience in pastoral care and leadership',
-            'Apply for international religious roles or missionary work'
+            'Apply for international religious roles or missionary work - many religious organizations have international missions'
         ],
         story: 'Father Banda has served a church in Lusaka for 15 years. He has counseled hundreds of families and helped build schools and health centers.',
         careerDay: 'Talk to a religious leader about their work and community role.'
@@ -1276,11 +1388,14 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth'],
         pathway: ['Social Science'],
         pathwayDescription: 'Choose Social Science subjects in Form 1-4: English, Civics, and History. This prepares you for law at UNZA or CBU.',
+        // Based on: Legal qualifications are jurisdiction-specific [6†L47-L51]
         pathwayAbroad: [
-            'Get a degree in Law from UNZA or CBU',
-            'Complete legal training and bar exam',
+            'Get a degree in Law (LLB) from UNZA or CBU',
+            'Complete practical legal training and pass the Zambian Bar exam (LPQE) at ZIALE',
             'Practice law in Zambia to gain experience',
-            'Apply for international legal roles or further studies'
+            'For international practice: most countries require additional bar exams (e.g., New York Bar, England & Wales Solicitors Qualifying Exam)',
+            'Foreign-educated lawyers from common law countries can qualify to take the New York Bar Exam',
+            'Apply for international legal roles or postgraduate studies in Law'
         ],
         story: 'Mrs. Chirwa is a human rights lawyer in Zambia. She represents vulnerable people who cannot afford legal representation and advocates for justice.',
         careerDay: 'Visit a court or a law firm to see lawyers in action.'
@@ -1307,10 +1422,11 @@ const careers = {
         pathway: ['Vocational PCA', 'Social Science'],
         pathwayDescription: 'Choose Vocational PCA or Social Science subjects in Form 1-4: Geography, English, and History. This prepares you for tourism and guiding careers.',
         pathwayAbroad: [
-            'Get training in tourism and hospitality',
+            'Get training in tourism and hospitality (Evelyn Hone, ZAWA)',
             'Gain experience in Zambian tourism sector',
-            'Get certified as a professional tour guide',
-            'Apply for international tour guide roles or eco-tourism projects'
+            'Get certified as a professional tour guide in Zambia',
+            'Apply for international tour guide roles or eco-tourism projects - Africa-wide tour guide certifications exist',
+            'For relocation: research countries with tourism industries and guide certification requirements'
         ],
         story: 'Chifundo works at Victoria Falls and South Luangwa. He has guided thousands of tourists and speaks five languages.',
         careerDay: 'Visit a local tourist attraction and learn about its history.'
@@ -1333,10 +1449,11 @@ const careers = {
         pathway: ['Vocational Agriculture'],
         pathwayDescription: 'Choose Vocational Agriculture subjects in Form 1-4: Agriculture, Science, and English. This prepares you for farming and agricultural careers.',
         pathwayAbroad: [
-            'Get training in agriculture (Diploma or Degree)',
-            'Gain practical farming experience',
-            'Learn modern farming techniques (agtech, irrigation, etc.)',
-            'Apply for international agricultural projects or research roles'
+            'Get training in agriculture (Diploma or Degree) from NRDC or Mulungushi',
+            'Gain practical farming experience in Zambia',
+            'Learn modern farming techniques (agtech, irrigation, sustainable farming)',
+            'Apply for international agricultural projects or research roles',
+            'For relocation: research countries with agricultural sectors and farming visa programs'
         ],
         story: 'Mrs. Zulu started farming with one hectare. She now grows maize and soybeans on 20 hectares and supplies major millers.',
         careerDay: 'Visit a farm and learn about what crops are grown.'
@@ -1359,10 +1476,10 @@ const careers = {
         pathway: ['Vocational Agriculture', 'Natural Science'],
         pathwayDescription: 'Choose Vocational Agriculture or Natural Science subjects in Form 1-4: Biology, Geography, and English. This prepares you for conservation and wildlife careers.',
         pathwayAbroad: [
-            'Get training in wildlife management or conservation',
+            'Get training in wildlife management or conservation from ZAWA or NRDC',
             'Gain experience in Zambian national parks',
             'Get additional certifications in conservation',
-            'Apply for international conservation roles'
+            'Apply for international conservation roles with organizations like WWF, Conservation International, or African Parks'
         ],
         story: 'James is a game ranger in South Luangwa. He protects elephants and rhinos from poachers and educates communities about conservation.',
         careerDay: 'Visit a national park or nature reserve and talk to a ranger.'
@@ -1385,10 +1502,10 @@ const careers = {
         pathway: ['Vocational Agriculture', 'Natural Science'],
         pathwayDescription: 'Choose Vocational Agriculture or Natural Science subjects in Form 1-4: Geography, Biology, and English. This prepares you for forestry and conservation careers.',
         pathwayAbroad: [
-            'Get training in forestry or environmental science',
+            'Get training in forestry or environmental science from NRDC',
             'Gain experience in Zambian forestry sector',
             'Get additional certifications in conservation',
-            'Apply for international forestry or conservation roles'
+            'Apply for international forestry or conservation roles with organizations like WWF or FAO'
         ],
         story: 'Mrs. Mwansa is a forest ranger in Zambia. She works to protect forests from illegal logging and promotes reforestation.',
         careerDay: 'Visit a forest or learn about tree planting.'
@@ -1411,10 +1528,10 @@ const careers = {
         pathway: ['Vocational Agriculture', 'Natural Science'],
         pathwayDescription: 'Choose Vocational Agriculture or Natural Science subjects in Form 1-4: Science, Biology, and Geography. This prepares you for fisheries and aquatic careers.',
         pathwayAbroad: [
-            'Get training in fisheries or aquatic sciences',
+            'Get training in fisheries or aquatic sciences from NRDC',
             'Gain experience in Zambian fisheries sector',
             'Get additional certifications in fisheries management',
-            'Apply for international fisheries roles'
+            'Apply for international fisheries roles with organizations like FAO or WWF'
         ],
         story: 'Mr. Banda is a fishery officer who monitors fish populations in Lake Kariba. His work helps ensure a sustainable fishing industry in Zambia.',
         careerDay: 'Visit a fish farm or talk to a fisherman.'
@@ -1436,11 +1553,13 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['STEM', 'Natural Science'],
         pathwayDescription: 'Choose STEM or Natural Science subjects in Form 1-4: Mathematics, Geography, and English. This prepares you for surveying and geomatics careers.',
+        // Based on: Surveying qualifications are internationally recognized [12†L10-L17][12†L36-L38]
         pathwayAbroad: [
-            'Get a degree in Surveying or Geomatics',
-            'Register with the Surveyors Institute of Zambia',
+            'Get a degree in Surveying or Geomatics from CBU or UNZA',
+            'Register with the Surveyors Institute of Zambia (SIZ)',
             'Gain experience in surveying projects',
-            'Apply for international surveying roles'
+            'For international practice: apply for registration with international surveying bodies (e.g., RICS in the UK, FIG - International Federation of Surveyors)',
+            'Apply for international surveying roles - surveying skills are in demand globally'
         ],
         story: 'Mr. Chanda is a surveyor who maps land for development projects in Zambia. His work ensures roads and buildings are built in the right places.',
         careerDay: 'Learn how to use surveying equipment or map an area.'
@@ -1467,10 +1586,11 @@ const careers = {
         pathway: ['Social Science', 'Business Studies'],
         pathwayDescription: 'Choose Social Science or Business Studies subjects in Form 1-4: English, Civics, and History. This prepares you for public service and leadership careers.',
         pathwayAbroad: [
-            'Get a degree in Public Administration, Law, or Political Science',
+            'Get a degree in Public Administration, Law, or Political Science from UNZA or CBU',
             'Gain experience in government or public service',
             'Build a track record of leadership and service',
-            'Consider international exchange programs or further studies'
+            'Consider international exchange programs or further studies (Chevening, Fulbright)',
+            'Apply for international public service roles or work with international organizations'
         ],
         story: 'Ms. Mwansa is a governor who has transformed her province by investing in education and infrastructure. She is an inspiration to young women.',
         careerDay: 'Attend a community meeting or talk to a local government official.'
@@ -1496,7 +1616,7 @@ const careers = {
             'Meet physical and educational requirements for army recruitment',
             'Complete basic training in the Zambian Army',
             'Advance through training and promotions',
-            'Apply for international peacekeeping missions'
+            'Apply for international peacekeeping missions with the UN or African Union'
         ],
         story: 'Captain Phiri has served in the Zambian Army for 10 years and participated in UN peacekeeping missions in other African countries.',
         careerDay: 'Talk to a soldier or visit a military training facility.'
@@ -1522,7 +1642,7 @@ const careers = {
             'Meet physical and educational requirements for recruitment',
             'Complete firefighter training in Zambia',
             'Gain experience in emergency response',
-            'Apply for international firefighter exchanges or roles'
+            'Apply for international firefighter exchanges or roles - some countries have reciprocal recognition for firefighter qualifications'
         ],
         story: 'Mr. Banda is a firefighter in Lusaka. He has saved lives and properties in fires and other emergencies.',
         careerDay: 'Visit a fire station and learn about fire safety.'
@@ -1548,7 +1668,7 @@ const careers = {
             'Meet physical and educational requirements for recruitment',
             'Complete police training in Zambia',
             'Gain experience in community policing and law enforcement',
-            'Apply for international police exchanges or roles'
+            'Apply for international police exchanges or roles with INTERPOL or UN police missions'
         ],
         story: 'Sergeant Chilufya has served in the Zambia Police Service for 8 years and works to build trust between police and communities.',
         careerDay: 'Talk to a police officer about their work or visit a police station.'
@@ -1573,8 +1693,8 @@ const careers = {
         pathwayAbroad: [
             'Complete security training in Zambia',
             'Gain experience in security roles',
-            'Get additional certifications in security',
-            'Apply for private security roles internationally'
+            'Get additional certifications in security (e.g., SIRA in South Africa)',
+            'Apply for private security roles internationally - some countries have reciprocal recognition for security qualifications'
         ],
         story: 'Mr. Mwansa works as a security guard at a bank in Lusaka. He ensures the safety of employees and customers and prevents incidents.',
         careerDay: 'Talk to a security guard about their work and safety skills.'
@@ -1596,11 +1716,14 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Airline training programs'],
         pathway: ['STEM', 'Natural Science'],
         pathwayDescription: 'Choose STEM or Natural Science subjects in Form 1-4: Mathematics, Physics, and English. This prepares you for pilot training.',
+        // Based on: Pilot licenses require conversion for each country [13†L12-L14][13†L40-L43]
         pathwayAbroad: [
             'Complete pilot training in Zambia or abroad',
             'Build flying hours (private, commercial, airline transport)',
-            'Get licensed by the Zambia Civil Aviation Authority',
-            'Apply for international pilot roles'
+            'Get licensed by the Zambia Civil Aviation Authority (ZCAA)',
+            'For international practice: convert your license to the target country\'s license - this typically requires written exams, flight tests, and a medical exam',
+            'Different countries have different hour requirements for conversion (500-1500 hours depending on the country)',
+            'Apply for international pilot roles with airlines or charter companies'
         ],
         story: 'Captain Mwansa is a commercial pilot who flies for an international airline. He started his career with a small Zambian airline and worked his way up.',
         careerDay: 'Visit an airport and talk to a pilot about their career.'
@@ -1627,10 +1750,10 @@ const careers = {
         pathway: ['Vocational Technology'],
         pathwayDescription: 'Choose Vocational Technology subjects in Form 1-4: Design & Technology, Mathematics, and English. This prepares you for carpentry and woodworking careers.',
         pathwayAbroad: [
-            'Complete carpentry training in Zambia',
+            'Complete carpentry training and certification in Zambia (TEVET)',
             'Gain practical experience on the job',
-            'Get professional certifications in carpentry',
-            'Apply for international carpentry roles'
+            'Get professional certifications in carpentry (e.g., NVQ in the UK, Red Seal in Canada)',
+            'Apply for international carpentry roles - skilled trades are in demand in countries like Australia, Canada, and the UK'
         ],
         story: 'Mr. Banda is a carpenter who runs his own workshop in Lusaka. He creates custom furniture and has built many homes.',
         careerDay: 'Build a small wooden object like a birdhouse or picture frame.'
@@ -1653,10 +1776,10 @@ const careers = {
         pathway: ['Vocational Technology'],
         pathwayDescription: 'Choose Vocational Technology subjects in Form 1-4: Design & Technology, Mathematics, and Physics. This prepares you for welding and metalworking careers.',
         pathwayAbroad: [
-            'Complete welding training in Zambia',
+            'Complete welding training and certification in Zambia (TEVET)',
             'Gain practical experience on the job',
-            'Get professional certifications in welding',
-            'Apply for international welding roles'
+            'Get professional certifications in welding (e.g., AWS in the USA, CWB in Canada)',
+            'Apply for international welding roles - skilled welders are in demand in construction, manufacturing, and shipbuilding'
         ],
         story: 'Mr. Chanda is a welder who works on construction projects in Lusaka. His skill in joining metal is essential for building strong structures.',
         careerDay: 'Visit a workshop or construction site to see welding in action.'
@@ -1681,7 +1804,8 @@ const careers = {
         pathwayAbroad: [
             'Gain experience in housekeeping and cleaning services',
             'Build a reputation for reliability and quality',
-            'Apply for domestic or hospitality work internationally'
+            'Apply for domestic or hospitality work internationally - some countries have programs for domestic workers',
+            'For relocation: research the visa requirements for domestic workers in the target country'
         ],
         story: 'Mrs. Banda has worked as a maid for 15 years, caring for homes and supporting families in Zambia.',
         careerDay: 'Help with household cleaning and organization.'
@@ -1704,10 +1828,10 @@ const careers = {
         pathway: ['Vocational Technology'],
         pathwayDescription: 'Choose Vocational Technology subjects in Form 1-4: Mathematics, Physics, and Design & Technology. This prepares you for electrical and engineering careers.',
         pathwayAbroad: [
-            'Complete electrical training in Zambia',
+            'Complete electrical training and certification in Zambia (TEVET)',
             'Complete apprenticeship and gain experience',
-            'Get professional certification as an electrician',
-            'Apply for international electrical roles'
+            'Get professional certification as an electrician (e.g., City & Guilds, NVQ, Red Seal)',
+            'Apply for international electrical roles - electricians are in high demand globally'
         ],
         story: 'Mr. Mulenga is an electrician who has worked on major construction projects in Zambia. His skill ensures buildings are safe and well-lit.',
         careerDay: 'Learn about electrical safety and how circuits work.'
@@ -1730,10 +1854,10 @@ const careers = {
         pathway: ['Vocational Technology'],
         pathwayDescription: 'Choose Vocational Technology subjects in Form 1-4: Design & Technology, Mathematics, and Physics. This prepares you for mechanical and automotive careers.',
         pathwayAbroad: [
-            'Complete mechanical training in Zambia',
+            'Complete mechanical training and certification in Zambia (TEVET)',
             'Gain practical experience in garages',
-            'Get professional certifications in automotive repair',
-            'Apply for international mechanic roles'
+            'Get professional certifications in automotive repair (e.g., ASE in USA, NVQ in UK)',
+            'Apply for international mechanic roles - mechanics are in demand globally'
         ],
         story: 'Mr. Phiri is a mechanic who runs a busy garage in Kitwe. He repairs all types of vehicles and is known for his expertise.',
         careerDay: 'Learn how to do simple vehicle maintenance.'
@@ -1756,10 +1880,10 @@ const careers = {
         pathway: ['Vocational Technology'],
         pathwayDescription: 'Choose Vocational Technology subjects in Form 1-4: Mathematics, Science, and Physical Education. This prepares you for mining and extraction careers.',
         pathwayAbroad: [
-            'Complete mining training in Zambia',
+            'Complete mining training and certification in Zambia (Zambia Mines Training School)',
             'Gain experience in Zambian mines',
-            'Get professional certifications in mining safety',
-            'Apply for international mining roles'
+            'Get professional certifications in mining safety (e.g., MSHA in USA)',
+            'Apply for international mining roles - mining skills are in demand in Australia, Canada, South Africa, and Chile'
         ],
         story: 'Mr. Banda works in a copper mine in Zambia. His work is essential to Zambia\'s economy and provides a good living for his family.',
         careerDay: 'Learn about mining safety and the mining process.'
@@ -1768,6 +1892,11 @@ const careers = {
 
 // ================================================================
 // SECTION 2: PER-CAREER TRAIT TAGS
+// ================================================================
+
+// These tags help the AI match students to careers based on
+// personality traits and preferences beyond just cluster scores.
+// Each career has a list of traits that describe the ideal candidate.
 // ================================================================
 
 const careerTraits = {
@@ -1784,7 +1913,7 @@ const careerTraits = {
     "Archeologist": ["curiosity", "outdoor", "history", "research", "patience", "knowledge"],
     "Engineer": ["analytical", "technical", "problemSolving", "leadership", "highSalary", "practical"],
     "IT Specialist": ["analytical", "technical", "technology", "problemSolving", "indoor", "highSalary"],
-    
+
     // Healthcare careers
     "Medical Doctor": ["helping", "analytical", "highPressure", "highSalary", "teamwork", "dedication"],
     "Surgeon": ["helping", "analytical", "highPressure", "highSalary", "precision", "dedication"],
@@ -1797,7 +1926,7 @@ const careerTraits = {
     "Dentist": ["helping", "analytical", "indoor", "medical", "highSalary", "precision"],
     "Radiographer": ["technical", "helping", "indoor", "medical", "detailOriented", "technology"],
     "Laboratory Technician": ["analytical", "science", "indoor", "detailOriented", "medical", "practical"],
-    
+
     // Business careers
     "Accountant": ["analytical", "detailOriented", "indoor", "independent", "business", "highSalary"],
     "Entrepreneur": ["leadership", "creative", "riskTaker", "business", "independent", "highSalary"],
@@ -1807,7 +1936,7 @@ const careerTraits = {
     "Human Resources": ["peoplePerson", "communication", "helping", "indoor", "teamwork", "organized"],
     "Marketing Manager": ["creative", "communication", "leadership", "business", "teamwork", "highSalary"],
     "Logistics Manager": ["analytical", "business", "organized", "problemSolving", "teamwork", "leadership"],
-    
+
     // Creative careers
     "Graphic Designer": ["creative", "independent", "indoor", "visual", "technology", "flexible"],
     "Animator": ["creative", "visual", "technology", "indoor", "patience", "artistic"],
@@ -1820,7 +1949,7 @@ const careerTraits = {
     "Musician": ["creative", "performance", "discipline", "expressive", "flexible", "passion"],
     "Fashion Designer": ["creative", "visual", "handcraft", "indoor", "artistic", "business"],
     "Toymaker": ["creative", "handcraft", "patience", "indoor", "imagination", "craftsmanship"],
-    
+
     // Helping careers
     "Teacher": ["helping", "communication", "patience", "leadership", "community", "planning"],
     "Social Worker": ["helping", "compassion", "community", "communication", "patience", "resilience"],
@@ -1828,7 +1957,7 @@ const careerTraits = {
     "Community Development Officer": ["helping", "community", "leadership", "outdoor", "compassion", "planning"],
     "Priest": ["helping", "communication", "compassion", "leadership", "community", "spiritual"],
     "Lawyer": ["helping", "analytical", "communication", "leadership", "highSalary", "advocacy"],
-    
+
     // Outdoor careers
     "Tour Guide": ["communication", "outdoor", "peoplePerson", "flexible", "enthusiasm", "knowledge"],
     "Farmer": ["outdoor", "independent", "physical", "patience", "practical", "business"],
@@ -1836,7 +1965,7 @@ const careerTraits = {
     "Forest Ranger": ["outdoor", "nature", "conservation", "physical", "independent", "patience"],
     "Fishery Officer": ["outdoor", "nature", "conservation", "science", "physical", "community"],
     "Surveyor": ["outdoor", "analytical", "technology", "independence", "precision", "physical"],
-    
+
     // Public Service careers
     "Governor": ["leadership", "communication", "public", "community", "highSalary", "decisionMaking"],
     "Army": ["physical", "discipline", "teamwork", "leadership", "patriotism", "resilience"],
@@ -1844,7 +1973,7 @@ const careerTraits = {
     "Police Officer": ["physical", "integrity", "communication", "problemSolving", "courage", "community"],
     "Security Guard": ["alertness", "communication", "physical", "dependability", "observation", "patience"],
     "Pilot": ["analytical", "highPressure", "leadership", "technical", "travel", "highSalary"],
-    
+
     // Skilled Trades careers
     "Carpenter": ["handcraft", "physical", "creativity", "precision", "practical", "independence"],
     "Welder": ["precision", "handEyeCoordination", "physical", "attentionToDetail", "technical", "practical"],
@@ -1856,6 +1985,12 @@ const careerTraits = {
 
 // ================================================================
 // SECTION 3: QUESTION TRAIT MAPPING (UPDATED FOR NEW QUESTIONS)
+// ================================================================
+
+// This maps question IDs and options to personality traits.
+// Used by the scoring engine to calculate trait matches.
+// Each answer option maps to a list of traits that indicate
+// a student's personality and preferences.
 // ================================================================
 
 const questionTraits = {
@@ -2010,6 +2145,10 @@ const questionTraits = {
 // SECTION 4: ALL TRAITS LIST
 // ================================================================
 
+// This is a master list of all possible personality traits used in the app.
+// Each trait represents a characteristic that can be matched to a career.
+// ================================================================
+
 const ALL_TRAITS = [
     "analytical", "technical", "outdoor", "leadership", "physical", "highSalary",
     "teamwork", "creative", "independent", "indoor", "detailOriented", "helping",
@@ -2035,6 +2174,16 @@ const ALL_TRAITS = [
 // SECTION 5: QUESTIONS (UPDATED - 17 QUESTIONS)
 // ================================================================
 
+// Each question has:
+// - id: unique identifier
+// - text: the question displayed to the user
+// - multiSelect: whether multiple answers can be selected
+// - options: list of answer choices
+// - weights: how each answer affects each career cluster (for scoring)
+// - defaultWeight: fallback weights if an answer is not found
+// - isNotSure: whether this is a "Not sure" option
+// ================================================================
+
 const questions = [
     {
         id: 1,
@@ -2050,6 +2199,7 @@ const questions = [
             'Business Studies',
             'Not sure yet 🤷'
         ],
+        // Weights: how much this question affects each career cluster
         weights: {
             'Mathematics and Science': { 'STEM': 4, 'Healthcare': 3, 'Business': 2, 'Creative': 1, 'Helping': 2, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 3 },
             'English and Creative Writing': { 'STEM': 1, 'Healthcare': 2, 'Business': 3, 'Creative': 4, 'Helping': 4, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
@@ -2417,30 +2567,37 @@ const questions = [
 // SECTION 6: APPLICATION STATE
 // ================================================================
 
+// This object stores all the user's progress and data during the quiz.
+// It is saved to localStorage so users can resume later.
+// ================================================================
+
 const STORAGE_KEY = 'career_quest_state';
 const THEME_KEY = 'career_quest_theme';
 
 let state = {
-    currentQuestion: 0,
-    answers: [],
-    quizStarted: false,
-    quizCompleted: false,
-    results: null,
-    careerScores: {},
-    isDiscoveryMode: false,
-    colorMode: 'color',
-    activeFilter: 'all',
-    searchQuery: '',
-    darkMode: false,
-    kbFocusIndex: -1,
-    // NEW: Discovery mode comparison list (max 5)
-    discoveryCompare: [],
-    // NEW: Main comparison list (max 5)
-    compareList: []
+    currentQuestion: 0, // Which question the user is on (0-based index)
+    answers: [], // Array of arrays - each inner array stores selected options for that question
+    quizStarted: false, // Whether the quiz has been started
+    quizCompleted: false, // Whether the quiz has been completed
+    results: null, // Array of career names sorted by score
+    careerScores: {}, // Object mapping career names to percentage scores
+    isDiscoveryMode: false, // Whether Discovery Mode is active
+    colorMode: 'color', // 'color' or 'bw' for PDF generation
+    activeFilter: 'all', // Current filter for career clusters
+    searchQuery: '', // Current search query
+    darkMode: false, // Whether dark mode is active
+    kbFocusIndex: -1, // Keyboard focus index for accessibility
+    discoveryCompare: [], // Array of career names in Discovery Mode comparison (max 5)
+    compareList: [] // Array of career names in main comparison (max 5)
 };
 
 // ================================================================
 // SECTION 7: DOM REFERENCES
+// ================================================================
+
+// This object stores references to all the HTML elements we need to manipulate.
+// This makes the code faster and cleaner because we don't have to keep
+// searching the DOM for elements.
 // ================================================================
 
 const DOM = {
@@ -2465,6 +2622,7 @@ const DOM = {
     resultsSubtitle: document.getElementById('results-subtitle'),
     statsSummary: document.getElementById('stats-summary'),
     careerSearch: document.getElementById('career-search'),
+    resultsToolbar: document.querySelector('.results-toolbar'), // Added for hiding in Discovery Mode
     filterChips: document.getElementById('filter-chips'),
     careerMatches: document.getElementById('career-matches'),
     pathwayDisplay: document.getElementById('pathway-display'),
@@ -2495,29 +2653,44 @@ const DOM = {
 // SECTION 8: UTILITY FUNCTIONS
 // ================================================================
 
+// This section contains helper functions used throughout the app.
+// ================================================================
+
+// Show a toast notification popup at the bottom-right of the screen
+// Parameters:
+//   message: the text to display
+//   duration: how long to show it (default 3000ms = 3 seconds)
 function showToast(message, duration) {
-    duration = duration || 3000;
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.textContent = message;
-    DOM.toastContainer.appendChild(toast);
-    setTimeout(function() { toast.remove(); }, duration);
+    duration = duration || 3000; // Default to 3 seconds if not specified
+    const toast = document.createElement('div'); // Create a new div element
+    toast.className = 'toast'; // Add the 'toast' class for styling
+    toast.textContent = message; // Set the message text
+    DOM.toastContainer.appendChild(toast); // Add it to the toast container
+    setTimeout(function() { toast.remove(); }, duration); // Remove it after the duration
 }
 
+// Debounce function - limits how often a function can be called
+// This is useful for search inputs and scroll events to improve performance
+// Parameters:
+//   fn: the function to debounce
+//   delay: how many milliseconds to wait before calling the function
 function debounce(fn, delay) {
-    let timer;
+    let timer; // Stores the timeout ID
     return function() {
-        const args = arguments;
-        const ctx = this;
-        clearTimeout(timer);
-        timer = setTimeout(function() { fn.apply(ctx, args); }, delay);
+        const args = arguments; // Capture the arguments
+        const ctx = this; // Capture the context (this value)
+        clearTimeout(timer); // Clear any existing timer
+        timer = setTimeout(function() { fn.apply(ctx, args); }, delay); // Set a new timer
     };
 }
 
+// Check if an answer is a "Not Sure" answer
+// This helps us handle "Not Sure" options differently in the scoring
 function isNotSureAnswer(answer) {
     return !answer || answer.indexOf('Not sure') !== -1 || answer.indexOf('🤷') !== -1;
 }
 
+// Save the current state to localStorage so users can resume later
 function saveState() {
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify({
@@ -2530,16 +2703,18 @@ function saveState() {
             isDiscoveryMode: state.isDiscoveryMode,
             discoveryCompare: state.discoveryCompare,
             compareList: state.compareList,
-            timestamp: Date.now()
+            timestamp: Date.now() // Add a timestamp so we can expire old saves
         }));
-    } catch (e) {}
+    } catch (e) {} // If localStorage fails (e.g., in private browsing), do nothing
 }
 
+// Load saved state from localStorage
 function loadSavedState() {
     try {
         var raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) return null;
         var data = JSON.parse(raw);
+        // Expire saved state after 7 days (to prevent outdated data)
         if (data.timestamp && Date.now() - data.timestamp > 7 * 24 * 60 * 60 * 1000) {
             localStorage.removeItem(STORAGE_KEY);
             return null;
@@ -2548,20 +2723,24 @@ function loadSavedState() {
     } catch (e) { return null; }
 }
 
+// Clear saved state from localStorage
 function clearSavedState() {
     try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
 }
 
+// Save the user's theme preference
 function saveTheme(isDark) {
     try { localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light'); } catch(e) {}
 }
 
+// Load the user's theme preference
 function loadTheme() {
     try {
         var t = localStorage.getItem(THEME_KEY);
         if (t === 'dark') return true;
         if (t === 'light') return false;
     } catch(e) {}
+    // Default to the system preference
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
@@ -2569,12 +2748,17 @@ function loadTheme() {
 // SECTION 9: SCREEN MANAGEMENT
 // ================================================================
 
+// Show a specific screen and hide all others
+// Parameters:
+//   screenName: the ID of the screen to show (e.g., 'welcome-screen')
 function showScreen(screenName) {
+    // Hide all screens by removing the 'active' class
     document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+    // Show the target screen by adding the 'active' class
     var target = document.getElementById(screenName);
     if (target) {
         target.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top
     }
 }
 
@@ -2582,71 +2766,85 @@ function showScreen(screenName) {
 // SECTION 10: DARK MODE
 // ================================================================
 
+// Toggle dark mode on/off
 function toggleDarkMode() {
-    state.darkMode = !state.darkMode;
-    applyTheme();
-    saveTheme(state.darkMode);
+    state.darkMode = !state.darkMode; // Flip the state
+    applyTheme(); // Apply the new theme
+    saveTheme(state.darkMode); // Save the preference
 }
 
+// Apply the current theme to the page
 function applyTheme() {
-    document.body.classList.toggle('dark-mode', state.darkMode);
-    DOM.themeIcon.textContent = state.darkMode ? '☀️' : '🌙';
-    DOM.themeLabel.textContent = state.darkMode ? 'Light' : 'Dark';
+    document.body.classList.toggle('dark-mode', state.darkMode); // Toggle the class on the body
+    DOM.themeIcon.textContent = state.darkMode ? '☀️' : '🌙'; // Update the icon
+    DOM.themeLabel.textContent = state.darkMode ? 'Light' : 'Dark'; // Update the label
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.content = state.darkMode ? '#0f172a' : '#008000';
+    if (meta) meta.content = state.darkMode ? '#0f172a' : '#008000'; // Update the theme color meta tag
 }
 
 // ================================================================
 // SECTION 11: QUIZ LOGIC
 // ================================================================
 
+// Start the quiz with optional restore state
+// Parameters:
+//   restoreState: if true, restore from saved state; if false, start fresh
 function startQuiz(restoreState) {
-    state.quizStarted = true;
-    state.isDiscoveryMode = false;
+    state.quizStarted = true; // Mark that the quiz has started
+    state.isDiscoveryMode = false; // Make sure we're not in Discovery Mode
+    // If not restoring or no answers exist, reset everything
     if (!restoreState || !state.answers.length) {
-        state.currentQuestion = 0;
-        state.answers = [];
-        state.quizCompleted = false;
-        state.results = null;
-        state.careerScores = {};
-        state.compareList = [];
+        state.currentQuestion = 0; // Start at the first question
+        state.answers = []; // Clear answers
+        state.quizCompleted = false; // Not completed yet
+        state.results = null; // No results yet
+        state.careerScores = {}; // No scores yet
+        state.compareList = []; // Clear comparison list
     }
-    showScreen('quiz-screen');
-    renderQuestion();
+    showScreen('quiz-screen'); // Show the quiz screen
+    renderQuestion(); // Render the first question
 }
 
+// Start Discovery Mode for indecisive students
 function startDiscoveryMode() {
-    state.isDiscoveryMode = true;
-    state.quizStarted = true;
-    state.discoveryCompare = [];
-    showScreen('results-screen');
-    generateDiscoveryResults();
+    state.isDiscoveryMode = true; // Set Discovery Mode flag
+    state.quizStarted = true; // Mark that the quiz has started
+    state.discoveryCompare = []; // Reset discovery comparison
+    showScreen('results-screen'); // Show the results screen (which will show Discovery Mode content)
+    generateDiscoveryResults(); // Generate the Discovery Mode content
 }
 
+// Render the current question
 function renderQuestion() {
-    var question = questions[state.currentQuestion];
-    var qNum = state.currentQuestion + 1;
-    var total = questions.length;
+    var question = questions[state.currentQuestion]; // Get the current question object
+    var qNum = state.currentQuestion + 1; // Convert from 0-based to 1-based for display
+    var total = questions.length; // Total number of questions
 
+    // Update the question counter (e.g., "Question 3 of 17")
     DOM.questionCounter.textContent = 'Question ' + qNum + ' of ' + total;
+    // Update the progress bar
     var pct = Math.round((qNum / total) * 100);
     DOM.progressFill.style.width = pct + '%';
     DOM.progressBar.setAttribute('aria-valuenow', pct);
 
+    // Animate the question transition
     DOM.questionContainer.classList.remove('question-enter');
-    void DOM.questionContainer.offsetWidth;
+    void DOM.questionContainer.offsetWidth; // Force reflow to restart animation
     DOM.questionContainer.classList.add('question-enter');
 
+    // Set the question text
     DOM.questionText.textContent = question.text;
 
+    // Show or hide the multi-select hint
     if (question.multiSelect) {
         DOM.multiSelectHint.style.display = 'block';
     } else {
         DOM.multiSelectHint.style.display = 'none';
     }
 
+    // Build the options with DocumentFragment for better performance
     var fragment = document.createDocumentFragment();
-    var letters = 'ABCDEFGHIJKLMNOPQRST';
+    var letters = 'ABCDEFGHIJKLMNOPQRST'; // Letters for option indicators
 
     question.options.forEach(function(option, index) {
         var btn = document.createElement('button');
@@ -2654,6 +2852,7 @@ function renderQuestion() {
         btn.setAttribute('role', 'checkbox');
         btn.dataset.index = index;
 
+        // Check if this option is already selected (for multi-select)
         var answerArray = state.answers[state.currentQuestion] || [];
         var isSelected = answerArray.indexOf(option) !== -1;
         if (isSelected) {
@@ -2663,13 +2862,16 @@ function renderQuestion() {
             btn.setAttribute('aria-checked', 'false');
         }
 
+        // Add "not sure" class for special styling
         if (isNotSureAnswer(option)) btn.classList.add('not-sure');
 
+        // Create the letter indicator (A, B, C, etc.)
         var letter = document.createElement('span');
         letter.className = 'option-letter';
         letter.textContent = letters[index] || String(index + 1);
         letter.setAttribute('aria-hidden', 'true');
 
+        // Create the text content
         var text = document.createElement('span');
         text.textContent = option;
 
@@ -2678,28 +2880,42 @@ function renderQuestion() {
         fragment.appendChild(btn);
     });
 
+    // Clear and re-populate the options container
     DOM.optionsContainer.innerHTML = '';
     DOM.optionsContainer.appendChild(fragment);
 
+    // Show or hide the previous button
     DOM.prevBtn.style.display = state.currentQuestion === 0 ? 'none' : 'inline-block';
+    // Update the next button text
     DOM.nextBtn.textContent = state.currentQuestion === questions.length - 1 ? '📊 See Results' : '➡ Next';
+    // Enable/disable the next button based on whether an answer is selected
     var currentAnswer = state.answers[state.currentQuestion] || [];
     DOM.nextBtn.disabled = currentAnswer.length === 0;
 
-    state.kbFocusIndex = -1;
-    saveState();
+    state.kbFocusIndex = -1; // Reset keyboard focus
+    saveState(); // Save progress to localStorage
 }
 
+// ================================================================
+// SECTION 12: MULTI-SELECT LOGIC
+// ================================================================
+
+// Toggle an option selection (for multi-select questions)
+// Parameters:
+//   button: the option button that was clicked
 function toggleOption(button) {
     var question = questions[state.currentQuestion];
-    var isMultiSelect = question.multiSelect || false;
+    var isMultiSelect = question.multiSelect || false; // Check if this question allows multiple answers
 
     if (isMultiSelect) {
+        // Multi-select: toggle the selected class
         button.classList.toggle('selected');
         var isNowSelected = button.classList.contains('selected');
         button.setAttribute('aria-checked', isNowSelected ? 'true' : 'false');
+        // Update the answer array
         updateMultiSelectAnswer();
     } else {
+        // Single select: remove all selections and select this one
         var allOptions = DOM.optionsContainer.querySelectorAll('.option-btn');
         allOptions.forEach(function(btn) {
             btn.classList.remove('selected');
@@ -2707,41 +2923,55 @@ function toggleOption(button) {
         });
         button.classList.add('selected');
         button.setAttribute('aria-checked', 'true');
+        // Update the answer array
         updateSingleSelectAnswer(button);
     }
 
+    // Enable the next button if at least one option is selected
     updateNextButtonState();
-    saveState();
+    saveState(); // Save progress
 
+    // Auto-advance for single-select questions after a short delay
     if (!isMultiSelect && state.currentQuestion < questions.length - 1) {
         setTimeout(nextQuestion, 400);
     }
 }
 
+// Update the answer array for multi-select questions
 function updateMultiSelectAnswer() {
+    // Get all selected options
     var selected = DOM.optionsContainer.querySelectorAll('.option-btn.selected');
+    // Store the selected option texts in the answers array
     state.answers[state.currentQuestion] = Array.from(selected).map(function(btn) {
         var spans = btn.querySelectorAll('span');
         return spans[spans.length - 1].textContent;
     });
 }
 
+// Update the answer array for single-select questions
 function updateSingleSelectAnswer(button) {
     var spans = button.querySelectorAll('span');
     state.answers[state.currentQuestion] = [spans[spans.length - 1].textContent];
 }
 
+// Update the next button state based on whether the current question is answered
 function updateNextButtonState() {
     var currentAnswer = state.answers[state.currentQuestion] || [];
     DOM.nextBtn.disabled = currentAnswer.length === 0;
 }
 
+// ================================================================
+// SECTION 13: NAVIGATION
+// ================================================================
+
+// Go to the next question or show results
 function nextQuestion() {
     var currentAnswer = state.answers[state.currentQuestion] || [];
     if (currentAnswer.length === 0) {
         showToast('Please select at least one answer before continuing.');
         return;
     }
+    // If this is the last question, calculate results
     if (state.currentQuestion === questions.length - 1) {
         calculateResults();
         state.quizCompleted = true;
@@ -2750,10 +2980,12 @@ function nextQuestion() {
         displayResults();
         return;
     }
+    // Move to the next question
     state.currentQuestion++;
     renderQuestion();
 }
 
+// Go to the previous question
 function prevQuestion() {
     if (state.currentQuestion > 0) {
         state.currentQuestion--;
@@ -2762,15 +2994,20 @@ function prevQuestion() {
 }
 
 // ================================================================
-// SECTION 12: KEYBOARD NAVIGATION
+// SECTION 14: KEYBOARD NAVIGATION
 // ================================================================
 
+// Handle keyboard navigation for the quiz
+// This allows users to select options with number keys (1-9),
+// navigate with arrow keys, and submit with Enter/Backspace.
 function handleKeyboardNav(e) {
+    // Only work on the quiz screen
     if (!DOM.quizScreen.classList.contains('active')) return;
 
     var options = DOM.optionsContainer.querySelectorAll('.option-btn');
     if (!options.length) return;
 
+    // Number keys 1-9 select the corresponding option
     var num = parseInt(e.key);
     if (num >= 1 && num <= options.length) {
         e.preventDefault();
@@ -2778,6 +3015,7 @@ function handleKeyboardNav(e) {
         return;
     }
 
+    // Arrow keys for navigating between options
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
         e.preventDefault();
         state.kbFocusIndex = Math.min(state.kbFocusIndex + 1, options.length - 1);
@@ -2795,6 +3033,7 @@ function handleKeyboardNav(e) {
     }
 }
 
+// Update the keyboard focus indicator on options
 function updateKbFocus(options) {
     options.forEach(function(opt, i) {
         opt.classList.toggle('kb-focus', i === state.kbFocusIndex);
@@ -2805,26 +3044,35 @@ function updateKbFocus(options) {
 }
 
 // ================================================================
-// SECTION 13: SMART SCORING ENGINE
+// SECTION 15: SMART SCORING ENGINE
 // ================================================================
 
+// Calculate career scores based on user answers
+// This uses a two-layer scoring system:
+// Layer 1: Cluster weights from questions (60%)
+// Layer 2: Trait matching from career traits (40%)
 function calculateResults() {
+    // Initialize cluster scores for all 8 clusters
     var clusterScores = { 'STEM': 0, 'Healthcare': 0, 'Business': 0, 'Creative': 0, 'Helping': 0, 'Outdoor': 0, 'Public Service': 0, 'Skilled Trades': 0 };
     var clusterCounts = { 'STEM': 0, 'Healthcare': 0, 'Business': 0, 'Creative': 0, 'Helping': 0, 'Outdoor': 0, 'Public Service': 0, 'Skilled Trades': 0 };
 
+    // Initialize trait scores for all possible traits
     var traitScores = {};
     var traitCounts = {};
     ALL_TRAITS.forEach(function(t) { traitScores[t] = 0; traitCounts[t] = 0; });
 
+    // Process each answer
     state.answers.forEach(function(answer, index) {
-        if (!answer || !answer.length) return;
+        if (!answer || !answer.length) return; // Skip unanswered questions
 
         var question = questions[index];
         if (Array.isArray(answer)) {
+            // For multi-select questions, process each selected option
             answer.forEach(function(selectedOption) {
                 if (!selectedOption) return;
                 var nsq = isNotSureAnswer(selectedOption);
 
+                // Layer 1: Cluster weights
                 var weights = nsq ? question.defaultWeight : (question.weights[selectedOption] || question.defaultWeight);
                 for (var cluster in weights) {
                     if (clusterScores.hasOwnProperty(cluster)) {
@@ -2833,6 +3081,7 @@ function calculateResults() {
                     }
                 }
 
+                // Layer 2: Trait relevance
                 if (!nsq) {
                     var qTraits = questionTraits[index + 1];
                     if (qTraits) {
@@ -2849,6 +3098,7 @@ function calculateResults() {
                 }
             });
         } else {
+            // Single-select fallback (shouldn't happen with the new design)
             var nsq = isNotSureAnswer(answer);
             var weights = nsq ? question.defaultWeight : (question.weights[answer] || question.defaultWeight);
             for (var cluster in weights) {
@@ -2860,22 +3110,26 @@ function calculateResults() {
         }
     });
 
+    // Normalize cluster scores (average per cluster)
     var avgCluster = {};
     for (var c in clusterScores) {
         avgCluster[c] = clusterCounts[c] > 0 ? clusterScores[c] / clusterCounts[c] : 2;
     }
 
+    // Normalize trait scores (average per trait)
     var avgTrait = {};
     for (var t in traitScores) {
         avgTrait[t] = traitCounts[t] > 0 ? traitScores[t] / traitCounts[t] : 0;
     }
 
+    // Combine: 60% cluster + 40% trait for each career
     var scores = {};
     for (var name in careers) {
         var career = careers[name];
         var clusterScore = avgCluster[career.cluster] || 2;
         var traits = careerTraits[name] || [];
 
+        // Calculate trait match for this career
         var traitTotal = 0;
         var traitCount = 0;
         traits.forEach(function(tr) {
@@ -2886,12 +3140,15 @@ function calculateResults() {
         });
         var traitMatch = traitCount > 0 ? traitTotal / traitCount : 0;
 
+        // Normalize trait from 0-2 range to 0-5 for fair weighting
         var normalizedTrait = (traitMatch / 2) * 5;
         var combined = (clusterScore * 0.6) + (normalizedTrait * 0.4);
 
+        // Convert to percentage (0-100)
         var pct = Math.round((combined / 5) * 100);
         pct = Math.max(0, Math.min(100, pct));
 
+        // Small deterministic jitter to break ties
         var seed = 0;
         for (var ci = 0; ci < name.length; ci++) seed += name.charCodeAt(ci);
         var jitter = (seed % 3) - 1;
@@ -2900,23 +3157,35 @@ function calculateResults() {
         scores[name] = pct;
     }
 
+    // Store scores and sorted results
     state.careerScores = scores;
     state.results = Object.keys(scores).sort(function(a, b) { return scores[b] - scores[a]; });
 }
 
 // ================================================================
-// SECTION 14: RESULTS DISPLAY
+// SECTION 16: RESULTS DISPLAY
 // ================================================================
 
+// Display the results on the results screen
 function displayResults() {
+    // 🔧 FIX: Show search bar for normal results
+    DOM.careerSearch.style.display = 'flex';
+    if (DOM.resultsToolbar) {
+        DOM.resultsToolbar.style.display = 'flex';
+    }
+
+    // If we're in Discovery Mode, use the Discovery Mode display instead
     if (state.isDiscoveryMode) { generateDiscoveryResults(); return; }
 
+    // Get the top 15 careers (or fewer if there are less)
     var topCareers = state.results.slice(0, 15);
     var topName = topCareers[0];
     var topScore = state.careerScores[topName];
 
+    // Update the subtitle with the top match
     DOM.resultsSubtitle.textContent = 'Your #1 match is ' + topName + ' at ' + topScore + '%! Here are your top career matches.';
 
+    // Render all the result components
     renderStatsSummary(topCareers);
     renderFilterChips();
     renderCareerCards(topCareers);
@@ -2925,11 +3194,15 @@ function displayResults() {
     displayCareerClusters();
     displayComparisonTool();
 
+    // Hide Discovery Mode (if it was visible)
     DOM.discoveryMode.style.display = 'none';
+    // Launch the confetti celebration
     launchConfetti();
+    // Clear the saved state (since the quiz is complete)
     clearSavedState();
 }
 
+// Render the statistics summary cards
 function renderStatsSummary(topCareers) {
     var clusters = {};
     var globalCount = 0;
@@ -2953,6 +3226,7 @@ function renderStatsSummary(topCareers) {
         '<div class="stat-card"><span class="stat-value">' + globalCount + '</span><span class="stat-label">Global Ready</span></div>';
 }
 
+// Render the filter chips
 function renderFilterChips() {
     var clusters = ['all', 'STEM', 'Healthcare', 'Business', 'Creative', 'Helping', 'Outdoor', 'Public Service', 'Skilled Trades'];
     var icons = { all: '🎯', STEM: '🔬', Healthcare: '🏥', Business: '💼', Creative: '🎨', Helping: '🤝', Outdoor: '🌿', 'Public Service': '🏛️', 'Skilled Trades': '🔧' };
@@ -2962,10 +3236,12 @@ function renderFilterChips() {
     }).join('');
 }
 
+// Render the career cards in the results list
 function renderCareerCards(careerList) {
     var query = state.searchQuery.toLowerCase();
     var filter = state.activeFilter;
 
+    // Filter careers based on search query and filter
     var filtered = careerList.filter(function(name) {
         var career = careers[name];
         if (!career) return false;
@@ -3009,6 +3285,7 @@ function renderCareerCards(careerList) {
 
         fragment.appendChild(card);
 
+        // Staggered reveal animation
         setTimeout(function() {
             card.classList.add('revealed');
             var fill = card.querySelector('.score-fill');
@@ -3020,11 +3297,13 @@ function renderCareerCards(careerList) {
     DOM.careerMatches.appendChild(fragment);
 }
 
+// Handle career search input
 function handleCareerSearch(e) {
     state.searchQuery = e.target.value;
     renderCareerCards(state.results.slice(0, 15));
 }
 
+// Handle filter chip click
 function handleFilterClick(e) {
     var chip = e.target.closest('.filter-chip');
     if (!chip) return;
@@ -3034,13 +3313,15 @@ function handleFilterClick(e) {
 }
 
 // ================================================================
-// SECTION 15: PATHWAY RECOMMENDATIONS (NEW)
+// SECTION 17: PATHWAY RECOMMENDATIONS (NEW)
 // ================================================================
 
+// Display Form 1-4 career pathway recommendations based on top career matches
 function displayPathwayRecommendations() {
-    var topCareers = state.results.slice(0, 5);
+    var topCareers = state.results.slice(0, 5); // Get the top 5 careers
     var pathwayMap = {};
 
+    // Count how many top careers are in each pathway
     topCareers.forEach(function(name) {
         var c = careers[name];
         if (c && c.pathway) {
@@ -3050,6 +3331,7 @@ function displayPathwayRecommendations() {
         }
     });
 
+    // Sort pathways by frequency (most common first)
     var sortedPathways = Object.keys(pathwayMap).sort(function(a, b) {
         return pathwayMap[b] - pathwayMap[a];
     });
@@ -3059,6 +3341,7 @@ function displayPathwayRecommendations() {
         return;
     }
 
+    // Define pathway descriptions and display names
     var pathwayDescriptions = {
         'Natural Science': 'Focus on Mathematics, English, Chemistry, Biology, Physics, and Additional Mathematics.',
         'Social Science': 'Focus on English, History, Geography, Civics, and Literature.',
@@ -3100,9 +3383,10 @@ function displayPathwayRecommendations() {
 }
 
 // ================================================================
-// SECTION 16: SUBJECT RECOMMENDATIONS
+// SECTION 18: SUBJECT RECOMMENDATIONS
 // ================================================================
 
+// Display subject recommendations based on top career matches
 function displaySubjectRecommendations() {
     var topCareers = state.results.slice(0, 5);
     var required = {};
@@ -3111,6 +3395,7 @@ function displaySubjectRecommendations() {
     topCareers.forEach(function(name) {
         var c = careers[name];
         if (!c) return;
+        // Check if career uses requiredSubjects or requiredSkills
         if (c.requiredSubjects) {
             c.requiredSubjects.forEach(function(s) { required[s] = (required[s] || 0) + 1; });
         }
@@ -3145,9 +3430,11 @@ function displaySubjectRecommendations() {
 }
 
 // ================================================================
-// SECTION 17: CAREER CLUSTERS (Web Map)
+// SECTION 19: CAREER CLUSTERS (Web Map) - FIXED
 // ================================================================
 
+// Display the career web map with clickable clusters
+// 🔧 FIXED: Clicking a career opens details without closing the cluster
 function displayCareerClusters() {
     var clusterInfo = {
         'STEM': { icon: '🔬', name: 'STEM' },
@@ -3184,16 +3471,48 @@ function displayCareerClusters() {
             '<div class="cluster-score">' + score + '% match</div>' +
             '<div class="score-bar"><div class="score-fill high" style="width:' + score + '%"></div></div>' +
             '<div class="cluster-careers" id="cluster-' + cl + '">' +
-            careersInCluster.map(function(n) { return '<a class="cluster-career-item" data-career="' + n + '">• ' + n + '</a>'; }).join('') +
+            careersInCluster.map(function(n) {
+                // 🔧 FIX: Added data-career attribute for click handling
+                return '<a class="cluster-career-item" data-career="' + n + '" style="cursor:pointer;">• ' + n + '</a>';
+            }).join('') +
             '</div></div>';
     }
     DOM.careerClusters.innerHTML = html;
+
+    // 🔧 FIX: Add click handler for cluster cards
+    var clusterCards = DOM.careerClusters.querySelectorAll('.cluster-card');
+    clusterCards.forEach(function(card) {
+        card.addEventListener('click', function(e) {
+            // 🔧 FIX: If click is on a career item, don't toggle the cluster
+            if (e.target.closest('.cluster-career-item')) {
+                return; // Let the career item handler do its job
+            }
+            var careersList = document.getElementById('cluster-' + this.dataset.cluster);
+            if (careersList) {
+                careersList.classList.toggle('show');
+            }
+        });
+    });
+
+    // 🔧 FIX: Add click handler for career items - opens details and stops bubbling
+    var careerItems = DOM.careerClusters.querySelectorAll('.cluster-career-item');
+    careerItems.forEach(function(item) {
+        item.addEventListener('click', function(e) {
+            // 🔧 FIX: Stop the click from bubbling up to the parent cluster card
+            e.stopPropagation();
+            var careerName = this.dataset.career;
+            if (careerName) {
+                showCareerDetails(careerName);
+            }
+        });
+    });
 }
 
 // ================================================================
-// SECTION 18: COMPARISON TOOL (5 Careers)
+// SECTION 20: COMPARISON TOOL (5 Careers)
 // ================================================================
 
+// Display the comparison tool with 5 selectors
 function displayComparisonTool() {
     var topCareers = state.results.slice(0, 20);
     var html = '';
@@ -3206,7 +3525,7 @@ function displayComparisonTool() {
     DOM.comparisonSelectors.innerHTML = html;
     updateComparison();
 
-    // Set up clear button
+    // Set up clear comparison button
     DOM.clearComparisonBtn.onclick = function() {
         for (var i = 1; i <= 5; i++) {
             var sel = document.getElementById('compare-' + i);
@@ -3217,6 +3536,7 @@ function displayComparisonTool() {
     };
 }
 
+// Update the comparison table based on selected careers
 function updateComparison() {
     var selected = [];
     for (var i = 1; i <= 5; i++) {
@@ -3278,10 +3598,17 @@ function updateComparison() {
 }
 
 // ================================================================
-// SECTION 19: ENHANCED DISCOVERY MODE
+// SECTION 21: ENHANCED DISCOVERY MODE
 // ================================================================
 
+// Generate and display Discovery Mode content for "I Have No Idea" students
 function generateDiscoveryResults() {
+    // 🔧 FIX: Hide search bar in discovery mode
+    DOM.careerSearch.style.display = 'none';
+    if (DOM.resultsToolbar) {
+        DOM.resultsToolbar.style.display = 'none';
+    }
+
     DOM.discoveryMode.style.display = 'block';
     DOM.resultsSubtitle.textContent = "That's okay! Let's explore all your options together.";
     DOM.careerMatches.innerHTML = '';
@@ -3289,6 +3616,7 @@ function generateDiscoveryResults() {
     state.discoveryCompare = [];
     updateDiscoveryCompareCount();
 
+    // Define all 8 career clusters with their details
     var clusterInfo = {
         'STEM': { icon: '🔬', name: 'STEM', description: 'Science, Technology, Engineering & Math', activity: 'Try building a small project using recycled materials. This helps develop engineering thinking!' },
         'Healthcare': { icon: '🏥', name: 'Healthcare', description: 'Medical and health-related careers', activity: 'Visit a clinic and ask if you can observe a nurse or doctor for a day.' },
@@ -3341,10 +3669,12 @@ function generateDiscoveryResults() {
     };
 }
 
+// Toggle the display of careers within a discovery cluster card
 function toggleDiscoveryCareers(cluster, cardEl) {
     var existing = cardEl.querySelector('.discovery-career-list');
     if (existing) { existing.remove(); return; }
 
+    // Remove any other open lists
     document.querySelectorAll('.discovery-career-list').forEach(function(el) { el.remove(); });
 
     var careersInCluster = Object.keys(careers).filter(function(n) { return careers[n] && careers[n].cluster === cluster; });
@@ -3381,7 +3711,7 @@ function toggleDiscoveryCareers(cluster, cardEl) {
     cardEl.appendChild(list);
 }
 
-// Discovery mode event delegation
+// Discovery mode event delegation - handles clicks on discovery cards and buttons
 DOM.discoveryContent.addEventListener('click', function(e) {
     // Cluster card click - toggle careers
     var discoveryCard = e.target.closest('.discovery-card');
@@ -3441,10 +3771,12 @@ DOM.discoveryContent.addEventListener('click', function(e) {
     if (careerEl) showCareerDetails(careerEl.dataset.career);
 });
 
+// Update the discovery comparison count display
 function updateDiscoveryCompareCount() {
     DOM.discoveryCompareCount.textContent = state.discoveryCompare.length;
 }
 
+// Update the discovery comparison table
 function updateDiscoveryComparison() {
     var selected = state.discoveryCompare;
 
@@ -3502,16 +3834,19 @@ function updateDiscoveryComparison() {
 }
 
 // ================================================================
-// SECTION 20: CAREER DETAILS MODAL
+// SECTION 22: CAREER DETAILS MODAL
 // ================================================================
 
+// Variable to track which career is currently being viewed in the modal
 var modalCurrentCareer = null;
 
+// Show career details in a modal popup
 function showCareerDetails(careerName) {
     var career = careers[careerName];
     if (!career) return;
     modalCurrentCareer = careerName;
 
+    // Build the requirements display
     var reqText = '';
     if (career.requiredSubjects) {
         reqText = '<p><strong>Must have:</strong> ' + career.requiredSubjects.join(', ') + '</p>';
@@ -3526,7 +3861,7 @@ function showCareerDetails(careerName) {
 
     var institutionsText = career.institutions ? career.institutions.join(', ') : 'On-the-job training or self-study';
 
-    // Add pathway info to modal
+    // Build the pathway display
     var pathwayText = career.pathway ? career.pathway.join(', ') : 'Various pathways available.';
 
     var html =
@@ -3548,21 +3883,25 @@ function showCareerDetails(careerName) {
             '<p><strong>Zambia:</strong> ' + career.salaryLocal + '</p>' +
             (career.salaryGlobal ? '<p><strong>International:</strong> ' + career.salaryGlobal + '</p>' : '') + '</div>';
 
+    // Add international section if the career is globally ready
     if (career.globalReady) {
         html += '<div class="detail-section international"><h4>🌍 International Opportunities</h4>' +
             '<p><strong>Global Demand:</strong> ' + career.globalDemand + '</p>' +
             (career.countries ? '<p><strong>Countries:</strong> ' + career.countries.join(', ') : '') +
             (career.scholarships ? '<p><strong>Scholarships:</strong> ' + career.scholarships.join(', ') : '') +
-            (career.pathwayAbroad ? '<p><strong>Pathway abroad:</strong></p><ol>' +
+            // 🔧 FIX: Display the accurate pathwayAbroad steps
+            (career.pathwayAbroad ? '<p><strong>How to Work Abroad:</strong></p><ol>' +
                 career.pathwayAbroad.map(function(s) { return '<li>' + s + '</li>'; }).join('') + '</ol>' : '') +
             '</div>';
     }
 
+    // Add career story if available
     if (career.story) {
         html += '<div class="detail-section story"><h4>🌟 Career Story</h4>' +
             '<p style="font-style:italic;">' + career.story + '</p></div>';
     }
 
+    // Add career day activity if available
     if (career.careerDay) {
         html += '<div class="detail-section activity"><h4>🔍 Career Day Activity</h4>' +
             '<p>' + career.careerDay + '</p></div>';
@@ -3570,7 +3909,7 @@ function showCareerDetails(careerName) {
 
     DOM.careerDetailContent.innerHTML = html;
 
-    // Show/hide Add to Compare button based on mode
+    // Show/hide the "Add to Compare" button based on the current mode
     var isInCompare = false;
     if (state.isDiscoveryMode) {
         isInCompare = state.discoveryCompare.indexOf(careerName) !== -1;
@@ -3594,7 +3933,7 @@ function showCareerDetails(careerName) {
     document.body.style.overflow = 'hidden';
 }
 
-// Modal Add to Compare button handler
+// Modal "Add to Compare" button handler
 DOM.modalAddToCompare.addEventListener('click', function() {
     var careerName = this.dataset.career;
     if (!careerName) return;
@@ -3614,7 +3953,7 @@ DOM.modalAddToCompare.addEventListener('click', function() {
         }
         updateDiscoveryCompareCount();
         updateDiscoveryComparison();
-        // Re-render discovery list
+        // Re-render discovery list to update buttons
         var cards = document.querySelectorAll('.discovery-card');
         cards.forEach(function(card) {
             if (card.dataset.discoveryCluster) {
@@ -3624,7 +3963,6 @@ DOM.modalAddToCompare.addEventListener('click', function() {
                 }
             }
         });
-        // Update modal button text
         var isNowInCompare = state.discoveryCompare.indexOf(careerName) !== -1;
         DOM.modalAddToCompare.textContent = isNowInCompare ? '❌ Remove from Compare' : '➕ Add to Compare';
     } else {
@@ -3657,7 +3995,6 @@ DOM.modalAddToCompare.addEventListener('click', function() {
             }
         }
         updateComparison();
-        // Update modal button text
         var updatedCompareList = [];
         for (var k = 1; k <= 5; k++) {
             var sel2 = document.getElementById('compare-' + k);
@@ -3668,6 +4005,7 @@ DOM.modalAddToCompare.addEventListener('click', function() {
     }
 });
 
+// Close the career details modal
 function closeCareerModal() {
     DOM.careerModal.classList.remove('active');
     document.body.style.overflow = '';
@@ -3675,10 +4013,12 @@ function closeCareerModal() {
 }
 
 // ================================================================
-// SECTION 21: CONFETTI ANIMATION
+// SECTION 23: CONFETTI ANIMATION
 // ================================================================
 
+// Launch a confetti celebration animation
 function launchConfetti() {
+    // Check if user prefers reduced motion
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     var canvas = DOM.confettiCanvas;
@@ -3689,6 +4029,7 @@ function launchConfetti() {
     var particles = [];
     var colors = ['#008000', '#DE2010', '#EF7D00', '#00b800', '#ffd700', '#3b82f6', '#a855f7', '#22c55e'];
 
+    // Create 120 confetti particles
     for (var i = 0; i < 120; i++) {
         particles.push({
             x: Math.random() * canvas.width,
@@ -3739,9 +4080,10 @@ function launchConfetti() {
 }
 
 // ================================================================
-// SECTION 22: PDF GENERATION & PRINTING
+// SECTION 24: PDF GENERATION & PRINTING
 // ================================================================
 
+// Generate and download a PDF report of the results
 function generatePDF() {
     if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
         showToast('PDF libraries not loaded. Please check your internet connection and try again.');
@@ -3755,6 +4097,7 @@ function generatePDF() {
     DOM.downloadPdfBtn.textContent = '⏳ Generating PDF...';
     DOM.downloadPdfBtn.disabled = true;
 
+    // Ensure all elements are properly displayed for capture
     document.querySelectorAll('.score-fill').forEach(function(el) { el.style.transition = 'none'; });
     document.querySelectorAll('.career-card').forEach(function(el) { el.classList.add('revealed'); });
 
@@ -3782,6 +4125,7 @@ function generatePDF() {
         var imgWidth = pdfWidth;
         var imgHeight = (canvas.height * pdfWidth) / canvas.width;
 
+        // Handle multi-page PDFs if content is tall
         var heightLeft = imgHeight;
         var position = 0;
 
@@ -3809,6 +4153,7 @@ function generatePDF() {
     });
 }
 
+// Print the results page
 function printResults() {
     var selectedMode = document.querySelector('input[name="color-mode"]:checked');
     var isColor = selectedMode ? selectedMode.value === 'color' : true;
@@ -3818,17 +4163,19 @@ function printResults() {
 }
 
 // ================================================================
-// SECTION 23: BACK TO TOP
+// SECTION 25: BACK TO TOP
 // ================================================================
 
+// Show/hide the back-to-top button based on scroll position
 function handleScroll() {
     DOM.backToTop.classList.toggle('visible', window.scrollY > 400);
 }
 
 // ================================================================
-// SECTION 24: SAVED PROGRESS BANNER
+// SECTION 26: SAVED PROGRESS BANNER
 // ================================================================
 
+// Check for saved progress and display a banner if found
 function checkSavedProgress() {
     var saved = loadSavedState();
     if (!saved || !saved.answers || saved.answers.length === 0) return;
@@ -3867,22 +4214,28 @@ function checkSavedProgress() {
 }
 
 // ================================================================
-// SECTION 25: EVENT LISTENERS
+// SECTION 27: EVENT LISTENERS
 // ================================================================
 
+// Welcome screen buttons
 DOM.startQuizBtn.addEventListener('click', function() { startQuiz(false); });
 DOM.iDontKnowBtn.addEventListener('click', startDiscoveryMode);
+
+// Quiz navigation
 DOM.prevBtn.addEventListener('click', prevQuestion);
 DOM.nextBtn.addEventListener('click', nextQuestion);
 
+// Quiz options - event delegation for multi-select
 DOM.optionsContainer.addEventListener('click', function(e) {
     var btn = e.target.closest('.option-btn');
     if (btn) toggleOption(btn);
 });
 
+// Results actions
 DOM.downloadPdfBtn.addEventListener('click', generatePDF);
 DOM.printBtn.addEventListener('click', printResults);
 
+// Retake quiz button - resets everything
 DOM.retakeBtn.addEventListener('click', function() {
     var dm = state.darkMode;
     var cm = state.colorMode;
@@ -3907,6 +4260,7 @@ DOM.retakeBtn.addEventListener('click', function() {
     checkSavedProgress();
 });
 
+// Career matches - event delegation for details button and card click
 DOM.careerMatches.addEventListener('click', function(e) {
     var detailBtn = e.target.closest('.view-details-btn');
     if (detailBtn) { e.stopPropagation(); showCareerDetails(detailBtn.dataset.career); return; }
@@ -3914,67 +4268,94 @@ DOM.careerMatches.addEventListener('click', function(e) {
     if (card && card.dataset.career) showCareerDetails(card.dataset.career);
 });
 
+// 🔧 FIX: Career clusters - event delegation (UPDATED)
+// This prevents career clicks from closing the cluster
 DOM.careerClusters.addEventListener('click', function(e) {
+    // Check if clicked on a career item (handled by its own listener)
+    if (e.target.closest('.cluster-career-item')) {
+        // Already handled by the item's own click listener
+        return;
+    }
+
     var clusterCard = e.target.closest('.cluster-card');
     if (clusterCard) {
         var careersList = document.getElementById('cluster-' + clusterCard.dataset.cluster);
-        if (careersList) careersList.classList.toggle('show');
+        if (careersList) {
+            careersList.classList.toggle('show');
+        }
         return;
     }
-    var careerLink = e.target.closest('.cluster-career-item');
-    if (careerLink) showCareerDetails(careerLink.dataset.career);
 });
 
+// Comparison tool - event delegation with debounce
 DOM.comparisonSelectors.addEventListener('change', debounce(updateComparison, 200));
 
+// Search and filter
 DOM.careerSearch.addEventListener('input', debounce(handleCareerSearch, 250));
 DOM.filterChips.addEventListener('click', handleFilterClick);
 
+// Modal
 DOM.modalClose.addEventListener('click', closeCareerModal);
 DOM.careerModal.addEventListener('click', function(e) {
     if (e.target === DOM.careerModal) closeCareerModal();
 });
 
+// Dark mode
 DOM.darkModeToggle.addEventListener('click', toggleDarkMode);
+
+// Back to top
 DOM.backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
+// Scroll handler
 window.addEventListener('scroll', handleScroll, { passive: true });
 
+// Keyboard navigation
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeCareerModal();
     handleKeyboardNav(e);
 });
 
+// Color mode for PDF
 DOM.colorModeRadios.forEach(function(r) {
     r.addEventListener('change', function() { state.colorMode = this.value; });
 });
 
+// Window resize for confetti
 window.addEventListener('resize', function() {
     DOM.confettiCanvas.width = window.innerWidth;
     DOM.confettiCanvas.height = window.innerHeight;
 });
 
 // ================================================================
-// SECTION 26: INITIALIZATION
+// SECTION 28: INITIALIZATION
 // ================================================================
 
+// Initialize the app when the DOM is ready
 function init() {
+    // Load and apply theme
     state.darkMode = loadTheme();
     applyTheme();
+
+    // Show welcome screen
     showScreen('welcome-screen');
+
+    // Check for saved progress
     checkSavedProgress();
 
+    // Log to console for debugging
     if (typeof console !== 'undefined') {
-        console.log('🇿🇲 Career Quest initialized successfully!');
+        console.log('© Career Quest initialized successfully!');
         console.log('📚 Loaded ' + Object.keys(careers).length + ' careers across 8 clusters');
         console.log('📝 Loaded ' + questions.length + ' questions with multi-select support');
         console.log('🧠 Loaded ' + ALL_TRAITS.length + ' personality traits for smart scoring');
         console.log('🗺️ Career pathways added for every career!');
         console.log('📊 5-career comparison enabled!');
         console.log('🔍 Enhanced Discovery Mode with cluster exploration!');
+        console.log('🌍 Accurate pathwayAbroad steps for every career!');
     }
 }
 
+// Run initialization when the DOM is ready
 document.addEventListener('DOMContentLoaded', init);
 
 // ================================================================
