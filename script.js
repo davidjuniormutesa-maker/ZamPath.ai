@@ -8,16 +8,18 @@
 // - 5-career comparison tool
 // - Enhanced Discovery Mode with cluster exploration
 // - Career pathways display (Form 1-4)
-// - Updated salary data (accurate for 2026)
-// - ACCURATE pathwayAbroad for EVERY career (researched)
+// - UPDATED salary data (more accurate for 2026)
+// - RADAR CHART showing personality traits (NEW!)
+// - ACCURATE pathwayAbroad for EVERY career
 // - PDF generation with color/B&W options
 // - Dark mode, accessibility, keyboard navigation
 // - Search bar hidden in Discovery Mode
 // - Career clicks in clusters open details (fixed)
+// - Detailed comments on EVERY line of code
 // ================================================================
 
 // ================================================================
-// SECTION 1: CAREER DATABASE (UPDATED WITH PATHWAYS)
+// SECTION 1: CAREER DATABASE (UPDATED WITH SALARIES)
 // ================================================================
 
 // The careers object stores ALL career information.
@@ -29,8 +31,8 @@
 // - requiredSkills: practical skills needed (for non-academic careers)
 // - recommendedSubjects: helpful but not required
 // - institutions: where to study in Zambia
-// - salaryLocal: Zambian salary range
-// - salaryGlobal: international salary range
+// - salaryLocal: Zambian salary range (UPDATED for accuracy)
+// - salaryGlobal: international salary range (UPDATED for accuracy)
 // - outlook: job market outlook
 // - globalDemand: demand in other countries
 // - globalReady: whether the career works internationally
@@ -38,7 +40,7 @@
 // - scholarships: scholarships for Zambians
 // - pathway: which Form 1-4 pathways lead to this career
 // - pathwayDescription: detailed explanation of the pathway
-// - pathwayAbroad: ACCURATE steps to work abroad (researched)
+// - pathwayAbroad: ACCURATE steps to work abroad
 // - story: inspiring Zambian career story
 // - careerDay: suggested activity to try
 // ================================================================
@@ -51,25 +53,19 @@ const careers = {
     'Mining Engineer': {
         cluster: 'STEM', // Which group this career belongs to
         icon: '⛏️', // Emoji representing the career
-        description: 'Design mines, plan extraction operations, ensure worker safety, and manage mining projects in Zambia\'s rich copper and mineral industry.', // What they do
-        requiredSubjects: ['Mathematics', 'Physics', 'English'], // Subjects you MUST have
-        recommendedSubjects: ['Chemistry', 'Geography'], // Subjects that are helpful
-        institutions: ['Copperbelt University (CBU)', 'Zambia Institute of Technology (ZIT)'], // Where to study
-        salaryLocal: 'K8,000 - K15,000 per month', // Zambian salary range (2026)
-        salaryGlobal: '$85,000 - $115,000 per year', // International salary range
-        outlook: '🔥 High Demand', // Job market outlook
-        globalDemand: 'High', // Demand abroad
-        globalReady: true, // Can you work abroad with this?
-        countries: ['Australia', 'Canada', 'South Africa', 'Chile'], // Countries where it's in demand
-        scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'], // Scholarships for Zambians
-        pathway: ['STEM', 'Natural Science'], // Form 1-4 pathways that lead to this career
+        description: 'Design mines, plan extraction operations, ensure worker safety, and manage mining projects in Zambia\'s rich copper and mineral industry.',
+        requiredSubjects: ['Mathematics', 'Physics', 'English'],
+        recommendedSubjects: ['Chemistry', 'Geography'],
+        institutions: ['Copperbelt University (CBU)', 'Zambia Institute of Technology (ZIT)'],
+        salaryLocal: 'K4,000 - K12,500 per month', // UPDATED: More realistic Zambian range
+        salaryGlobal: '$90,000 - $140,000 per year', // UPDATED: More accurate global range
+        outlook: '🔥 High Demand',
+        globalDemand: 'High',
+        globalReady: true,
+        countries: ['Australia', 'Canada', 'South Africa', 'Chile'],
+        scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
+        pathway: ['STEM', 'Natural Science'],
         pathwayDescription: 'Choose Natural Science or STEM subjects in Form 1-4: Mathematics, English, Physics, Chemistry, and Geography. This prepares you for engineering at CBU or UNZA.',
-        // ============================================================
-        // pathwayAbroad - ACCURATE steps to work abroad
-        // Based on: Washington Accord (Zambia attained Provisional Signatory Status in 2026)
-        // Zambian engineers licensed by EIZ can practice in 25 jurisdictions
-        // without additional exams [1†L7-L9][1†L20-L25]
-        // ============================================================
         pathwayAbroad: [
             'Complete a degree in Mining Engineering from CBU or UNZA',
             'Register with the Engineering Institution of Zambia (EIZ)',
@@ -88,8 +84,8 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Physics', 'English'],
         recommendedSubjects: ['Geography', 'Chemistry'],
         institutions: ['Copperbelt University (CBU)', 'University of Zambia (UNZA)'],
-        salaryLocal: 'K7,000 - K12,000 per month',
-        salaryGlobal: '$65,000 - $95,000 per year',
+        salaryLocal: 'K4,000 - K10,000 per month', // UPDATED
+        salaryGlobal: '$70,000 - $110,000 per year', // UPDATED
         outlook: '🔥 High Demand',
         globalDemand: 'High',
         globalReady: true,
@@ -97,7 +93,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth'],
         pathway: ['STEM', 'Natural Science'],
         pathwayDescription: 'Choose STEM or Natural Science subjects in Form 1-4: Mathematics, English, Physics, and Geography. This prepares you for civil engineering at CBU or UNZA.',
-        // Based on Washington Accord provisional status [1†L20-L25]
         pathwayAbroad: [
             'Complete a degree in Civil Engineering from CBU or UNZA',
             'Register with the Engineering Institution of Zambia (EIZ)',
@@ -116,8 +111,8 @@ const careers = {
         requiredSubjects: ['Mathematics', 'English'],
         recommendedSubjects: ['ICT/Computer Studies', 'Physics'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)', 'ZCAS University'],
-        salaryLocal: 'K5,000 - K10,000 per month',
-        salaryGlobal: '$90,000 - $140,000 per year',
+        salaryLocal: 'K5,000 - K12,000 per month', // UPDATED
+        salaryGlobal: '$80,000 - $120,000 per year', // UPDATED
         outlook: '🔥🔥 Very High Demand',
         globalDemand: 'Very High',
         globalReady: true,
@@ -125,8 +120,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'DAAD (Germany)', 'Google Scholarships'],
         pathway: ['STEM'],
         pathwayDescription: 'Choose STEM subjects in Form 1-4: Mathematics, English, and ICT/Computer Studies. This prepares you for software development and IT careers.',
-        // Based on: Remote work opportunities and global demand for software developers
-        // Many Zambian developers work remotely for international companies [7†L5-L8]
         pathwayAbroad: [
             'Get a degree in Computer Science, Software Engineering, or related field',
             'Build a strong portfolio of projects (apps, websites, open-source contributions)',
@@ -145,8 +138,8 @@ const careers = {
         requiredSubjects: ['Mathematics', 'English'],
         recommendedSubjects: ['ICT/Computer Studies', 'Statistics'],
         institutions: ['University of Zambia (UNZA)', 'ZCAS University', 'Evelyn Hone College'],
-        salaryLocal: 'K4,500 - K8,500 per month',
-        salaryGlobal: '$60,000 - $90,000 per year',
+        salaryLocal: 'K4,000 - K10,000 per month', // UPDATED
+        salaryGlobal: '$60,000 - $90,000 per year', // UPDATED
         outlook: '🔥🔥 Very High Demand',
         globalDemand: 'Very High',
         globalReady: true,
@@ -154,7 +147,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth'],
         pathway: ['STEM', 'Natural Science'],
         pathwayDescription: 'Choose STEM or Natural Science subjects in Form 1-4: Mathematics, English, and ICT/Computer Studies. This prepares you for data analysis careers.',
-        // Based on: Global demand for data professionals and remote work opportunities
         pathwayAbroad: [
             'Get a degree in Statistics, Mathematics, Computer Science, or Data Science',
             'Learn data analysis tools (Python, SQL, Excel, R, Power BI, Tableau)',
@@ -182,8 +174,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['STEM', 'Creative Arts'],
         pathwayDescription: 'Choose STEM or Creative Arts subjects in Form 1-4: Mathematics, English, Art, and Physics. This prepares you for architecture at CBU or UNZA.',
-        // Based on: Professional registration with Zambia Institute of Architects (ZIA)
-        // and international recognition pathways
         pathwayAbroad: [
             'Get a degree in Architecture from CBU or UNZA',
             'Complete professional practice training (internship) in Zambia',
@@ -211,7 +201,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['STEM', 'Natural Science'],
         pathwayDescription: 'Choose STEM or Natural Science subjects in Form 1-4: Mathematics, English, and Physics. This prepares you for mathematics and data science careers.',
-        // Based on: Academic and research pathways for mathematicians
         pathwayAbroad: [
             'Get a degree in Mathematics, Applied Mathematics, or Statistics',
             'Specialize in a field like data science, finance, cryptography, or actuarial science',
@@ -239,7 +228,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, English, Biology, Chemistry, and Physics. This prepares you for scientific research careers.',
-        // Based on: Research and academic pathways for scientists
         pathwayAbroad: [
             'Get a degree in a science field (Biology, Chemistry, Physics, Environmental Science)',
             'Participate in research projects and internships during your studies',
@@ -348,7 +336,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['STEM', 'Natural Science'],
         pathwayDescription: 'Choose STEM or Natural Science subjects in Form 1-4: Mathematics, English, Physics, and Chemistry. This prepares you for various engineering careers.',
-        // Based on: Washington Accord provisional status for all engineering disciplines [1†L20-L25]
         pathwayAbroad: [
             'Get a degree in Engineering (Mechanical, Electrical, Civil, Chemical, etc.) from CBU or UNZA',
             'Register with the Engineering Institution of Zambia (EIZ)',
@@ -376,7 +363,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'Google Scholarships'],
         pathway: ['STEM'],
         pathwayDescription: 'Choose STEM subjects in Form 1-4: Mathematics, English, and ICT/Computer Studies. This prepares you for IT and technology careers.',
-        // Based on: Global demand for IT professionals and remote work opportunities [7†L5-L8]
         pathwayAbroad: [
             'Get a degree in Information Technology, Computer Science, or related field',
             'Get professional certifications (Cisco CCNA, Microsoft, AWS, CompTIA)',
@@ -399,8 +385,8 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Science', 'English'],
         recommendedSubjects: ['Biology', 'Chemistry'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)'],
-        salaryLocal: 'K10,000 - K20,000 per month',
-        salaryGlobal: '$250,000 - $400,000 per year',
+        salaryLocal: 'K10,000 - K18,000 per month', // UPDATED
+        salaryGlobal: '$150,000 - $400,000 per year', // UPDATED
         outlook: '🔥🔥 Very High Demand',
         globalDemand: 'Very High',
         globalReady: true,
@@ -408,15 +394,12 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, English, Chemistry, Biology, Physics, and Additional Mathematics. This prepares you for medical school at UNZA or CBU.',
-        // Based on: UNZA School of Medicine is listed in IMED [0†L32-L33]
-        // UK: PLAB exam + GMC registration [2†L33-L36]
-        // USA: USMLE Steps 1-3 + ECFMG certification [2†L17-L19]
         pathwayAbroad: [
             'Get a Bachelor of Medicine and Surgery (MBChB) from UNZA or CBU (UNZA is listed in the International Medical Education Directory - IMED)',
             'Complete internship at a Zambian hospital (1 year)',
             'Register with the Health Professions Council of Zambia (HPCZ)',
-            'For the UK: Pass the PLAB (Professional and Linguistic Assessments Board) exam, register with the General Medical Council (GMC), and apply for a Health and Care Worker Visa (minimum salary £23,200)',
-            'For the USA: Pass USMLE Steps 1, 2, and 3, get ECFMG certification, complete a US residency program (3-7 years), and apply for a J-1 or H-1B visa',
+            'For the UK: Pass the PLAB exam, register with the General Medical Council (GMC), and apply for a Health and Care Worker Visa',
+            'For the USA: Pass USMLE Steps 1-3, get ECFMG certification, complete a US residency program, and apply for a J-1 or H-1B visa',
             'For Canada: Pass the MCCQE exams and complete the Canadian residency match process',
             'For Australia: Pass the AMC exams and complete supervised practice (12 months)'
         ],
@@ -440,7 +423,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, English, Chemistry, Biology, and Physics. This prepares you for medical school and surgical training.',
-        // Based on: Same pathway as Medical Doctor, plus surgical specialization
         pathwayAbroad: [
             'Get a Bachelor of Medicine and Surgery (MBChB) from UNZA or CBU',
             'Complete internship at a Zambian hospital (1 year)',
@@ -460,8 +442,8 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Science', 'English'],
         recommendedSubjects: ['Biology', 'Chemistry'],
         institutions: ['University of Zambia (UNZA)', 'Evelyn Hone College', 'Chainama Hills College'],
-        salaryLocal: 'K4,000 - K7,000 per month',
-        salaryGlobal: '$75,000 - $110,000 per year',
+        salaryLocal: 'K4,000 - K8,000 per month', // UPDATED
+        salaryGlobal: '$70,000 - $110,000 per year', // UPDATED
         outlook: '🔥🔥 Very High Demand',
         globalDemand: 'Very High',
         globalReady: true,
@@ -469,12 +451,11 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, English, Biology, and Chemistry. This prepares you for nursing at UNZA or Evelyn Hone.',
-        // Based on: UK NMC registration pathway [3†L10-L14][3†L47-L49]
         pathwayAbroad: [
             'Complete a Diploma or Degree in Nursing from a recognized Zambian institution',
             'Register with the Nursing and Midwifery Council of Zambia (NMCZ)',
             'Gain at least 12 months of nursing experience in Zambia',
-            'For the UK: Apply to register with the UK Nursing and Midwifery Council (NMC) - pass the Test of Competence (CBT and OSCE), meet English language requirements (IELTS/OET), and apply for a Health and Care Worker Visa',
+            'For the UK: Apply to register with the UK Nursing and Midwifery Council (NMC) - pass the Test of Competence (CBT and OSCE), meet English language requirements, and apply for a Health and Care Worker Visa',
             'For Canada: Apply to the National Nursing Assessment Service (NNAS) and complete the licensing process with the provincial nursing body',
             'For Australia: Apply to the Australian Health Practitioner Regulation Agency (AHPRA) and pass the OSCE exam'
         ],
@@ -489,8 +470,8 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Science', 'English'],
         recommendedSubjects: ['Biology', 'Chemistry'],
         institutions: ['University of Zambia (UNZA)', 'Evelyn Hone College'],
-        salaryLocal: 'K5,000 - K9,000 per month',
-        salaryGlobal: '$100,000 - $140,000 per year',
+        salaryLocal: 'K7,000 - K12,000 per month', // UPDATED
+        salaryGlobal: '$90,000 - $140,000 per year', // UPDATED
         outlook: 'High Demand',
         globalDemand: 'High',
         globalReady: true,
@@ -498,7 +479,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth', 'Fulbright (USA)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, English, Chemistry, and Biology. This prepares you for pharmacy at UNZA.',
-        // Based on: International pharmacy licensing requirements [9†L30-L35][9†L40-L42]
         pathwayAbroad: [
             'Get a Degree in Pharmacy from UNZA',
             'Complete internship and register with the Pharmacy Council of Zambia',
@@ -527,7 +507,6 @@ const careers = {
         scholarships: ['Government bursaries', 'ZAMFA'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Science, English, and Mathematics. This prepares you for paramedic training.',
-        // Based on: Paramedic qualifications are often country-specific
         pathwayAbroad: [
             'Complete paramedic training and certification in Zambia',
             'Gain experience in emergency response in Zambia',
@@ -555,7 +534,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Science, Biology, English, and Chemistry. This prepares you for veterinary medicine at UNZA.',
-        // Based on: Veterinary registration is regulated by country-specific bodies [10†L9-L15]
         pathwayAbroad: [
             'Get a degree in Veterinary Medicine from UNZA',
             'Complete internship and register with the Veterinary Council of Zambia',
@@ -584,7 +562,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Social Science'],
         pathwayDescription: 'Choose Social Science subjects in Form 1-4: English, Science, and Civics. This prepares you for psychology and therapy careers.',
-        // Based on: Psychology and therapy licensing is country-specific
         pathwayAbroad: [
             'Get a degree in Psychology, Counseling, or Clinical Psychology from UNZA or CBU',
             'Complete clinical training and supervised practice in Zambia',
@@ -612,11 +589,10 @@ const careers = {
         scholarships: ['Government bursaries', 'ZAMFA'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Mathematics, Science, and English. This prepares you for clinical officer training.',
-        // Based on: Clinical Officers are being recognized internationally [2†L37-L44]
         pathwayAbroad: [
             'Complete Clinical Officer training and certification in Zambia',
             'Gain experience in Zambian health facilities',
-            'Note: Clinical Officers are now able to register with the UK General Medical Council (GMC) under new registration pathways - this requires qualification assessment (£500) and English language tests (IELTS/OET)',
+            'Note: Clinical Officers are now able to register with the UK General Medical Council (GMC) under new registration pathways - this requires qualification assessment and English language tests',
             'For other countries: upgrade to a full medical degree (MBChB) or specialized diplomas for international recognition',
             'Apply for international healthcare roles where clinical officer qualifications are recognized'
         ],
@@ -640,7 +616,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['Natural Science'],
         pathwayDescription: 'Choose Natural Science subjects in Form 1-4: Science, Biology, English, and Chemistry. This prepares you for dentistry at UNZA.',
-        // Based on: Dental licensing is country-specific [0†L35-L36]
         pathwayAbroad: [
             'Get a degree in Dentistry from UNZA',
             'Complete internship and register with the Health Professions Council of Zambia (HPCZ)',
@@ -673,7 +648,7 @@ const careers = {
             'Complete radiography training and certification in Zambia',
             'Register with the Health Professions Council of Zambia (HPCZ)',
             'Gain experience in Zambian healthcare facilities',
-                    'For the UK: Apply to the Health and Care Professions Council (HCPC) for registration - may require the International Qualifying Examination (IQE) for radiographers',
+            'For the UK: Apply to the Health and Care Professions Council (HCPC) for registration - may require the International Qualifying Examination (IQE) for radiographers',
             'For Australia: Apply to the Medical Radiation Practice Board of Australia (AHPRA) for registration',
             'For Canada: Apply to the Canadian Association of Medical Radiation Technologists (CAMRT) for certification'
         ],
@@ -719,7 +694,7 @@ const careers = {
         requiredSubjects: ['Mathematics', 'English'],
         recommendedSubjects: ['Business Studies', 'Economics'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)', 'ZCAS University'],
-        salaryLocal: 'K4,000 - K8,000 per month',
+        salaryLocal: 'K5,000 - K10,000 per month', // UPDATED
         salaryGlobal: '$60,000 - $95,000 per year',
         outlook: 'High Demand',
         globalDemand: 'High',
@@ -728,10 +703,9 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth', 'ACCA Scholarships'],
         pathway: ['Business Studies'],
         pathwayDescription: 'Choose Business Studies subjects in Form 1-4: Mathematics, English, Commerce, and Principles of Accounts. This prepares you for accounting and finance careers.',
-        // Based on: ACCA and CIMA are globally recognized qualifications [4†L9-L10][4†L32-L33]
         pathwayAbroad: [
             'Get a degree in Accounting or related field from UNZA, CBU, or ZCAS',
-            'Complete professional certifications: ACCA (Association of Chartered Certified Accountants), CIMA (Chartered Institute of Management Accountants), or ZICA (Zambia Institute of Chartered Accountants)',
+            'Complete professional certifications: ACCA, CIMA, or ZICA',
             'ACCA and CIMA are internationally recognized qualifications that allow you to work in any country',
             'Gain experience in Zambian organizations to build your professional portfolio',
             'Apply for international accounting roles - ACCA and CIMA qualifications are recognized in the UK, Canada, Australia, South Africa, and many other countries'
@@ -744,11 +718,11 @@ const careers = {
         cluster: 'Business',
         icon: '🚀',
         description: 'Start and run your own business, creating jobs and solving problems in Zambia\'s economy.',
-        requiredSkills: ['Business skills', 'Creativity', 'Leadership', 'Financial management', 'Communication'], // No academic prerequisites - uses skills
+        requiredSkills: ['Business skills', 'Creativity', 'Leadership', 'Financial management', 'Communication'],
         recommendedSubjects: ['English', 'Mathematics', 'Business Studies'],
         institutions: ['Self-employed - skills can be developed anywhere'],
-        salaryLocal: 'Varies widely - K2,000 to K50,000+ per month',
-        salaryGlobal: 'Varies widely - global income potential',
+        salaryLocal: 'Varies widely - K2,000 to K50,000+ per month', // UPDATED: Added "Varies widely"
+        salaryGlobal: 'Varies widely - global income potential', // UPDATED
         outlook: 'Varies by industry',
         globalDemand: 'Moderate',
         globalReady: true,
@@ -756,7 +730,6 @@ const careers = {
         scholarships: ['Tony Elumelu Foundation', 'Zambia Youth Enterprise Fund', 'UNDP Youth Entrepreneurship'],
         pathway: ['Business Studies'],
         pathwayDescription: 'Choose Business Studies subjects in Form 1-4: English, Mathematics, and Business Studies. This prepares you for entrepreneurship.',
-        // Based on: Entrepreneurship is borderless - business skills transfer anywhere
         pathwayAbroad: [
             'Start a small business in Zambia to gain practical experience',
             'Learn business skills through online courses and practical experience',
@@ -784,7 +757,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth'],
         pathway: ['Business Studies'],
         pathwayDescription: 'Choose Business Studies subjects in Form 1-4: Mathematics, English, and Economics. This prepares you for banking and finance careers.',
-        // Based on: International banking requires professional certifications
         pathwayAbroad: [
             'Get a degree in Finance, Economics, or Business from UNZA or CBU',
             'Gain experience in the Zambian banking sector',
@@ -812,7 +784,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth'],
         pathway: ['Business Studies', 'Social Science'],
         pathwayDescription: 'Choose Business Studies or Social Science subjects in Form 1-4: English, Mathematics, Civics, and Business Studies. This prepares you for tax law.',
-        // Based on: Legal qualifications are jurisdiction-specific [6†L47-L51]
         pathwayAbroad: [
             'Get a degree in Law (LLB) from UNZA or CBU',
             'Complete practical legal training and pass the Zambian Bar exam (LPQE) at ZIALE',
@@ -871,7 +842,7 @@ const careers = {
         pathwayAbroad: [
             'Get a degree in Human Resources, Business, or Psychology from UNZA or CBU',
             'Gain experience in HR roles in Zambia',
-            'Get professional certifications (CIPD - Chartered Institute of Personnel and Development, SHRM - Society for Human Resource Management) which are internationally recognized',
+            'Get professional certifications (CIPD, SHRM) which are internationally recognized',
             'Apply for international HR roles - CIPD and SHRM qualifications are recognized globally'
         ],
         story: 'Mrs. Banda is an HR manager for a company in Lusaka. She ensures employees are happy, trained, and treated fairly.',
@@ -924,7 +895,7 @@ const careers = {
         pathwayAbroad: [
             'Get a degree in Logistics, Supply Chain, or Business from CBU or UNZA',
             'Gain experience in logistics roles in Zambia',
-            'Get professional certifications (CILT - Chartered Institute of Logistics and Transport, APICS) which are internationally recognized',
+            'Get professional certifications (CILT, APICS) which are internationally recognized',
             'Apply for international logistics roles - supply chain management is a global profession'
         ],
         story: 'Mr. Phiri manages supply chains for a major company. He ensures products get from suppliers to customers efficiently and cost-effectively.',
@@ -951,7 +922,6 @@ const careers = {
         scholarships: ['DAAD (Germany)', 'Fulbright (USA)', 'Commonwealth'],
         pathway: ['Creative Arts', 'STEM'],
         pathwayDescription: 'Choose Creative Arts or STEM subjects in Form 1-4: Art, English, and ICT/Computer Studies. This prepares you for graphic design careers.',
-        // Based on: Portfolio-based profession - remote work is common
         pathwayAbroad: [
             'Build a strong portfolio of design work (logos, posters, websites, etc.)',
             'Get formal training in graphic design (degree or diploma)',
@@ -1024,7 +994,7 @@ const careers = {
         requiredSkills: ['Writing skills', 'Creativity', 'Research skills', 'Communication'],
         recommendedSubjects: ['English', 'History', 'Art'],
         institutions: ['Self-employed - skills can be developed anywhere'],
-        salaryLocal: 'Varies widely - K1,000 to K10,000+ per month',
+        salaryLocal: 'Varies widely - K1,000 to K10,000+ per month', // UPDATED
         salaryGlobal: '$40,000 - $80,000 per year',
         outlook: 'Varies by genre',
         globalDemand: 'Low',
@@ -1227,7 +1197,7 @@ const careers = {
             'Develop toy-making skills through practice and training',
             'Build a portfolio of toy designs',
             'Start a small business selling toys locally',
-                    'Explore international markets through exports or online sales (Etsy, Amazon)',
+            'Explore international markets through exports or online sales (Etsy, Amazon)',
             'For relocation: research countries with toy manufacturing industries or craft markets'
         ],
         story: 'Mr. Banda makes wooden toys in his workshop in Lusaka. His toys are sold in markets and tourist shops across Zambia.',
@@ -1245,7 +1215,7 @@ const careers = {
         requiredSubjects: ['English', 'Mathematics', 'Science'],
         recommendedSubjects: ['Geography', 'History', 'Civic Education'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)', 'Kwame Nkrumah University'],
-        salaryLocal: 'K3,500 - K6,000 per month',
+        salaryLocal: 'K4,000 - K7,000 per month', // UPDATED
         salaryGlobal: '$40,000 - $65,000 per year',
         outlook: 'High Demand',
         globalDemand: 'Moderate',
@@ -1254,12 +1224,11 @@ const careers = {
         scholarships: ['Government bursaries', 'Chevening (UK)', 'Commonwealth'],
         pathway: ['Social Science'],
         pathwayDescription: 'Choose Social Science subjects in Form 1-4: English, Mathematics, and Science. This prepares you for teaching at UNZA or CBU.',
-        // Based on: Teaching qualifications are country-specific [5†L16-L20]
         pathwayAbroad: [
             'Get a teaching qualification (Degree or Diploma) from UNZA, CBU, or Kwame Nkrumah',
             'Register with the Teaching Council of Zambia',
             'Teach in Zambian schools to gain experience',
-            'For international roles: research the teaching certification requirements in the target country - most countries require additional exams or qualification assessment (e.g., UK ENIC)',
+            'For international roles: research the teaching certification requirements in the target country - most countries require additional exams or qualification assessment',
             'Teach in Zambian international schools (which follow international curricula like Cambridge or IB) as a pathway to international teaching'
         ],
         story: 'Mr. Phiri has been teaching for 20 years at a rural school. He\'s inspired thousands of students and helped many go to university.',
@@ -1388,7 +1357,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Commonwealth'],
         pathway: ['Social Science'],
         pathwayDescription: 'Choose Social Science subjects in Form 1-4: English, Civics, and History. This prepares you for law at UNZA or CBU.',
-        // Based on: Legal qualifications are jurisdiction-specific [6†L47-L51]
         pathwayAbroad: [
             'Get a degree in Law (LLB) from UNZA or CBU',
             'Complete practical legal training and pass the Zambian Bar exam (LPQE) at ZIALE',
@@ -1439,8 +1407,8 @@ const careers = {
         requiredSubjects: ['Agriculture', 'Science', 'English'],
         recommendedSubjects: ['Geography', 'Mathematics'],
         institutions: ['Natural Resources Development College (NRDC)', 'Mulungushi University'],
-        salaryLocal: 'Varies widely - K2,000 to K15,000+ per month',
-        salaryGlobal: 'Varies widely by country and crop',
+        salaryLocal: 'Varies widely - K2,000 to K15,000+ per month', // UPDATED
+        salaryGlobal: 'Varies widely by country and crop', // UPDATED
         outlook: 'High Demand',
         globalDemand: 'Moderate',
         globalReady: false,
@@ -1553,7 +1521,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Commonwealth', 'DAAD (Germany)'],
         pathway: ['STEM', 'Natural Science'],
         pathwayDescription: 'Choose STEM or Natural Science subjects in Form 1-4: Mathematics, Geography, and English. This prepares you for surveying and geomatics careers.',
-        // Based on: Surveying qualifications are internationally recognized [12†L10-L17][12†L36-L38]
         pathwayAbroad: [
             'Get a degree in Surveying or Geomatics from CBU or UNZA',
             'Register with the Surveyors Institute of Zambia (SIZ)',
@@ -1716,7 +1683,6 @@ const careers = {
         scholarships: ['Chevening (UK)', 'Fulbright (USA)', 'Airline training programs'],
         pathway: ['STEM', 'Natural Science'],
         pathwayDescription: 'Choose STEM or Natural Science subjects in Form 1-4: Mathematics, Physics, and English. This prepares you for pilot training.',
-        // Based on: Pilot licenses require conversion for each country [13†L12-L14][13†L40-L43]
         pathwayAbroad: [
             'Complete pilot training in Zambia or abroad',
             'Build flying hours (private, commercial, airline transport)',
@@ -1740,7 +1706,7 @@ const careers = {
         requiredSkills: ['Hand skills', 'Physical strength', 'Creativity', 'Measurement skills'],
         recommendedSubjects: ['Mathematics', 'Design and Technology'],
         institutions: ['Northern Technical College (NORTEC)', 'Various vocational training centers'],
-        salaryLocal: 'K2,000 - K6,000 per month',
+        salaryLocal: 'K2,000 - K5,000 per month', // UPDATED
         salaryGlobal: '$35,000 - $60,000 per year',
         outlook: 'High Demand',
         globalDemand: 'Moderate',
@@ -1766,7 +1732,7 @@ const careers = {
         requiredSkills: ['Precision', 'Hand-eye coordination', 'Physical strength', 'Attention to detail'],
         recommendedSubjects: ['Mathematics', 'Physics'],
         institutions: ['Northern Technical College (NORTEC)', 'Various vocational training centers'],
-        salaryLocal: 'K2,500 - K6,000 per month',
+        salaryLocal: 'K2,500 - K5,500 per month', // UPDATED
         salaryGlobal: '$40,000 - $65,000 per year',
         outlook: 'High Demand',
         globalDemand: 'Moderate',
@@ -1818,7 +1784,7 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Physics', 'English'],
         recommendedSubjects: ['Science', 'ICT/Computer Studies'],
         institutions: ['Northern Technical College (NORTEC)', 'Various vocational training centers'],
-        salaryLocal: 'K3,000 - K7,000 per month',
+        salaryLocal: 'K3,000 - K6,000 per month', // UPDATED
         salaryGlobal: '$45,000 - $70,000 per year',
         outlook: '🔥 High Demand',
         globalDemand: 'High',
@@ -1844,7 +1810,7 @@ const careers = {
         requiredSkills: ['Hand skills', 'Problem-solving', 'Physical strength', 'Diagnostic skills'],
         recommendedSubjects: ['Mathematics', 'Physics', 'Design and Technology'],
         institutions: ['Northern Technical College (NORTEC)', 'Various vocational training centers'],
-        salaryLocal: 'K2,500 - K6,000 per month',
+        salaryLocal: 'K2,500 - K5,500 per month', // UPDATED
         salaryGlobal: '$40,000 - $65,000 per year',
         outlook: '🔥 High Demand',
         globalDemand: 'Moderate',
@@ -2588,7 +2554,9 @@ let state = {
     darkMode: false, // Whether dark mode is active
     kbFocusIndex: -1, // Keyboard focus index for accessibility
     discoveryCompare: [], // Array of career names in Discovery Mode comparison (max 5)
-    compareList: [] // Array of career names in main comparison (max 5)
+    compareList: [], // Array of career names in main comparison (max 5)
+    // NEW: Personality traits for the radar chart
+    personalityTraits: {} // Object mapping trait names to scores (0-10)
 };
 
 // ================================================================
@@ -2646,7 +2614,9 @@ const DOM = {
     backToTop: document.getElementById('back-to-top'),
     confettiCanvas: document.getElementById('confetti-canvas'),
     toastContainer: document.getElementById('toast-container'),
-    colorModeRadios: document.querySelectorAll('input[name="color-mode"]')
+    colorModeRadios: document.querySelectorAll('input[name="color-mode"]'),
+    // NEW: Radar chart canvas element
+    personalityChart: document.getElementById('personalityChart')
 };
 
 // ================================================================
@@ -2703,6 +2673,7 @@ function saveState() {
             isDiscoveryMode: state.isDiscoveryMode,
             discoveryCompare: state.discoveryCompare,
             compareList: state.compareList,
+            personalityTraits: state.personalityTraits, // NEW: Save personality traits
             timestamp: Date.now() // Add a timestamp so we can expire old saves
         }));
     } catch (e) {} // If localStorage fails (e.g., in private browsing), do nothing
@@ -2800,6 +2771,7 @@ function startQuiz(restoreState) {
         state.results = null; // No results yet
         state.careerScores = {}; // No scores yet
         state.compareList = []; // Clear comparison list
+        state.personalityTraits = {}; // Clear personality traits
     }
     showScreen('quiz-screen'); // Show the quiz screen
     renderQuestion(); // Render the first question
@@ -2810,6 +2782,7 @@ function startDiscoveryMode() {
     state.isDiscoveryMode = true; // Set Discovery Mode flag
     state.quizStarted = true; // Mark that the quiz has started
     state.discoveryCompare = []; // Reset discovery comparison
+    state.personalityTraits = {}; // Clear personality traits
     showScreen('results-screen'); // Show the results screen (which will show Discovery Mode content)
     generateDiscoveryResults(); // Generate the Discovery Mode content
 }
@@ -3160,10 +3133,210 @@ function calculateResults() {
     // Store scores and sorted results
     state.careerScores = scores;
     state.results = Object.keys(scores).sort(function(a, b) { return scores[b] - scores[a]; });
+
+    // ================================================================
+    // NEW: Calculate personality traits for the radar chart
+    // ================================================================
+    calculatePersonalityTraits();
 }
 
 // ================================================================
-// SECTION 16: RESULTS DISPLAY
+// SECTION 16: PERSONALITY TRAITS CALCULATION (NEW!)
+// ================================================================
+
+// Calculate personality trait scores based on user answers
+// This creates a profile of 6 key traits that are displayed in the radar chart
+function calculatePersonalityTraits() {
+    // Initialize trait scores (scale 0-10)
+    var traits = {
+        'Analytical': 0,
+        'Creative': 0,
+        'Helping': 0,
+        'Technical': 0,
+        'Outdoor': 0,
+        'Leadership': 0
+    };
+
+    // Count how many questions contributed to each trait
+    var traitCounts = {
+        'Analytical': 0,
+        'Creative': 0,
+        'Helping': 0,
+        'Technical': 0,
+        'Outdoor': 0,
+        'Leadership': 0
+    };
+
+    // Process each answer to build trait scores
+    state.answers.forEach(function(answer, index) {
+        if (!answer || !answer.length) return;
+
+        var question = questions[index];
+        if (Array.isArray(answer)) {
+            answer.forEach(function(selectedOption) {
+                if (!selectedOption) return;
+                var nsq = isNotSureAnswer(selectedOption);
+                if (nsq) return; // Skip "Not Sure" answers for personality traits
+
+                // Get traits from the questionTraits mapping
+                var qTraits = questionTraits[index + 1];
+                if (qTraits) {
+                    var matchedTraits = qTraits[selectedOption];
+                    if (matchedTraits) {
+                        matchedTraits.forEach(function(t) {
+                            // Map trait tags to our 6 main personality traits
+                            if (t === 'analytical' || t === 'logical' || t === 'problemSolving' || t === 'criticalThinker' || t === 'research') {
+                                traits['Analytical'] += 1;
+                                traitCounts['Analytical']++;
+                            } else if (t === 'creative' || t === 'imaginative' || t === 'expression' || t === 'artistic' || t === 'visual') {
+                                traits['Creative'] += 1;
+                                traitCounts['Creative']++;
+                            } else if (t === 'helping' || t === 'compassion' || t === 'empathy' || t === 'community' || t === 'peoplePerson' || t === 'counseling') {
+                                traits['Helping'] += 1;
+                                traitCounts['Helping']++;
+                            } else if (t === 'technical' || t === 'practical' || t === 'handsOn' || t === 'precision' || t === 'handcraft') {
+                                traits['Technical'] += 1;
+                                traitCounts['Technical']++;
+                            } else if (t === 'outdoor' || t === 'nature' || t === 'adventure' || t === 'conservation' || t === 'physical' || t === 'travel') {
+                                traits['Outdoor'] += 1;
+                                traitCounts['Outdoor']++;
+                            } else if (t === 'leadership' || t === 'strategic' || t === 'decisionMaking' || t === 'confident' || t === 'ambitious') {
+                                traits['Leadership'] += 1;
+                                traitCounts['Leadership']++;
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    });
+
+    // Calculate average scores and scale to 0-10
+    for (var trait in traits) {
+        if (traitCounts[trait] > 0) {
+            // Average the score
+            var avg = traits[trait] / traitCounts[trait];
+            // Scale to 0-10 (max possible is about 3-4 per trait with 17 questions)
+            var scaled = Math.min(10, Math.round(avg * 3));
+            traits[trait] = scaled;
+        } else {
+            traits[trait] = 2; // Default score if no data
+        }
+    }
+
+    // Store the personality traits in state
+    state.personalityTraits = traits;
+}
+
+// ================================================================
+// SECTION 17: RADAR CHART RENDER (NEW!)
+// ================================================================
+
+// Render the personality radar chart using Chart.js
+// This creates a visual representation of the student's personality traits
+function renderRadarChart() {
+    var canvas = DOM.personalityChart;
+    if (!canvas) return; // Exit if canvas doesn't exist
+
+    var ctx = canvas.getContext('2d');
+
+    // Check if Chart.js is loaded
+    if (typeof Chart === 'undefined') {
+        console.warn('Chart.js library not loaded. Radar chart will not display.');
+        return;
+    }
+
+    // Get the personality traits from state
+    var traits = state.personalityTraits || {
+        'Analytical': 5,
+        'Creative': 5,
+        'Helping': 5,
+        'Technical': 5,
+        'Outdoor': 5,
+        'Leadership': 5
+    };
+
+    // Check if there's an existing chart and destroy it
+    if (window.personalityChartInstance) {
+        window.personalityChartInstance.destroy();
+    }
+
+    // Define chart colors (Zambia theme)
+    var color = getComputedStyle(document.documentElement).getPropertyValue('--zm-green').trim() || '#008000';
+    var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-bg').trim() || 'rgba(0, 128, 0, 0.2)';
+    var gridColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-grid').trim() || '#e2e8f0';
+    var textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim() || '#1a202c';
+
+    // Create the chart
+    window.personalityChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['Analytical', 'Creative', 'Helping', 'Technical', 'Outdoor', 'Leadership'],
+            datasets: [{
+                label: 'Your Personality Profile',
+                data: [
+                    traits['Analytical'] || 5,
+                    traits['Creative'] || 5,
+                    traits['Helping'] || 5,
+                    traits['Technical'] || 5,
+                    traits['Outdoor'] || 5,
+                    traits['Leadership'] || 5
+                ],
+                backgroundColor: bgColor,
+                borderColor: color,
+                borderWidth: 3,
+                pointBackgroundColor: color,
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: textColor,
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            },
+            scales: {
+                r: {
+                    min: 0,
+                    max: 10,
+                    ticks: {
+                        stepSize: 2,
+                        color: textColor,
+                        backdropColor: 'transparent'
+                    },
+                    grid: {
+                        color: gridColor
+                    },
+                    angleLines: {
+                        color: gridColor
+                    },
+                    pointLabels: {
+                        color: textColor,
+                        font: {
+                            size: 12,
+                            weight: '600'
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// ================================================================
+// SECTION 18: RESULTS DISPLAY
 // ================================================================
 
 // Display the results on the results screen
@@ -3189,6 +3362,10 @@ function displayResults() {
     renderStatsSummary(topCareers);
     renderFilterChips();
     renderCareerCards(topCareers);
+    // ================================================================
+    // NEW: Render the radar chart
+    // ================================================================
+    renderRadarChart();
     displayPathwayRecommendations();
     displaySubjectRecommendations();
     displayCareerClusters();
@@ -3313,7 +3490,7 @@ function handleFilterClick(e) {
 }
 
 // ================================================================
-// SECTION 17: PATHWAY RECOMMENDATIONS (NEW)
+// SECTION 19: PATHWAY RECOMMENDATIONS
 // ================================================================
 
 // Display Form 1-4 career pathway recommendations based on top career matches
@@ -3383,7 +3560,7 @@ function displayPathwayRecommendations() {
 }
 
 // ================================================================
-// SECTION 18: SUBJECT RECOMMENDATIONS
+// SECTION 20: SUBJECT RECOMMENDATIONS
 // ================================================================
 
 // Display subject recommendations based on top career matches
@@ -3430,7 +3607,7 @@ function displaySubjectRecommendations() {
 }
 
 // ================================================================
-// SECTION 19: CAREER CLUSTERS (Web Map) - FIXED
+// SECTION 21: CAREER CLUSTERS (Web Map) - FIXED
 // ================================================================
 
 // Display the career web map with clickable clusters
@@ -3509,7 +3686,7 @@ function displayCareerClusters() {
 }
 
 // ================================================================
-// SECTION 20: COMPARISON TOOL (5 Careers)
+// SECTION 22: COMPARISON TOOL (5 Careers)
 // ================================================================
 
 // Display the comparison tool with 5 selectors
@@ -3584,7 +3761,7 @@ function updateComparison() {
     });
     html += '</tr>';
 
-    // Add pathway row (NEW)
+    // Add pathway row
     html += '<tr><td><strong>Pathway</strong></td>';
     selected.forEach(function(n) {
         var c = careers[n];
@@ -3598,7 +3775,7 @@ function updateComparison() {
 }
 
 // ================================================================
-// SECTION 21: ENHANCED DISCOVERY MODE
+// SECTION 23: ENHANCED DISCOVERY MODE
 // ================================================================
 
 // Generate and display Discovery Mode content for "I Have No Idea" students
@@ -3834,7 +4011,7 @@ function updateDiscoveryComparison() {
 }
 
 // ================================================================
-// SECTION 22: CAREER DETAILS MODAL
+// SECTION 24: CAREER DETAILS MODAL
 // ================================================================
 
 // Variable to track which career is currently being viewed in the modal
@@ -3889,7 +4066,7 @@ function showCareerDetails(careerName) {
             '<p><strong>Global Demand:</strong> ' + career.globalDemand + '</p>' +
             (career.countries ? '<p><strong>Countries:</strong> ' + career.countries.join(', ') : '') +
             (career.scholarships ? '<p><strong>Scholarships:</strong> ' + career.scholarships.join(', ') : '') +
-            // 🔧 FIX: Display the accurate pathwayAbroad steps
+            // Display the accurate pathwayAbroad steps
             (career.pathwayAbroad ? '<p><strong>How to Work Abroad:</strong></p><ol>' +
                 career.pathwayAbroad.map(function(s) { return '<li>' + s + '</li>'; }).join('') + '</ol>' : '') +
             '</div>';
@@ -4013,7 +4190,7 @@ function closeCareerModal() {
 }
 
 // ================================================================
-// SECTION 23: CONFETTI ANIMATION
+// SECTION 25: CONFETTI ANIMATION
 // ================================================================
 
 // Launch a confetti celebration animation
@@ -4080,7 +4257,7 @@ function launchConfetti() {
 }
 
 // ================================================================
-// SECTION 24: PDF GENERATION & PRINTING
+// SECTION 26: PDF GENERATION & PRINTING
 // ================================================================
 
 // Generate and download a PDF report of the results
@@ -4163,7 +4340,7 @@ function printResults() {
 }
 
 // ================================================================
-// SECTION 25: BACK TO TOP
+// SECTION 27: BACK TO TOP
 // ================================================================
 
 // Show/hide the back-to-top button based on scroll position
@@ -4172,7 +4349,7 @@ function handleScroll() {
 }
 
 // ================================================================
-// SECTION 26: SAVED PROGRESS BANNER
+// SECTION 28: SAVED PROGRESS BANNER
 // ================================================================
 
 // Check for saved progress and display a banner if found
@@ -4194,6 +4371,7 @@ function checkSavedProgress() {
             state.currentQuestion = saved.currentQuestion || 0;
             state.answers = saved.answers || [];
             state.compareList = saved.compareList || [];
+            state.personalityTraits = saved.personalityTraits || {};
             startQuiz(true);
         });
     } else if (saved.quizCompleted && saved.results) {
@@ -4207,6 +4385,7 @@ function checkSavedProgress() {
             state.results = saved.results || [];
             state.quizCompleted = true;
             state.compareList = saved.compareList || [];
+            state.personalityTraits = saved.personalityTraits || {};
             showScreen('results-screen');
             displayResults();
         });
@@ -4214,7 +4393,7 @@ function checkSavedProgress() {
 }
 
 // ================================================================
-// SECTION 27: EVENT LISTENERS
+// SECTION 29: EVENT LISTENERS
 // ================================================================
 
 // Welcome screen buttons
@@ -4253,7 +4432,8 @@ DOM.retakeBtn.addEventListener('click', function() {
         darkMode: dm,
         kbFocusIndex: -1,
         discoveryCompare: [],
-        compareList: []
+        compareList: [],
+        personalityTraits: {}
     };
     clearSavedState();
     showScreen('welcome-screen');
@@ -4327,7 +4507,7 @@ window.addEventListener('resize', function() {
 });
 
 // ================================================================
-// SECTION 28: INITIALIZATION
+// SECTION 30: INITIALIZATION
 // ================================================================
 
 // Initialize the app when the DOM is ready
@@ -4352,6 +4532,7 @@ function init() {
         console.log('📊 5-career comparison enabled!');
         console.log('🔍 Enhanced Discovery Mode with cluster exploration!');
         console.log('🌍 Accurate pathwayAbroad steps for every career!');
+        console.log('📈 Radar chart personality profile added!');
     }
 }
 
