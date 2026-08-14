@@ -3141,12 +3141,11 @@ function calculateResults() {
 }
 
 // ================================================================
-// SECTION 16: PERSONALITY TRAITS CALCULATION (FIXED!)
+// SECTION 16: PERSONALITY TRAITS CALCULATION (NEW!)
 // ================================================================
 
 // Calculate personality trait scores based on user answers
 // This creates a profile of 6 key traits that are displayed in the radar chart
-// FIXED: Proper scaling from 0-10 with real variation between users
 function calculatePersonalityTraits() {
     // Initialize trait scores (scale 0-10)
     var traits = {
@@ -3212,51 +3211,21 @@ function calculatePersonalityTraits() {
         }
     });
 
-    // 🔧 FIX: Proper scaling from 0-10 with real variation
-    // Find the maximum possible raw score to normalize properly
-    // With 17 questions and up to 8 options each, max raw score per trait is about 17
-    var maxPossibleRawScore = 17;
-
+    // Calculate average scores and scale to 0-10
     for (var trait in traits) {
         if (traitCounts[trait] > 0) {
             // Average the score
             var avg = traits[trait] / traitCounts[trait];
-            // Scale to 0-10 based on actual distribution
-            // Most students will score between 1-8 with this method
-            var scaled = Math.min(10, Math.round(avg * 2.5));
-            // Ensure at least 1 for visibility
-            if (scaled < 1) scaled = 1;
+            // Scale to 0-10 (max possible is about 3-4 per trait with 17 questions)
+            var scaled = Math.min(10, Math.round(avg * 3));
             traits[trait] = scaled;
         } else {
-            // If no data, give a base score of 2
-            traits[trait] = 2;
+            traits[trait] = 2; // Default score if no data
         }
-    }
-
-    // Ensure some variation - if all traits are the same, add some randomness
-    var allSame = true;
-    var firstValue = traits['Analytical'];
-    for (var trait in traits) {
-        if (traits[trait] !== firstValue) {
-            allSame = false;
-            break;
-        }
-    }
-
-    if (allSame && firstValue > 0) {
-        // Add slight variation so the chart isn't a perfect circle
-        traits['Analytical'] = Math.min(10, traits['Analytical'] + 1);
-        traits['Technical'] = Math.min(10, Math.max(1, traits['Technical'] - 1));
-        traits['Outdoor'] = Math.min(10, Math.max(1, traits['Outdoor'] + 0.5));
     }
 
     // Store the personality traits in state
     state.personalityTraits = traits;
-
-    // For debugging - log the traits to console
-    if (typeof console !== 'undefined') {
-        console.log('🧠 Personality Traits Calculated:', traits);
-    }
 }
 
 // ================================================================
