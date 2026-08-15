@@ -3,13 +3,14 @@
 // ================================================================
 // This file contains ALL the logic for the career guidance app:
 // - 50+ careers across 8 clusters with PATHWAYS
-// - 17 multi-select questions with better wording
+// - 20 multi-select questions (individual, non-combined options)
 // - Smart scoring engine (cluster + trait matching)
 // - 5-career comparison tool
 // - Enhanced Discovery Mode with cluster exploration
 // - Career pathways display (Form 1-4)
-// - UPDATED salary data (more accurate for 2026)
-// - FIXED RADAR CHART showing personality traits (1-10 scale)
+// - UPDATED salary data (accurate for 2026 Zambian standards)
+// - Variable salary descriptions clearly stated
+// - RADAR CHART showing personality traits (1-10 scale)
 // - ACCURATE pathwayAbroad for EVERY career
 // - PDF generation with color/B&W options
 // - Dark mode, accessibility, keyboard navigation
@@ -19,7 +20,7 @@
 // ================================================================
 
 // ================================================================
-// SECTION 1: CAREER DATABASE (UPDATED WITH SALARIES)
+// SECTION 1: CAREER DATABASE (UPDATED WITH ACCURATE SALARIES)
 // ================================================================
 
 // The careers object stores ALL career information.
@@ -31,8 +32,8 @@
 // - requiredSkills: practical skills needed (for non-academic careers)
 // - recommendedSubjects: helpful but not required
 // - institutions: where to study in Zambia
-// - salaryLocal: Zambian salary range (UPDATED for accuracy)
-// - salaryGlobal: international salary range (UPDATED for accuracy)
+// - salaryLocal: Zambian salary range (ACCURATE for 2026)
+// - salaryGlobal: international salary range
 // - outlook: job market outlook
 // - globalDemand: demand in other countries
 // - globalReady: whether the career works internationally
@@ -57,8 +58,8 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Physics', 'English'],
         recommendedSubjects: ['Chemistry', 'Geography'],
         institutions: ['Copperbelt University (CBU)', 'Zambia Institute of Technology (ZIT)'],
-        salaryLocal: 'K8,000 - K15,000 per month', // UPDATED: More realistic Zambian range
-        salaryGlobal: '$85,000 - $115,000 per year', // UPDATED: More accurate global range
+        salaryLocal: 'K15,000 - K35,000 per month', // ACCURATE: High demand in copper industry
+        salaryGlobal: '$85,000 - $115,000 per year',
         outlook: '🔥 High Demand',
         globalDemand: 'High',
         globalReady: true,
@@ -84,8 +85,8 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Physics', 'English'],
         recommendedSubjects: ['Geography', 'Chemistry'],
         institutions: ['Copperbelt University (CBU)', 'University of Zambia (UNZA)'],
-        salaryLocal: 'K7,000 - K12,000 per month', // UPDATED
-        salaryGlobal: '$65,000 - $95,000 per year', // UPDATED
+        salaryLocal: 'K15,000 - K30,000 per month', // ACCURATE
+        salaryGlobal: '$65,000 - $95,000 per year',
         outlook: '🔥 High Demand',
         globalDemand: 'High',
         globalReady: true,
@@ -111,8 +112,8 @@ const careers = {
         requiredSubjects: ['Mathematics', 'English'],
         recommendedSubjects: ['ICT/Computer Studies', 'Physics'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)', 'ZCAS University'],
-        salaryLocal: 'K5,000 - K10,000 per month', // UPDATED
-        salaryGlobal: '$90,000 - $140,000 per year', // UPDATED
+        salaryLocal: 'K10,000 - K25,000 per month', // ACCURATE
+        salaryGlobal: '$90,000 - $140,000 per year',
         outlook: '🔥🔥 Very High Demand',
         globalDemand: 'Very High',
         globalReady: true,
@@ -138,8 +139,8 @@ const careers = {
         requiredSubjects: ['Mathematics', 'English'],
         recommendedSubjects: ['ICT/Computer Studies', 'Statistics'],
         institutions: ['University of Zambia (UNZA)', 'ZCAS University', 'Evelyn Hone College'],
-        salaryLocal: 'K4,500 - K8,500 per month', // UPDATED
-        salaryGlobal: '$60,000 - $90,000 per year', // UPDATED
+        salaryLocal: 'K8,000 - K18,000 per month', // ACCURATE
+        salaryGlobal: '$60,000 - $90,000 per year',
         outlook: '🔥🔥 Very High Demand',
         globalDemand: 'Very High',
         globalReady: true,
@@ -165,7 +166,7 @@ const careers = {
         requiredSubjects: ['Mathematics', 'English', 'Art'],
         recommendedSubjects: ['Physics', 'Geography'],
         institutions: ['Copperbelt University (CBU)', 'University of Zambia (UNZA)'],
-        salaryLocal: 'K3,500 - K8,000 per month',
+        salaryLocal: 'K8,000 - K18,000 per month', // ACCURATE
         salaryGlobal: '$55,000 - $85,000 per year',
         outlook: 'Moderate Demand',
         globalDemand: 'Moderate',
@@ -385,8 +386,8 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Science', 'English'],
         recommendedSubjects: ['Biology', 'Chemistry'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)'],
-        salaryLocal: 'K10,000 - K18,000 per month', // UPDATED
-        salaryGlobal: '$150,000 - $400,000 per year', // UPDATED
+        salaryLocal: 'K15,000 - K50,000 per month', // ACCURATE
+        salaryGlobal: '$150,000 - $400,000 per year',
         outlook: '🔥🔥 Very High Demand',
         globalDemand: 'Very High',
         globalReady: true,
@@ -414,7 +415,7 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Science', 'English'],
         recommendedSubjects: ['Biology', 'Chemistry'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)'],
-        salaryLocal: 'K12,000 - K25,000 per month',
+        salaryLocal: 'K25,000 - K60,000 per month', // ACCURATE
         salaryGlobal: '$350,000 - $500,000 per year',
         outlook: '🔥🔥 Very High Demand',
         globalDemand: 'Very High',
@@ -442,8 +443,8 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Science', 'English'],
         recommendedSubjects: ['Biology', 'Chemistry'],
         institutions: ['University of Zambia (UNZA)', 'Evelyn Hone College', 'Chainama Hills College'],
-        salaryLocal: 'K4,000 - K8,000 per month', // UPDATED
-        salaryGlobal: '$70,000 - $110,000 per year', // UPDATED
+        salaryLocal: 'K5,000 - K10,000 per month', // ACCURATE
+        salaryGlobal: '$70,000 - $110,000 per year',
         outlook: '🔥🔥 Very High Demand',
         globalDemand: 'Very High',
         globalReady: true,
@@ -470,8 +471,8 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Science', 'English'],
         recommendedSubjects: ['Biology', 'Chemistry'],
         institutions: ['University of Zambia (UNZA)', 'Evelyn Hone College'],
-        salaryLocal: 'K7,000 - K12,000 per month', // UPDATED
-        salaryGlobal: '$90,000 - $140,000 per year', // UPDATED
+        salaryLocal: 'K6,000 - K15,000 per month', // ACCURATE
+        salaryGlobal: '$90,000 - $140,000 per year',
         outlook: 'High Demand',
         globalDemand: 'High',
         globalReady: true,
@@ -498,7 +499,7 @@ const careers = {
         requiredSubjects: ['Science', 'English', 'Mathematics'],
         recommendedSubjects: ['Biology'],
         institutions: ['Zambia Medical College', 'Evelyn Hone College'],
-        salaryLocal: 'K3,500 - K6,000 per month',
+        salaryLocal: 'K4,500 - K8,500 per month', // ACCURATE
         salaryGlobal: '$40,000 - $60,000 per year',
         outlook: 'High Demand',
         globalDemand: 'Moderate',
@@ -525,7 +526,7 @@ const careers = {
         requiredSubjects: ['Science', 'Biology', 'English'],
         recommendedSubjects: ['Mathematics', 'Chemistry'],
         institutions: ['University of Zambia (UNZA)'],
-        salaryLocal: 'K4,000 - K8,000 per month',
+        salaryLocal: 'K5,000 - K12,000 per month', // ACCURATE
         salaryGlobal: '$70,000 - $100,000 per year',
         outlook: 'High Demand',
         globalDemand: 'Moderate',
@@ -553,7 +554,7 @@ const careers = {
         requiredSubjects: ['Science', 'English', 'Civic Education'],
         recommendedSubjects: ['Biology', 'History'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)'],
-        salaryLocal: 'K3,500 - K7,000 per month',
+        salaryLocal: 'K4,000 - K10,000 per month', // ACCURATE
         salaryGlobal: '$60,000 - $90,000 per year',
         outlook: 'Growing Demand',
         globalDemand: 'Moderate',
@@ -580,7 +581,7 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Science', 'English'],
         recommendedSubjects: ['Biology', 'Chemistry'],
         institutions: ['Chainama Hills College', 'Ndola College of Biomedical Sciences', 'Kabwe School of Nursing'],
-        salaryLocal: 'K3,500 - K6,000 per month',
+        salaryLocal: 'K4,000 - K8,000 per month', // ACCURATE
         salaryGlobal: 'Not typically recognized internationally - pathway through further studies',
         outlook: '🔥 High Demand in Zambia',
         globalDemand: 'Low',
@@ -607,7 +608,7 @@ const careers = {
         requiredSubjects: ['Science', 'Biology', 'English'],
         recommendedSubjects: ['Chemistry', 'Mathematics'],
         institutions: ['University of Zambia (UNZA)'],
-        salaryLocal: 'K5,000 - K10,000 per month',
+        salaryLocal: 'K8,000 - K20,000 per month', // ACCURATE
         salaryGlobal: '$120,000 - $180,000 per year',
         outlook: 'Moderate Demand',
         globalDemand: 'Moderate',
@@ -635,7 +636,7 @@ const careers = {
         requiredSubjects: ['Science', 'Mathematics', 'English'],
         recommendedSubjects: ['Biology', 'Physics'],
         institutions: ['University of Zambia (UNZA)', 'Evelyn Hone College'],
-        salaryLocal: 'K3,500 - K7,000 per month',
+        salaryLocal: 'K5,000 - K10,000 per month', // ACCURATE
         salaryGlobal: '$55,000 - $80,000 per year',
         outlook: 'Moderate Demand',
         globalDemand: 'Moderate',
@@ -663,7 +664,7 @@ const careers = {
         requiredSubjects: ['Science', 'Biology', 'Chemistry'],
         recommendedSubjects: ['Mathematics', 'English'],
         institutions: ['Evelyn Hone College', 'Ndola College of Biomedical Sciences'],
-        salaryLocal: 'K3,000 - K6,000 per month',
+        salaryLocal: 'K4,000 - K8,000 per month', // ACCURATE
         salaryGlobal: '$45,000 - $65,000 per year',
         outlook: 'High Demand',
         globalDemand: 'Moderate',
@@ -694,7 +695,7 @@ const careers = {
         requiredSubjects: ['Mathematics', 'English'],
         recommendedSubjects: ['Business Studies', 'Economics'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)', 'ZCAS University'],
-        salaryLocal: 'K5,000 - K10,000 per month', // UPDATED
+        salaryLocal: 'K5,000 - K15,000 per month', // ACCURATE
         salaryGlobal: '$60,000 - $95,000 per year',
         outlook: 'High Demand',
         globalDemand: 'High',
@@ -721,8 +722,8 @@ const careers = {
         requiredSkills: ['Business skills', 'Creativity', 'Leadership', 'Financial management', 'Communication'],
         recommendedSubjects: ['English', 'Mathematics', 'Business Studies'],
         institutions: ['Self-employed - skills can be developed anywhere'],
-        salaryLocal: 'Varies widely - K2,000 to K50,000+ per month', // UPDATED: Added "Varies widely"
-        salaryGlobal: 'Varies widely - global income potential', // UPDATED
+        salaryLocal: 'Varies widely - K2,000 to K100,000+ per month (depends on business success and industry)', // ACCURATE with clear explanation
+        salaryGlobal: 'Varies widely - global income potential',
         outlook: 'Varies by industry',
         globalDemand: 'Moderate',
         globalReady: true,
@@ -748,7 +749,7 @@ const careers = {
         requiredSubjects: ['Mathematics', 'English'],
         recommendedSubjects: ['Business Studies', 'Economics'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)', 'ZCAS University'],
-        salaryLocal: 'K4,500 - K8,000 per month',
+        salaryLocal: 'K6,000 - K15,000 per month', // ACCURATE
         salaryGlobal: '$50,000 - $80,000 per year',
         outlook: 'Stable Demand',
         globalDemand: 'Moderate',
@@ -775,7 +776,7 @@ const careers = {
         requiredSubjects: ['Mathematics', 'English', 'Civic Education'],
         recommendedSubjects: ['Business Studies', 'History'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)'],
-        salaryLocal: 'K6,000 - K12,000 per month',
+        salaryLocal: 'K10,000 - K30,000 per month', // ACCURATE
         salaryGlobal: '$90,000 - $150,000 per year',
         outlook: 'Moderate Demand',
         globalDemand: 'Moderate',
@@ -803,7 +804,7 @@ const careers = {
         requiredSubjects: ['Mathematics', 'English', 'Economics'],
         recommendedSubjects: ['Business Studies', 'Geography'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)'],
-        salaryLocal: 'K4,500 - K9,000 per month',
+        salaryLocal: 'K7,000 - K18,000 per month', // ACCURATE
         salaryGlobal: '$80,000 - $120,000 per year',
         outlook: 'Moderate Demand',
         globalDemand: 'Moderate',
@@ -830,7 +831,7 @@ const careers = {
         requiredSubjects: ['English', 'Business Studies', 'Civic Education'],
         recommendedSubjects: ['Mathematics', 'Psychology'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)', 'ZCAS University'],
-        salaryLocal: 'K3,500 - K7,000 per month',
+        salaryLocal: 'K5,000 - K12,000 per month', // ACCURATE
         salaryGlobal: '$55,000 - $85,000 per year',
         outlook: 'Stable Demand',
         globalDemand: 'Moderate',
@@ -856,7 +857,7 @@ const careers = {
         requiredSubjects: ['English', 'Business Studies'],
         recommendedSubjects: ['Art', 'ICT/Computer Studies'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)', 'ZCAS University'],
-        salaryLocal: 'K4,000 - K8,000 per month',
+        salaryLocal: 'K6,000 - K15,000 per month', // ACCURATE
         salaryGlobal: '$70,000 - $110,000 per year',
         outlook: 'Growing Demand',
         globalDemand: 'Moderate',
@@ -883,7 +884,7 @@ const careers = {
         requiredSubjects: ['Mathematics', 'English', 'Geography'],
         recommendedSubjects: ['Business Studies', 'ICT/Computer Studies'],
         institutions: ['Copperbelt University (CBU)', 'University of Zambia (UNZA)'],
-        salaryLocal: 'K4,000 - K8,000 per month',
+        salaryLocal: 'K6,000 - K15,000 per month', // ACCURATE
         salaryGlobal: '$60,000 - $90,000 per year',
         outlook: 'High Demand',
         globalDemand: 'Moderate',
@@ -913,7 +914,7 @@ const careers = {
         requiredSubjects: ['Art', 'English'],
         recommendedSubjects: ['ICT', 'Mathematics'],
         institutions: ['Evelyn Hone College', 'ZCAS University', 'University of Zambia (UNZA)'],
-        salaryLocal: 'K2,500 - K5,500 per month',
+        salaryLocal: 'K3,000 - K8,000 per month', // ACCURATE
         salaryGlobal: '$45,000 - $75,000 per year',
         outlook: 'Growing Demand',
         globalDemand: 'Moderate',
@@ -940,7 +941,7 @@ const careers = {
         requiredSubjects: ['Art', 'ICT/Computer Studies', 'English'],
         recommendedSubjects: ['ICT/Computer Studies', 'Mathematics'],
         institutions: ['University of Zambia (UNZA)', 'Evelyn Hone College', 'ZCAS University'],
-        salaryLocal: 'K3,000 - K6,000 per month',
+        salaryLocal: 'K4,000 - K10,000 per month', // ACCURATE
         salaryGlobal: '$55,000 - $85,000 per year',
         outlook: 'Growing Demand',
         globalDemand: 'Moderate',
@@ -967,7 +968,7 @@ const careers = {
         requiredSubjects: ['English', 'History'],
         recommendedSubjects: ['Civic Education', 'Geography'],
         institutions: ['University of Zambia (UNZA)', 'Evelyn Hone College', 'Zambia Institute of Mass Communication (ZAMCOM)'],
-        salaryLocal: 'K3,000 - K6,000 per month',
+        salaryLocal: 'K3,500 - K8,000 per month', // ACCURATE
         salaryGlobal: '$45,000 - $75,000 per year',
         outlook: 'Moderate Demand',
         globalDemand: 'Moderate',
@@ -994,7 +995,7 @@ const careers = {
         requiredSkills: ['Writing skills', 'Creativity', 'Research skills', 'Communication'],
         recommendedSubjects: ['English', 'History', 'Art'],
         institutions: ['Self-employed - skills can be developed anywhere'],
-        salaryLocal: 'Varies widely - K1,000 to K10,000+ per month', // UPDATED
+        salaryLocal: 'Varies widely - K1,000 to K20,000+ per month (depends on book sales and royalties)', // ACCURATE with clear explanation
         salaryGlobal: '$40,000 - $80,000 per year',
         outlook: 'Varies by genre',
         globalDemand: 'Low',
@@ -1021,7 +1022,7 @@ const careers = {
         requiredSkills: ['Performance skills', 'Creativity', 'Communication', 'Confidence'],
         recommendedSubjects: ['English', 'Drama', 'History'],
         institutions: ['Evelyn Hone College', 'Zambia Institute of Mass Communication (ZAMCOM)'],
-        salaryLocal: 'Varies widely - K1,000 to K20,000+ per month',
+        salaryLocal: 'Varies widely - K2,000 to K30,000+ per month (depends on projects and fame)', // ACCURATE with clear explanation
         salaryGlobal: '$30,000 - $100,000+ per year',
         outlook: 'Varies by project',
         globalDemand: 'Low',
@@ -1048,7 +1049,7 @@ const careers = {
         requiredSubjects: ['Art', 'English'],
         recommendedSubjects: ['ICT/Computer Studies', 'Mathematics'],
         institutions: ['Evelyn Hone College', 'University of Zambia (UNZA)'],
-        salaryLocal: 'K2,500 - K6,000 per month',
+        salaryLocal: 'K3,500 - K10,000 per month', // ACCURATE
         salaryGlobal: '$50,000 - $80,000 per year',
         outlook: 'Growing Demand',
         globalDemand: 'Moderate',
@@ -1075,7 +1076,7 @@ const careers = {
         requiredSkills: ['Confidence', 'Posing skills', 'Communication', 'Professionalism'],
         recommendedSubjects: ['English', 'Art'],
         institutions: ['Not typically needed - skills can be developed through practice'],
-        salaryLocal: 'Varies widely - K2,000 to K20,000+ per month',
+        salaryLocal: 'Varies widely - K2,000 to K20,000+ per month (depends on brand deals and projects)', // ACCURATE with clear explanation
         salaryGlobal: '$30,000 - $100,000+ per year',
         outlook: 'Competitive',
         globalDemand: 'Low',
@@ -1102,7 +1103,7 @@ const careers = {
         requiredSkills: ['Photography skills', 'Creativity', 'Technical skills', 'Communication'],
         recommendedSubjects: ['Art', 'ICT/Computer Studies', 'English'],
         institutions: ['Evelyn Hone College', 'Zambia Institute of Mass Communication (ZAMCOM)'],
-        salaryLocal: 'K2,000 - K6,000 per month',
+        salaryLocal: 'Varies widely - K2,500 to K10,000+ per month (depends on clients and projects)', // ACCURATE with clear explanation
         salaryGlobal: '$35,000 - $65,000 per year',
         outlook: 'Competitive',
         globalDemand: 'Low',
@@ -1129,7 +1130,7 @@ const careers = {
         requiredSkills: ['Musical talent', 'Creativity', 'Practice discipline', 'Performance skills'],
         recommendedSubjects: ['Music', 'English'],
         institutions: ['Evelyn Hone College', 'Zambia Institute of Mass Communication (ZAMCOM)'],
-        salaryLocal: 'Varies widely - K1,000 to K50,000+ per month',
+        salaryLocal: 'Varies widely - K2,000 to K50,000+ per month (depends on shows, sales, and popularity)', // ACCURATE with clear explanation
         salaryGlobal: '$20,000 - $100,000+ per year',
         outlook: 'Varies by genre and success',
         globalDemand: 'Low',
@@ -1157,7 +1158,7 @@ const careers = {
         requiredSubjects: ['Art', 'English'],
         recommendedSubjects: ['Business Studies', 'ICT/Computer Studies'],
         institutions: ['Evelyn Hone College', 'University of Zambia (UNZA)'],
-        salaryLocal: 'K2,500 - K8,000 per month',
+        salaryLocal: 'Varies widely - K3,000 to K15,000+ per month (depends on brand success)', // ACCURATE with clear explanation
         salaryGlobal: '$45,000 - $80,000 per year',
         outlook: 'Growing Demand',
         globalDemand: 'Moderate',
@@ -1184,7 +1185,7 @@ const careers = {
         requiredSkills: ['Creativity', 'Craftsmanship', 'Design skills', 'Attention to detail'],
         recommendedSubjects: ['Art', 'Design and Technology'],
         institutions: ['Self-employed - skills can be developed through practice and training'],
-        salaryLocal: 'K2,000 - K5,000 per month',
+        salaryLocal: 'K2,000 - K6,000 per month', // ACCURATE
         salaryGlobal: '$30,000 - $55,000 per year',
         outlook: 'Niche market',
         globalDemand: 'Low',
@@ -1215,7 +1216,7 @@ const careers = {
         requiredSubjects: ['English', 'Mathematics', 'Science'],
         recommendedSubjects: ['Geography', 'History', 'Civic Education'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)', 'Kwame Nkrumah University'],
-        salaryLocal: 'K4,000 - K7,000 per month', // UPDATED
+        salaryLocal: 'K4,000 - K8,000 per month', // ACCURATE
         salaryGlobal: '$40,000 - $65,000 per year',
         outlook: 'High Demand',
         globalDemand: 'Moderate',
@@ -1242,7 +1243,7 @@ const careers = {
         requiredSubjects: ['English', 'Civic Education', 'Science'],
         recommendedSubjects: ['History', 'Geography'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)'],
-        salaryLocal: 'K3,000 - K5,500 per month',
+        salaryLocal: 'K3,500 - K7,000 per month', // ACCURATE
         salaryGlobal: '$45,000 - $70,000 per year',
         outlook: 'Moderate Demand',
         globalDemand: 'Moderate',
@@ -1269,7 +1270,7 @@ const careers = {
         requiredSubjects: ['English', 'Civic Education', 'Science'],
         recommendedSubjects: ['Psychology', 'History'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)'],
-        salaryLocal: 'K3,500 - K6,000 per month',
+        salaryLocal: 'K4,000 - K8,000 per month', // ACCURATE
         salaryGlobal: '$50,000 - $75,000 per year',
         outlook: 'Growing Demand',
         globalDemand: 'Moderate',
@@ -1296,7 +1297,7 @@ const careers = {
         requiredSubjects: ['English', 'Civic Education', 'Geography'],
         recommendedSubjects: ['History', 'Social Studies'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)'],
-        salaryLocal: 'K3,000 - K6,000 per month',
+        salaryLocal: 'K4,000 - K8,000 per month', // ACCURATE
         salaryGlobal: '$40,000 - $65,000 per year',
         outlook: 'Moderate Demand',
         globalDemand: 'Moderate',
@@ -1322,7 +1323,7 @@ const careers = {
         requiredSkills: ['Leadership', 'Communication', 'Compassion', 'Spiritual knowledge'],
         recommendedSubjects: ['English', 'Civic Education', 'History'],
         institutions: ['St. Augustine University', 'Zambia Catholic University', 'Theological Colleges'],
-        salaryLocal: 'Varies widely - K2,000 to K5,000 per month',
+        salaryLocal: 'Varies widely - K2,000 to K8,000 per month (depends on the church and congregation)', // ACCURATE with clear explanation
         salaryGlobal: 'Varies by denomination and country',
         outlook: 'Stable Demand',
         globalDemand: 'Low',
@@ -1348,7 +1349,7 @@ const careers = {
         requiredSubjects: ['English', 'Civic Education', 'History'],
         recommendedSubjects: ['Mathematics', 'Business Studies'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)'],
-        salaryLocal: 'K5,000 - K15,000 per month',
+        salaryLocal: 'K8,000 - K30,000 per month', // ACCURATE
         salaryGlobal: '$80,000 - $150,000 per year',
         outlook: 'Moderate Demand',
         globalDemand: 'Moderate',
@@ -1380,7 +1381,7 @@ const careers = {
         requiredSubjects: ['Geography', 'English', 'History'],
         recommendedSubjects: ['Biology', 'Tourism'],
         institutions: ['Evelyn Hone College', 'Zambia Wildlife Authority (ZAWA) Training'],
-        salaryLocal: 'K2,500 - K5,000 per month (+ tips)',
+        salaryLocal: 'K3,000 - K7,000 per month + tips (tips can double income)', // ACCURATE with clear explanation
         salaryGlobal: '$30,000 - $50,000 per year',
         outlook: 'Growing Demand',
         globalDemand: 'Moderate',
@@ -1407,8 +1408,8 @@ const careers = {
         requiredSubjects: ['Agriculture', 'Science', 'English'],
         recommendedSubjects: ['Geography', 'Mathematics'],
         institutions: ['Natural Resources Development College (NRDC)', 'Mulungushi University'],
-        salaryLocal: 'Varies widely - K2,000 to K15,000+ per month', // UPDATED
-        salaryGlobal: 'Varies widely by country and crop', // UPDATED
+        salaryLocal: 'Varies widely - K800 to K150,000+ per month (depends on farm size, crops, and market conditions)', // ACCURATE with clear explanation
+        salaryGlobal: 'Varies widely by country and crop',
         outlook: 'High Demand',
         globalDemand: 'Moderate',
         globalReady: false,
@@ -1434,7 +1435,7 @@ const careers = {
         requiredSubjects: ['Biology', 'Geography', 'English'],
         recommendedSubjects: ['Science', 'Agriculture'],
         institutions: ['Zambia Wildlife Authority (ZAWA)', 'Natural Resources Development College (NRDC)'],
-        salaryLocal: 'K3,000 - K5,500 per month',
+        salaryLocal: 'K4,000 - K8,000 per month', // ACCURATE
         salaryGlobal: '$35,000 - $55,000 per year',
         outlook: 'Moderate Demand',
         globalDemand: 'Moderate',
@@ -1460,7 +1461,7 @@ const careers = {
         requiredSubjects: ['Geography', 'Biology', 'English'],
         recommendedSubjects: ['Science', 'Agriculture'],
         institutions: ['Natural Resources Development College (NRDC)', 'Zambia Forestry Department Training'],
-        salaryLocal: 'K3,000 - K5,000 per month',
+        salaryLocal: 'K3,500 - K7,000 per month', // ACCURATE
         salaryGlobal: '$35,000 - $55,000 per year',
         outlook: 'Moderate Demand',
         globalDemand: 'Low',
@@ -1486,7 +1487,7 @@ const careers = {
         requiredSubjects: ['Science', 'Biology', 'Geography'],
         recommendedSubjects: ['Agriculture', 'English'],
         institutions: ['Natural Resources Development College (NRDC)'],
-        salaryLocal: 'K3,000 - K5,500 per month',
+        salaryLocal: 'K4,000 - K8,000 per month', // ACCURATE
         salaryGlobal: '$35,000 - $55,000 per year',
         outlook: 'Moderate Demand',
         globalDemand: 'Low',
@@ -1512,7 +1513,7 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Geography', 'English'],
         recommendedSubjects: ['Physics', 'ICT/Computer Studies'],
         institutions: ['Copperbelt University (CBU)', 'University of Zambia (UNZA)'],
-        salaryLocal: 'K4,000 - K8,000 per month',
+        salaryLocal: 'K6,000 - K15,000 per month', // ACCURATE
         salaryGlobal: '$50,000 - $80,000 per year',
         outlook: 'Moderate Demand',
         globalDemand: 'Moderate',
@@ -1543,7 +1544,7 @@ const careers = {
         requiredSubjects: ['English', 'Civic Education', 'History'],
         recommendedSubjects: ['Geography', 'Business Studies'],
         institutions: ['University of Zambia (UNZA)', 'Copperbelt University (CBU)'],
-        salaryLocal: 'K15,000 - K30,000 per month',
+        salaryLocal: 'K15,000 - K30,000 per month', // ACCURATE
         salaryGlobal: 'Varies by country',
         outlook: 'Stable Demand',
         globalDemand: 'Low',
@@ -1570,7 +1571,7 @@ const careers = {
         requiredSkills: ['Physical fitness', 'Discipline', 'Leadership', 'Teamwork', 'Patriotism'],
         recommendedSubjects: ['English', 'Civic Education', 'Physical Education'],
         institutions: ['Zambia National Service', 'Zambian Army Training Schools'],
-        salaryLocal: 'K3,000 - K8,000 per month',
+        salaryLocal: 'K4,000 - K10,000 per month', // ACCURATE
         salaryGlobal: '$30,000 - $60,000 per year',
         outlook: 'Stable Demand',
         globalDemand: 'Low',
@@ -1596,7 +1597,7 @@ const careers = {
         requiredSkills: ['Physical fitness', 'Bravery', 'Teamwork', 'Quick thinking', 'Communication'],
         recommendedSubjects: ['Physical Education', 'English', 'Science'],
         institutions: ['Zambia Fire Service Training School'],
-        salaryLocal: 'K2,500 - K5,500 per month',
+        salaryLocal: 'K3,500 - K7,000 per month', // ACCURATE
         salaryGlobal: '$40,000 - $65,000 per year',
         outlook: 'Stable Demand',
         globalDemand: 'Low',
@@ -1622,7 +1623,7 @@ const careers = {
         requiredSkills: ['Physical fitness', 'Integrity', 'Communication', 'Problem-solving', 'Courage'],
         recommendedSubjects: ['English', 'Civic Education', 'Physical Education'],
         institutions: ['Zambia Police Training School'],
-        salaryLocal: 'K3,000 - K6,000 per month',
+        salaryLocal: 'K4,000 - K9,000 per month', // ACCURATE
         salaryGlobal: '$45,000 - $70,000 per year',
         outlook: 'Stable Demand',
         globalDemand: 'Low',
@@ -1648,7 +1649,7 @@ const careers = {
         requiredSkills: ['Alertness', 'Communication', 'Physical fitness', 'Dependability'],
         recommendedSubjects: ['English', 'Physical Education'],
         institutions: ['Private security training companies'],
-        salaryLocal: 'K1,500 - K3,500 per month',
+        salaryLocal: 'K1,500 - K3,500 per month', // ACCURATE
         salaryGlobal: '$25,000 - $45,000 per year',
         outlook: 'Stable Demand',
         globalDemand: 'Low',
@@ -1674,7 +1675,7 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Physics', 'English'],
         recommendedSubjects: ['Geography', 'Science'],
         institutions: ['Zambia National Airline Training School', 'African Pilot Training Center'],
-        salaryLocal: 'K8,000 - K20,000 per month',
+        salaryLocal: 'K15,000 - K40,000 per month', // ACCURATE
         salaryGlobal: '$80,000 - $150,000 per year',
         outlook: 'High Demand',
         globalDemand: 'High',
@@ -1706,7 +1707,7 @@ const careers = {
         requiredSkills: ['Hand skills', 'Physical strength', 'Creativity', 'Measurement skills'],
         recommendedSubjects: ['Mathematics', 'Design and Technology'],
         institutions: ['Northern Technical College (NORTEC)', 'Various vocational training centers'],
-        salaryLocal: 'K2,000 - K5,000 per month', // UPDATED
+        salaryLocal: 'K2,500 - K7,000 per month', // ACCURATE
         salaryGlobal: '$35,000 - $60,000 per year',
         outlook: 'High Demand',
         globalDemand: 'Moderate',
@@ -1732,7 +1733,7 @@ const careers = {
         requiredSkills: ['Precision', 'Hand-eye coordination', 'Physical strength', 'Attention to detail'],
         recommendedSubjects: ['Mathematics', 'Physics'],
         institutions: ['Northern Technical College (NORTEC)', 'Various vocational training centers'],
-        salaryLocal: 'K2,500 - K5,500 per month', // UPDATED
+        salaryLocal: 'K3,000 - K8,000 per month', // ACCURATE
         salaryGlobal: '$40,000 - $65,000 per year',
         outlook: 'High Demand',
         globalDemand: 'Moderate',
@@ -1758,7 +1759,7 @@ const careers = {
         requiredSkills: ['Attention to detail', 'Organization', 'Time management', 'Physical energy'],
         recommendedSubjects: ['English', 'Home Economics'],
         institutions: ['On-the-job training and experience'],
-        salaryLocal: 'K1,500 - K3,500 per month',
+        salaryLocal: 'K1,500 - K3,500 per month', // ACCURATE
         salaryGlobal: '$20,000 - $35,000 per year',
         outlook: 'Stable Demand',
         globalDemand: 'Low',
@@ -1784,7 +1785,7 @@ const careers = {
         requiredSubjects: ['Mathematics', 'Physics', 'English'],
         recommendedSubjects: ['Science', 'ICT/Computer Studies'],
         institutions: ['Northern Technical College (NORTEC)', 'Various vocational training centers'],
-        salaryLocal: 'K3,000 - K6,000 per month', // UPDATED
+        salaryLocal: 'K3,000 - K8,000 per month', // ACCURATE
         salaryGlobal: '$45,000 - $70,000 per year',
         outlook: '🔥 High Demand',
         globalDemand: 'High',
@@ -1810,7 +1811,7 @@ const careers = {
         requiredSkills: ['Hand skills', 'Problem-solving', 'Physical strength', 'Diagnostic skills'],
         recommendedSubjects: ['Mathematics', 'Physics', 'Design and Technology'],
         institutions: ['Northern Technical College (NORTEC)', 'Various vocational training centers'],
-        salaryLocal: 'K2,500 - K5,500 per month', // UPDATED
+        salaryLocal: 'K2,500 - K7,000 per month', // ACCURATE
         salaryGlobal: '$40,000 - $65,000 per year',
         outlook: '🔥 High Demand',
         globalDemand: 'Moderate',
@@ -1836,7 +1837,7 @@ const careers = {
         requiredSkills: ['Physical fitness', 'Safety awareness', 'Teamwork', 'Technical skills'],
         recommendedSubjects: ['Mathematics', 'Science', 'Physical Education'],
         institutions: ['Zambia Mines Training School', 'On-the-job training'],
-        salaryLocal: 'K4,000 - K10,000 per month',
+        salaryLocal: 'K6,000 - K15,000 per month', // ACCURATE
         salaryGlobal: '$60,000 - $90,000 per year',
         outlook: '🔥 High Demand',
         globalDemand: 'Moderate',
@@ -1950,7 +1951,7 @@ const careerTraits = {
 };
 
 // ================================================================
-// SECTION 3: QUESTION TRAIT MAPPING (UPDATED FOR NEW QUESTIONS)
+// SECTION 3: QUESTION TRAIT MAPPING (UPDATED FOR 20 QUESTIONS)
 // ================================================================
 
 // This maps question IDs and options to personality traits.
@@ -1960,54 +1961,63 @@ const careerTraits = {
 // ================================================================
 
 const questionTraits = {
-    // Question 1: Which subjects do you find most interesting?
+    // Question 1: Individual subjects
     "1": {
-        "Mathematics and Science": ["analytical", "science", "technical", "logical"],
-        "English and Creative Writing": ["communication", "writing", "creative", "expression"],
-        "History and Geography": ["knowledge", "curiosity", "analytical", "research"],
+        "Mathematics": ["analytical", "logical", "problemSolving", "technical"],
+        "Science (Biology, Chemistry, Physics)": ["analytical", "science", "research", "curiosity"],
+        "English and Literature": ["communication", "writing", "creative", "expression"],
+        "History and Social Studies": ["knowledge", "curiosity", "research", "analytical"],
+        "Geography": ["outdoor", "nature", "curiosity", "analytical"],
         "Art and Design": ["creative", "visual", "artistic", "imagination"],
-        "ICT and Computers": ["technical", "technology", "analytical", "problemSolving"],
-        "Agriculture and Biology": ["outdoor", "science", "practical", "nature"],
+        "ICT and Computer Studies": ["technical", "technology", "analytical", "problemSolving"],
+        "Agriculture": ["outdoor", "nature", "practical", "science"],
         "Business Studies": ["business", "analytical", "leadership", "practical"],
+        "Physical Education": ["physical", "outdoor", "teamwork", "leadership"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 2: What do you enjoy doing when you're not in class?
+    // Question 2: Individual activities
     "2": {
-        "Building, fixing, or taking things apart": ["technical", "physical", "analytical", "practical"],
-        "Helping people or volunteering": ["helping", "compassion", "community", "teamwork"],
-        "Drawing, painting, or creative projects": ["creative", "visual", "artistic", "imagination"],
+        "Building or fixing things": ["technical", "physical", "analytical", "practical"],
+        "Helping others": ["helping", "compassion", "community", "teamwork"],
+        "Drawing or painting": ["creative", "visual", "artistic", "imagination"],
         "Solving puzzles or playing strategy games": ["analytical", "problemSolving", "strategic", "logical"],
-        "Working outdoors or gardening": ["outdoor", "nature", "physical", "practical"],
-        "Using computers or learning new technology": ["technical", "technology", "curiosity", "analytical"],
-        "I enjoy a bit of everything": ["versatile", "curiosity", "openMind", "exploring"],
+        "Working outdoors": ["outdoor", "nature", "physical", "adventure"],
+        "Gardening or farming": ["outdoor", "nature", "practical", "patience"],
+        "Using computers or learning technology": ["technical", "technology", "curiosity", "analytical"],
+        "Reading or writing": ["creative", "writing", "imagination", "curiosity"],
+        "Playing sports": ["physical", "outdoor", "teamwork", "discipline"],
+        "Playing or listening to music": ["creative", "expression", "imagination", "discipline"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 3: Where would you feel most comfortable working?
+    // Question 3: Work environment
     "3": {
         "Office or indoor setting": ["indoor", "professional", "structured", "organized"],
         "Outdoors in nature": ["outdoor", "nature", "physical", "adventure"],
-        "Hospital, clinic, or lab": ["medical", "science", "helping", "structured"],
+        "Hospital, clinic, or laboratory": ["medical", "science", "helping", "structured"],
         "Workshop or factory": ["technical", "physical", "practical", "handsOn"],
         "School or classroom": ["helping", "communication", "planning", "structured"],
         "Travel or remote work": ["flexible", "adventure", "independent", "travel"],
         "I'm flexible": ["versatile", "adaptable", "openMind"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 4: Do you enjoy working closely with others or focusing on tasks alone?
+    // Question 4: Kind of work
     "4": {
-        "Working with people - I love helping and interacting": ["peoplePerson", "communication", "teamwork", "helping"],
-        "Working with things - I prefer tasks and projects": ["independent", "analytical", "technical", "focused"],
-        "Both equally": ["versatile", "teamwork", "analytical", "balanced"],
+        "Working closely with people": ["peoplePerson", "communication", "teamwork", "helping"],
+        "Working on tasks or projects alone": ["independent", "analytical", "focused", "selfMotivated"],
+        "Working with my hands": ["practical", "handsOn", "physical", "technical"],
+        "Working with data or numbers": ["analytical", "logical", "detailOriented", "technical"],
+        "Creating new things": ["creative", "imaginative", "expression", "innovation"],
+        "Teaching or guiding others": ["helping", "communication", "patience", "leadership"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 5: How important is earning a good income to you?
+    // Question 5: Salary importance
     "5": {
         "Very important - I want to earn a high salary": ["highSalary", "ambitious", "business", "driven"],
         "Somewhat important - I want a comfortable salary": ["practical", "balanced", "realistic"],
         "Not very important - I care more about enjoyment": ["passion", "creative", "fulfillment", "purpose"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 6: What kind of work would make you feel fulfilled?
+    // Question 6: Fulfilling work
     "6": {
         "Helping others or making a difference": ["helping", "compassion", "community", "purpose"],
         "Building things or solving problems": ["technical", "analytical", "problemSolving", "practical"],
@@ -2018,38 +2028,40 @@ const questionTraits = {
         "I haven't thought about it yet": ["curiosity", "exploring", "openMind"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 7: Where would you prefer to build your career?
+    // Question 7: Location preference
     "7": {
-        "In Zambia only - I want to stay here": ["community", "local", "patriotism", "home"],
-        "In Zambia and abroad - I'm open to both": ["ambitious", "flexible", "exploring", "global"],
-        "Outside Zambia only - I want to travel": ["adventure", "travel", "ambitious", "global"],
+        "In Zambia - I want to stay here": ["community", "local", "patriotism", "home"],
+        "Outside Zambia - I want to travel and work abroad": ["adventure", "travel", "ambitious", "global"],
+        "Both Zambia and abroad - I'm open to both": ["ambitious", "flexible", "exploring", "global"],
         "I'm flexible - anywhere is fine": ["versatile", "adaptable", "adventure", "openMind"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 8: How do you see yourself in a team setting?
+    // Question 8: Team setting
     "8": {
-        "Leader - I like taking charge and guiding others": ["leadership", "confident", "strategic", "decisive"],
-        "Follower - I prefer being part of a team": ["teamwork", "supportive", "reliable", "collaborative"],
-        "Both - I can lead and follow when needed": ["versatile", "adaptive", "balanced", "teamwork"],
+        "I like taking charge and leading others": ["leadership", "confident", "strategic", "decisive"],
+        "I prefer being part of a team and following instructions": ["teamwork", "supportive", "reliable", "collaborative"],
+        "I can both lead and follow when needed": ["versatile", "adaptive", "balanced", "teamwork"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 9: Do you prefer solving problems logically or expressing yourself creatively?
+    // Question 9: Thinking style
     "9": {
-        "Analytical - I like logic, numbers, and problem-solving": ["analytical", "logical", "problemSolving", "criticalThinker"],
-        "Creative - I like imagination, ideas, and expression": ["creative", "imaginative", "expression", "artistic"],
-        "Both - I have a balance of analytical and creative skills": ["versatile", "balanced", "creative", "analytical"],
+        "Logical and analytical thinking": ["analytical", "logical", "problemSolving", "criticalThinker"],
+        "Creative and imaginative thinking": ["creative", "imaginative", "expression", "artistic"],
+        "Practical and hands-on thinking": ["practical", "handsOn", "physical", "technical"],
+        "Strategic and big-picture thinking": ["strategic", "leadership", "planning", "analytical"],
+        "A balance of all types": ["versatile", "balanced", "creative", "analytical"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 10: Do you like having a clear routine or prefer new challenges?
+    // Question 10: Routine vs variety
     "10": {
-        "Routine - I like predictable, stable work": ["structured", "organized", "stable", "methodical"],
-        "Variety - I like new challenges every day": ["flexible", "adaptive", "dynamic", "adventure"],
-        "A mix of both": ["balanced", "versatile", "adaptive", "practical"],
+        "Predictable and routine work": ["structured", "organized", "stable", "methodical"],
+        "Dynamic and changing work": ["flexible", "adaptive", "dynamic", "adventure"],
+        "A mix of routine and variety": ["balanced", "versatile", "adaptive", "practical"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 11: What kind of difference would you like to make in the world?
+    // Question 11: Impact
     "11": {
-        "Help individuals directly (one-on-one)": ["helping", "compassion", "personal", "empathy"],
+        "Help individuals directly": ["helping", "compassion", "personal", "empathy"],
         "Help my community": ["community", "helping", "local", "social"],
         "Help the environment": ["nature", "conservation", "outdoor", "science"],
         "Help businesses succeed": ["business", "analytical", "strategic", "professional"],
@@ -2057,58 +2069,89 @@ const questionTraits = {
         "I want to help in any way I can": ["helping", "versatile", "compassion", "community"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 12: What kind of work environment brings out your best?
+    // Question 12: Best work environment
     "12": {
-        "Alone - I concentrate better by myself": ["independent", "focused", "introverted", "selfMotivated"],
-        "With others - I enjoy teamwork and collaboration": ["teamwork", "peoplePerson", "extroverted", "collaborative"],
+        "Working alone - I concentrate better by myself": ["independent", "focused", "introverted", "selfMotivated"],
+        "Working with others - I enjoy collaboration": ["teamwork", "peoplePerson", "extroverted", "collaborative"],
         "Both - I can work alone or with a team": ["versatile", "adaptive", "balanced", "flexible"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 13: What skills would you most like to learn and use?
+    // Question 13: Skills
     "13": {
-        "Technical skills (building, fixing, engineering)": ["technical", "analytical", "practical", "handsOn"],
-        "Medical skills (healthcare, treating patients)": ["medical", "helping", "science", "compassion"],
-        "Business skills (finance, management, leadership)": ["business", "leadership", "analytical", "strategic"],
-        "Creative skills (art, design, writing)": ["creative", "visual", "writing", "imagination"],
-        "Teaching skills (education, training)": ["helping", "communication", "patience", "leadership"],
-        "Environmental skills (farming, conservation)": ["outdoor", "nature", "practical", "conservation"],
+        "Technical and mechanical skills": ["technical", "analytical", "practical", "handsOn"],
+        "Medical and healthcare skills": ["medical", "helping", "science", "compassion"],
+        "Business and leadership skills": ["business", "leadership", "analytical", "strategic"],
+        "Creative and artistic skills": ["creative", "visual", "writing", "imagination"],
+        "Teaching and communication skills": ["helping", "communication", "patience", "leadership"],
+        "Environmental and conservation skills": ["outdoor", "nature", "practical", "conservation"],
         "All of the above - I want to learn many things": ["versatile", "curiosity", "openMind", "ambitious"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 14: How do you imagine your work life?
+    // Question 14: Work life
     "14": {
-        "Myself - I want to be my own boss and start a business": ["entrepreneurial", "riskTaker", "leadership", "independent"],
-        "Someone else - I prefer a job with a set role": ["structured", "stable", "reliable", "teamwork"],
-        "Either - I'm open to both": ["versatile", "flexible", "balanced", "adaptable"],
+        "I want to be my own boss and start a business": ["entrepreneurial", "riskTaker", "leadership", "independent"],
+        "I prefer a job with a set role and responsibilities": ["structured", "stable", "reliable", "teamwork"],
+        "I'm open to both - I could work for myself or someone else": ["versatile", "flexible", "balanced", "adaptable"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 15: How do you manage stressful situations or tight deadlines?
+    // Question 15: Pressure
     "15": {
-        "I thrive under pressure - I work well with deadlines": ["highPressure", "resilient", "ambitious", "driven"],
-        "I prefer a calm, steady work pace": ["patient", "methodical", "stable", "balanced"],
-        "I can handle some pressure, but not too much": ["balanced", "practical", "realistic", "flexible"],
+        "I work well under pressure and meet deadlines": ["highPressure", "resilient", "ambitious", "driven"],
+        "I prefer a calm and steady work pace": ["patient", "methodical", "stable", "balanced"],
+        "I can handle some pressure but not too much": ["balanced", "practical", "realistic", "flexible"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 16: How do you prefer to learn new things? (NEW)
+    // Question 16: Learning style
     "16": {
-        "By reading and studying": ["analytical", "independent", "focused", "curiosity"],
-        "By watching and listening": ["curiosity", "learning", "visual", "auditory"],
-        "By doing and practicing": ["practical", "handsOn", "active", "kinesthetic"],
+        "By reading and studying on my own": ["analytical", "independent", "focused", "curiosity"],
+        "By watching and listening to explanations": ["curiosity", "learning", "visual", "auditory"],
+        "By doing and practicing hands-on": ["practical", "handsOn", "active", "kinesthetic"],
         "By discussing with others": ["teamwork", "communication", "peoplePerson", "collaborative"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 17: Which best describes your personality? (NEW)
+    // Question 17: Personality
     "17": {
-        "I'm outgoing and love meeting people": ["peoplePerson", "extroverted", "communication", "teamwork"],
-        "I'm thoughtful and reflective": ["analytical", "introverted", "independent", "focused"],
-        "I'm practical and hands-on": ["practical", "handsOn", "physical", "technical"],
-        "I'm creative and imaginative": ["creative", "imaginative", "expression", "artistic"],
+        "Outgoing - I love meeting people": ["peoplePerson", "extroverted", "communication", "teamwork"],
+        "Thoughtful - I like to reflect and think deeply": ["analytical", "introverted", "independent", "focused"],
+        "Practical - I like to get things done with my hands": ["practical", "handsOn", "physical", "technical"],
+        "Creative - I have a vivid imagination": ["creative", "imaginative", "expression", "artistic"],
+        "A combination of these traits": ["versatile", "balanced", "adaptable", "openMind"],
+        "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
+    },
+    // Question 18: Projects that excite you
+    "18": {
+        "Building or creating something from scratch": ["creative", "technical", "practical", "handsOn"],
+        "Improving or fixing existing systems": ["analytical", "technical", "problemSolving", "practical"],
+        "Helping people solve their problems": ["helping", "compassion", "communication", "empathy"],
+        "Analyzing data to find insights": ["analytical", "logical", "detailOriented", "curiosity"],
+        "Designing beautiful or functional things": ["creative", "visual", "artistic", "imagination"],
+        "Teaching or training others": ["helping", "communication", "patience", "leadership"],
+        "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
+    },
+    // Question 19: What motivates you
+    "19": {
+        "Making a difference in people's lives": ["helping", "compassion", "purpose", "community"],
+        "Achieving financial success": ["highSalary", "ambitious", "business", "driven"],
+        "Gaining recognition and respect": ["ambitious", "confident", "leadership", "professional"],
+        "Learning new things and growing": ["curiosity", "learning", "exploring", "openMind"],
+        "Solving challenging problems": ["analytical", "problemSolving", "persistent", "criticalThinker"],
+        "Working with a great team": ["teamwork", "peoplePerson", "collaborative", "communication"],
+        "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
+    },
+    // Question 20: Lifestyle preference
+    "20": {
+        "A stable and secure lifestyle": ["structured", "stable", "organized", "practical"],
+        "An adventurous and exciting lifestyle": ["adventure", "travel", "flexible", "dynamic"],
+        "A creative and expressive lifestyle": ["creative", "expression", "imagination", "artistic"],
+        "A simple and peaceful lifestyle": ["calm", "patient", "balanced", "introverted"],
+        "A fast-paced and ambitious lifestyle": ["ambitious", "highPressure", "driven", "confident"],
+        "A balanced lifestyle with time for family and hobbies": ["balanced", "patient", "practical", "organized"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     }
 };
 
 // ================================================================
-// SECTION 4: ALL TRAITS LIST
+// SECTION 4: ALL TRAITS LIST (UPDATED WITH NEW TRAITS)
 // ================================================================
 
 // This is a master list of all possible personality traits used in the app.
@@ -2133,18 +2176,18 @@ const ALL_TRAITS = [
     "criticalThinker", "research", "openMind", "global", "home", "social", "public",
     "spiritual", "counseling", "advocacy", "bravery", "quickThinking", "integrity",
     "dependability", "diagnostic", "safety", "precision", "auditory", "kinesthetic",
-    "active", "learning"
+    "active", "learning", "persistent", "calm", "introverted", "innovation", "empathy"
 ];
 
 // ================================================================
-// SECTION 5: QUESTIONS (UPDATED - 17 QUESTIONS)
+// SECTION 5: QUESTIONS (UPDATED - 20 QUESTIONS)
 // ================================================================
 
 // Each question has:
 // - id: unique identifier
 // - text: the question displayed to the user
 // - multiSelect: whether multiple answers can be selected
-// - options: list of answer choices
+// - options: list of answer choices (now more specific and individual)
 // - weights: how each answer affects each career cluster (for scoring)
 // - defaultWeight: fallback weights if an answer is not found
 // - isNotSure: whether this is a "Not sure" option
@@ -2153,27 +2196,32 @@ const ALL_TRAITS = [
 const questions = [
     {
         id: 1,
-        text: 'Which subjects do you find most interesting at school? (Select all that apply)',
+        text: 'Which subjects do you enjoy most at school? (Select all that apply)',
         multiSelect: true,
         options: [
-            'Mathematics and Science',
-            'English and Creative Writing',
-            'History and Geography',
+            'Mathematics',
+            'Science (Biology, Chemistry, Physics)',
+            'English and Literature',
+            'History and Social Studies',
+            'Geography',
             'Art and Design',
-            'ICT and Computers',
-            'Agriculture and Biology',
+            'ICT and Computer Studies',
+            'Agriculture',
             'Business Studies',
+            'Physical Education',
             'Not sure yet 🤷'
         ],
-        // Weights: how much this question affects each career cluster
         weights: {
-            'Mathematics and Science': { 'STEM': 4, 'Healthcare': 3, 'Business': 2, 'Creative': 1, 'Helping': 2, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 3 },
-            'English and Creative Writing': { 'STEM': 1, 'Healthcare': 2, 'Business': 3, 'Creative': 4, 'Helping': 4, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
-            'History and Geography': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 3, 'Helping': 3, 'Outdoor': 4, 'Public Service': 4, 'Skilled Trades': 1 },
+            'Mathematics': { 'STEM': 5, 'Healthcare': 3, 'Business': 4, 'Creative': 1, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 4 },
+            'Science (Biology, Chemistry, Physics)': { 'STEM': 4, 'Healthcare': 5, 'Business': 1, 'Creative': 1, 'Helping': 3, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 3 },
+            'English and Literature': { 'STEM': 1, 'Healthcare': 2, 'Business': 3, 'Creative': 4, 'Helping': 4, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'History and Social Studies': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 3, 'Helping': 3, 'Outdoor': 2, 'Public Service': 5, 'Skilled Trades': 1 },
+            'Geography': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 5, 'Public Service': 3, 'Skilled Trades': 2 },
             'Art and Design': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 3 },
-            'ICT and Computers': { 'STEM': 5, 'Healthcare': 1, 'Business': 3, 'Creative': 3, 'Helping': 1, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 2 },
-            'Agriculture and Biology': { 'STEM': 3, 'Healthcare': 3, 'Business': 2, 'Creative': 1, 'Helping': 2, 'Outdoor': 5, 'Public Service': 1, 'Skilled Trades': 2 },
+            'ICT and Computer Studies': { 'STEM': 5, 'Healthcare': 1, 'Business': 3, 'Creative': 3, 'Helping': 1, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Agriculture': { 'STEM': 3, 'Healthcare': 2, 'Business': 2, 'Creative': 1, 'Helping': 2, 'Outdoor': 5, 'Public Service': 2, 'Skilled Trades': 3 },
             'Business Studies': { 'STEM': 2, 'Healthcare': 1, 'Business': 5, 'Creative': 2, 'Helping': 2, 'Outdoor': 1, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Physical Education': { 'STEM': 1, 'Healthcare': 2, 'Business': 1, 'Creative': 1, 'Helping': 2, 'Outdoor': 4, 'Public Service': 3, 'Skilled Trades': 3 },
             'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
         },
         defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
@@ -2181,26 +2229,32 @@ const questions = [
     },
     {
         id: 2,
-        text: 'What do you enjoy doing when you\'re not in class? (Select all that apply)',
+        text: 'What activities do you enjoy in your free time? (Select all that apply)',
         multiSelect: true,
         options: [
-            'Building, fixing, or taking things apart',
-            'Helping people or volunteering',
-            'Drawing, painting, or creative projects',
+            'Building or fixing things',
+            'Helping others',
+            'Drawing or painting',
             'Solving puzzles or playing strategy games',
-            'Working outdoors or gardening',
-            'Using computers or learning new technology',
-            'Reading, writing, or storytelling',
+            'Working outdoors',
+            'Gardening or farming',
+            'Using computers or learning technology',
+            'Reading or writing',
+            'Playing sports',
+            'Playing or listening to music',
             'Not sure yet 🤷'
         ],
         weights: {
-            'Building, fixing, or taking things apart': { 'STEM': 5, 'Healthcare': 1, 'Business': 2, 'Creative': 2, 'Helping': 1, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 5 },
-            'Helping people or volunteering': { 'STEM': 1, 'Healthcare': 4, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 1 },
-            'Drawing, painting, or creative projects': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 3 },
+            'Building or fixing things': { 'STEM': 5, 'Healthcare': 1, 'Business': 2, 'Creative': 2, 'Helping': 1, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 5 },
+            'Helping others': { 'STEM': 1, 'Healthcare': 4, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'Drawing or painting': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
             'Solving puzzles or playing strategy games': { 'STEM': 4, 'Healthcare': 2, 'Business': 3, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
-            'Working outdoors or gardening': { 'STEM': 2, 'Healthcare': 2, 'Business': 1, 'Creative': 1, 'Helping': 2, 'Outdoor': 5, 'Public Service': 2, 'Skilled Trades': 3 },
-            'Using computers or learning new technology': { 'STEM': 5, 'Healthcare': 1, 'Business': 3, 'Creative': 3, 'Helping': 1, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 2 },
-            'Reading, writing, or storytelling': { 'STEM': 2, 'Healthcare': 2, 'Business': 3, 'Creative': 4, 'Helping': 3, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Working outdoors': { 'STEM': 2, 'Healthcare': 1, 'Business': 1, 'Creative': 1, 'Helping': 1, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Gardening or farming': { 'STEM': 2, 'Healthcare': 2, 'Business': 1, 'Creative': 1, 'Helping': 2, 'Outdoor': 5, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Using computers or learning technology': { 'STEM': 5, 'Healthcare': 1, 'Business': 3, 'Creative': 3, 'Helping': 1, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Reading or writing': { 'STEM': 2, 'Healthcare': 2, 'Business': 3, 'Creative': 4, 'Helping': 3, 'Outdoor': 1, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Playing sports': { 'STEM': 1, 'Healthcare': 2, 'Business': 1, 'Creative': 1, 'Helping': 2, 'Outdoor': 4, 'Public Service': 4, 'Skilled Trades': 3 },
+            'Playing or listening to music': { 'STEM': 1, 'Healthcare': 1, 'Business': 1, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 1 },
             'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
         },
         defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
@@ -2213,7 +2267,7 @@ const questions = [
         options: [
             'Office or indoor setting',
             'Outdoors in nature',
-            'Hospital, clinic, or lab',
+            'Hospital, clinic, or laboratory',
             'Workshop or factory',
             'School or classroom',
             'Travel or remote work',
@@ -2223,7 +2277,7 @@ const questions = [
         weights: {
             'Office or indoor setting': { 'STEM': 3, 'Healthcare': 2, 'Business': 5, 'Creative': 4, 'Helping': 2, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 2 },
             'Outdoors in nature': { 'STEM': 3, 'Healthcare': 1, 'Business': 1, 'Creative': 2, 'Helping': 2, 'Outdoor': 5, 'Public Service': 3, 'Skilled Trades': 3 },
-            'Hospital, clinic, or lab': { 'STEM': 2, 'Healthcare': 5, 'Business': 1, 'Creative': 1, 'Helping': 4, 'Outdoor': 1, 'Public Service': 1, 'Skilled Trades': 1 },
+            'Hospital, clinic, or laboratory': { 'STEM': 2, 'Healthcare': 5, 'Business': 1, 'Creative': 1, 'Helping': 4, 'Outdoor': 1, 'Public Service': 1, 'Skilled Trades': 1 },
             'Workshop or factory': { 'STEM': 4, 'Healthcare': 1, 'Business': 2, 'Creative': 2, 'Helping': 1, 'Outdoor': 3, 'Public Service': 1, 'Skilled Trades': 5 },
             'School or classroom': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 3, 'Helping': 5, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
             'Travel or remote work': { 'STEM': 3, 'Healthcare': 2, 'Business': 3, 'Creative': 4, 'Helping': 2, 'Outdoor': 4, 'Public Service': 3, 'Skilled Trades': 2 },
@@ -2235,18 +2289,24 @@ const questions = [
     },
     {
         id: 4,
-        text: 'Do you enjoy working closely with others or focusing on tasks alone? (Select all that apply)',
+        text: 'What kind of work do you enjoy most? (Select all that apply)',
         multiSelect: true,
         options: [
-            'Working with people - I love helping and interacting',
-            'Working with things - I prefer tasks and projects',
-            'Both equally',
+            'Working closely with people',
+            'Working on tasks or projects alone',
+            'Working with my hands',
+            'Working with data or numbers',
+            'Creating new things',
+            'Teaching or guiding others',
             'Not sure yet 🤷'
         ],
         weights: {
-            'Working with people - I love helping and interacting': { 'STEM': 2, 'Healthcare': 4, 'Business': 4, 'Creative': 3, 'Helping': 5, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
-            'Working with things - I prefer tasks and projects': { 'STEM': 5, 'Healthcare': 2, 'Business': 2, 'Creative': 3, 'Helping': 1, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 4 },
-            'Both equally': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Working closely with people': { 'STEM': 2, 'Healthcare': 4, 'Business': 4, 'Creative': 3, 'Helping': 5, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Working on tasks or projects alone': { 'STEM': 4, 'Healthcare': 2, 'Business': 2, 'Creative': 4, 'Helping': 1, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Working with my hands': { 'STEM': 4, 'Healthcare': 2, 'Business': 1, 'Creative': 3, 'Helping': 1, 'Outdoor': 4, 'Public Service': 1, 'Skilled Trades': 5 },
+            'Working with data or numbers': { 'STEM': 5, 'Healthcare': 2, 'Business': 4, 'Creative': 1, 'Helping': 1, 'Outdoor': 1, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Creating new things': { 'STEM': 3, 'Healthcare': 1, 'Business': 3, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Teaching or guiding others': { 'STEM': 2, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 5, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
             'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
         },
         defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
@@ -2303,16 +2363,16 @@ const questions = [
         text: 'Where would you prefer to build your career? (Select all that apply)',
         multiSelect: true,
         options: [
-            'In Zambia only - I want to stay here',
-            'In Zambia and abroad - I\'m open to both',
-            'Outside Zambia only - I want to travel',
+            'In Zambia - I want to stay here',
+            'Outside Zambia - I want to travel and work abroad',
+            'Both Zambia and abroad - I\'m open to both',
             'I\'m flexible - anywhere is fine',
             'Not sure yet 🤷'
         ],
         weights: {
-            'In Zambia only - I want to stay here': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 3 },
-            'In Zambia and abroad - I\'m open to both': { 'STEM': 4, 'Healthcare': 4, 'Business': 4, 'Creative': 4, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
-            'Outside Zambia only - I want to travel': { 'STEM': 4, 'Healthcare': 4, 'Business': 3, 'Creative': 4, 'Helping': 2, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'In Zambia - I want to stay here': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 3 },
+            'Outside Zambia - I want to travel and work abroad': { 'STEM': 4, 'Healthcare': 4, 'Business': 3, 'Creative': 4, 'Helping': 2, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Both Zambia and abroad - I\'m open to both': { 'STEM': 4, 'Healthcare': 4, 'Business': 4, 'Creative': 4, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
             'I\'m flexible - anywhere is fine': { 'STEM': 4, 'Healthcare': 4, 'Business': 4, 'Creative': 4, 'Helping': 4, 'Outdoor': 4, 'Public Service': 4, 'Skilled Trades': 4 },
             'Not sure yet 🤷': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 }
         },
@@ -2324,15 +2384,15 @@ const questions = [
         text: 'How do you see yourself in a team setting? (Select all that apply)',
         multiSelect: true,
         options: [
-            'Leader - I like taking charge and guiding others',
-            'Follower - I prefer being part of a team',
-            'Both - I can lead and follow when needed',
+            'I like taking charge and leading others',
+            'I prefer being part of a team and following instructions',
+            'I can both lead and follow when needed',
             'Not sure yet 🤷'
         ],
         weights: {
-            'Leader - I like taking charge and guiding others': { 'STEM': 3, 'Healthcare': 3, 'Business': 5, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 5, 'Skilled Trades': 3 },
-            'Follower - I prefer being part of a team': { 'STEM': 3, 'Healthcare': 4, 'Business': 2, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 4 },
-            'Both - I can lead and follow when needed': { 'STEM': 4, 'Healthcare': 4, 'Business': 4, 'Creative': 4, 'Helping': 4, 'Outdoor': 4, 'Public Service': 4, 'Skilled Trades': 4 },
+            'I like taking charge and leading others': { 'STEM': 3, 'Healthcare': 3, 'Business': 5, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 5, 'Skilled Trades': 3 },
+            'I prefer being part of a team and following instructions': { 'STEM': 3, 'Healthcare': 4, 'Business': 2, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 4 },
+            'I can both lead and follow when needed': { 'STEM': 4, 'Healthcare': 4, 'Business': 4, 'Creative': 4, 'Helping': 4, 'Outdoor': 4, 'Public Service': 4, 'Skilled Trades': 4 },
             'Not sure yet 🤷': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 }
         },
         defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
@@ -2340,18 +2400,22 @@ const questions = [
     },
     {
         id: 9,
-        text: 'Do you prefer solving problems logically or expressing yourself creatively? (Select all that apply)',
+        text: 'What kind of thinking comes most naturally to you? (Select all that apply)',
         multiSelect: true,
         options: [
-            'Analytical - I like logic, numbers, and problem-solving',
-            'Creative - I like imagination, ideas, and expression',
-            'Both - I have a balance of analytical and creative skills',
+            'Logical and analytical thinking',
+            'Creative and imaginative thinking',
+            'Practical and hands-on thinking',
+            'Strategic and big-picture thinking',
+            'A balance of all types',
             'Not sure yet 🤷'
         ],
         weights: {
-            'Analytical - I like logic, numbers, and problem-solving': { 'STEM': 5, 'Healthcare': 3, 'Business': 4, 'Creative': 1, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 3 },
-            'Creative - I like imagination, ideas, and expression': { 'STEM': 1, 'Healthcare': 2, 'Business': 2, 'Creative': 5, 'Helping': 3, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 3 },
-            'Both - I have a balance of analytical and creative skills': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Logical and analytical thinking': { 'STEM': 5, 'Healthcare': 3, 'Business': 4, 'Creative': 1, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Creative and imaginative thinking': { 'STEM': 1, 'Healthcare': 2, 'Business': 2, 'Creative': 5, 'Helping': 3, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Practical and hands-on thinking': { 'STEM': 4, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 5 },
+            'Strategic and big-picture thinking': { 'STEM': 3, 'Healthcare': 2, 'Business': 4, 'Creative': 3, 'Helping': 3, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            'A balance of all types': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
             'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
         },
         defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
@@ -2359,18 +2423,18 @@ const questions = [
     },
     {
         id: 10,
-        text: 'Do you like having a clear routine or prefer new challenges? (Select all that apply)',
+        text: 'What kind of work environment suits you best? (Select all that apply)',
         multiSelect: true,
         options: [
-            'Routine - I like predictable, stable work',
-            'Variety - I like new challenges every day',
-            'A mix of both',
+            'Predictable and routine work',
+            'Dynamic and changing work',
+            'A mix of routine and variety',
             'Not sure yet 🤷'
         ],
         weights: {
-            'Routine - I like predictable, stable work': { 'STEM': 3, 'Healthcare': 3, 'Business': 4, 'Creative': 2, 'Helping': 3, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 4 },
-            'Variety - I like new challenges every day': { 'STEM': 3, 'Healthcare': 3, 'Business': 2, 'Creative': 4, 'Helping': 3, 'Outdoor': 4, 'Public Service': 3, 'Skilled Trades': 3 },
-            'A mix of both': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Predictable and routine work': { 'STEM': 3, 'Healthcare': 3, 'Business': 4, 'Creative': 2, 'Helping': 3, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 4 },
+            'Dynamic and changing work': { 'STEM': 3, 'Healthcare': 3, 'Business': 2, 'Creative': 4, 'Helping': 3, 'Outdoor': 4, 'Public Service': 3, 'Skilled Trades': 3 },
+            'A mix of routine and variety': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
             'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
         },
         defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
@@ -2378,10 +2442,10 @@ const questions = [
     },
     {
         id: 11,
-        text: 'What kind of difference would you like to make in the world? (Select all that apply)',
+        text: 'What kind of impact would you most like to make? (Select all that apply)',
         multiSelect: true,
         options: [
-            'Help individuals directly (one-on-one)',
+            'Help individuals directly',
             'Help my community',
             'Help the environment',
             'Help businesses succeed',
@@ -2390,7 +2454,7 @@ const questions = [
             'Not sure yet 🤷'
         ],
         weights: {
-            'Help individuals directly (one-on-one)': { 'STEM': 1, 'Healthcare': 4, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Help individuals directly': { 'STEM': 1, 'Healthcare': 4, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
             'Help my community': { 'STEM': 2, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
             'Help the environment': { 'STEM': 3, 'Healthcare': 2, 'Business': 1, 'Creative': 2, 'Helping': 2, 'Outdoor': 5, 'Public Service': 2, 'Skilled Trades': 2 },
             'Help businesses succeed': { 'STEM': 3, 'Healthcare': 1, 'Business': 5, 'Creative': 2, 'Helping': 2, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 2 },
@@ -2403,17 +2467,17 @@ const questions = [
     },
     {
         id: 12,
-        text: 'What kind of work environment brings out your best? (Select all that apply)',
+        text: 'When do you do your best work? (Select all that apply)',
         multiSelect: true,
         options: [
-            'Alone - I concentrate better by myself',
-            'With others - I enjoy teamwork and collaboration',
+            'Working alone - I concentrate better by myself',
+            'Working with others - I enjoy collaboration',
             'Both - I can work alone or with a team',
             'Not sure yet 🤷'
         ],
         weights: {
-            'Alone - I concentrate better by myself': { 'STEM': 3, 'Healthcare': 2, 'Business': 2, 'Creative': 4, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 3 },
-            'With others - I enjoy teamwork and collaboration': { 'STEM': 3, 'Healthcare': 4, 'Business': 4, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 3 },
+            'Working alone - I concentrate better by myself': { 'STEM': 3, 'Healthcare': 2, 'Business': 2, 'Creative': 4, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Working with others - I enjoy collaboration': { 'STEM': 3, 'Healthcare': 4, 'Business': 4, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 3 },
             'Both - I can work alone or with a team': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
             'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
         },
@@ -2422,25 +2486,25 @@ const questions = [
     },
     {
         id: 13,
-        text: 'What skills would you most like to learn and use? (Select all that apply)',
+        text: 'What skills would you most like to develop? (Select all that apply)',
         multiSelect: true,
         options: [
-            'Technical skills (building, fixing, engineering)',
-            'Medical skills (healthcare, treating patients)',
-            'Business skills (finance, management, leadership)',
-            'Creative skills (art, design, writing)',
-            'Teaching skills (education, training)',
-            'Environmental skills (farming, conservation)',
+            'Technical and mechanical skills',
+            'Medical and healthcare skills',
+            'Business and leadership skills',
+            'Creative and artistic skills',
+            'Teaching and communication skills',
+            'Environmental and conservation skills',
             'All of the above - I want to learn many things',
             'Not sure yet 🤷'
         ],
         weights: {
-            'Technical skills (building, fixing, engineering)': { 'STEM': 5, 'Healthcare': 1, 'Business': 2, 'Creative': 2, 'Helping': 1, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 5 },
-            'Medical skills (healthcare, treating patients)': { 'STEM': 2, 'Healthcare': 5, 'Business': 1, 'Creative': 1, 'Helping': 4, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 1 },
-            'Business skills (finance, management, leadership)': { 'STEM': 2, 'Healthcare': 1, 'Business': 5, 'Creative': 2, 'Helping': 2, 'Outdoor': 1, 'Public Service': 3, 'Skilled Trades': 2 },
-            'Creative skills (art, design, writing)': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 3 },
-            'Teaching skills (education, training)': { 'STEM': 2, 'Healthcare': 2, 'Business': 3, 'Creative': 3, 'Helping': 5, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
-            'Environmental skills (farming, conservation)': { 'STEM': 3, 'Healthcare': 1, 'Business': 1, 'Creative': 2, 'Helping': 2, 'Outdoor': 5, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Technical and mechanical skills': { 'STEM': 5, 'Healthcare': 1, 'Business': 2, 'Creative': 2, 'Helping': 1, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 5 },
+            'Medical and healthcare skills': { 'STEM': 2, 'Healthcare': 5, 'Business': 1, 'Creative': 1, 'Helping': 4, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 1 },
+            'Business and leadership skills': { 'STEM': 2, 'Healthcare': 1, 'Business': 5, 'Creative': 2, 'Helping': 2, 'Outdoor': 1, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Creative and artistic skills': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 3 },
+            'Teaching and communication skills': { 'STEM': 2, 'Healthcare': 2, 'Business': 3, 'Creative': 3, 'Helping': 5, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Environmental and conservation skills': { 'STEM': 3, 'Healthcare': 1, 'Business': 1, 'Creative': 2, 'Helping': 2, 'Outdoor': 5, 'Public Service': 2, 'Skilled Trades': 3 },
             'All of the above - I want to learn many things': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
             'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
         },
@@ -2452,15 +2516,15 @@ const questions = [
         text: 'How do you imagine your work life? (Select all that apply)',
         multiSelect: true,
         options: [
-            'Myself - I want to be my own boss and start a business',
-            'Someone else - I prefer a job with a set role',
-            'Either - I\'m open to both',
+            'I want to be my own boss and start a business',
+            'I prefer a job with a set role and responsibilities',
+            'I\'m open to both - I could work for myself or someone else',
             'Not sure yet 🤷'
         ],
         weights: {
-            'Myself - I want to be my own boss and start a business': { 'STEM': 2, 'Healthcare': 1, 'Business': 5, 'Creative': 4, 'Helping': 2, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 4 },
-            'Someone else - I prefer a job with a set role': { 'STEM': 4, 'Healthcare': 4, 'Business': 3, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 3 },
-            'Either - I\'m open to both': { 'STEM': 3, 'Healthcare': 3, 'Business': 4, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'I want to be my own boss and start a business': { 'STEM': 2, 'Healthcare': 1, 'Business': 5, 'Creative': 4, 'Helping': 2, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 4 },
+            'I prefer a job with a set role and responsibilities': { 'STEM': 4, 'Healthcare': 4, 'Business': 3, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 3 },
+            'I\'m open to both - I could work for myself or someone else': { 'STEM': 3, 'Healthcare': 3, 'Business': 4, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
             'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
         },
         defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
@@ -2468,18 +2532,18 @@ const questions = [
     },
     {
         id: 15,
-        text: 'How do you manage stressful situations or tight deadlines? (Select all that apply)',
+        text: 'How do you handle pressure and deadlines? (Select all that apply)',
         multiSelect: true,
         options: [
-            'I thrive under pressure - I work well with deadlines',
-            'I prefer a calm, steady work pace',
-            'I can handle some pressure, but not too much',
+            'I work well under pressure and meet deadlines',
+            'I prefer a calm and steady work pace',
+            'I can handle some pressure but not too much',
             'Not sure yet 🤷'
         ],
         weights: {
-            'I thrive under pressure - I work well with deadlines': { 'STEM': 4, 'Healthcare': 4, 'Business': 4, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 3 },
-            'I prefer a calm, steady work pace': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 4, 'Helping': 4, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 4 },
-            'I can handle some pressure, but not too much': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'I work well under pressure and meet deadlines': { 'STEM': 4, 'Healthcare': 4, 'Business': 4, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 3 },
+            'I prefer a calm and steady work pace': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 4, 'Helping': 4, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 4 },
+            'I can handle some pressure but not too much': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
             'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
         },
         defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
@@ -2490,16 +2554,16 @@ const questions = [
         text: 'How do you prefer to learn new things? (Select all that apply)',
         multiSelect: true,
         options: [
-            'By reading and studying',
-            'By watching and listening',
-            'By doing and practicing',
+            'By reading and studying on my own',
+            'By watching and listening to explanations',
+            'By doing and practicing hands-on',
             'By discussing with others',
             'Not sure yet 🤷'
         ],
         weights: {
-            'By reading and studying': { 'STEM': 4, 'Healthcare': 3, 'Business': 3, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
-            'By watching and listening': { 'STEM': 2, 'Healthcare': 3, 'Business': 2, 'Creative': 4, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
-            'By doing and practicing': { 'STEM': 3, 'Healthcare': 3, 'Business': 2, 'Creative': 3, 'Helping': 2, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 5 },
+            'By reading and studying on my own': { 'STEM': 4, 'Healthcare': 3, 'Business': 3, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'By watching and listening to explanations': { 'STEM': 2, 'Healthcare': 3, 'Business': 2, 'Creative': 4, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'By doing and practicing hands-on': { 'STEM': 3, 'Healthcare': 3, 'Business': 2, 'Creative': 3, 'Helping': 2, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 5 },
             'By discussing with others': { 'STEM': 2, 'Healthcare': 3, 'Business': 4, 'Creative': 3, 'Helping': 4, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
             'Not sure yet 🤷': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 }
         },
@@ -2511,17 +2575,95 @@ const questions = [
         text: 'Which of these best describes your personality? (Select all that apply)',
         multiSelect: true,
         options: [
-            'I\'m outgoing and love meeting people',
-            'I\'m thoughtful and reflective',
-            'I\'m practical and hands-on',
-            'I\'m creative and imaginative',
+            'Outgoing - I love meeting people',
+            'Thoughtful - I like to reflect and think deeply',
+            'Practical - I like to get things done with my hands',
+            'Creative - I have a vivid imagination',
+            'A combination of these traits',
             'Not sure yet 🤷'
         ],
         weights: {
-            'I\'m outgoing and love meeting people': { 'STEM': 2, 'Healthcare': 3, 'Business': 4, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
-            'I\'m thoughtful and reflective': { 'STEM': 4, 'Healthcare': 3, 'Business': 3, 'Creative': 4, 'Helping': 3, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
-            'I\'m practical and hands-on': { 'STEM': 4, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 5 },
-            'I\'m creative and imaginative': { 'STEM': 2, 'Healthcare': 2, 'Business': 3, 'Creative': 5, 'Helping': 3, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Outgoing - I love meeting people': { 'STEM': 2, 'Healthcare': 3, 'Business': 4, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Thoughtful - I like to reflect and think deeply': { 'STEM': 4, 'Healthcare': 3, 'Business': 3, 'Creative': 4, 'Helping': 3, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Practical - I like to get things done with my hands': { 'STEM': 4, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 5 },
+            'Creative - I have a vivid imagination': { 'STEM': 2, 'Healthcare': 2, 'Business': 3, 'Creative': 5, 'Helping': 3, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 3 },
+            'A combination of these traits': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // NEW QUESTIONS 18-20 for better accuracy
+    {
+        id: 18,
+        text: 'What kind of projects or tasks excite you most? (Select all that apply)',
+        multiSelect: true,
+        options: [
+            'Building or creating something from scratch',
+            'Improving or fixing existing systems',
+            'Helping people solve their problems',
+            'Analyzing data to find insights',
+            'Designing beautiful or functional things',
+            'Teaching or training others',
+            'Not sure yet 🤷'
+        ],
+        weights: {
+            'Building or creating something from scratch': { 'STEM': 5, 'Healthcare': 1, 'Business': 3, 'Creative': 4, 'Helping': 1, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 4 },
+            'Improving or fixing existing systems': { 'STEM': 4, 'Healthcare': 2, 'Business': 4, 'Creative': 2, 'Helping': 2, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 4 },
+            'Helping people solve their problems': { 'STEM': 1, 'Healthcare': 5, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 1 },
+            'Analyzing data to find insights': { 'STEM': 5, 'Healthcare': 3, 'Business': 4, 'Creative': 1, 'Helping': 1, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Designing beautiful or functional things': { 'STEM': 3, 'Healthcare': 1, 'Business': 3, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Teaching or training others': { 'STEM': 2, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 5, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Not sure yet 🤷': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    {
+        id: 19,
+        text: 'What motivates you to work hard? (Select all that apply)',
+        multiSelect: true,
+        options: [
+            'Making a difference in people\'s lives',
+            'Achieving financial success',
+            'Gaining recognition and respect',
+            'Learning new things and growing',
+            'Solving challenging problems',
+            'Working with a great team',
+            'Not sure yet 🤷'
+        ],
+        weights: {
+            'Making a difference in people\'s lives': { 'STEM': 2, 'Healthcare': 5, 'Business': 2, 'Creative': 3, 'Helping': 5, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Achieving financial success': { 'STEM': 4, 'Healthcare': 3, 'Business': 5, 'Creative': 3, 'Helping': 2, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 4 },
+            'Gaining recognition and respect': { 'STEM': 3, 'Healthcare': 3, 'Business': 4, 'Creative': 4, 'Helping': 3, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 3 },
+            'Learning new things and growing': { 'STEM': 4, 'Healthcare': 3, 'Business': 3, 'Creative': 4, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Solving challenging problems': { 'STEM': 5, 'Healthcare': 3, 'Business': 4, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 4 },
+            'Working with a great team': { 'STEM': 3, 'Healthcare': 4, 'Business': 4, 'Creative': 4, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    {
+        id: 20,
+        text: 'What kind of lifestyle do you want? (Select all that apply)',
+        multiSelect: true,
+        options: [
+            'A stable and secure lifestyle',
+            'An adventurous and exciting lifestyle',
+            'A creative and expressive lifestyle',
+            'A simple and peaceful lifestyle',
+            'A fast-paced and ambitious lifestyle',
+            'A balanced lifestyle with time for family and hobbies',
+            'Not sure yet 🤷'
+        ],
+        weights: {
+            'A stable and secure lifestyle': { 'STEM': 4, 'Healthcare': 4, 'Business': 4, 'Creative': 2, 'Helping': 3, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 4 },
+            'An adventurous and exciting lifestyle': { 'STEM': 3, 'Healthcare': 2, 'Business': 3, 'Creative': 4, 'Helping': 2, 'Outdoor': 5, 'Public Service': 3, 'Skilled Trades': 3 },
+            'A creative and expressive lifestyle': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 5, 'Helping': 3, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 2 },
+            'A simple and peaceful lifestyle': { 'STEM': 2, 'Healthcare': 3, 'Business': 2, 'Creative': 3, 'Helping': 4, 'Outdoor': 4, 'Public Service': 3, 'Skilled Trades': 4 },
+            'A fast-paced and ambitious lifestyle': { 'STEM': 4, 'Healthcare': 3, 'Business': 5, 'Creative': 3, 'Helping': 2, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 3 },
+            'A balanced lifestyle with time for family and hobbies': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 4, 'Helping': 4, 'Outdoor': 4, 'Public Service': 3, 'Skilled Trades': 3 },
             'Not sure yet 🤷': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 }
         },
         defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
@@ -2555,7 +2697,6 @@ let state = {
     kbFocusIndex: -1, // Keyboard focus index for accessibility
     discoveryCompare: [], // Array of career names in Discovery Mode comparison (max 5)
     compareList: [], // Array of career names in main comparison (max 5)
-    // NEW: Personality traits for the radar chart
     personalityTraits: {} // Object mapping trait names to scores (1-10 scale)
 };
 
@@ -2590,7 +2731,7 @@ const DOM = {
     resultsSubtitle: document.getElementById('results-subtitle'),
     statsSummary: document.getElementById('stats-summary'),
     careerSearch: document.getElementById('career-search'),
-    resultsToolbar: document.querySelector('.results-toolbar'), // Added for hiding in Discovery Mode
+    resultsToolbar: document.querySelector('.results-toolbar'),
     filterChips: document.getElementById('filter-chips'),
     careerMatches: document.getElementById('career-matches'),
     pathwayDisplay: document.getElementById('pathway-display'),
@@ -2615,15 +2756,11 @@ const DOM = {
     confettiCanvas: document.getElementById('confetti-canvas'),
     toastContainer: document.getElementById('toast-container'),
     colorModeRadios: document.querySelectorAll('input[name="color-mode"]'),
-    // NEW: Radar chart canvas element
     personalityChart: document.getElementById('personalityChart')
 };
 
 // ================================================================
 // SECTION 8: UTILITY FUNCTIONS
-// ================================================================
-
-// This section contains helper functions used throughout the app.
 // ================================================================
 
 // Show a toast notification popup at the bottom-right of the screen
@@ -2673,7 +2810,7 @@ function saveState() {
             isDiscoveryMode: state.isDiscoveryMode,
             discoveryCompare: state.discoveryCompare,
             compareList: state.compareList,
-            personalityTraits: state.personalityTraits, // NEW: Save personality traits
+            personalityTraits: state.personalityTraits,
             timestamp: Date.now() // Add a timestamp so we can expire old saves
         }));
     } catch (e) {} // If localStorage fails (e.g., in private browsing), do nothing
@@ -2793,7 +2930,7 @@ function renderQuestion() {
     var qNum = state.currentQuestion + 1; // Convert from 0-based to 1-based for display
     var total = questions.length; // Total number of questions
 
-    // Update the question counter (e.g., "Question 3 of 17")
+    // Update the question counter (e.g., "Question 3 of 20")
     DOM.questionCounter.textContent = 'Question ' + qNum + ' of ' + total;
     // Update the progress bar
     var pct = Math.round((qNum / total) * 100);
@@ -3134,9 +3271,7 @@ function calculateResults() {
     state.careerScores = scores;
     state.results = Object.keys(scores).sort(function(a, b) { return scores[b] - scores[a]; });
 
-    // ================================================================
-    // NEW: Calculate personality traits for the radar chart
-    // ================================================================
+    // Calculate personality traits for the radar chart
     calculatePersonalityTraits();
 }
 
@@ -3240,10 +3375,8 @@ function calculatePersonalityTraits() {
             var avg = traits[trait] / traitCounts[trait];
 
             // Scale the average to a 1-10 range
-            // With 17 questions and up to 8 options each, the raw scores can vary
+            // With 20 questions and up to 10 options each, the raw scores can vary
             // We multiply by 2.5 to get a good spread from 1-10
-            // Example: avg of 1 -> 2.5 -> rounded to 3
-            //          avg of 4 -> 10 -> rounded to 10
             var scaled = Math.min(10, Math.round(avg * 2.5));
 
             // Ensure the score is at least 1 (for visibility on the chart)
@@ -3287,7 +3420,7 @@ function calculatePersonalityTraits() {
 }
 
 // ================================================================
-// SECTION 17: RADAR CHART RENDER (NEW!)
+// SECTION 17: RADAR CHART RENDER
 // ================================================================
 
 // Render the personality radar chart using Chart.js
@@ -3403,7 +3536,7 @@ function renderRadarChart() {
 
 // Display the results on the results screen
 function displayResults() {
-    // 🔧 FIX: Show search bar for normal results
+    // Show search bar for normal results
     DOM.careerSearch.style.display = 'flex';
     if (DOM.resultsToolbar) {
         DOM.resultsToolbar.style.display = 'flex';
@@ -3424,9 +3557,7 @@ function displayResults() {
     renderStatsSummary(topCareers);
     renderFilterChips();
     renderCareerCards(topCareers);
-    // ================================================================
-    // NEW: Render the radar chart
-    // ================================================================
+    // Render the radar chart
     renderRadarChart();
     displayPathwayRecommendations();
     displaySubjectRecommendations();
@@ -3711,18 +3842,18 @@ function displayCareerClusters() {
             '<div class="score-bar"><div class="score-fill high" style="width:' + score + '%"></div></div>' +
             '<div class="cluster-careers" id="cluster-' + cl + '">' +
             careersInCluster.map(function(n) {
-                // 🔧 FIX: Added data-career attribute for click handling
+                // Added data-career attribute for click handling
                 return '<a class="cluster-career-item" data-career="' + n + '" style="cursor:pointer;">• ' + n + '</a>';
             }).join('') +
             '</div></div>';
     }
     DOM.careerClusters.innerHTML = html;
 
-    // 🔧 FIX: Add click handler for cluster cards
+    // Add click handler for cluster cards
     var clusterCards = DOM.careerClusters.querySelectorAll('.cluster-card');
     clusterCards.forEach(function(card) {
         card.addEventListener('click', function(e) {
-            // 🔧 FIX: If click is on a career item, don't toggle the cluster
+            // If click is on a career item, don't toggle the cluster
             if (e.target.closest('.cluster-career-item')) {
                 return; // Let the career item handler do its job
             }
@@ -3733,11 +3864,11 @@ function displayCareerClusters() {
         });
     });
 
-    // 🔧 FIX: Add click handler for career items - opens details and stops bubbling
+    // Add click handler for career items - opens details and stops bubbling
     var careerItems = DOM.careerClusters.querySelectorAll('.cluster-career-item');
     careerItems.forEach(function(item) {
         item.addEventListener('click', function(e) {
-            // 🔧 FIX: Stop the click from bubbling up to the parent cluster card
+            // Stop the click from bubbling up to the parent cluster card
             e.stopPropagation();
             var careerName = this.dataset.career;
             if (careerName) {
@@ -3842,7 +3973,7 @@ function updateComparison() {
 
 // Generate and display Discovery Mode content for "I Have No Idea" students
 function generateDiscoveryResults() {
-    // 🔧 FIX: Hide search bar in discovery mode
+    // Hide search bar in discovery mode
     DOM.careerSearch.style.display = 'none';
     if (DOM.resultsToolbar) {
         DOM.resultsToolbar.style.display = 'none';
@@ -4510,7 +4641,7 @@ DOM.careerMatches.addEventListener('click', function(e) {
     if (card && card.dataset.career) showCareerDetails(card.dataset.career);
 });
 
-// 🔧 FIX: Career clusters - event delegation (UPDATED)
+// Career clusters - event delegation (UPDATED)
 // This prevents career clicks from closing the cluster
 DOM.careerClusters.addEventListener('click', function(e) {
     // Check if clicked on a career item (handled by its own listener)
@@ -4596,6 +4727,8 @@ function init() {
         console.log('🌍 Accurate pathwayAbroad steps for every career!');
         console.log('📈 Radar chart personality profile added!');
         console.log('✅ Radar chart FIXED - proper 1-10 scaling with variation!');
+        console.log('💰 Salaries updated to accurate Zambian standards!');
+        console.log('📝 20 questions with individual options!');
     }
 }
 
