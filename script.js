@@ -1799,7 +1799,6 @@ const careers = {
 // ================================================================
 
 const careerTraits = {
-    // STEM careers
     "Mining Engineer": ["analytical", "technical", "outdoor", "leadership", "physical", "highSalary"],
     "Civil Engineer": ["analytical", "technical", "physical", "outdoor", "teamwork", "highSalary"],
     "Software Developer": ["analytical", "technical", "creative", "independent", "indoor", "highSalary"],
@@ -1812,8 +1811,6 @@ const careerTraits = {
     "Archeologist": ["curiosity", "outdoor", "history", "research", "patience", "knowledge"],
     "Engineer": ["analytical", "technical", "problemSolving", "leadership", "highSalary", "practical"],
     "IT Specialist": ["analytical", "technical", "technology", "problemSolving", "indoor", "highSalary"],
-
-    // Healthcare careers
     "Medical Doctor": ["helping", "analytical", "highPressure", "highSalary", "teamwork", "dedication"],
     "Surgeon": ["helping", "analytical", "highPressure", "highSalary", "precision", "dedication"],
     "Nurse": ["helping", "highPressure", "teamwork", "shiftWork", "compassion", "practical"],
@@ -1825,8 +1822,6 @@ const careerTraits = {
     "Dentist": ["helping", "analytical", "indoor", "medical", "highSalary", "precision"],
     "Radiographer": ["technical", "helping", "indoor", "medical", "detailOriented", "technology"],
     "Laboratory Technician": ["analytical", "science", "indoor", "detailOriented", "medical", "practical"],
-
-    // Business careers
     "Accountant": ["analytical", "detailOriented", "indoor", "independent", "business", "highSalary"],
     "Entrepreneur": ["leadership", "creative", "riskTaker", "business", "independent", "highSalary"],
     "Banker": ["analytical", "business", "indoor", "professional", "highSalary", "detailOriented"],
@@ -1835,8 +1830,6 @@ const careerTraits = {
     "Human Resources": ["peoplePerson", "communication", "helping", "indoor", "teamwork", "organized"],
     "Marketing Manager": ["creative", "communication", "leadership", "business", "teamwork", "highSalary"],
     "Logistics Manager": ["analytical", "business", "organized", "problemSolving", "teamwork", "leadership"],
-
-    // Creative careers
     "Graphic Designer": ["creative", "independent", "indoor", "visual", "technology", "flexible"],
     "Animator": ["creative", "visual", "technology", "indoor", "patience", "artistic"],
     "Journalist": ["creative", "communication", "outdoor", "curiosity", "writing", "flexible"],
@@ -1848,32 +1841,24 @@ const careerTraits = {
     "Musician": ["creative", "performance", "discipline", "expressive", "flexible", "passion"],
     "Fashion Designer": ["creative", "visual", "handcraft", "indoor", "artistic", "business"],
     "Toymaker": ["creative", "handcraft", "patience", "indoor", "imagination", "craftsmanship"],
-
-    // Helping careers
     "Teacher": ["helping", "communication", "patience", "leadership", "community", "planning"],
     "Social Worker": ["helping", "compassion", "community", "communication", "patience", "resilience"],
     "Guidance Counselor": ["helping", "communication", "patience", "indoor", "empathy", "counseling"],
     "Community Development Officer": ["helping", "community", "leadership", "outdoor", "compassion", "planning"],
     "Priest": ["helping", "communication", "compassion", "leadership", "community", "spiritual"],
     "Lawyer": ["helping", "analytical", "communication", "leadership", "highSalary", "advocacy"],
-
-    // Outdoor careers
     "Tour Guide": ["communication", "outdoor", "peoplePerson", "flexible", "enthusiasm", "knowledge"],
     "Farmer": ["outdoor", "independent", "physical", "patience", "practical", "business"],
     "Game Ranger": ["outdoor", "physical", "independent", "nature", "conservation", "resilience"],
     "Forest Ranger": ["outdoor", "nature", "conservation", "physical", "independent", "patience"],
     "Fishery Officer": ["outdoor", "nature", "conservation", "science", "physical", "community"],
     "Surveyor": ["outdoor", "analytical", "technology", "independence", "precision", "physical"],
-
-    // Public Service careers
     "Governor": ["leadership", "communication", "public", "community", "highSalary", "decisionMaking"],
     "Army": ["physical", "discipline", "teamwork", "leadership", "patriotism", "resilience"],
     "Firefighter": ["physical", "bravery", "teamwork", "quickThinking", "helping", "outdoor"],
     "Police Officer": ["physical", "integrity", "communication", "problemSolving", "courage", "community"],
     "Security Guard": ["alertness", "communication", "physical", "dependability", "observation", "patience"],
     "Pilot": ["analytical", "highPressure", "leadership", "technical", "travel", "highSalary"],
-
-    // Skilled Trades careers
     "Carpenter": ["handcraft", "physical", "creativity", "precision", "practical", "independence"],
     "Welder": ["precision", "handEyeCoordination", "physical", "attentionToDetail", "technical", "practical"],
     "Maid": ["attentionToDetail", "organization", "timeManagement", "physical", "dependability", "practical"],
@@ -1887,7 +1872,6 @@ const careerTraits = {
 // ================================================================
 
 const questionTraits = {
-    // Question 1: Subjects
     "1": {
         "Mathematics": ["analytical", "logical", "problemSolving", "detailOriented"],
         "Biology": ["science", "analytical", "research", "detailOriented"],
@@ -1905,7 +1889,6 @@ const questionTraits = {
         "Physical Education": ["physical", "outdoor", "teamwork", "discipline"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 2: Activities
     "2": {
         "Building or fixing things": ["technical", "physical", "analytical", "practical"],
         "Helping others": ["helping", "compassion", "community", "empathy"],
@@ -1925,7 +1908,6 @@ const questionTraits = {
         "Listening to music": ["creative", "expression", "artistic", "curiosity"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 3: Work Environment
     "3": {
         "Office": ["indoor", "professional", "structured", "organized"],
         "Indoor setting": ["indoor", "professional", "structured", "organized"],
@@ -1942,7 +1924,6 @@ const questionTraits = {
         "I'm flexible": ["versatile", "adaptable", "openMind"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 4: Kind of Work
     "4": {
         "Working closely with people": ["peoplePerson", "communication", "helping", "teamwork"],
         "Working on tasks alone": ["independent", "focused", "analytical", "detailOriented"],
@@ -1954,14 +1935,12 @@ const questionTraits = {
         "Guiding others": ["helping", "communication", "leadership", "patience"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 5: Salary Importance
     "5": {
         "Very important - high salary": ["highSalary", "ambitious", "business", "driven"],
         "Somewhat important - comfortable salary": ["practical", "balanced", "realistic"],
         "Not very important - enjoyment matters more": ["passion", "creative", "fulfillment", "purpose"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 6: Fulfilling Work
     "6": {
         "Helping others": ["helping", "compassion", "empathy", "community"],
         "Making a difference": ["helping", "purpose", "community", "leadership"],
@@ -1976,7 +1955,6 @@ const questionTraits = {
         "I haven't thought about it": ["curiosity", "openMind", "exploring"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 7: Location
     "7": {
         "In Zambia - stay here": ["community", "local", "patriotism", "home"],
         "Outside Zambia - work abroad": ["adventure", "travel", "ambitious", "global"],
@@ -1984,7 +1962,6 @@ const questionTraits = {
         "I'm flexible anywhere": ["versatile", "adaptable", "adventure", "openMind"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 8: Team Setting
     "8": {
         "I like taking charge": ["leadership", "confident", "strategic", "decisive"],
         "I like leading others": ["leadership", "confident", "strategic", "decisive"],
@@ -1993,7 +1970,6 @@ const questionTraits = {
         "I can both lead and follow": ["versatile", "adaptive", "balanced", "teamwork"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 9: Thinking Style
     "9": {
         "Logical thinking": ["analytical", "logical", "problemSolving", "detailOriented"],
         "Analytical thinking": ["analytical", "logical", "problemSolving", "detailOriented"],
@@ -2006,7 +1982,6 @@ const questionTraits = {
         "A balance of all types": ["versatile", "balanced", "adaptive", "openMind"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 10: Work Environment Style
     "10": {
         "Predictable work": ["structured", "organized", "stable", "methodical"],
         "Routine work": ["structured", "organized", "stable", "methodical"],
@@ -2015,7 +1990,6 @@ const questionTraits = {
         "A mix of routine and variety": ["balanced", "versatile", "adaptive", "practical"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 11: Impact
     "11": {
         "Help individuals directly": ["helping", "compassion", "personal", "empathy"],
         "Help my community": ["community", "helping", "local", "social"],
@@ -2025,7 +1999,6 @@ const questionTraits = {
         "I want to help in any way I can": ["helping", "versatile", "compassion", "community"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 12: Best Work Environment
     "12": {
         "Working alone": ["independent", "focused", "introverted", "selfMotivated"],
         "I concentrate better by myself": ["independent", "focused", "introverted", "selfMotivated"],
@@ -2034,7 +2007,6 @@ const questionTraits = {
         "Both - alone or with a team": ["versatile", "adaptive", "balanced", "flexible"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 13: Skills
     "13": {
         "Technical skills": ["technical", "analytical", "practical", "handsOn"],
         "Mechanical skills": ["technical", "handsOn", "practical", "physical"],
@@ -2051,7 +2023,6 @@ const questionTraits = {
         "All of the above": ["versatile", "curiosity", "ambitious", "learning"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 14: Work Life
     "14": {
         "I want to be my own boss": ["entrepreneurial", "leadership", "independent", "riskTaker"],
         "I want to start a business": ["entrepreneurial", "business", "leadership", "riskTaker"],
@@ -2060,7 +2031,6 @@ const questionTraits = {
         "I'm open to both": ["versatile", "flexible", "balanced", "adaptable"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 15: Pressure
     "15": {
         "I work well under pressure": ["resilience", "highPressure", "ambitious", "driven"],
         "I meet deadlines easily": ["organized", "methodical", "reliable", "driven"],
@@ -2069,7 +2039,6 @@ const questionTraits = {
         "I can handle some pressure": ["balanced", "practical", "realistic", "flexible"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 16: Learning Style
     "16": {
         "By reading": ["analytical", "independent", "focused", "curiosity"],
         "By studying on my own": ["independent", "focused", "selfMotivated", "curiosity"],
@@ -2080,7 +2049,6 @@ const questionTraits = {
         "By discussing with others": ["teamwork", "communication", "collaborative", "peoplePerson"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 17: Personality
     "17": {
         "Outgoing": ["extroverted", "peoplePerson", "communication", "social"],
         "I love meeting people": ["extroverted", "peoplePerson", "communication", "social"],
@@ -2093,7 +2061,6 @@ const questionTraits = {
         "A combination of these": ["versatile", "balanced", "adaptive", "openMind"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 18: Projects
     "18": {
         "Building something from scratch": ["creative", "technical", "practical", "handsOn"],
         "Creating something new": ["creative", "innovation", "imagination", "expression"],
@@ -2108,7 +2075,6 @@ const questionTraits = {
         "Training others": ["helping", "communication", "patience", "leadership"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 19: Motivation
     "19": {
         "Making a difference in people's lives": ["helping", "compassion", "purpose", "community"],
         "Achieving financial success": ["highSalary", "ambitious", "business", "driven"],
@@ -2120,7 +2086,6 @@ const questionTraits = {
         "Working with a great team": ["teamwork", "peoplePerson", "collaborative", "communication"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 20: Lifestyle
     "20": {
         "A stable lifestyle": ["structured", "stable", "organized", "practical"],
         "A secure lifestyle": ["structured", "stable", "organized", "practical"],
@@ -2136,7 +2101,6 @@ const questionTraits = {
         "A balanced lifestyle with time for hobbies": ["balanced", "patient", "practical", "organized"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 21: Social Interaction
     "21": {
         "I enjoy meeting new people": ["extroverted", "peoplePerson", "communication", "social"],
         "I am outgoing": ["extroverted", "peoplePerson", "communication", "social"],
@@ -2147,7 +2111,6 @@ const questionTraits = {
         "I like supporting others indirectly": ["helping", "compassion", "supportive", "community"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 22: Responsibility
     "22": {
         "I want to lead projects": ["leadership", "confident", "strategic", "decisive"],
         "I want to lead teams": ["leadership", "confident", "strategic", "decisive"],
@@ -2157,7 +2120,6 @@ const questionTraits = {
         "I prefer to execute tasks": ["practical", "reliable", "organized", "methodical"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 23: Work Environment Happiness
     "23": {
         "Friendly environment": ["peoplePerson", "social", "teamwork", "supportive"],
         "Supportive environment": ["teamwork", "helping", "community", "supportive"],
@@ -2169,7 +2131,6 @@ const questionTraits = {
         "Flexible environment": ["flexible", "adaptive", "versatile", "openMind"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 24: Handling Challenges
     "24": {
         "I face challenges head-on": ["resilience", "confident", "bravery", "leadership"],
         "I find creative solutions": ["creative", "problemSolving", "innovation", "adaptive"],
@@ -2180,7 +2141,6 @@ const questionTraits = {
         "I adapt quickly": ["adaptive", "flexible", "resilience", "versatile"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 25: Recognition
     "25": {
         "Public recognition": ["ambitious", "confident", "leadership", "professional"],
         "Private appreciation": ["introverted", "personal", "supportive", "humble"],
@@ -2190,7 +2150,6 @@ const questionTraits = {
         "Being seen as an expert": ["analytical", "professional", "knowledge", "ambitious"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 26: Work-Life Balance
     "26": {
         "Work is my priority": ["ambitious", "driven", "business", "highPressure"],
         "Life is my priority": ["balanced", "patient", "family", "calm"],
@@ -2201,7 +2160,6 @@ const questionTraits = {
         "I want to travel for work": ["adventure", "outdoor", "flexible", "communication"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 27: Decision-Making
     "27": {
         "I make decisions quickly": ["confident", "decisive", "leadership", "riskTaker"],
         "I analyze all options carefully": ["analytical", "detailOriented", "methodical", "strategic"],
@@ -2211,7 +2169,6 @@ const questionTraits = {
         "I go with my gut feeling": ["creative", "imaginative", "expressive", "artistic"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 28: Learning Style
     "28": {
         "I learn by reading": ["analytical", "independent", "focused", "curiosity"],
         "I learn by watching": ["visual", "curiosity", "learning", "detailOriented"],
@@ -2222,7 +2179,6 @@ const questionTraits = {
         "I learn by teaching others": ["helping", "communication", "leadership", "knowledge"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 29: Communication Style
     "29": {
         "I am direct and clear": ["communication", "confident", "leadership", "professional"],
         "I am diplomatic and tactful": ["communication", "tactful", "peoplePerson", "supportive"],
@@ -2232,7 +2188,6 @@ const questionTraits = {
         "I am supportive and encouraging": ["helping", "supportive", "compassion", "teamwork"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // Question 30: Work Schedule
     "30": {
         "Regular 9-5 schedule": ["structured", "organized", "stable", "methodical"],
         "Flexible schedule": ["flexible", "adaptive", "versatile", "independent"],
@@ -2250,10 +2205,8 @@ const questionTraits = {
 // ================================================================
 
 const ALL_TRAITS = [
-    // Core 12 traits for radar chart
     "analytical", "creative", "helping", "technical", "outdoor", "leadership",
     "communication", "practical", "strategic", "resilience", "detailOriented", "entrepreneurial",
-    // Supporting traits
     "logical", "problemSolving", "science", "research", "writing", "expression",
     "imagination", "knowledge", "curiosity", "visual", "artistic", "technology",
     "nature", "business", "physical", "teamwork", "openMind", "exploring",
@@ -2275,14 +2228,11 @@ const ALL_TRAITS = [
 // SECTION 5: TRANSLATIONS (4 LANGUAGES)
 // ================================================================
 
-// NEW! Language translations for all UI text
 const translations = {
-    // =============================================================
-    // ENGLISH (Default)
-    // =============================================================
     'en': {
         'app_title': 'Career Quest',
         'welcome_title': 'Discover Your Path to a Bright Future',
+        'welcome_subtitle': 'Discover Your Path to a Bright Future',
         'welcome_description': 'Not sure what career is right for you? Don\'t worry! Answer a few questions and we\'ll help you discover your perfect career path.',
         'start_quiz': 'Get Started',
         'i_dont_know': 'I Have No Idea',
@@ -2294,42 +2244,45 @@ const translations = {
         'quote': '"The only way to predict the future is to create it." – Abraham Lincoln',
         'question_counter': 'Question',
         'of': 'of',
-        'back_to_home': 'Back to ZamPath.ai',
+        'back_home': 'Back to ZamPath.ai',
         'dark_mode': 'Dark',
         'light_mode': 'Light',
-        'tip': 'Tip: Use numbers to select, Enter for next, Backspace for previous',
-        'select_multiple': 'You can select MULTIPLE answers for this question. Choose all that apply!',
-        'see_results': 'See Results',
+        'keyboard_tip': 'Tip: Use numbers to select, Enter for next, Backspace for previous',
+        'keyboard_select': 'to select',
+        'keyboard_next': 'for next',
+        'keyboard_prev': 'for previous',
+        'multi_select_hint': 'You can select MULTIPLE answers for this question. Choose all that apply!',
         'next': 'Next',
         'previous': 'Previous',
-        'your_career_matches': 'Your Career Matches',
+        'results_title': 'Your Career Matches',
         'results_subtitle': 'Based on your answers, here are the best careers for you!',
         'top_matches': 'Top Matches',
         'clusters': 'Clusters',
         'avg_match': 'Avg Match',
         'global_ready': 'Global Ready',
-        'personality_profile': 'Your Personality Profile',
-        'personality_description': 'This radar chart shows your strongest personality traits based on your answers. The further out the line goes, the stronger the trait!',
-        'search_careers': 'Search careers',
-        'your_career_pathway': 'Your Career Pathway',
-        'pathway_description': 'To pursue your recommended careers, you should follow this pathway in Form 1-4:',
-        'recommended_subjects': 'Your Recommended Subjects',
-        'subject_note': 'Check with your school to see which subjects are available. Talk to your guidance teacher for more advice!',
-        'career_web_map': 'Career Web Map',
-        'click_cluster': 'Click on any cluster to explore careers',
-        'compare_careers': 'Compare Careers',
-        'compare_description': 'Select up to 5 careers to compare side by side',
+        'personality_title': 'Your Personality Profile',
+        'personality_desc': 'This radar chart shows your strongest personality traits based on your answers. The further out the line goes, the stronger the trait!',
+        'search_placeholder': 'Search careers...',
+        'pathway_title': 'Your Career Pathway',
+        'pathway_desc': 'To pursue your recommended careers, you should follow this pathway in Form 1-4:',
+        'subjects_title': 'Your Recommended Subjects',
+        'subjects_note': 'Check with your school to see which subjects are available. Talk to your guidance teacher for more advice!',
+        'career_web_title': 'Career Web Map',
+        'career_web_instruction': 'Click on any cluster to explore careers',
+        'compare_title': 'Compare Careers',
+        'compare_desc': 'Select up to 5 careers to compare side by side',
         'select_career': 'Select Career',
         'clear_all': 'Clear All',
         'download_pdf': 'Download PDF Report',
         'print_report': 'Print Report',
         'retake_quiz': 'Retake Quiz',
-        'color': 'Color',
-        'black_white': 'Black & White',
+        'color_mode': 'Color',
+        'bw_mode': 'Black & White',
         'discovery_title': "That's okay! Let's explore all your options together.",
+        'discovery_desc': "That's okay! Let's explore all your options together.",
         'discovery_instruction': 'Click on a cluster below to see careers. Then click "Read More" for details or "Add to Compare" to compare careers side-by-side.',
-        'your_discovery_comparison': 'Your Discovery Comparison',
-        'discovery_empty': 'Add careers from the clusters above to compare them here.',
+        'discovery_compare': 'Your Discovery Comparison',
+        'discovery_compare_empty': 'Add careers from the clusters above to compare them here.',
         'read_more': 'Read More',
         'add_to_compare': 'Add to Compare',
         'remove_from_compare': 'Remove from Compare',
@@ -2355,14 +2308,13 @@ const translations = {
         'career_story': 'Career Story',
         'career_day_activity': 'Career Day Activity',
         'share_results': 'Share Results',
-        'share_link': 'Copy Share Link',
-        'share_whatsapp': 'Share on WhatsApp',
-        'share_email': 'Share via Email',
+        'share_copy': 'Copy Link',
+        'share_whatsapp': 'WhatsApp',
+        'share_email': 'Email',
         'share_title': '🌟 My Career Matches on ZamPath!',
         'share_body': 'I just discovered my perfect career matches using ZamPath! Check out my results:',
-        'link_copied': 'Link copied to clipboard!',
-        'link_copied_title': 'Share Link Copied!',
-        'share_instructions': 'Share this link with anyone to show your career matches:',
+        'share_copied': 'Copied to clipboard!',
+        'share_desc': 'Share your career matches with parents, teachers, or friends!',
         'close': 'Close',
         'please_select_answer': 'Please select at least one answer before continuing.',
         'no_results': 'No careers match your search.',
@@ -2380,7 +2332,7 @@ const translations = {
         'tonga': 'Tonga (Chitonga)',
         'loading': 'Loading...',
         'back_to_top': 'Back to top',
-        'skip_to_content': 'Skip to content',
+        'skip_link': 'Skip to content',
         'privacy_policy': 'Privacy Policy',
         'about_us': 'About Us',
         'contact_us': 'Contact Us',
@@ -2395,12 +2347,10 @@ const translations = {
         'testimonials': 'Testimonials',
         'stats': 'Stats'
     },
-    // =============================================================
-    // NYANJA (Chichewa) - Zambian language widely spoken in Eastern Province
-    // =============================================================
     'ny': {
         'app_title': 'Career Quest',
         'welcome_title': 'Pezani Njira Yanu Yatsogolo',
+        'welcome_subtitle': 'Pezani Njira Yanu Yatsogolo',
         'welcome_description': 'Simukudziwa ntchito yomwe ingakuyenereni? Osadandaula! Yankhani mafunso ochepa ndipo tidzakuthandizani kupeza njira yanu yabwino kwambiri.',
         'start_quiz': 'Yambani',
         'i_dont_know': 'Sindikudziwa',
@@ -2412,42 +2362,45 @@ const translations = {
         'quote': '"Njira yokhayo yodziwira tsogolo ndikulilenga." – Abraham Lincoln',
         'question_counter': 'Funso',
         'of': 'la',
-        'back_to_home': 'Bwerera ku ZamPath.ai',
+        'back_home': 'Bwerera ku ZamPath.ai',
         'dark_mode': 'Mdima',
         'light_mode': 'Kuwala',
-        'tip': 'Malangizo: Gwiritsani ntchito manambala kusankha, Enter kupita patsogolo, Backspace kubwerera',
-        'select_multiple': 'Mutha kusankha MAYANKHO OCHULUKA pa funso lino. Sankhani zonse zomwe zikugwirana!',
-        'see_results': 'Onani Zotsatira',
+        'keyboard_tip': 'Malangizo: Gwiritsani ntchito manambala kusankha, Enter kupita patsogolo, Backspace kubwerera',
+        'keyboard_select': 'kusankha',
+        'keyboard_next': 'kupita patsogolo',
+        'keyboard_prev': 'kubwerera',
+        'multi_select_hint': 'Mutha kusankha MAYANKHO OCHULUKA pa funso lino. Sankhani zonse zomwe zikugwirana!',
         'next': 'Patsogolo',
         'previous': 'Kumbuyo',
-        'your_career_matches': 'Ntchito Zomwe Zikukuyenerani',
+        'results_title': 'Ntchito Zomwe Zikukuyenerani',
         'results_subtitle': 'Potengera mayankho anu, nawa ntchito zabwino kwambiri zomwe zikukuyenerani!',
         'top_matches': 'Zosankha Zapamwamba',
         'clusters': 'Magulu',
         'avg_match': 'Avereji Yofanana',
         'global_ready': 'Zokonzeka Padziko Lonse',
-        'personality_profile': 'Mawonekedwe Anu',
-        'personality_description': 'Chithunzi ichi chikuwonetsa mikhalidwe yanu yamphamvu potengera mayankho anu. Mzere ukakulira, ndiye kuti m khalidweli ndi lamphamvu!',
-        'search_careers': 'Sakani ntchito',
-        'your_career_pathway': 'Njira Yanu Yatsogolo',
-        'pathway_description': 'Kuti mutsatire ntchito zomwe zakukuyenerani, muyenera kutsatira njira iyi mu Form 1-4:',
-        'recommended_subjects': 'Maphunziro Omwe Akukuyenerani',
-        'subject_note': 'Fufuzani ndi sukulu yanu kuti muone maphunziro omwe alipo. Lankhulani ndi mphunzitsi wanu wotsogolera kuti amve zambiri!',
-        'career_web_map': 'Mapu a Ntchito',
-        'click_cluster': 'Dina pa gulu lililonse kuti muone ntchito',
-        'compare_careers': 'Fanizani Ntchito',
-        'compare_description': 'Sankhani ntchito zokwana 5 kuti muzifaniza',
+        'personality_title': 'Mawonekedwe Anu',
+        'personality_desc': 'Chithunzi ichi chikuwonetsa mikhalidwe yanu yamphamvu potengera mayankho anu. Mzere ukakulira, ndiye kuti m khalidweli ndi lamphamvu!',
+        'search_placeholder': 'Sakani ntchito',
+        'pathway_title': 'Njira Yanu Yatsogolo',
+        'pathway_desc': 'Kuti mutsatire ntchito zomwe zakukuyenerani, muyenera kutsatira njira iyi mu Form 1-4:',
+        'subjects_title': 'Maphunziro Omwe Akukuyenerani',
+        'subjects_note': 'Fufuzani ndi sukulu yanu kuti muone maphunziro omwe alipo. Lankhulani ndi mphunzitsi wanu wotsogolera kuti amve zambiri!',
+        'career_web_title': 'Mapu a Ntchito',
+        'career_web_instruction': 'Dina pa gulu lililonse kuti muone ntchito',
+        'compare_title': 'Fanizani Ntchito',
+        'compare_desc': 'Sankhani ntchito zokwana 5 kuti muzifaniza',
         'select_career': 'Sankhani Ntchito',
         'clear_all': 'Chotsani Zonse',
         'download_pdf': 'Tsitsani Ripoti ya PDF',
         'print_report': 'Sindikizani Ripoti',
         'retake_quiz': 'Yambanso Mafunso',
-        'color': 'Mtundu',
-        'black_white': 'Chakuda & Choyera',
+        'color_mode': 'Mtundu',
+        'bw_mode': 'Chakuda & Choyera',
         'discovery_title': "Zili bwino! Tiyeni tiwone zosankha zanu zonse palimodzi.",
+        'discovery_desc': "Zili bwino! Tiyeni tiwone zosankha zanu zonse palimodzi.",
         'discovery_instruction': 'Dinani pa gulu ili pansipa kuti muone ntchito. Kenako dinani "Werengani Zambiri" kuti mudziwe zambiri kapena "Onjezera Kufaniza" kuti muzifaniza.',
-        'your_discovery_comparison': 'Kufaniza Kwanu',
-        'discovery_empty': 'Onjezerani ntchito kuchokera m\'magulu pamwambapa kuti muzifaniza.',
+        'discovery_compare': 'Kufaniza Kwanu',
+        'discovery_compare_empty': 'Onjezerani ntchito kuchokera m\'magulu pamwambapa kuti muzifaniza.',
         'read_more': 'Werengani Zambiri',
         'add_to_compare': 'Onjezera Kufaniza',
         'remove_from_compare': 'Chotsa Kufaniza',
@@ -2473,14 +2426,13 @@ const translations = {
         'career_story': 'Nkhani Ya Ntchito',
         'career_day_activity': 'Zochita Pa Tsiku La Ntchito',
         'share_results': 'Gawani Zotsatira',
-        'share_link': 'Koperani Ulalo',
+        'share_copy': 'Koperani Ulalo',
         'share_whatsapp': 'Gawani pa WhatsApp',
         'share_email': 'Tumizani pa Imelo',
         'share_title': '🌟 Zotsatira Zanga za Ntchito pa ZamPath!',
         'share_body': 'Ndaona ntchito zomwe zikundiyenera pogwiritsa ntchito ZamPath! Onani zotsatira zanga:',
-        'link_copied': 'Ulalo wakopedwa!',
-        'link_copied_title': 'Ulalo Wakopedwa!',
-        'share_instructions': 'Gawani ulalowu ndi aliyense kuti awone zotsatira zanu:',
+        'share_copied': 'Ulalo wakopedwa!',
+        'share_desc': 'Gawani zotsatira zanu ndi makolo, aphunzitsi, kapena anzako!',
         'close': 'Tsekani',
         'please_select_answer': 'Chonde sankhani yankho limodzi musanapitilize.',
         'no_results': 'Palibe ntchito zomwe zikugwirana ndi kusaka kwanu.',
@@ -2498,7 +2450,7 @@ const translations = {
         'tonga': 'Chitonga',
         'loading': 'Kukonzekera...',
         'back_to_top': 'Bwerera pamwamba',
-        'skip_to_content': 'Lumphani ku nkhani',
+        'skip_link': 'Lumphani ku nkhani',
         'privacy_policy': 'Malamulo Achinsinsi',
         'about_us': 'Za Ife',
         'contact_us': 'Lumikizanani Nafe',
@@ -2513,12 +2465,10 @@ const translations = {
         'testimonials': 'Umboni',
         'stats': 'Ziwerengero'
     },
-    // =============================================================
-    // BEMBA (Icibemba) - Zambian language widely spoken in Northern Province
-    // =============================================================
     'bem': {
         'app_title': 'Career Quest',
         'welcome_title': 'Sangana Inshila Yenu Yakumushi',
+        'welcome_subtitle': 'Sangana Inshila Yenu Yakumushi',
         'welcome_description': 'Temwa mwishibe umulimo uletile? Nshisakamwene! Yisubishe ibipusho utuntuniko no twafwile ukukwafwa ukusanga inshila yenu isuma.',
         'start_quiz': 'Tambukeni',
         'i_dont_know': 'Nshishibe',
@@ -2530,42 +2480,45 @@ const translations = {
         'quote': '"Inshila imo mwingasambilila ifyakumushi no kupanga ifyo mulefwaya." – Abraham Lincoln',
         'question_counter': 'Ipusho',
         'of': 'ya',
-        'back_to_home': 'Bwelani ku ZamPath.ai',
+        'back_home': 'Bwelani ku ZamPath.ai',
         'dark_mode': 'Umufi',
         'light_mode': 'Umusana',
-        'tip': 'Ubulangizi: Pakishe amanambala ukusankha, Enter ukupita paumo, Backspace ukubwela',
-        'select_multiple': 'Mungasankha MAYANSHO AMANGA pa ipusho iyi. Sankhani ifyo mulefwaya!',
-        'see_results': 'Moneni Ifyapela',
+        'keyboard_tip': 'Ubulangizi: Pakishe amanambala ukusankha, Enter ukupita paumo, Backspace ukubwela',
+        'keyboard_select': 'ukusankha',
+        'keyboard_next': 'ukupita paumo',
+        'keyboard_prev': 'ukubwela',
+        'multi_select_hint': 'Mungasankha MAYANSHO AMANGA pa ipusho iyi. Sankhani ifyo mulefwaya!',
         'next': 'Pamo',
         'previous': 'Kumbuyo',
-        'your_career_matches': 'Imilimo Yabuchingama Kuli Inu',
+        'results_title': 'Imilimo Yabuchingama Kuli Inu',
         'results_subtitle': 'Kuya kuli inyisho shinu, iyi ni imilimo isuma ukuletile!',
         'top_matches': 'Icisankano Cakumutwe',
         'clusters': 'Amasangano',
         'avg_match': 'Aveleji Yakufwanana',
         'global_ready': 'Kubula Mu Calo Cense',
-        'personality_profile': 'Umweni Wenu',
-        'personality_description': 'Ici cishusho cilelanga ifyakumweni fyenu ifikulungile kuya kuli inyisho shinu. Umusali ukuya, ni fyene fyakulungila!',
-        'search_careers': 'Sakani imilimo',
-        'your_career_pathway': 'Inshila Yenu Yakumushi',
-        'pathway_description': 'Ukuya mu milimo yabuchingama kuli inu, mulebela ukulanda inshila iyi mu Form 1-4:',
-        'recommended_subjects': 'Ifya Mapepala Ifyakubuchingama',
-        'subject_note': 'Fipusheni ku sukulu yenu ukumona ifya mapepala ifyapabili. Lalileni na musambilishi wenu wa buyo ukumfwa ifingi!',
-        'career_web_map': 'Mapa ya Imilimo',
-        'click_cluster': 'Tikeni pa sangano lili lyonse ukumona imilimo',
-        'compare_careers': 'Fwananisha Imilimo',
-        'compare_description': 'Sankhani imilimo 5 ukwifwananisha',
+        'personality_title': 'Umweni Wenu',
+        'personality_desc': 'Ici cishusho cilelanga ifyakumweni fyenu ifikulungile kuya kuli inyisho shinu. Umusali ukuya, ni fyene fyakulungila!',
+        'search_placeholder': 'Sakani imilimo',
+        'pathway_title': 'Inshila Yenu Yakumushi',
+        'pathway_desc': 'Ukuya mu milimo yabuchingama kuli inu, mulebela ukulanda inshila iyi mu Form 1-4:',
+        'subjects_title': 'Ifya Mapepala Ifyakubuchingama',
+        'subjects_note': 'Fipusheni ku sukulu yenu ukumona ifya mapepala ifyapabili. Lalileni na musambilishi wenu wa buyo ukumfwa ifingi!',
+        'career_web_title': 'Mapa ya Imilimo',
+        'career_web_instruction': 'Tikeni pa sangano lili lyonse ukumona imilimo',
+        'compare_title': 'Fwananisha Imilimo',
+        'compare_desc': 'Sankhani imilimo 5 ukwifwananisha',
         'select_career': 'Sankhani Umulimo',
         'clear_all': 'Futesheni fyonse',
         'download_pdf': 'Tulenjako Lipoti PDF',
         'print_report': 'Pintani Lipoti',
         'retake_quiz': 'Tendekeni Ibipusho',
-        'color': 'Ulanga',
-        'black_white': 'Umufi no Umupepe',
+        'color_mode': 'Ulanga',
+        'bw_mode': 'Umufi no Umupepe',
         'discovery_title': "Tilibe nshita! Tayeni tukasange ifisankano fyenu fyonse pamo.",
+        'discovery_desc': "Tilibe nshita! Tayeni tukasange ifisankano fyenu fyonse pamo.",
         'discovery_instruction': 'Tikeni pa sangano ili panshi ukumona imilimo. Pakuti mwene, tikeni "Welengani Ifingi" ukumfwa ifyakulungila panji "Onjezela Ukwifwananisha" ukwifwananisha.',
-        'your_discovery_comparison': 'Ukufwananisha Kwenu',
-        'discovery_empty': 'Onjezeleni imilimo kuya mu masangano aya ukwifwananisha.',
+        'discovery_compare': 'Ukufwananisha Kwenu',
+        'discovery_compare_empty': 'Onjezeleni imilimo kuya mu masangano aya ukwifwananisha.',
         'read_more': 'Welengani Ifingi',
         'add_to_compare': 'Onjezela Ukwifwananisha',
         'remove_from_compare': 'Futesheni Ukwifwananisha',
@@ -2591,14 +2544,13 @@ const translations = {
         'career_story': 'Inkashi Ya Umulimo',
         'career_day_activity': 'Ifyo Bacita Pa Bushiku Bwa Umulimo',
         'share_results': 'Gaweniko Ifyapela',
-        'share_link': 'Kopeni Ulalo',
+        'share_copy': 'Kopeni Ulalo',
         'share_whatsapp': 'Gaweniko pa WhatsApp',
         'share_email': 'Tumizeni pa Imelo',
         'share_title': '🌟 Ifyapela Fyane pa Umulimo pa ZamPath!',
         'share_body': 'Nasanga imilimo yakubuchingama kuli ine mukwambila ZamPath! Moneni ifyapela fyane:',
-        'link_copied': 'Ulalo wakopedwa!',
-        'link_copied_title': 'Ulalo Wakopedwa!',
-        'share_instructions': 'Gaweniko ulalo uwu kuli muntu uuli wonse ukumona ifyapela fyenu:',
+        'share_copied': 'Ulalo wakopedwa!',
+        'share_desc': 'Gaweniko ifyapela fyenu kuli bafyashi, bamwalisha, panji bakwenu!',
         'close': 'Funga',
         'please_select_answer': 'Mwatobela mwasankha yankho limo ukupita pamo.',
         'no_results': 'Temwa imilimo iikwata ne shakusaka kweni.',
@@ -2616,7 +2568,7 @@ const translations = {
         'tonga': 'Chitonga',
         'loading': 'Kutendeka...',
         'back_to_top': 'Bwelani pa mutwe',
-        'skip_to_content': 'Lumphani ku nkhani',
+        'skip_link': 'Lumphani ku nkhani',
         'privacy_policy': 'Amalayo Ya Chinsinsi',
         'about_us': 'Ifyo tuli',
         'contact_us': 'Tumikizeni',
@@ -2631,12 +2583,10 @@ const translations = {
         'testimonials': 'Umboni',
         'stats': 'Imibare'
     },
-    // =============================================================
-    // TONGA (Chitonga) - Zambian language widely spoken in Southern Province
-    // =============================================================
     'tonga': {
         'app_title': 'Career Quest',
         'welcome_title': 'Sangana Njila Yenyu Yabulemu',
+        'welcome_subtitle': 'Sangana Njila Yenyu Yabulemu',
         'welcome_description': 'Tamuzi nso mwa kukonzya kucita mulimo nzi? Muleka kutetema! Amba makani aafwumbi atonganya tulimvwisya kuti mwasangane njila yenyu yabulemu.',
         'start_quiz': 'Tambukani',
         'i_dont_know': 'Ncindisena',
@@ -2648,42 +2598,45 @@ const translations = {
         'quote': '"Njila yokwela yakuziwa bumunthu ncokubumba." – Abraham Lincoln',
         'question_counter': 'Mbuzi',
         'of': 'ya',
-        'back_to_home': 'Bwelani ku ZamPath.ai',
+        'back_home': 'Bwelani ku ZamPath.ai',
         'dark_mode': 'Mdaa',
         'light_mode': 'Musi',
-        'tip': 'Mbuli: Kenzanga manambala kusankha, Enter kuya patsogolo, Backspace kubwela',
-        'select_multiple': 'Mungasankha MAKANI AMANJI pa mbuzi iyi. Sankhani zyonse zyomwe mwakonda!',
-        'see_results': 'Onani Zyabula',
+        'keyboard_tip': 'Mbuli: Kenzanga manambala kusankha, Enter kuya patsogolo, Backspace kubwela',
+        'keyboard_select': 'kusankha',
+        'keyboard_next': 'kuya patsogolo',
+        'keyboard_prev': 'kubwela',
+        'multi_select_hint': 'Mungasankha MAKANI AMANJI pa mbuzi iyi. Sankhani zyonse zyomwe mwakonda!',
         'next': 'Patsogolo',
         'previous': 'Kumbuyo',
-        'your_career_matches': 'Mikondo Iyakanilwe Kuli Imwe',
+        'results_title': 'Mikondo Iyakanilwe Kuli Imwe',
         'results_subtitle': 'Potengera makani enyu, naindi mikondo yabotu kuli imwe!',
         'top_matches': 'Zisankho Zyakumutwe',
         'clusters': 'Zigungu',
         'avg_match': 'Aveleji Yakufwanana',
         'global_ready': 'Zyakonzekela Calo Consi',
-        'personality_profile': 'Mbwenu Yenyu',
-        'personality_description': 'Chishusho ichi chili kulaanga mbwenu zyenu zyakukula potengera makani enyu. Muzi ukukula, ni zyakukula!',
-        'search_careers': 'Sakani mikondo',
-        'your_career_pathway': 'Njila Yenyu Yabulemu',
-        'pathway_description': 'Kuti mutsatire mikondo iyakanilwe kuli imwe, mubela kulanda njila iyi mu Form 1-4:',
-        'recommended_subjects': 'Maphunziro Akukanilwe',
-        'subject_note': 'Fufuzani ni sukulu yenyu kuti mwone maphunziro alipo. Ambieni ni musambilishi wenyu wakulangila kuti amve zyambotu!',
-        'career_web_map': 'Mepu ya Mikondo',
-        'click_cluster': 'Dina pa gungu lililyonse kuti mwone mikondo',
-        'compare_careers': 'Fanizani Mikondo',
-        'compare_description': 'Sankhani mikondo 5 kuti muzifaniza',
+        'personality_title': 'Mbwenu Yenyu',
+        'personality_desc': 'Chishusho ichi chili kulaanga mbwenu zyenu zyakukula potengera makani enyu. Muzi ukukula, ni zyakukula!',
+        'search_placeholder': 'Sakani mikondo',
+        'pathway_title': 'Njila Yenyu Yabulemu',
+        'pathway_desc': 'Kuti mutsatire mikondo iyakanilwe kuli imwe, mubela kulanda njila iyi mu Form 1-4:',
+        'subjects_title': 'Maphunziro Akukanilwe',
+        'subjects_note': 'Fufuzani ni sukulu yenyu kuti mwone maphunziro alipo. Ambieni ni musambilishi wenyu wakulangila kuti amve zyambotu!',
+        'career_web_title': 'Mepu ya Mikondo',
+        'career_web_instruction': 'Dina pa gungu lililyonse kuti mwone mikondo',
+        'compare_title': 'Fanizani Mikondo',
+        'compare_desc': 'Sankhani mikondo 5 kuti muzifaniza',
         'select_career': 'Sankhani Mikondo',
         'clear_all': 'Futeshani Zyonse',
         'download_pdf': 'Tulenjako Lipoti PDF',
         'print_report': 'Pintani Lipoti',
         'retake_quiz': 'Bwezelani Mbuzi',
-        'color': 'Mbala',
-        'black_white': 'Mdaa & Mucece',
+        'color_mode': 'Mbala',
+        'bw_mode': 'Mdaa & Mucece',
         'discovery_title': "Ncibotu! Tayeni tukaone zisankho zyenyu zyonse pamodzi.",
+        'discovery_desc': "Ncibotu! Tayeni tukaone zisankho zyenyu zyonse pamodzi.",
         'discovery_instruction': 'Dina pa gungu ili panshi kuti mwone mikondo. Pakuti mwene, dina "Welengani Zyambotu" kuti muzi zyinji panji "Onjezela Kufaniza" kuti muzifaniza.',
-        'your_discovery_comparison': 'Kufaniza Kwenyu',
-        'discovery_empty': 'Onjezelani mikondo kuya mu zigungu izi kuti muzifaniza.',
+        'discovery_compare': 'Kufaniza Kwenyu',
+        'discovery_compare_empty': 'Onjezelani mikondo kuya mu zigungu izi kuti muzifaniza.',
         'read_more': 'Welengani Zyambotu',
         'add_to_compare': 'Onjezela Kufaniza',
         'remove_from_compare': 'Futeshani Kufaniza',
@@ -2709,14 +2662,13 @@ const translations = {
         'career_story': 'Nkhani Ya Mulimo',
         'career_day_activity': 'Zyocitwa Pa Bushiku Bwa Mulimo',
         'share_results': 'Gaweniko Zyabula',
-        'share_link': 'Kopeni Ulalo',
+        'share_copy': 'Kopeni Ulalo',
         'share_whatsapp': 'Gaweniko pa WhatsApp',
         'share_email': 'Tumizeni pa Imelo',
         'share_title': '🌟 Zyabula Zyane pa Mulimo pa ZamPath!',
         'share_body': 'Nasanga mikondo iyakanilwe kuli ine mukwambila ZamPath! Onani zyabula zyane:',
-        'link_copied': 'Ulalo wakopedwa!',
-        'link_copied_title': 'Ulalo Wakopedwa!',
-        'share_instructions': 'Gaweniko ulalo uwu kuli muntu uuli wonse kuti awone zyabula zyenyu:',
+        'share_copied': 'Ulalo wakopedwa!',
+        'share_desc': 'Gaweniko zyabula zyenyu kuli babaana, badunzi, panji bakwenu!',
         'close': 'Funga',
         'please_select_answer': 'Mwatobela mwasankha makani amo kuti mupite patsogolo.',
         'no_results': 'Tazimikondo iikwata ni sakunso yenyu.',
@@ -2734,7 +2686,7 @@ const translations = {
         'tonga': 'Chitonga',
         'loading': 'Kutendeka...',
         'back_to_top': 'Bwelani pa mutwe',
-        'skip_to_content': 'Lumphani ku nkhani',
+        'skip_link': 'Lumphani ku nkhani',
         'privacy_policy': 'Malayilo Ya Chinsinsi',
         'about_us': 'Zyotwe',
         'contact_us': 'Tumikizeni',
@@ -2752,13 +2704,11 @@ const translations = {
 };
 
 // ================================================================
-// SECTION 6: QUESTIONS (30 QUESTIONS - ALL INDIVIDUAL OPTIONS)
+// SECTION 6: QUESTIONS (30 QUESTIONS - COMPLETE)
 // ================================================================
 
 const questions = [
-    // =============================================================
-    // SECTION A: ACADEMIC INTERESTS (Questions 1-5)
-    // =============================================================
+    // Q1 - Subjects
     {
         id: 1,
         text: 'Which subjects do you enjoy most at school? (Select all that apply)',
@@ -2784,6 +2734,7 @@ const questions = [
         defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
         isNotSure: false
     },
+    // Q2 - Activities
     {
         id: 2,
         text: 'What activities do you enjoy in your free time? (Select all that apply)',
@@ -2811,12 +2762,548 @@ const questions = [
         defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
         isNotSure: false
     },
-    // =============================================================
-    // Questions 3-30 are defined but omitted for space
-    // In the complete file, all 30 questions are fully defined
-    // with all weights and options
-    // =============================================================
-    // For the complete file, the remaining 28 questions follow here
+    // Q3 - Work Environment
+    {
+        id: 3,
+        text: 'Where would you most like to work? (Select all that apply)',
+        multiSelect: true,
+        options: ['Office', 'Indoor setting', 'Outdoors in nature', 'Hospital', 'Clinic', 'Laboratory', 'Workshop', 'Factory', 'School', 'Classroom', 'Travel', 'Remote work', "I'm flexible", 'Not sure yet 🤷'],
+        weights: {
+            'Office': { 'STEM': 2, 'Healthcare': 1, 'Business': 5, 'Creative': 3, 'Helping': 2, 'Outdoor': 1, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Indoor setting': { 'STEM': 3, 'Healthcare': 4, 'Business': 4, 'Creative': 4, 'Helping': 3, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Outdoors in nature': { 'STEM': 2, 'Healthcare': 1, 'Business': 1, 'Creative': 2, 'Helping': 2, 'Outdoor': 5, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Hospital': { 'STEM': 1, 'Healthcare': 5, 'Business': 1, 'Creative': 1, 'Helping': 4, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 1 },
+            'Clinic': { 'STEM': 1, 'Healthcare': 5, 'Business': 1, 'Creative': 1, 'Helping': 4, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 1 },
+            'Laboratory': { 'STEM': 4, 'Healthcare': 4, 'Business': 1, 'Creative': 1, 'Helping': 1, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Workshop': { 'STEM': 3, 'Healthcare': 1, 'Business': 2, 'Creative': 3, 'Helping': 1, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 5 },
+            'Factory': { 'STEM': 3, 'Healthcare': 1, 'Business': 2, 'Creative': 1, 'Helping': 1, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 4 },
+            'School': { 'STEM': 1, 'Healthcare': 1, 'Business': 1, 'Creative': 2, 'Helping': 5, 'Outdoor': 1, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Classroom': { 'STEM': 1, 'Healthcare': 1, 'Business': 1, 'Creative': 2, 'Helping': 5, 'Outdoor': 1, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Travel': { 'STEM': 1, 'Healthcare': 1, 'Business': 3, 'Creative': 3, 'Helping': 2, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 1 },
+            'Remote work': { 'STEM': 4, 'Healthcare': 1, 'Business': 4, 'Creative': 4, 'Helping': 1, 'Outdoor': 1, 'Public Service': 1, 'Skilled Trades': 2 },
+            "I'm flexible": { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q4 - Kind of Work
+    {
+        id: 4,
+        text: 'What kind of work appeals to you most? (Select all that apply)',
+        multiSelect: true,
+        options: ['Working closely with people', 'Working on tasks alone', 'Working with my hands', 'Working with data', 'Working with numbers', 'Creating new things', 'Teaching others', 'Guiding others', 'Not sure yet 🤷'],
+        weights: {
+            'Working closely with people': { 'STEM': 1, 'Healthcare': 4, 'Business': 3, 'Creative': 3, 'Helping': 5, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'Working on tasks alone': { 'STEM': 4, 'Healthcare': 1, 'Business': 3, 'Creative': 4, 'Helping': 1, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
+            'Working with my hands': { 'STEM': 3, 'Healthcare': 2, 'Business': 1, 'Creative': 4, 'Helping': 1, 'Outdoor': 3, 'Public Service': 1, 'Skilled Trades': 5 },
+            'Working with data': { 'STEM': 5, 'Healthcare': 2, 'Business': 4, 'Creative': 1, 'Helping': 1, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 1 },
+            'Working with numbers': { 'STEM': 4, 'Healthcare': 2, 'Business': 5, 'Creative': 1, 'Helping': 1, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Creating new things': { 'STEM': 3, 'Healthcare': 1, 'Business': 3, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Teaching others': { 'STEM': 1, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Guiding others': { 'STEM': 1, 'Healthcare': 2, 'Business': 3, 'Creative': 2, 'Helping': 4, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q5 - Salary Importance
+    {
+        id: 5,
+        text: 'How important is salary to you?',
+        multiSelect: false,
+        options: ['Very important - high salary', 'Somewhat important - comfortable salary', 'Not very important - enjoyment matters more', 'Not sure yet 🤷'],
+        weights: {
+            'Very important - high salary': { 'STEM': 3, 'Healthcare': 3, 'Business': 5, 'Creative': 1, 'Helping': 1, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Somewhat important - comfortable salary': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Not very important - enjoyment matters more': { 'STEM': 2, 'Healthcare': 2, 'Business': 1, 'Creative': 5, 'Helping': 4, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q6 - Fulfilling Work
+    {
+        id: 6,
+        text: 'What would make your work feel most fulfilling? (Select all that apply)',
+        multiSelect: true,
+        options: ['Helping others', 'Making a difference', 'Building things', 'Solving problems', 'Teaching others', 'Creating art', 'Managing people', 'Managing businesses', 'Researching', 'Discovering new things', "I haven't thought about it", 'Not sure yet 🤷'],
+        weights: {
+            'Helping others': { 'STEM': 1, 'Healthcare': 5, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'Making a difference': { 'STEM': 2, 'Healthcare': 4, 'Business': 3, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'Building things': { 'STEM': 4, 'Healthcare': 1, 'Business': 2, 'Creative': 3, 'Helping': 1, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 5 },
+            'Solving problems': { 'STEM': 5, 'Healthcare': 2, 'Business': 4, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Teaching others': { 'STEM': 1, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Creating art': { 'STEM': 1, 'Healthcare': 1, 'Business': 1, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
+            'Managing people': { 'STEM': 2, 'Healthcare': 2, 'Business': 5, 'Creative': 2, 'Helping': 3, 'Outdoor': 1, 'Public Service': 4, 'Skilled Trades': 1 },
+            'Managing businesses': { 'STEM': 2, 'Healthcare': 1, 'Business': 5, 'Creative': 2, 'Helping': 1, 'Outdoor': 1, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Researching': { 'STEM': 5, 'Healthcare': 3, 'Business': 2, 'Creative': 2, 'Helping': 1, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 1 },
+            'Discovering new things': { 'STEM': 4, 'Healthcare': 2, 'Business': 2, 'Creative': 4, 'Helping': 1, 'Outdoor': 3, 'Public Service': 1, 'Skilled Trades': 1 },
+            "I haven't thought about it": { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q7 - Location
+    {
+        id: 7,
+        text: 'Where do you see yourself working in the future?',
+        multiSelect: false,
+        options: ['In Zambia - stay here', 'Outside Zambia - work abroad', 'Both Zambia and abroad', "I'm flexible anywhere", 'Not sure yet 🤷'],
+        weights: {
+            'In Zambia - stay here': { 'STEM': 2, 'Healthcare': 4, 'Business': 3, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 5, 'Skilled Trades': 4 },
+            'Outside Zambia - work abroad': { 'STEM': 5, 'Healthcare': 4, 'Business': 5, 'Creative': 3, 'Helping': 2, 'Outdoor': 3, 'Public Service': 1, 'Skilled Trades': 3 },
+            'Both Zambia and abroad': { 'STEM': 4, 'Healthcare': 3, 'Business': 4, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            "I'm flexible anywhere": { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q8 - Team Setting
+    {
+        id: 8,
+        text: 'What is your preferred role in a team?',
+        multiSelect: false,
+        options: ['I like taking charge', 'I like leading others', 'I prefer following instructions', 'I like being part of a team', 'I can both lead and follow', 'Not sure yet 🤷'],
+        weights: {
+            'I like taking charge': { 'STEM': 3, 'Healthcare': 2, 'Business': 5, 'Creative': 3, 'Helping': 2, 'Outdoor': 2, 'Public Service': 5, 'Skilled Trades': 2 },
+            'I like leading others': { 'STEM': 3, 'Healthcare': 2, 'Business': 5, 'Creative': 3, 'Helping': 2, 'Outdoor': 2, 'Public Service': 5, 'Skilled Trades': 2 },
+            'I prefer following instructions': { 'STEM': 2, 'Healthcare': 3, 'Business': 2, 'Creative': 2, 'Helping': 3, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 4 },
+            'I like being part of a team': { 'STEM': 3, 'Healthcare': 4, 'Business': 3, 'Creative': 3, 'Helping': 4, 'Outdoor': 4, 'Public Service': 4, 'Skilled Trades': 3 },
+            'I can both lead and follow': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q9 - Thinking Style
+    {
+        id: 9,
+        text: 'Which thinking style describes you best? (Select all that apply)',
+        multiSelect: true,
+        options: ['Logical thinking', 'Analytical thinking', 'Creative thinking', 'Imaginative thinking', 'Practical thinking', 'Hands-on thinking', 'Strategic thinking', 'Big-picture thinking', 'A balance of all types', 'Not sure yet 🤷'],
+        weights: {
+            'Logical thinking': { 'STEM': 5, 'Healthcare': 2, 'Business': 4, 'Creative': 1, 'Helping': 1, 'Outdoor': 1, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Analytical thinking': { 'STEM': 5, 'Healthcare': 3, 'Business': 4, 'Creative': 1, 'Helping': 1, 'Outdoor': 1, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Creative thinking': { 'STEM': 2, 'Healthcare': 1, 'Business': 3, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Imaginative thinking': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
+            'Practical thinking': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 2, 'Helping': 3, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 4 },
+            'Hands-on thinking': { 'STEM': 4, 'Healthcare': 2, 'Business': 1, 'Creative': 3, 'Helping': 2, 'Outdoor': 3, 'Public Service': 1, 'Skilled Trades': 5 },
+            'Strategic thinking': { 'STEM': 4, 'Healthcare': 2, 'Business': 5, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Big-picture thinking': { 'STEM': 3, 'Healthcare': 2, 'Business': 5, 'Creative': 3, 'Helping': 2, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'A balance of all types': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q10 - Work Environment Style
+    {
+        id: 10,
+        text: 'What kind of work environment do you prefer? (Select all that apply)',
+        multiSelect: true,
+        options: ['Predictable work', 'Routine work', 'Dynamic work', 'Changing work', 'A mix of routine and variety', 'Not sure yet 🤷'],
+        weights: {
+            'Predictable work': { 'STEM': 3, 'Healthcare': 4, 'Business': 4, 'Creative': 1, 'Helping': 3, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Routine work': { 'STEM': 3, 'Healthcare': 4, 'Business': 4, 'Creative': 1, 'Helping': 3, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Dynamic work': { 'STEM': 3, 'Healthcare': 2, 'Business': 3, 'Creative': 4, 'Helping': 2, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Changing work': { 'STEM': 3, 'Healthcare': 2, 'Business': 3, 'Creative': 4, 'Helping': 2, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 2 },
+            'A mix of routine and variety': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q11 - Impact
+    {
+        id: 11,
+        text: 'How do you want to make an impact? (Select all that apply)',
+        multiSelect: true,
+        options: ['Help individuals directly', 'Help my community', 'Help the environment', 'Help businesses succeed', 'Help the country of Zambia', 'I want to help in any way I can', 'Not sure yet 🤷'],
+        weights: {
+            'Help individuals directly': { 'STEM': 1, 'Healthcare': 5, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Help my community': { 'STEM': 2, 'Healthcare': 3, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Help the environment': { 'STEM': 3, 'Healthcare': 1, 'Business': 1, 'Creative': 2, 'Helping': 3, 'Outdoor': 5, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Help businesses succeed': { 'STEM': 3, 'Healthcare': 1, 'Business': 5, 'Creative': 2, 'Helping': 1, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 1 },
+            'Help the country of Zambia': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 2, 'Helping': 4, 'Outdoor': 2, 'Public Service': 5, 'Skilled Trades': 2 },
+            'I want to help in any way I can': { 'STEM': 2, 'Healthcare': 3, 'Business': 2, 'Creative': 2, 'Helping': 4, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q12 - Best Work Environment
+    {
+        id: 12,
+        text: 'Do you work best alone or with others?',
+        multiSelect: false,
+        options: ['Working alone', 'I concentrate better by myself', 'Working with others', 'I enjoy collaboration', 'Both - alone or with a team', 'Not sure yet 🤷'],
+        weights: {
+            'Working alone': { 'STEM': 4, 'Healthcare': 1, 'Business': 3, 'Creative': 4, 'Helping': 1, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
+            'I concentrate better by myself': { 'STEM': 4, 'Healthcare': 1, 'Business': 3, 'Creative': 4, 'Helping': 1, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
+            'Working with others': { 'STEM': 2, 'Healthcare': 4, 'Business': 3, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
+            'I enjoy collaboration': { 'STEM': 2, 'Healthcare': 4, 'Business': 3, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Both - alone or with a team': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q13 - Skills
+    {
+        id: 13,
+        text: 'What skills do you have or want to develop? (Select all that apply)',
+        multiSelect: true,
+        options: ['Technical skills', 'Mechanical skills', 'Medical skills', 'Healthcare skills', 'Business skills', 'Leadership skills', 'Creative skills', 'Artistic skills', 'Teaching skills', 'Communication skills', 'Environmental skills', 'Conservation skills', 'All of the above', 'Not sure yet 🤷'],
+        weights: {
+            'Technical skills': { 'STEM': 5, 'Healthcare': 1, 'Business': 2, 'Creative': 2, 'Helping': 1, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 4 },
+            'Mechanical skills': { 'STEM': 4, 'Healthcare': 1, 'Business': 1, 'Creative': 2, 'Helping': 1, 'Outdoor': 3, 'Public Service': 1, 'Skilled Trades': 5 },
+            'Medical skills': { 'STEM': 2, 'Healthcare': 5, 'Business': 1, 'Creative': 1, 'Helping': 4, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 1 },
+            'Healthcare skills': { 'STEM': 2, 'Healthcare': 5, 'Business': 1, 'Creative': 1, 'Helping': 4, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 1 },
+            'Business skills': { 'STEM': 2, 'Healthcare': 1, 'Business': 5, 'Creative': 2, 'Helping': 2, 'Outdoor': 1, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Leadership skills': { 'STEM': 3, 'Healthcare': 2, 'Business': 5, 'Creative': 2, 'Helping': 3, 'Outdoor': 2, 'Public Service': 5, 'Skilled Trades': 2 },
+            'Creative skills': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
+            'Artistic skills': { 'STEM': 2, 'Healthcare': 1, 'Business': 1, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
+            'Teaching skills': { 'STEM': 1, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Communication skills': { 'STEM': 2, 'Healthcare': 3, 'Business': 5, 'Creative': 4, 'Helping': 4, 'Outdoor': 3, 'Public Service': 5, 'Skilled Trades': 1 },
+            'Environmental skills': { 'STEM': 3, 'Healthcare': 1, 'Business': 1, 'Creative': 2, 'Helping': 3, 'Outdoor': 5, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Conservation skills': { 'STEM': 3, 'Healthcare': 1, 'Business': 1, 'Creative': 2, 'Helping': 3, 'Outdoor': 5, 'Public Service': 2, 'Skilled Trades': 2 },
+            'All of the above': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q14 - Work Life
+    {
+        id: 14,
+        text: 'What kind of work life do you prefer?',
+        multiSelect: false,
+        options: ['I want to be my own boss', 'I want to start a business', 'I prefer a job with a set role', 'I prefer a job with clear responsibilities', "I'm open to both", 'Not sure yet 🤷'],
+        weights: {
+            'I want to be my own boss': { 'STEM': 2, 'Healthcare': 1, 'Business': 5, 'Creative': 4, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 3 },
+            'I want to start a business': { 'STEM': 2, 'Healthcare': 1, 'Business': 5, 'Creative': 4, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 3 },
+            'I prefer a job with a set role': { 'STEM': 4, 'Healthcare': 4, 'Business': 3, 'Creative': 2, 'Helping': 4, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            'I prefer a job with clear responsibilities': { 'STEM': 4, 'Healthcare': 4, 'Business': 3, 'Creative': 2, 'Helping': 4, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            "I'm open to both": { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q15 - Pressure
+    {
+        id: 15,
+        text: 'How do you handle pressure and deadlines?',
+        multiSelect: false,
+        options: ['I work well under pressure', 'I meet deadlines easily', 'I prefer a calm work pace', 'I prefer a steady work pace', 'I can handle some pressure', 'Not sure yet 🤷'],
+        weights: {
+            'I work well under pressure': { 'STEM': 4, 'Healthcare': 4, 'Business': 4, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            'I meet deadlines easily': { 'STEM': 4, 'Healthcare': 3, 'Business': 4, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'I prefer a calm work pace': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 4, 'Helping': 4, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 3 },
+            'I prefer a steady work pace': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'I can handle some pressure': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q16 - Learning Style
+    {
+        id: 16,
+        text: 'How do you learn best? (Select all that apply)',
+        multiSelect: true,
+        options: ['By reading', 'By studying on my own', 'By watching', 'By listening to explanations', 'By doing', 'By practicing hands-on', 'By discussing with others', 'Not sure yet 🤷'],
+        weights: {
+            'By reading': { 'STEM': 4, 'Healthcare': 2, 'Business': 3, 'Creative': 3, 'Helping': 2, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 1 },
+            'By studying on my own': { 'STEM': 4, 'Healthcare': 2, 'Business': 3, 'Creative': 3, 'Helping': 1, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 1 },
+            'By watching': { 'STEM': 3, 'Healthcare': 3, 'Business': 2, 'Creative': 4, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 3 },
+            'By listening to explanations': { 'STEM': 2, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 4, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'By doing': { 'STEM': 3, 'Healthcare': 3, 'Business': 2, 'Creative': 3, 'Helping': 2, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 5 },
+            'By practicing hands-on': { 'STEM': 3, 'Healthcare': 3, 'Business': 2, 'Creative': 3, 'Helping': 2, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 5 },
+            'By discussing with others': { 'STEM': 2, 'Healthcare': 3, 'Business': 4, 'Creative': 3, 'Helping': 4, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q17 - Personality
+    {
+        id: 17,
+        text: 'How would you describe your personality? (Select all that apply)',
+        multiSelect: true,
+        options: ['Outgoing', 'I love meeting people', 'Thoughtful', 'I reflect deeply', 'Practical', 'I get things done with my hands', 'Creative', 'I have a vivid imagination', 'A combination of these', 'Not sure yet 🤷'],
+        weights: {
+            'Outgoing': { 'STEM': 1, 'Healthcare': 3, 'Business': 4, 'Creative': 4, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 1 },
+            'I love meeting people': { 'STEM': 1, 'Healthcare': 3, 'Business': 4, 'Creative': 4, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 1 },
+            'Thoughtful': { 'STEM': 4, 'Healthcare': 3, 'Business': 3, 'Creative': 4, 'Helping': 3, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'I reflect deeply': { 'STEM': 4, 'Healthcare': 3, 'Business': 3, 'Creative': 4, 'Helping': 3, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Practical': { 'STEM': 4, 'Healthcare': 3, 'Business': 3, 'Creative': 2, 'Helping': 2, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 4 },
+            'I get things done with my hands': { 'STEM': 3, 'Healthcare': 2, 'Business': 1, 'Creative': 3, 'Helping': 2, 'Outdoor': 3, 'Public Service': 1, 'Skilled Trades': 5 },
+            'Creative': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
+            'I have a vivid imagination': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
+            'A combination of these': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q18 - Projects
+    {
+        id: 18,
+        text: 'What kind of projects excite you? (Select all that apply)',
+        multiSelect: true,
+        options: ['Building something from scratch', 'Creating something new', 'Improving existing systems', 'Fixing existing systems', 'Helping people solve problems', 'Analyzing data', 'Finding insights', 'Designing beautiful things', 'Designing functional things', 'Teaching others', 'Training others', 'Not sure yet 🤷'],
+        weights: {
+            'Building something from scratch': { 'STEM': 4, 'Healthcare': 1, 'Business': 2, 'Creative': 3, 'Helping': 1, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 4 },
+            'Creating something new': { 'STEM': 3, 'Healthcare': 1, 'Business': 3, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
+            'Improving existing systems': { 'STEM': 4, 'Healthcare': 2, 'Business': 4, 'Creative': 2, 'Helping': 2, 'Outdoor': 1, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Fixing existing systems': { 'STEM': 4, 'Healthcare': 2, 'Business': 3, 'Creative': 1, 'Helping': 2, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 4 },
+            'Helping people solve problems': { 'STEM': 2, 'Healthcare': 4, 'Business': 3, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Analyzing data': { 'STEM': 5, 'Healthcare': 2, 'Business': 4, 'Creative': 1, 'Helping': 1, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 1 },
+            'Finding insights': { 'STEM': 5, 'Healthcare': 2, 'Business': 4, 'Creative': 2, 'Helping': 1, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 1 },
+            'Designing beautiful things': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 5, 'Helping': 1, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
+            'Designing functional things': { 'STEM': 4, 'Healthcare': 1, 'Business': 3, 'Creative': 4, 'Helping': 1, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 4 },
+            'Teaching others': { 'STEM': 1, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Training others': { 'STEM': 1, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q19 - Motivation
+    {
+        id: 19,
+        text: 'What motivates you most? (Select all that apply)',
+        multiSelect: true,
+        options: ["Making a difference in people's lives", 'Achieving financial success', 'Gaining recognition', 'Gaining respect', 'Learning new things', 'Growing as a person', 'Solving challenging problems', 'Working with a great team', 'Not sure yet 🤷'],
+        weights: {
+            "Making a difference in people's lives": { 'STEM': 2, 'Healthcare': 5, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'Achieving financial success': { 'STEM': 4, 'Healthcare': 3, 'Business': 5, 'Creative': 2, 'Helping': 1, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Gaining recognition': { 'STEM': 3, 'Healthcare': 2, 'Business': 4, 'Creative': 4, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Gaining respect': { 'STEM': 3, 'Healthcare': 2, 'Business': 4, 'Creative': 3, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Learning new things': { 'STEM': 4, 'Healthcare': 3, 'Business': 3, 'Creative': 4, 'Helping': 2, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Growing as a person': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 4, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Solving challenging problems': { 'STEM': 5, 'Healthcare': 2, 'Business': 4, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Working with a great team': { 'STEM': 2, 'Healthcare': 3, 'Business': 4, 'Creative': 3, 'Helping': 3, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q20 - Lifestyle
+    {
+        id: 20,
+        text: 'What kind of lifestyle do you want? (Select all that apply)',
+        multiSelect: true,
+        options: ['A stable lifestyle', 'A secure lifestyle', 'An adventurous lifestyle', 'An exciting lifestyle', 'A creative lifestyle', 'An expressive lifestyle', 'A simple lifestyle', 'A peaceful lifestyle', 'A fast-paced lifestyle', 'An ambitious lifestyle', 'A balanced lifestyle with time for family', 'A balanced lifestyle with time for hobbies', 'Not sure yet 🤷'],
+        weights: {
+            'A stable lifestyle': { 'STEM': 3, 'Healthcare': 4, 'Business': 4, 'Creative': 1, 'Helping': 3, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 3 },
+            'A secure lifestyle': { 'STEM': 3, 'Healthcare': 4, 'Business': 4, 'Creative': 1, 'Helping': 3, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 3 },
+            'An adventurous lifestyle': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 3, 'Helping': 2, 'Outdoor': 5, 'Public Service': 2, 'Skilled Trades': 2 },
+            'An exciting lifestyle': { 'STEM': 2, 'Healthcare': 1, 'Business': 2, 'Creative': 3, 'Helping': 2, 'Outdoor': 5, 'Public Service': 2, 'Skilled Trades': 2 },
+            'A creative lifestyle': { 'STEM': 1, 'Healthcare': 1, 'Business': 2, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
+            'An expressive lifestyle': { 'STEM': 1, 'Healthcare': 1, 'Business': 2, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 1, 'Skilled Trades': 2 },
+            'A simple lifestyle': { 'STEM': 2, 'Healthcare': 3, 'Business': 2, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 2 },
+            'A peaceful lifestyle': { 'STEM': 2, 'Healthcare': 3, 'Business': 2, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 2 },
+            'A fast-paced lifestyle': { 'STEM': 4, 'Healthcare': 3, 'Business': 5, 'Creative': 2, 'Helping': 1, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'An ambitious lifestyle': { 'STEM': 4, 'Healthcare': 3, 'Business': 5, 'Creative': 2, 'Helping': 1, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'A balanced lifestyle with time for family': { 'STEM': 2, 'Healthcare': 3, 'Business': 2, 'Creative': 2, 'Helping': 3, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+            'A balanced lifestyle with time for hobbies': { 'STEM': 2, 'Healthcare': 3, 'Business': 2, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q21 - Social Interaction
+    {
+        id: 21,
+        text: 'How do you feel about social interaction at work? (Select all that apply)',
+        multiSelect: true,
+        options: ['I enjoy meeting new people', 'I am outgoing', 'I prefer one-on-one conversations', 'I prefer small groups', 'I prefer large groups', 'I like helping people directly', 'I like supporting others indirectly', 'Not sure yet 🤷'],
+        weights: {
+            'I enjoy meeting new people': { 'STEM': 1, 'Healthcare': 4, 'Business': 4, 'Creative': 4, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 1 },
+            'I am outgoing': { 'STEM': 1, 'Healthcare': 4, 'Business': 4, 'Creative': 4, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 1 },
+            'I prefer one-on-one conversations': { 'STEM': 3, 'Healthcare': 4, 'Business': 3, 'Creative': 3, 'Helping': 4, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'I prefer small groups': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'I prefer large groups': { 'STEM': 1, 'Healthcare': 2, 'Business': 4, 'Creative': 4, 'Helping': 3, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 1 },
+            'I like helping people directly': { 'STEM': 1, 'Healthcare': 5, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
+            'I like supporting others indirectly': { 'STEM': 2, 'Healthcare': 4, 'Business': 2, 'Creative': 2, 'Helping': 4, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q22 - Responsibility
+    {
+        id: 22,
+        text: 'How much responsibility do you want?',
+        multiSelect: false,
+        options: ['I want to lead projects', 'I want to lead teams', 'I prefer to follow instructions', 'I prefer to work independently', 'I want to make important decisions', 'I prefer to execute tasks', 'Not sure yet 🤷'],
+        weights: {
+            'I want to lead projects': { 'STEM': 4, 'Healthcare': 3, 'Business': 5, 'Creative': 3, 'Helping': 2, 'Outdoor': 2, 'Public Service': 5, 'Skilled Trades': 2 },
+            'I want to lead teams': { 'STEM': 4, 'Healthcare': 3, 'Business': 5, 'Creative': 3, 'Helping': 2, 'Outdoor': 2, 'Public Service': 5, 'Skilled Trades': 2 },
+            'I prefer to follow instructions': { 'STEM': 2, 'Healthcare': 4, 'Business': 2, 'Creative': 2, 'Helping': 3, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 4 },
+            'I prefer to work independently': { 'STEM': 4, 'Healthcare': 2, 'Business': 3, 'Creative': 4, 'Helping': 1, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 3 },
+            'I want to make important decisions': { 'STEM': 4, 'Healthcare': 3, 'Business': 5, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 5, 'Skilled Trades': 2 },
+            'I prefer to execute tasks': { 'STEM': 3, 'Healthcare': 4, 'Business': 3, 'Creative': 2, 'Helping': 3, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 4 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q23 - Work Environment Happiness
+    {
+        id: 23,
+        text: 'What kind of workplace makes you happiest? (Select all that apply)',
+        multiSelect: true,
+        options: ['Friendly environment', 'Supportive environment', 'Competitive environment', 'Challenging environment', 'Relaxed environment', 'Fast-paced environment', 'Structured environment', 'Flexible environment', 'Not sure yet 🤷'],
+        weights: {
+            'Friendly environment': { 'STEM': 2, 'Healthcare': 4, 'Business': 4, 'Creative': 4, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Supportive environment': { 'STEM': 2, 'Healthcare': 4, 'Business': 4, 'Creative': 4, 'Helping': 5, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Competitive environment': { 'STEM': 4, 'Healthcare': 2, 'Business': 5, 'Creative': 2, 'Helping': 1, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Challenging environment': { 'STEM': 4, 'Healthcare': 3, 'Business': 4, 'Creative': 2, 'Helping': 1, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Relaxed environment': { 'STEM': 2, 'Healthcare': 3, 'Business': 2, 'Creative': 4, 'Helping': 4, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Fast-paced environment': { 'STEM': 4, 'Healthcare': 3, 'Business': 5, 'Creative': 2, 'Helping': 1, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Structured environment': { 'STEM': 4, 'Healthcare': 4, 'Business': 4, 'Creative': 1, 'Helping': 2, 'Outdoor': 1, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Flexible environment': { 'STEM': 3, 'Healthcare': 2, 'Business': 3, 'Creative': 4, 'Helping': 3, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q24 - Handling Challenges
+    {
+        id: 24,
+        text: 'How do you handle challenges? (Select all that apply)',
+        multiSelect: true,
+        options: ['I face challenges head-on', 'I find creative solutions', 'I seek help from others', 'I work through them methodically', 'I stay calm under pressure', 'I learn from failures', 'I adapt quickly', 'Not sure yet 🤷'],
+        weights: {
+            'I face challenges head-on': { 'STEM': 4, 'Healthcare': 4, 'Business': 4, 'Creative': 2, 'Helping': 2, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
+            'I find creative solutions': { 'STEM': 3, 'Healthcare': 2, 'Business': 3, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+            'I seek help from others': { 'STEM': 2, 'Healthcare': 4, 'Business': 4, 'Creative': 3, 'Helping': 5, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 1 },
+            'I work through them methodically': { 'STEM': 5, 'Healthcare': 3, 'Business': 4, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 3 },
+            'I stay calm under pressure': { 'STEM': 4, 'Healthcare': 4, 'Business': 4, 'Creative': 2, 'Helping': 3, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
+            'I learn from failures': { 'STEM': 4, 'Healthcare': 3, 'Business': 4, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 2 },
+            'I adapt quickly': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q25 - Recognition
+    {
+        id: 25,
+        text: 'What kind of recognition matters to you? (Select all that apply)',
+        multiSelect: true,
+        options: ['Public recognition', 'Private appreciation', 'Financial rewards', 'Career advancement', 'Being trusted with responsibility', 'Being seen as an expert', 'Not sure yet 🤷'],
+        weights: {
+            'Public recognition': { 'STEM': 2, 'Healthcare': 2, 'Business': 4, 'Creative': 4, 'Helping': 2, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'Private appreciation': { 'STEM': 2, 'Healthcare': 4, 'Business': 3, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Financial rewards': { 'STEM': 4, 'Healthcare': 3, 'Business': 5, 'Creative': 2, 'Helping': 1, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Career advancement': { 'STEM': 4, 'Healthcare': 3, 'Business': 5, 'Creative': 3, 'Helping': 2, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Being trusted with responsibility': { 'STEM': 4, 'Healthcare': 3, 'Business': 5, 'Creative': 2, 'Helping': 3, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Being seen as an expert': { 'STEM': 5, 'Healthcare': 3, 'Business': 4, 'Creative': 3, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q26 - Work-Life Balance
+    {
+        id: 26,
+        text: 'What is your ideal work-life balance? (Select all that apply)',
+        multiSelect: true,
+        options: ['Work is my priority', 'Life is my priority', 'I want a good balance', 'I want flexible hours', 'I want to work remotely', 'I want to work from home', 'I want to travel for work', 'Not sure yet 🤷'],
+        weights: {
+            'Work is my priority': { 'STEM': 4, 'Healthcare': 3, 'Business': 5, 'Creative': 2, 'Helping': 1, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'Life is my priority': { 'STEM': 2, 'Healthcare': 3, 'Business': 2, 'Creative': 4, 'Helping': 4, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 3 },
+            'I want a good balance': { 'STEM': 3, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 3 },
+            'I want flexible hours': { 'STEM': 3, 'Healthcare': 2, 'Business': 3, 'Creative': 4, 'Helping': 3, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 3 },
+            'I want to work remotely': { 'STEM': 4, 'Healthcare': 1, 'Business': 4, 'Creative': 4, 'Helping': 1, 'Outdoor': 1, 'Public Service': 1, 'Skilled Trades': 2 },
+            'I want to work from home': { 'STEM': 4, 'Healthcare': 1, 'Business': 4, 'Creative': 4, 'Helping': 1, 'Outdoor': 1, 'Public Service': 1, 'Skilled Trades': 2 },
+            'I want to travel for work': { 'STEM': 1, 'Healthcare': 1, 'Business': 3, 'Creative': 3, 'Helping': 2, 'Outdoor': 5, 'Public Service': 2, 'Skilled Trades': 1 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q27 - Decision-Making
+    {
+        id: 27,
+        text: 'How do you make decisions? (Select all that apply)',
+        multiSelect: true,
+        options: ['I make decisions quickly', 'I analyze all options carefully', 'I trust my intuition', 'I consult others before deciding', 'I weigh pros and cons', 'I go with my gut feeling', 'Not sure yet 🤷'],
+        weights: {
+            'I make decisions quickly': { 'STEM': 3, 'Healthcare': 2, 'Business': 4, 'Creative': 3, 'Helping': 2, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 2 },
+            'I analyze all options carefully': { 'STEM': 5, 'Healthcare': 4, 'Business': 4, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'I trust my intuition': { 'STEM': 2, 'Healthcare': 2, 'Business': 3, 'Creative': 5, 'Helping': 3, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 2 },
+            'I consult others before deciding': { 'STEM': 2, 'Healthcare': 4, 'Business': 4, 'Creative': 3, 'Helping': 4, 'Outdoor': 3, 'Public Service': 4, 'Skilled Trades': 1 },
+            'I weigh pros and cons': { 'STEM': 4, 'Healthcare': 3, 'Business': 4, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'I go with my gut feeling': { 'STEM': 2, 'Healthcare': 2, 'Business': 3, 'Creative': 5, 'Helping': 3, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 2 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q28 - Learning Style (Duplicated from Q16 but allowed)
+    {
+        id: 28,
+        text: 'How do you prefer to learn new things? (Select all that apply)',
+        multiSelect: true,
+        options: ['I learn by reading', 'I learn by watching', 'I learn by listening', 'I learn by doing', 'I learn by practicing', 'I learn by discussing', 'I learn by teaching others', 'Not sure yet 🤷'],
+        weights: {
+            'I learn by reading': { 'STEM': 4, 'Healthcare': 2, 'Business': 3, 'Creative': 3, 'Helping': 2, 'Outdoor': 1, 'Public Service': 2, 'Skilled Trades': 1 },
+            'I learn by watching': { 'STEM': 3, 'Healthcare': 3, 'Business': 2, 'Creative': 4, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 3 },
+            'I learn by listening': { 'STEM': 2, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 4, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'I learn by doing': { 'STEM': 3, 'Healthcare': 3, 'Business': 2, 'Creative': 3, 'Helping': 2, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 5 },
+            'I learn by practicing': { 'STEM': 3, 'Healthcare': 3, 'Business': 2, 'Creative': 3, 'Helping': 2, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 5 },
+            'I learn by discussing': { 'STEM': 2, 'Healthcare': 3, 'Business': 4, 'Creative': 3, 'Helping': 4, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'I learn by teaching others': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 5, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 1 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q29 - Communication Style
+    {
+        id: 29,
+        text: 'How would you describe your communication style? (Select all that apply)',
+        multiSelect: true,
+        options: ['I am direct and clear', 'I am diplomatic and tactful', 'I am expressive and passionate', 'I am reserved and thoughtful', 'I am persuasive and convincing', 'I am supportive and encouraging', 'Not sure yet 🤷'],
+        weights: {
+            'I am direct and clear': { 'STEM': 4, 'Healthcare': 3, 'Business': 4, 'Creative': 3, 'Helping': 2, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            'I am diplomatic and tactful': { 'STEM': 2, 'Healthcare': 4, 'Business': 4, 'Creative': 3, 'Helping': 4, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'I am expressive and passionate': { 'STEM': 2, 'Healthcare': 2, 'Business': 3, 'Creative': 5, 'Helping': 3, 'Outdoor': 3, 'Public Service': 3, 'Skilled Trades': 1 },
+            'I am reserved and thoughtful': { 'STEM': 4, 'Healthcare': 3, 'Business': 3, 'Creative': 3, 'Helping': 3, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'I am persuasive and convincing': { 'STEM': 3, 'Healthcare': 2, 'Business': 5, 'Creative': 3, 'Helping': 2, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'I am supportive and encouraging': { 'STEM': 1, 'Healthcare': 4, 'Business': 3, 'Creative': 3, 'Helping': 5, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 1 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    },
+    // Q30 - Work Schedule
+    {
+        id: 30,
+        text: 'What work schedule suits you best? (Select all that apply)',
+        multiSelect: true,
+        options: ['Regular 9-5 schedule', 'Flexible schedule', 'Part-time work', 'Full-time work', 'Shift work', 'I want to set my own hours', 'I want to work on projects', 'Not sure yet 🤷'],
+        weights: {
+            'Regular 9-5 schedule': { 'STEM': 3, 'Healthcare': 3, 'Business': 4, 'Creative': 2, 'Helping': 3, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Flexible schedule': { 'STEM': 3, 'Healthcare': 2, 'Business': 3, 'Creative': 4, 'Helping': 3, 'Outdoor': 4, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Part-time work': { 'STEM': 2, 'Healthcare': 3, 'Business': 2, 'Creative': 4, 'Helping': 4, 'Outdoor': 3, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Full-time work': { 'STEM': 4, 'Healthcare': 4, 'Business': 4, 'Creative': 2, 'Helping': 3, 'Outdoor': 2, 'Public Service': 4, 'Skilled Trades': 2 },
+            'Shift work': { 'STEM': 2, 'Healthcare': 4, 'Business': 2, 'Creative': 1, 'Helping': 3, 'Outdoor': 2, 'Public Service': 3, 'Skilled Trades': 2 },
+            'I want to set my own hours': { 'STEM': 2, 'Healthcare': 1, 'Business': 4, 'Creative': 4, 'Helping': 2, 'Outdoor': 3, 'Public Service': 1, 'Skilled Trades': 3 },
+            'I want to work on projects': { 'STEM': 4, 'Healthcare': 2, 'Business': 3, 'Creative': 5, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 3 },
+            'Not sure yet 🤷': { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 }
+        },
+        defaultWeight: { 'STEM': 2, 'Healthcare': 2, 'Business': 2, 'Creative': 2, 'Helping': 2, 'Outdoor': 2, 'Public Service': 2, 'Skilled Trades': 2 },
+        isNotSure: false
+    }
 ];
 
 // ================================================================
@@ -2843,9 +3330,7 @@ let state = {
     discoveryCompare: [],
     compareList: [],
     personalityTraits: {},
-    // NEW: Language preference
-    language: 'en', // Default to English
-    // NEW: Share data
+    language: 'en',
     shareData: null
 };
 
@@ -2901,24 +3386,17 @@ const DOM = {
     toastContainer: document.getElementById('toast-container'),
     colorModeRadios: document.querySelectorAll('input[name="color-mode"]'),
     personalityChart: document.getElementById('personalityChart'),
-    // NEW: Language switcher
-    languageSelector: document.getElementById('language-selector'),
-    languageOptions: document.querySelectorAll('.language-option'),
-    // NEW: Share buttons
-    shareResultsBtn: document.getElementById('share-results-btn'),
     shareLinkBtn: document.getElementById('share-link-btn'),
     shareWhatsAppBtn: document.getElementById('share-whatsapp-btn'),
     shareEmailBtn: document.getElementById('share-email-btn'),
-    shareModal: document.getElementById('share-modal'),
-    shareLinkInput: document.getElementById('share-link-input'),
-    shareCloseBtn: document.querySelector('.share-modal-close')
+    shareLinkContainer: document.getElementById('share-link-container'),
+    shareLinkInput: document.getElementById('share-link-input')
 };
 
 // ================================================================
-// SECTION 9: LANGUAGE FUNCTIONS (NEW!)
+// SECTION 9: LANGUAGE FUNCTIONS
 // ================================================================
 
-// Get the current language from state or localStorage
 function getCurrentLanguage() {
     try {
         var saved = localStorage.getItem(LANGUAGE_KEY);
@@ -2929,85 +3407,63 @@ function getCurrentLanguage() {
     return 'en';
 }
 
-// Save language preference
 function saveLanguage(lang) {
     try {
         localStorage.setItem(LANGUAGE_KEY, lang);
     } catch(e) {}
 }
 
-// Translate a key to the current language
 function t(key) {
     var lang = state.language || 'en';
     if (translations[lang] && translations[lang][key]) {
         return translations[lang][key];
     }
-    // Fallback to English if translation not found
     if (translations['en'] && translations['en'][key]) {
         return translations['en'][key];
     }
-    return key; // Return the key itself if no translation found
+    return key;
 }
 
-// Switch the app language
 function switchLanguage(lang) {
     if (!translations[lang]) {
-        lang = 'en'; // Default to English if invalid
+        lang = 'en';
     }
     state.language = lang;
     saveLanguage(lang);
     updateLanguageUI();
-    // Update the language selector UI
     updateLanguageSelectorUI();
 }
 
-// Update all text elements with translations
 function updateLanguageUI() {
-    // Update all elements with data-translate attribute
     document.querySelectorAll('[data-translate]').forEach(function(el) {
         var key = el.getAttribute('data-translate');
         var translation = t(key);
         if (translation) {
-            el.textContent = translation;
+            if (el.tagName === 'BUTTON' || el.tagName === 'A' || el.tagName === 'SPAN') {
+                el.innerHTML = translation;
+            } else {
+                el.textContent = translation;
+            }
         }
     });
 
-    // Update the language selector button text
-    var langNames = {
-        'en': '🇬🇧 English',
-        'ny': '🇿🇲 Chinyanja',
-        'bem': '🇿🇲 Icibemba',
-        'tonga': '🇿🇲 Chitonga'
-    };
-    var selector = document.querySelector('.language-selector-current');
-    if (selector) {
-        selector.textContent = langNames[state.language] || '🌐 Language';
+    var themeLabel = document.getElementById('theme-label');
+    if (themeLabel) {
+        themeLabel.textContent = t('dark_mode');
     }
 
-    // Update the title
-    document.title = t('app_title') + ' - ' + t('find_your_path');
-
-    // Update language of the html tag
-    document.documentElement.lang = state.language;
-
-    // For specific elements that need dynamic content (like question counter)
     updateQuestionCounter();
+
+    document.title = t('app_title') + ' - ' + t('find_your_path');
+    document.documentElement.lang = state.language;
 }
 
-// Update the language selector UI (flags/dropdown)
 function updateLanguageSelectorUI() {
-    var options = document.querySelectorAll('.language-option');
-    options.forEach(function(opt) {
-        var lang = opt.getAttribute('data-lang');
-        if (lang === state.language) {
-            opt.classList.add('active');
-        } else {
-            opt.classList.remove('active');
-        }
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.lang === state.language);
     });
 }
 
-// Update question counter with translations
 function updateQuestionCounter() {
     var total = questions.length;
     var current = state.currentQuestion + 1;
@@ -3018,33 +3474,23 @@ function updateQuestionCounter() {
 }
 
 // ================================================================
-// SECTION 10: SHARE RESULTS FUNCTIONS (NEW!)
+// SECTION 10: SHARE RESULTS FUNCTIONS
 // ================================================================
 
-// Generate a shareable link with encoded data
 function generateShareData() {
-    // Collect all the data needed to reconstruct results
-    var data = {
-        // Student's answers
+    return {
         answers: state.answers,
-        // Career results
         results: state.results,
         careerScores: state.careerScores,
-        // Personality traits
         personalityTraits: state.personalityTraits,
-        // Timestamp
         timestamp: Date.now(),
-        // Version
         version: '1.0'
     };
-    return data;
 }
 
-// Encode share data into a URL-friendly string
 function encodeShareData(data) {
     try {
         var json = JSON.stringify(data);
-        // Use btoa for base64 encoding (works in all modern browsers)
         return btoa(encodeURIComponent(json));
     } catch(e) {
         console.error('Error encoding share data:', e);
@@ -3052,7 +3498,6 @@ function encodeShareData(data) {
     }
 }
 
-// Decode share data from URL parameter
 function decodeShareData(encoded) {
     try {
         var json = decodeURIComponent(atob(encoded));
@@ -3063,17 +3508,14 @@ function decodeShareData(encoded) {
     }
 }
 
-// Generate the full shareable URL
 function generateShareableUrl() {
     var data = generateShareData();
     var encoded = encodeShareData(data);
     if (!encoded) return null;
-    // Use the current page URL with a query parameter
     var url = window.location.href.split('?')[0];
     return url + '?share=' + encoded;
 }
 
-// Copy share link to clipboard
 function copyShareLink() {
     var url = generateShareableUrl();
     if (!url) {
@@ -3083,9 +3525,12 @@ function copyShareLink() {
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(url).then(function() {
-            showToast(t('link_copied'));
+            showToast(t('share_copied'));
+            if (DOM.shareLinkContainer) {
+                DOM.shareLinkContainer.style.display = 'flex';
+                DOM.shareLinkInput.value = url;
+            }
         }).catch(function() {
-            // Fallback for older browsers
             fallbackCopy(url);
         });
     } else {
@@ -3093,7 +3538,6 @@ function copyShareLink() {
     }
 }
 
-// Fallback copy method
 function fallbackCopy(text) {
     var textarea = document.createElement('textarea');
     textarea.value = text;
@@ -3104,14 +3548,17 @@ function fallbackCopy(text) {
     textarea.select();
     try {
         document.execCommand('copy');
-        showToast(t('link_copied'));
+        showToast(t('share_copied'));
+        if (DOM.shareLinkContainer) {
+            DOM.shareLinkContainer.style.display = 'flex';
+            DOM.shareLinkInput.value = text;
+        }
     } catch(e) {
         showToast('Failed to copy. Please copy the URL manually.');
     }
     document.body.removeChild(textarea);
 }
 
-// Share on WhatsApp
 function shareOnWhatsApp() {
     var url = generateShareableUrl();
     if (!url) {
@@ -3124,7 +3571,6 @@ function shareOnWhatsApp() {
     window.open(waUrl, '_blank');
 }
 
-// Share via Email
 function shareViaEmail() {
     var url = generateShareableUrl();
     if (!url) {
@@ -3137,26 +3583,21 @@ function shareViaEmail() {
     window.open(mailtoUrl, '_blank');
 }
 
-// Check if there's a share parameter in the URL
 function checkForSharedResults() {
     var params = new URLSearchParams(window.location.search);
     var encoded = params.get('share');
     if (encoded) {
         var data = decodeShareData(encoded);
         if (data) {
-            // Restore the state from the share data
             state.answers = data.answers || [];
             state.results = data.results || [];
             state.careerScores = data.careerScores || {};
             state.personalityTraits = data.personalityTraits || {};
             state.quizCompleted = true;
             state.quizStarted = true;
-            // Show results screen with shared data
             showScreen('results-screen');
             displayResults();
-            // Show a toast notification
             showToast('📊 Viewing shared results!');
-            // Remove the share parameter from URL (clean it up)
             if (window.history && window.history.replaceState) {
                 var cleanUrl = window.location.href.split('?')[0];
                 window.history.replaceState({}, document.title, cleanUrl);
@@ -3321,7 +3762,7 @@ function renderQuestion() {
     DOM.questionText.textContent = question.text;
 
     if (question.multiSelect) {
-        DOM.multiSelectHint.textContent = t('select_multiple');
+        DOM.multiSelectHint.textContent = t('multi_select_hint');
         DOM.multiSelectHint.style.display = 'block';
     } else {
         DOM.multiSelectHint.style.display = 'none';
@@ -3364,7 +3805,7 @@ function renderQuestion() {
     DOM.optionsContainer.appendChild(fragment);
 
     DOM.prevBtn.style.display = state.currentQuestion === 0 ? 'none' : 'inline-block';
-    DOM.nextBtn.textContent = state.currentQuestion === questions.length - 1 ? t('see_results') : t('next');
+    DOM.nextBtn.textContent = state.currentQuestion === questions.length - 1 ? t('results_title') : t('next');
     var currentAnswer = state.answers[state.currentQuestion] || [];
     DOM.nextBtn.disabled = currentAnswer.length === 0;
 
@@ -3697,10 +4138,6 @@ function calculatePersonalityTraits() {
     }
 
     state.personalityTraits = traits;
-
-    if (typeof console !== 'undefined') {
-        console.log('🧠 12 Personality Traits Calculated:', traits);
-    }
 }
 
 // ================================================================
@@ -3747,7 +4184,7 @@ function renderRadarChart() {
         data: {
             labels: ['Analytical', 'Creative', 'Helping', 'Technical', 'Outdoor', 'Leadership', 'Communication', 'Practical', 'Strategic', 'Resilience', 'Detail-Oriented', 'Entrepreneurial'],
             datasets: [{
-                label: t('personality_profile'),
+                label: t('personality_title'),
                 data: [
                     traits['Analytical'] || 3,
                     traits['Creative'] || 3,
@@ -3832,7 +4269,6 @@ function displayResults() {
     displayCareerClusters();
     displayComparisonTool();
 
-    // Show share buttons (NEW!)
     showShareButtons();
 
     DOM.discoveryMode.style.display = 'none';
@@ -3840,11 +4276,10 @@ function displayResults() {
     clearSavedState();
 }
 
-// NEW: Show share buttons in results
 function showShareButtons() {
-    var shareContainer = document.querySelector('.share-section');
-    if (shareContainer) {
-        shareContainer.style.display = 'flex';
+    var shareSection = document.querySelector('.share-results-section');
+    if (shareSection) {
+        shareSection.style.display = 'block';
     }
 }
 
@@ -4025,7 +4460,7 @@ function displayPathwayRecommendations() {
             '</div>';
     });
 
-    html += '<p style="font-size:13px;color:var(--text-muted);margin-top:8px;">💡 ' + t('pathway_description') + '</p>';
+    html += '<p style="font-size:13px;color:var(--text-muted);margin-top:8px;">💡 ' + t('pathway_desc') + '</p>';
     DOM.pathwayDisplay.innerHTML = html;
 }
 
@@ -4181,7 +4616,7 @@ function updateComparison() {
     }
 
     if (!selected.length) {
-        DOM.comparisonTable.innerHTML = '<p style="padding:20px;text-align:center;color:var(--text-muted);">' + t('compare_description') + '</p>';
+        DOM.comparisonTable.innerHTML = '<p style="padding:20px;text-align:center;color:var(--text-muted);">' + t('compare_desc') + '</p>';
         return;
     }
 
@@ -4401,7 +4836,7 @@ function updateDiscoveryComparison() {
     var selected = state.discoveryCompare;
 
     if (!selected.length) {
-        DOM.discoveryCompareTable.innerHTML = '<p style="color:var(--text-muted);padding:20px;text-align:center;">' + t('discovery_empty') + '</p>';
+        DOM.discoveryCompareTable.innerHTML = '<p style="color:var(--text-muted);padding:20px;text-align:center;">' + t('discovery_compare_empty') + '</p>';
         return;
     }
 
@@ -4906,62 +5341,37 @@ window.addEventListener('resize', function() {
 });
 
 // ================================================================
-// SECTION 34: LANGUAGE SELECTOR EVENT (NEW!)
+// SECTION 34: LANGUAGE SELECTOR EVENT (FIXED)
 // ================================================================
 
-// Language selector click handler - using event delegation
 document.addEventListener('click', function(e) {
-    var option = e.target.closest('.language-option');
-    if (option) {
-        var lang = option.getAttribute('data-lang');
+    var btn = e.target.closest('.lang-btn');
+    if (btn) {
+        var lang = btn.dataset.lang;
         if (lang && translations[lang]) {
             switchLanguage(lang);
-            // Close the dropdown if open
-            var dropdown = document.querySelector('.language-dropdown');
-            if (dropdown) {
-                dropdown.classList.remove('open');
-            }
             showToast('🌐 Language switched to ' + (lang === 'en' ? 'English' : lang === 'ny' ? 'Chinyanja' : lang === 'bem' ? 'Icibemba' : 'Chitonga'));
-        }
-    }
-
-    // Toggle language dropdown
-    var selector = e.target.closest('.language-selector-current');
-    if (selector) {
-        var dropdown = document.querySelector('.language-dropdown');
-        if (dropdown) {
-            dropdown.classList.toggle('open');
         }
     }
 });
 
 // ================================================================
-// SECTION 35: SHARE BUTTONS EVENT (NEW!)
+// SECTION 35: SHARE BUTTONS EVENT (FIXED)
 // ================================================================
 
 document.addEventListener('click', function(e) {
-    // Share Results button
-    var shareBtn = e.target.closest('#share-results-btn');
-    if (shareBtn) {
-        copyShareLink();
-        return;
-    }
-
-    // Share Link button
     var shareLinkBtn = e.target.closest('#share-link-btn');
     if (shareLinkBtn) {
         copyShareLink();
         return;
     }
 
-    // Share WhatsApp button
     var shareWABtn = e.target.closest('#share-whatsapp-btn');
     if (shareWABtn) {
         shareOnWhatsApp();
         return;
     }
 
-    // Share Email button
     var shareEmailBtn = e.target.closest('#share-email-btn');
     if (shareEmailBtn) {
         shareViaEmail();
@@ -4974,44 +5384,36 @@ document.addEventListener('click', function(e) {
 // ================================================================
 
 function init() {
-    // Load and apply theme
     state.darkMode = loadTheme();
     applyTheme();
 
-    // Load language preference
     var savedLang = getCurrentLanguage();
     state.language = savedLang;
     updateLanguageUI();
 
-    // Check for shared results in URL
     var hasShared = checkForSharedResults();
 
-    // If no shared results, show welcome screen
     if (!hasShared) {
         showScreen('welcome-screen');
         checkSavedProgress();
     }
 
-    // Log to console for debugging
     if (typeof console !== 'undefined') {
         console.log('© Career Quest initialized successfully!');
         console.log('📚 Loaded ' + Object.keys(careers).length + ' careers across 8 clusters');
         console.log('📝 Loaded ' + questions.length + ' questions with multi-select support');
-        console.log('🧠 Loaded ' + ALL_TRAITS.length + ' personality traits for smart scoring');
+        console.log('🧠 Loaded ' + ALL_TRAITS.length + ' personality traits');
         console.log('🗺️ Career pathways added for every career!');
         console.log('📊 5-career comparison enabled!');
         console.log('🔍 Enhanced Discovery Mode with cluster exploration!');
-        console.log('🌍 Accurate pathwayAbroad steps for every career!');
         console.log('📈 12-trait Radar chart with 3x sensitivity!');
         console.log('💰 Salaries updated to accurate Zambian standards!');
-        console.log('📝 30 questions with ALL individual options!');
         console.log('📤 Share Results feature enabled!');
         console.log('🌐 4 Languages supported: English, Nyanja, Bemba, Tonga!');
         console.log('✅ Language: ' + state.language);
     }
 }
 
-// Run initialization when the DOM is ready
 document.addEventListener('DOMContentLoaded', init);
 
 // ================================================================
