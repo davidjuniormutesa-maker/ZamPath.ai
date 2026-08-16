@@ -7,51 +7,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Career Quest - Free career guidance tool for Zambian students.">
-    <meta name="theme-color" content="#008000">
-    <meta name="color-scheme" content="light dark">
+    <!-- ============================================================ -->
+    <!-- META TAGS - Information about the webpage                     -->
+    <!-- ============================================================ -->
+    <meta charset="UTF-8"> <!-- Tells the browser to use UTF-8 character encoding (supports all special characters) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes the page responsive on phones and tablets -->
+    <meta name="description" content="Career Quest - Free career guidance tool for Zambian students. Discover your perfect career path based on your interests and strengths."> <!-- Description shown in search results -->
+    <meta name="theme-color" content="#008000"> <!-- Sets the browser tab color to Zambia Green -->
+    <meta name="color-scheme" content="light dark"> <!-- Tells the browser we support both light and dark modes -->
     
+    <!-- Page title shown in the browser tab -->
     <title>© ZamPath - Career Quest</title>
     
+    <!-- Link to the external CSS file that contains all the styling -->
     <link rel="stylesheet" href="style.css">
     
-    <!-- Chart.js for radar chart -->
+    <!-- ============================================================ -->
+    <!-- CHART.JS - Library for creating charts (NEW!)                -->
+    <!-- This is loaded from a CDN (Content Delivery Network)          -->
+    <!-- It allows us to create the personality radar chart            -->
+    <!-- ============================================================ -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-
     <!-- ============================================================ -->
-    <!-- SKIP LINK - Accessibility                                    -->
+    <!-- SKIP LINK - Accessibility feature for keyboard users         -->
+    <!-- Allows users to skip straight to the main content             -->
     <!-- ============================================================ -->
     <a href="#main-content" class="skip-link" data-translate="skip_link">Skip to content</a>
 
     <!-- ============================================================ -->
-    <!-- CONFETTI CANVAS                                               -->
+    <!-- CONFETTI CANVAS - For celebration animation when results show -->
+    <!-- Hidden by default, activated by JavaScript                   -->
     <!-- ============================================================ -->
     <canvas class="confetti-canvas" id="confetti-canvas" aria-hidden="true"></canvas>
 
     <!-- ============================================================ -->
-    <!-- TOAST CONTAINER                                              -->
+    <!-- TOAST CONTAINER - Shows popup notifications to the user      -->
+    <!-- Like "PDF downloaded successfully!" or error messages         -->
     <!-- ============================================================ -->
     <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
     <!-- ============================================================ -->
-    <!-- BACK TO TOP BUTTON                                           -->
+    <!-- BACK TO TOP BUTTON - Appears when user scrolls down          -->
+    <!-- Clicking it smoothly scrolls back to the top of the page      -->
     <!-- ============================================================ -->
     <button id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
 
     <!-- ============================================================ -->
-    <!-- MAIN APP CONTAINER                                          -->
+    <!-- MAIN APP CONTAINER - Wraps everything inside the app         -->
     <!-- ============================================================ -->
     <div id="app">
         
         <!-- ============================================================ -->
-        <!-- TOP NAVIGATION BAR - Enhanced with Language Switcher          -->
+        <!-- TOP NAVIGATION BAR - With Language Switcher + Dark Mode      -->
         <!-- ============================================================ -->
         <nav class="top-bar" role="navigation" aria-label="App navigation">
-            <!-- Left side - App brand with back link -->
+            <!-- Left side - App brand/logo with link back to landing page -->
             <div class="top-bar-brand">
                 <a href="index.html" class="back-home-link" style="text-decoration:none;color:var(--zm-green);display:flex;align-items:center;gap:6px;font-weight:600;font-size:14px;transition:all 0.3s ease;">
                     <span style="font-size:18px;">←</span>
@@ -95,27 +107,37 @@
         </nav>
 
         <!-- ============================================================ -->
-        <!-- MAIN CONTENT                                                 -->
+        <!-- MAIN CONTENT - All the screens of the app go here            -->
+        <!-- The "id" attribute is used by JavaScript to switch screens   -->
         <!-- ============================================================ -->
         <main id="main-content">
 
             <!-- ============================================================ -->
-            <!-- WELCOME SCREEN                                               -->
+            <!-- WELCOME SCREEN - The first thing users see                    -->
             <!-- ============================================================ -->
             <section id="welcome-screen" class="screen active" role="region" aria-label="Welcome">
                 <div class="welcome-content">
+                    <!-- Large logo/icon at the top -->
                     <div class="logo" aria-hidden="true">🎓</div>
+                    <!-- Main heading -->
                     <h1 data-translate="welcome_title">Career Quest</h1>
+                    <!-- Subtitle with description -->
                     <p class="subtitle" data-translate="welcome_subtitle">Discover Your Path to a Bright Future</p>
+                    <!-- Longer description explaining what the app does -->
                     <p class="description" data-translate="welcome_description">
                         Not sure what career is right for you? Don't worry!
                         Answer a few questions and we'll help you discover your perfect career path.
                     </p>
+                    <!-- Container for saved progress banner (if user has previous results) -->
                     <div id="saved-progress-banner"></div>
+                    <!-- Two main action buttons -->
                     <div class="welcome-buttons">
+                        <!-- Button to start the quiz normally -->
                         <button id="start-quiz-btn" class="btn-primary" data-translate="start_quiz">🚀 Get Started</button>
+                        <!-- Button for students who have no idea what they want -->
                         <button id="i-dont-know-btn" class="btn-secondary" data-translate="i_dont_know">🤷 I Have No Idea</button>
                     </div>
+                    <!-- Small note at the bottom with features -->
                     <p class="note">
                         <span data-translate="built_for">© Built for Zambian Students.</span>
                         <span data-translate="works_offline">💻 Works Offline.</span>
@@ -128,27 +150,40 @@
             </section>
 
             <!-- ============================================================ -->
-            <!-- QUIZ SCREEN                                                  -->
+            <!-- QUIZ SCREEN - Where students answer the questions            -->
             <!-- ============================================================ -->
             <section id="quiz-screen" class="screen" role="region" aria-label="Career Quiz">
                 <div class="quiz-container">
+                    <!-- Header showing progress -->
                     <div class="quiz-header">
+                        <!-- Question counter (e.g., "Question 3 of 30") -->
                         <span id="question-counter" aria-live="polite" data-translate="question_of">Question 1 of 30</span>
                     </div>
+                    <!-- Progress bar showing how far along the user is -->
                     <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
+                        <!-- The fill part of the progress bar that grows -->
                         <div id="progress-fill" class="progress-fill"></div>
                     </div>
+                    <!-- Container for the current question and options -->
                     <div id="question-container" aria-live="polite">
+                        <!-- The question text goes here -->
                         <h2 id="question-text">Loading question...</h2>
-                        <div id="options-container" role="group" aria-label="Answer options"></div>
+                        <!-- The answer options go here (buttons or checkboxes) -->
+                        <div id="options-container" role="group" aria-label="Answer options">
+                        </div>
+                        <!-- Hint for multi-select questions -->
                         <p id="multi-select-hint" style="font-size:13px;color:var(--text-muted);margin-top:8px;display:none;" data-translate="multi_select_hint">
                             💡 You can select <strong>MULTIPLE</strong> answers for this question. Choose all that apply!
                         </p>
                     </div>
+                    <!-- Navigation buttons at the bottom -->
                     <div class="quiz-navigation">
+                        <!-- Previous button - hidden on first question -->
                         <button id="prev-btn" class="btn-secondary" style="display:none;" aria-label="Previous question" data-translate="previous">⬅ Previous</button>
+                        <!-- Next button - changes to "See Results" on last question -->
                         <button id="next-btn" class="btn-primary" disabled aria-label="Next question" data-translate="next">➡ Next</button>
                     </div>
+                    <!-- Keyboard shortcut tips for accessibility -->
                     <p class="quiz-tip" aria-hidden="true">
                         <span data-translate="keyboard_tip">Tip:</span> <kbd>1</kbd>-<kbd>9</kbd> <span data-translate="keyboard_select">to select</span>, <kbd>Enter</kbd> <span data-translate="keyboard_next">for next</span>, <kbd>Backspace</kbd> <span data-translate="keyboard_prev">for previous</span>
                     </p>
@@ -156,25 +191,30 @@
             </section>
 
             <!-- ============================================================ -->
-            <!-- RESULTS SCREEN                                               -->
+            <!-- RESULTS SCREEN - Shows career matches after quiz             -->
             <!-- ============================================================ -->
             <section id="results-screen" class="screen" role="region" aria-label="Career Results">
                 <div class="results-container">
+                    <!-- Header with celebration -->
                     <header class="results-header">
                         <h1 data-translate="results_title">🎉 Your Career Matches</h1>
                         <p id="results-subtitle" data-translate="results_subtitle">Based on your answers, here are the best careers for you!</p>
                     </header>
 
-                    <!-- Stats summary -->
+                    <!-- Stats summary cards (top matches, clusters, etc.) -->
                     <div class="stats-summary" id="stats-summary" aria-label="Result statistics"></div>
 
-                    <!-- Radar chart -->
+                    <!-- ============================================================ -->
+                    <!-- RADAR CHART - Shows personality traits                      -->
+                    <!-- This visually displays the student's strongest traits        -->
+                    <!-- ============================================================ -->
                     <div class="radar-chart-section">
                         <h2 data-translate="personality_title">🧠 Your Personality Profile</h2>
                         <p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px;" data-translate="personality_desc">
                             This radar chart shows your strongest personality traits based on your answers.
                             The further out the line goes, the stronger the trait!
                         </p>
+                        <!-- Canvas element where the chart will be rendered -->
                         <div class="chart-container">
                             <canvas id="personalityChart"></canvas>
                         </div>
@@ -182,21 +222,27 @@
 
                     <!-- Search and filter toolbar -->
                     <div class="results-toolbar">
+                        <!-- Search input to filter careers -->
                         <input type="search" class="search-bar" id="career-search" placeholder="🔍 Search careers..." aria-label="Search careers" data-translate="search_placeholder">
+                        <!-- Filter chips to filter by career cluster -->
                         <div class="filter-chips" id="filter-chips" role="group" aria-label="Filter by cluster"></div>
                     </div>
 
-                    <!-- Career matches -->
+                    <!-- Career matches list - shows the top matching careers -->
                     <div id="career-matches" role="list" aria-label="Career match results"></div>
 
-                    <!-- Pathway recommendations -->
+                    <!-- ============================================================ -->
+                    <!-- PATHWAY RECOMMENDATIONS - Shows Form 1-4 pathways            -->
+                    <!-- ============================================================ -->
                     <div class="pathway-recommendations">
                         <h2 data-translate="pathway_title">🗺️ Your Career Pathway</h2>
                         <p data-translate="pathway_desc">To pursue your recommended careers, you should follow this pathway in Form 1-4:</p>
-                        <div id="pathway-display"></div>
+                        <div id="pathway-display">
+                            <!-- Pathway information will be inserted here by JavaScript -->
+                        </div>
                     </div>
 
-                    <!-- Subject recommendations -->
+                    <!-- Subject recommendations section -->
                     <div class="subject-recommendations">
                         <h2 data-translate="subjects_title">📚 Your Recommended Subjects</h2>
                         <div id="subject-list"></div>
@@ -206,19 +252,26 @@
                         </p>
                     </div>
 
-                    <!-- Career web map -->
+                    <!-- Career web map - visual display of career clusters -->
                     <section class="career-web">
                         <h2 data-translate="career_web_title">🗺️ Career Web Map</h2>
                         <p class="web-instruction" data-translate="career_web_instruction">Click on any cluster to explore careers</p>
                         <div id="career-clusters"></div>
                     </section>
 
-                    <!-- Comparison tool -->
+                    <!-- ============================================================ -->
+                    <!-- UPGRADED COMPARISON TOOL - Compare up to 5 careers            -->
+                    <!-- ============================================================ -->
                     <section class="comparison-tool">
                         <h2 data-translate="compare_title">📊 Compare Careers</h2>
                         <p data-translate="compare_desc">Select up to <strong>5</strong> careers to compare side by side</p>
-                        <div id="comparison-selectors"></div>
-                        <div id="comparison-table"></div>
+                        <div id="comparison-selectors">
+                            <!-- 5 dropdown selectors will be inserted by JavaScript -->
+                        </div>
+                        <div id="comparison-table">
+                            <!-- Comparison table will be inserted by JavaScript -->
+                        </div>
+                        <!-- Clear comparison button -->
                         <button id="clear-comparison-btn" class="btn-secondary btn-small" style="margin-top:12px;" data-translate="clear_all">🗑️ Clear All</button>
                     </section>
 
@@ -241,15 +294,16 @@
                         </div>
                         <div id="share-link-container" style="margin-top:10px;display:none;background:var(--bg-tertiary);padding:10px;border-radius:var(--radius-sm);border:1px solid var(--border-light);">
                             <input type="text" id="share-link-input" readonly style="width:100%;background:transparent;border:none;color:var(--text-primary);font-size:13px;font-family:inherit;">
-                            <span style="font-size:12px;color:var(--text-muted);" data-translate="share_copied">✅ Copied to clipboard!</span>
+                            <span style="font-size:12px;color:var(--zm-green);font-weight:600;" data-translate="share_copied">✅ Copied to clipboard!</span>
                         </div>
                     </div>
 
-                    <!-- Results actions -->
+                    <!-- Action buttons at the bottom -->
                     <div class="results-actions">
                         <button id="download-pdf-btn" class="btn-primary" data-translate="download_pdf">📄 Download PDF Report</button>
                         <button id="print-btn" class="btn-secondary" data-translate="print_report">🖨️ Print Report</button>
                         <button id="retake-btn" class="btn-secondary" data-translate="retake_quiz">🔄 Retake Quiz</button>
+                        <!-- PDF color options (Color or Black & White) -->
                         <div class="pdf-options">
                             <label>
                                 <input type="radio" name="color-mode" value="color" checked> 🎨 <span data-translate="color_mode">Color</span>
@@ -260,7 +314,9 @@
                         </div>
                     </div>
 
-                    <!-- Discovery mode -->
+                    <!-- ============================================================ -->
+                    <!-- ENHANCED DISCOVERY MODE - For "I Have No Idea" students       -->
+                    <!-- ============================================================ -->
                     <div id="discovery-mode" style="display:none;">
                         <div class="discovery-header">
                             <h2 data-translate="discovery_title">🔍 Discovery Mode</h2>
@@ -270,7 +326,9 @@
                                 <strong>"Add to Compare"</strong> to compare careers side-by-side.
                             </p>
                         </div>
+                        <!-- Discovery content grid - clusters and careers -->
                         <div id="discovery-content"></div>
+                        <!-- Discovery comparison area -->
                         <div class="discovery-comparison">
                             <h3 data-translate="discovery_compare">📊 Your Discovery Comparison (<span id="discovery-compare-count">0</span>/5)</h3>
                             <div id="discovery-compare-table">
@@ -278,6 +336,7 @@
                                     Add careers from the clusters above to compare them here.
                                 </p>
                             </div>
+                            <!-- Clear discovery comparison button -->
                             <button id="clear-discovery-compare-btn" class="btn-secondary btn-small" style="margin-top:12px;" data-translate="clear_all">🗑️ Clear All</button>
                         </div>
                     </div>
@@ -289,12 +348,16 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- CAREER DETAIL MODAL                                          -->
+    <!-- CAREER DETAIL MODAL - Popup window showing career details    -->
+    <!-- Appears when user clicks "View Details" on a career          -->
     <!-- ============================================================ -->
     <div id="career-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-career-name">
         <div class="modal-content">
+            <!-- Close button (X) in the top-right corner -->
             <button class="modal-close" aria-label="Close details">&times;</button>
+            <!-- Container where career details are inserted -->
             <div id="career-detail-content"></div>
+            <!-- Add to Compare button inside modal -->
             <button id="modal-add-to-compare" class="btn-primary btn-small" style="margin-top:16px;display:none;" data-translate="add_to_compare">
                 ➕ Add to Compare
             </button>
@@ -302,13 +365,17 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- EXTERNAL LIBRARIES                                           -->
+    <!-- EXTERNAL LIBRARIES - For PDF generation                      -->
+    <!-- These are loaded from the internet (CDN)                     -->
     <!-- ============================================================ -->
+    <!-- html2canvas - Converts HTML to an image for the PDF          -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- jsPDF - Generates the actual PDF file                        -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <!-- ============================================================ -->
-    <!-- OUR JAVASCRIPT FILE                                          -->
+    <!-- OUR JAVASCRIPT FILE - Contains all the app logic             -->
+    <!-- Everything from the career database to the scoring engine    -->
     <!-- ============================================================ -->
     <script src="script.js"></script>
 </body>

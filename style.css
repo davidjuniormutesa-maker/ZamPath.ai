@@ -2,8 +2,7 @@
 /* CAREER QUEST - COMPLETE STYLESHEET                          */
 /* All styling for the career guidance web application           */
 /* Zambia-themed design with green, red, orange, and black      */
-/* ENHANCED with: Vibrant gradients, glassmorphism, animations  */
-/* Interactive hover effects, micro-interactions, and sparkle   */
+/* ENHANCED with: Language switcher, Share section, Glassmorphism */
 /* ============================================================ */
 
 /* ============================================================ */
@@ -341,7 +340,6 @@ body::before {
     overflow: hidden; /* Prevents content from spilling out */
     transition: background var(--transition-slow), box-shadow var(--transition-slow); /* Smooth theme change */
     border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle glass border */
-    /* Decorative gradient border glow */
     background-clip: padding-box;
 }
 
@@ -427,6 +425,81 @@ body::before {
 
 .top-bar-brand .brand-icon {
     font-size: 22px; /* Larger emoji */
+}
+
+/* ============================================================ */
+/* LANGUAGE SWITCHER - NEW!                                     */
+/* ============================================================ */
+
+.language-switcher {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    margin-right: 8px;
+    padding: 2px 6px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-light);
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-xl);
+    padding: 4px 8px;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all var(--transition-fast);
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.lang-btn .flag {
+    font-size: 16px;
+}
+
+.lang-btn .lang-label {
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.lang-btn:hover {
+    background: var(--bg-hover);
+    color: var(--zm-green);
+}
+
+.lang-btn.active {
+    background: var(--zm-green);
+    color: white;
+    box-shadow: var(--shadow-green);
+}
+
+.lang-btn.active:hover {
+    background: var(--zm-green-dark);
+}
+
+/* Dark mode language switcher */
+body.dark-mode .language-switcher {
+    background: var(--bg-tertiary);
+    border-color: var(--border-light);
+}
+
+body.dark-mode .lang-btn {
+    color: var(--text-muted);
+}
+
+body.dark-mode .lang-btn:hover {
+    background: var(--bg-hover);
+    color: var(--zm-green);
+}
+
+body.dark-mode .lang-btn.active {
+    background: var(--zm-green);
+    color: white;
 }
 
 /* ============================================================ */
@@ -1171,7 +1244,7 @@ body.dark-mode .saved-progress {
 }
 
 /* ============================================================ */
-/* RADAR CHART SECTION (NEW!)                                   */
+/* RADAR CHART SECTION                                          */
 /* Shows the student's personality traits visually              */
 /* ============================================================ */
 
@@ -1957,6 +2030,80 @@ body.dark-mode .saved-progress {
 }
 
 /* ============================================================ */
+/* SHARE RESULTS SECTION - NEW!                                */
+/* ============================================================ */
+
+.share-results-section {
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--zm-orange);
+}
+
+.share-results-section h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.share-results-section > p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.share-buttons .btn-small {
+    padding: 8px 18px;
+    font-size: 13px;
+    border-radius: var(--radius-xl);
+}
+
+#share-link-container {
+    margin-top: 12px !important;
+    padding: 10px 14px !important;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+    display: none;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#share-link-container.show {
+    display: flex;
+}
+
+#share-link-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    min-width: 150px;
+}
+
+#share-link-container .share-copied {
+    font-size: 12px;
+    color: var(--zm-green);
+    font-weight: 600;
+}
+
+/* ============================================================ */
 /* DISCOVERY MODE - Enhanced with cluster exploration          */
 /* ============================================================ */
 
@@ -2582,6 +2729,30 @@ body.dark-mode .saved-progress {
         display: none;
     }
 
+    .top-bar-actions {
+        gap: 4px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .language-switcher {
+        padding: 2px 4px;
+        gap: 2px;
+    }
+
+    .lang-btn {
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+
+    .lang-btn .flag {
+        font-size: 14px;
+    }
+
+    .lang-btn .lang-label {
+        display: none;
+    }
+
     .welcome-content {
         padding: 30px 10px;
     }
@@ -2685,6 +2856,22 @@ body.dark-mode .saved-progress {
         margin: 0;
         width: 100%;
         justify-content: center;
+    }
+
+    .share-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .share-buttons .btn-small {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    #share-link-container {
+        flex-direction: column;
+        align-items: stretch;
     }
 
     .modal-content {
@@ -2801,6 +2988,23 @@ body.dark-mode .saved-progress {
     .dark-mode-toggle span {
         display: none;
     }
+
+    .language-switcher {
+        gap: 1px;
+        padding: 2px 3px;
+    }
+
+    .lang-btn {
+        padding: 2px 4px;
+    }
+
+    .lang-btn .flag {
+        font-size: 12px;
+    }
+
+    .share-results-section {
+        padding: 16px;
+    }
 }
 
 /* ============================================================ */
@@ -2843,7 +3047,9 @@ body.dark-mode .saved-progress {
     #clear-discovery-compare-btn,
     .discovery-add-compare,
     .discovery-remove-compare,
-    .discovery-read-more {
+    .discovery-read-more,
+    .language-switcher,
+    .share-results-section {
         display: none !important;
     }
 

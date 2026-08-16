@@ -2,7 +2,7 @@
 /* ZAMPATH.AI - LANDING PAGE STYLES                            */
 /* Complete styling for the professional marketing page         */
 /* Zambia-themed with green, red, orange, and black             */
-/* ENHANCED with dark mode support                              */
+/* ENHANCED with: Language switcher, dark mode, glassmorphism   */
 /* ============================================================ */
 
 /* ============================================================ */
@@ -24,11 +24,17 @@
     --bg-secondary: #f8f9fa;
     --bg-tertiary: #f4f6f9;
     --bg-hover: #f0fff0;
+    --bg-glass: rgba(255, 255, 255, 0.7);
     --text-primary: #1a202c;
     --text-secondary: #4a5568;
     --text-muted: #718096;
     --text-inverse: #ffffff;
     --border-light: #e2e8f0;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #008000, #00b800, #00cc00);
+    --gradient-secondary: linear-gradient(135deg, #EF7D00, #FF6B00);
+    --gradient-glow: radial-gradient(circle at 50% 50%, rgba(0,128,0,0.1), transparent 70%);
     
     /* Shadows */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -36,6 +42,7 @@
     --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
     --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.15);
     --shadow-green: 0 4px 15px rgba(0, 128, 0, 0.25);
+    --shadow-glow-green: 0 0 30px rgba(0, 128, 0, 0.15);
     
     /* Border Radius */
     --radius-sm: 8px;
@@ -47,9 +54,33 @@
     --transition-fast: 0.15s ease;
     --transition-base: 0.3s ease;
     --transition-slow: 0.5s ease;
+    --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     
     /* Font */
     --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ============================================================ */
+/* DARK MODE                                                    */
+/* ============================================================ */
+
+body.dark-mode {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --bg-glass: rgba(30, 41, 59, 0.8);
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-light: #334155;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.6);
+    --shadow-green: 0 4px 15px rgba(0, 128, 0, 0.3);
+    --shadow-glow-green: 0 0 30px rgba(0, 128, 0, 0.2);
+    --zm-green-light: #052e16;
+    --zm-orange-light: #2d1a00;
 }
 
 /* ============================================================ */
@@ -77,6 +108,29 @@ body {
 }
 
 /* ============================================================ */
+/* SCROLLBAR                                                    */
+/* ============================================================ */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--zm-green);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--zm-green-dark);
+}
+
+/* ============================================================ */
 /* CONTAINERS                                                   */
 /* ============================================================ */
 
@@ -95,16 +149,15 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-light);
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     z-index: 1000;
     padding: 12px 0;
     transition: all var(--transition-base);
 }
 
-/* Shadow on scroll */
 .navbar.scrolled {
     box-shadow: var(--shadow-md);
 }
@@ -161,7 +214,7 @@ body {
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--zm-green);
+    background: var(--gradient-primary);
     transition: width var(--transition-fast);
 }
 
@@ -173,34 +226,91 @@ body {
     width: 100%;
 }
 
-/* Navigation Actions (CTA + Dark Mode) */
+/* Navigation Actions */
 .nav-actions {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-/* Navigation CTA Button */
-.nav-cta {
-    background: var(--zm-green);
-    color: white !important;
-    padding: 10px 24px;
+/* ============================================================ */
+/* LANGUAGE SWITCHER                                            */
+/* ============================================================ */
+
+.language-switcher {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 2px 6px;
+    background: var(--bg-tertiary);
     border-radius: var(--radius-xl);
+    border: 1px solid var(--border-light);
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-xl);
+    padding: 4px 8px;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all var(--transition-fast);
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.lang-btn .flag {
+    font-size: 16px;
+}
+
+.lang-btn .lang-label {
+    font-size: 10px;
     font-weight: 600;
-    font-size: 14px;
-    text-decoration: none;
-    transition: all var(--transition-base);
+}
+
+.lang-btn:hover {
+    background: var(--bg-hover);
+    color: var(--zm-green);
+}
+
+.lang-btn.active {
+    background: var(--zm-green);
+    color: white;
     box-shadow: var(--shadow-green);
 }
 
-.nav-cta:hover {
+.lang-btn.active:hover {
     background: var(--zm-green-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 128, 0, 0.35);
 }
 
-/* Dark Mode Toggle for Landing Page */
-#landing-dark-toggle {
+body.dark-mode .language-switcher {
+    background: var(--bg-tertiary);
+    border-color: var(--border-light);
+}
+
+body.dark-mode .lang-btn {
+    color: var(--text-muted);
+}
+
+body.dark-mode .lang-btn:hover {
+    background: var(--bg-hover);
+    color: var(--zm-green);
+}
+
+body.dark-mode .lang-btn.active {
+    background: var(--zm-green);
+    color: white;
+}
+
+/* ============================================================ */
+/* DARK MODE TOGGLE                                             */
+/* ============================================================ */
+
+.dark-mode-toggle {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-xl);
@@ -215,10 +325,29 @@ body {
     font-family: inherit;
 }
 
-#landing-dark-toggle:hover {
+.dark-mode-toggle:hover {
     background: var(--bg-hover);
     border-color: var(--zm-green);
     color: var(--zm-green);
+}
+
+/* Navigation CTA Button */
+.nav-cta {
+    background: var(--gradient-primary);
+    color: white !important;
+    padding: 10px 24px;
+    border-radius: var(--radius-xl);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-green);
+}
+
+.nav-cta:hover {
+    background: var(--zm-green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 128, 0, 0.35);
 }
 
 /* ============================================================ */
@@ -262,7 +391,7 @@ body {
 
 .hero {
     padding: 140px 0 80px;
-    background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -279,7 +408,6 @@ body {
     align-items: center;
 }
 
-/* Hero Badge */
 .hero-badge {
     display: inline-block;
     background: var(--zm-green-light);
@@ -291,7 +419,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* Hero Heading */
 .hero-text h1 {
     font-size: 56px;
     font-weight: 900;
@@ -317,7 +444,6 @@ body {
     z-index: -1;
 }
 
-/* Hero Description */
 .hero-description {
     font-size: 20px;
     color: var(--text-secondary);
@@ -326,7 +452,6 @@ body {
     margin-bottom: 32px;
 }
 
-/* Hero Buttons */
 .hero-buttons {
     display: flex;
     gap: 16px;
@@ -340,21 +465,21 @@ body {
 
 .btn-primary {
     display: inline-block;
-    background: linear-gradient(135deg, var(--zm-green), #00b800);
+    background: var(--gradient-primary);
     color: white;
     padding: 16px 36px;
     border-radius: var(--radius-xl);
     font-weight: 700;
     font-size: 17px;
     text-decoration: none;
-    transition: all var(--transition-base);
+    transition: all var(--transition-bounce);
     box-shadow: var(--shadow-green);
     border: none;
     cursor: pointer;
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
+    transform: translateY(-3px) scale(1.02);
     box-shadow: 0 8px 30px rgba(0, 128, 0, 0.35);
 }
 
@@ -380,7 +505,7 @@ body {
 .btn-secondary:hover {
     border-color: var(--zm-green);
     color: var(--zm-green);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 }
 
 /* ============================================================ */
@@ -402,7 +527,7 @@ body {
 }
 
 /* ============================================================ */
-/* HERO GRAPHIC / ILLUSTRATION                                  */
+/* HERO GRAPHIC                                                 */
 /* ============================================================ */
 
 .hero-image {
@@ -420,7 +545,6 @@ body {
     align-items: center;
 }
 
-/* Floating icons */
 .floating-icon {
     position: absolute;
     font-size: 48px;
@@ -440,11 +564,10 @@ body {
     50% { transform: translateY(-20px) rotate(5deg); }
 }
 
-/* Center circle */
 .center-circle {
     width: 160px;
     height: 160px;
-    background: linear-gradient(135deg, var(--zm-green), #00b800);
+    background: var(--gradient-primary);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -512,17 +635,20 @@ body {
 }
 
 .feature-card {
-    background: var(--bg-primary);
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 32px 28px;
     border-radius: var(--radius-md);
-    border: 1px solid var(--border-light);
-    transition: all var(--transition-base);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all var(--transition-bounce);
     text-align: center;
+    box-shadow: var(--shadow-sm);
 }
 
 .feature-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--shadow-lg), var(--shadow-glow-green);
     border-color: var(--zm-green);
 }
 
@@ -565,21 +691,23 @@ body {
 }
 
 .step {
-    background: var(--bg-secondary);
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 32px 28px;
     border-radius: var(--radius-md);
-    border: 1px solid var(--border-light);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     text-align: center;
     flex: 1;
     min-width: 200px;
     max-width: 300px;
-    position: relative;
-    transition: all var(--transition-base);
+    transition: all var(--transition-bounce);
+    box-shadow: var(--shadow-sm);
 }
 
 .step:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-md), var(--shadow-glow-green);
     border-color: var(--zm-green);
 }
 
@@ -589,7 +717,7 @@ body {
     justify-content: center;
     width: 44px;
     height: 44px;
-    background: var(--zm-green);
+    background: var(--gradient-primary);
     color: white;
     border-radius: 50%;
     font-weight: 800;
@@ -631,7 +759,7 @@ body {
 
 .stats {
     padding: 80px 0;
-    background: linear-gradient(135deg, var(--zm-green), #006600);
+    background: var(--gradient-primary);
     color: white;
 }
 
@@ -672,16 +800,18 @@ body {
 }
 
 .testimonial-card {
-    background: var(--bg-primary);
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 32px 28px;
     border-radius: var(--radius-md);
-    border: 1px solid var(--border-light);
-    transition: all var(--transition-base);
-    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all var(--transition-bounce);
+    box-shadow: var(--shadow-sm);
 }
 
 .testimonial-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-4px) scale(1.02);
     box-shadow: var(--shadow-md);
 }
 
@@ -729,7 +859,7 @@ body {
 
 .cta-section {
     padding: 100px 0;
-    background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
     transition: background var(--transition-slow);
 }
 
@@ -815,30 +945,6 @@ body {
     color: var(--zm-green);
 }
 
-.social-icons {
-    display: flex;
-    gap: 12px;
-}
-
-.social-icons a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    color: white;
-    font-size: 20px;
-    text-decoration: none;
-    transition: all var(--transition-fast);
-}
-
-.social-icons a:hover {
-    background: var(--zm-green);
-    transform: translateY(-2px);
-}
-
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 24px;
@@ -852,210 +958,9 @@ body {
 }
 
 /* ============================================================ */
-/* DARK MODE FOR LANDING PAGE                                  */
-/* ============================================================ */
-
-body.dark-mode {
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
-    --bg-tertiary: #334155;
-    --bg-hover: #1e3a2e;
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
-    --border-light: #334155;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.6);
-    --shadow-green: 0 4px 15px rgba(0, 128, 0, 0.3);
-    --zm-green-light: #052e16;
-    --zm-orange-light: #2d1a00;
-}
-
-/* Dark mode navbar */
-body.dark-mode .navbar {
-    background: rgba(15, 23, 42, 0.95);
-    border-bottom-color: var(--border-light);
-}
-
-body.dark-mode .navbar.scrolled {
-    box-shadow: var(--shadow-md);
-}
-
-body.dark-mode .nav-links a {
-    color: var(--text-secondary);
-}
-
-body.dark-mode .nav-links a:hover {
-    color: var(--zm-green);
-}
-
-/* Dark mode hero */
-body.dark-mode .hero {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-}
-
-body.dark-mode .hero-text h1 {
-    color: var(--text-primary);
-}
-
-body.dark-mode .hero-description {
-    color: var(--text-secondary);
-}
-
-body.dark-mode .hero-badge {
-    background: var(--zm-green-light);
-    color: var(--zm-green);
-}
-
-/* Dark mode feature cards */
-body.dark-mode .features {
-    background: var(--bg-secondary);
-}
-
-body.dark-mode .feature-card {
-    background: var(--bg-tertiary);
-    border-color: var(--border-light);
-}
-
-body.dark-mode .feature-card:hover {
-    border-color: var(--zm-green);
-}
-
-body.dark-mode .feature-card h3 {
-    color: var(--text-primary);
-}
-
-body.dark-mode .feature-card p {
-    color: var(--text-secondary);
-}
-
-/* Dark mode steps */
-body.dark-mode .step {
-    background: var(--bg-tertiary);
-    border-color: var(--border-light);
-}
-
-body.dark-mode .step:hover {
-    border-color: var(--zm-green);
-}
-
-body.dark-mode .step h3 {
-    color: var(--text-primary);
-}
-
-body.dark-mode .step p {
-    color: var(--text-secondary);
-}
-
-/* Dark mode stats - keep green! */
-body.dark-mode .stats {
-    background: linear-gradient(135deg, #006600, #004400);
-}
-
-/* Dark mode testimonials */
-body.dark-mode .testimonials {
-    background: var(--bg-secondary);
-}
-
-body.dark-mode .testimonial-card {
-    background: var(--bg-tertiary);
-    border-color: var(--border-light);
-}
-
-body.dark-mode .testimonial-text {
-    color: var(--text-primary);
-}
-
-body.dark-mode .author-name {
-    color: var(--text-primary);
-}
-
-body.dark-mode .author-location {
-    color: var(--text-muted);
-}
-
-/* Dark mode CTA */
-body.dark-mode .cta-section {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-}
-
-body.dark-mode .cta-content h2 {
-    color: var(--text-primary);
-}
-
-body.dark-mode .cta-content p {
-    color: var(--text-secondary);
-}
-
-/* Dark mode footer */
-body.dark-mode .footer {
-    background: #0a0f1a;
-}
-
-/* Dark mode mobile menu */
-body.dark-mode .mobile-toggle span {
-    background: var(--text-primary);
-}
-
-body.dark-mode .nav-links.active {
-    background: var(--bg-secondary);
-    border-bottom-color: var(--border-light);
-}
-
-/* Dark mode center circle */
-body.dark-mode .center-circle {
-    background: linear-gradient(135deg, #006600, #008800);
-}
-
-/* Dark mode floating icons - keep them bright */
-body.dark-mode .floating-icon {
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-}
-
-/* Dark mode trust indicators */
-body.dark-mode .hero-trust span {
-    color: var(--text-muted);
-}
-
-/* Dark mode toggle button in landing page */
-body.dark-mode #landing-dark-toggle {
-    background: var(--bg-tertiary);
-    border-color: var(--border-light);
-    color: var(--text-secondary);
-}
-
-body.dark-mode #landing-dark-toggle:hover {
-    background: var(--bg-hover);
-    border-color: var(--zm-green);
-    color: var(--zm-green);
-}
-
-/* ============================================================ */
-/* DARK MODE TOGGLE FOR MOBILE                                */
-/* ============================================================ */
-
-@media (max-width: 768px) {
-    .nav-actions {
-        gap: 8px;
-    }
-    
-    #landing-dark-toggle span:last-child {
-        display: none;
-    }
-    
-    #landing-dark-toggle {
-        padding: 6px 10px;
-        font-size: 16px;
-    }
-}
-
-/* ============================================================ */
 /* RESPONSIVE DESIGN                                            */
 /* ============================================================ */
 
-/* Tablets */
 @media (max-width: 1024px) {
     .hero-container {
         grid-template-columns: 1fr;
@@ -1111,9 +1016,7 @@ body.dark-mode #landing-dark-toggle:hover {
     }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
-    /* Navigation */
     .mobile-toggle {
         display: flex;
     }
@@ -1124,7 +1027,9 @@ body.dark-mode #landing-dark-toggle:hover {
         top: 100%;
         left: 0;
         right: 0;
-        background: white;
+        background: var(--bg-glass);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         padding: 20px 24px;
         gap: 16px;
@@ -1140,7 +1045,22 @@ body.dark-mode #landing-dark-toggle:hover {
         display: none;
     }
 
-    /* Hero */
+    .nav-actions {
+        gap: 8px;
+    }
+
+    .lang-btn .lang-label {
+        display: none;
+    }
+
+    .lang-btn {
+        padding: 4px 6px;
+    }
+
+    .lang-btn .flag {
+        font-size: 14px;
+    }
+
     .hero {
         padding: 100px 0 60px;
         min-height: auto;
@@ -1184,7 +1104,6 @@ body.dark-mode #landing-dark-toggle:hover {
         display: none;
     }
 
-    /* Sections */
     .section-header h2 {
         font-size: 30px;
     }
@@ -1238,7 +1157,6 @@ body.dark-mode #landing-dark-toggle:hover {
     }
 }
 
-/* Small phones */
 @media (max-width: 480px) {
     .hero-text h1 {
         font-size: 28px;
@@ -1279,14 +1197,12 @@ body.dark-mode #landing-dark-toggle:hover {
 /* ACCESSIBILITY                                                */
 /* ============================================================ */
 
-/* Focus visible for keyboard users */
 :focus-visible {
     outline: 3px solid var(--zm-green);
     outline-offset: 2px;
     border-radius: 4px;
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;
@@ -1335,6 +1251,10 @@ body.dark-mode #landing-dark-toggle:hover {
     }
 
     .floating-icon {
+        display: none !important;
+    }
+
+    .language-switcher {
         display: none !important;
     }
 }
