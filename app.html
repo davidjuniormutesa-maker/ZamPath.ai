@@ -1,9 +1,9 @@
 <!-- ================================================================ -->
 <!-- CAREER QUEST - Main HTML Structure                               -->
 <!-- A career guidance web app for Zambian Form 2 students            -->
-<!-- ENHANCED with: Multi-language support, Share Results feature     -->
+<!-- ENHANCED with: Multi-language support, Sample Results mode,      -->
+<!-- Animated Radar Chart, Share Results feature                      -->
 <!-- FULLY OFFLINE - loads libraries from local /libs/ folder         -->
-<!-- NEW: "Show Me a Demo" button for instant sample results          -->
 <!-- ================================================================ -->
 
 <!DOCTYPE html>
@@ -119,12 +119,11 @@
                     </p>
                     <div id="saved-progress-banner"></div>
                     <div class="welcome-buttons">
-                        <!-- Button to start the quiz normally -->
+                        <!-- Main action buttons -->
                         <button id="start-quiz-btn" class="btn-primary" data-translate="start_quiz">🚀 Get Started</button>
-                        <!-- Button for students who have no idea what they want -->
                         <button id="i-dont-know-btn" class="btn-secondary" data-translate="i_dont_know">🤷 I Have No Idea</button>
-                        <!-- NEW: Demo button for instant sample results -->
-                        <button id="sample-demo-btn" class="btn-secondary" data-translate="sample_demo">🎯 Show Me a Demo</button>
+                        <!-- NEW: Sample Results button with direct onclick -->
+                        <button id="sample-results-btn" class="btn-secondary" style="border-color:var(--zm-orange);color:var(--zm-orange);" onclick="loadSampleResults()" data-translate="sample_results">📊 View Sample Results</button>
                     </div>
                     <p class="note">
                         <span data-translate="built_for">© Built for Zambian Students.</span>
@@ -179,7 +178,7 @@
                     <div class="stats-summary" id="stats-summary" aria-label="Result statistics"></div>
 
                     <!-- ============================================================ -->
-                    <!-- RADAR CHART SECTION                                          -->
+                    <!-- RADAR CHART SECTION (ANIMATED)                              -->
                     <!-- ============================================================ -->
                     <div class="radar-chart-section">
                         <h2 data-translate="personality_title">🧠 Your Personality Profile</h2>
