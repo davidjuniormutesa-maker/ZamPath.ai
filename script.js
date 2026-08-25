@@ -4854,9 +4854,8 @@ let state = {
 };
 
 // ================================================================
-// SECTION 9: DOM REFERENCES
+// SECTION 9: DOM REFERENCES (FIXED)
 // ================================================================
-
 const DOM = {
     welcomeScreen: document.getElementById('welcome-screen'),
     quizScreen: document.getElementById('quiz-screen'),
@@ -4911,17 +4910,49 @@ const DOM = {
     shareEmailBtn: document.getElementById('share-email-btn'),
     shareLinkContainer: document.getElementById('share-link-container'),
     shareLinkInput: document.getElementById('share-link-input'),
-    // NEW V2 elements
+    // V2 elements
     smartDiscoverBtn: document.getElementById('smart-discover-btn'),
     aiDiscoverBtn: document.getElementById('ai-discover-btn'),
     exploreAllBtn: document.getElementById('explore-all-btn'),
-    aiTotalCareers: document.getElementById('ai-total-careers')
+    aiTotalCareers: document.getElementById('ai-total-careers'),
+    personalityInsights: document.getElementById('personality-insights'),
+    traitRadarSection: document.getElementById('trait-radar-section'),
+    typingSubtitle: document.getElementById('typing-subtitle')
 };
 
 // ================================================================
-// SECTION 10: LANGUAGE FUNCTIONS
+// SECTION 10: HELPER FUNCTIONS (FIXED - Moved to top)
 // ================================================================
+function getClusterBg(cluster) {
+    var colors = {
+        'STEM': '#eff6ff',
+        'Healthcare': '#fef2f2',
+        'Business': '#fffbeb',
+        'Creative': '#faf5ff',
+        'Helping': '#ecfdf5',
+        'Outdoor': '#f0fdf4',
+        'Public Service': '#f5f3ff',
+        'Skilled Trades': '#fff7ed'
+    };
+    return colors[cluster] || '#f8fafc';
+}
+function getClusterColor(cluster) {
+    var colors = {
+        'STEM': '#2563eb',
+        'Healthcare': '#dc2626',
+        'Business': '#d97706',
+        'Creative': '#8b5cf6',
+        'Helping': '#10b981',
+        'Outdoor': '#22c55e',
+        'Public Service': '#8b5cf6',
+        'Skilled Trades': '#f97316'
+    };
+    return colors[cluster] || '#64748b';
+}
 
+// ================================================================
+// SECTION 11: LANGUAGE FUNCTIONS
+// ================================================================
 function getCurrentLanguage() {
     try {
         var saved = localStorage.getItem(LANGUAGE_KEY);
@@ -4930,14 +4961,12 @@ function getCurrentLanguage() {
     return 'en';
 }
 function saveLanguage(lang) { try { localStorage.setItem(LANGUAGE_KEY, lang); } catch(e) {} }
-
 function t(key) {
     var lang = state.language || 'en';
     if (translations[lang] && translations[lang][key]) return translations[lang][key];
     if (translations['en'] && translations['en'][key]) return translations['en'][key];
     return key;
 }
-
 function switchLanguage(lang) {
     if (!translations[lang]) lang = 'en';
     state.language = lang;
@@ -4945,7 +4974,6 @@ function switchLanguage(lang) {
     updateLanguageUI();
     updateLanguageSelectorUI();
 }
-
 function updateLanguageUI() {
     document.querySelectorAll('[data-translate]').forEach(function(el) {
         var key = el.getAttribute('data-translate');
@@ -4961,13 +4989,11 @@ function updateLanguageUI() {
     document.title = t('app_title') + ' - ' + t('find_your_path');
     document.documentElement.lang = state.language;
 }
-
 function updateLanguageSelectorUI() {
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
         btn.classList.toggle('active', btn.dataset.lang === state.language);
     });
 }
-
 function updateQuestionCounter() {
     var total = questions.length;
     var current = state.currentQuestion + 1;
@@ -4976,9 +5002,8 @@ function updateQuestionCounter() {
 }
 
 // ================================================================
-// SECTION 11: SHARE RESULTS FUNCTIONS
+// SECTION 12: SHARE RESULTS FUNCTIONS
 // ================================================================
-
 function generateShareData() { return { answers: state.answers, results: state.results, careerScores: state.careerScores, personalityTraits: state.personalityTraits, timestamp: Date.now(), version: '1.0' }; }
 function encodeShareData(data) { try { return btoa(encodeURIComponent(JSON.stringify(data))); } catch(e) { return null; } }
 function decodeShareData(encoded) { try { return JSON.parse(decodeURIComponent(atob(encoded))); } catch(e) { return null; } }
@@ -4988,7 +5013,6 @@ function generateShareableUrl() {
     if (!encoded) return null;
     return window.location.href.split('?')[0] + '?share=' + encoded;
 }
-
 function copyShareLink() {
     var url = generateShareableUrl();
     if (!url) { showToast('Error generating share link.'); return; }
@@ -4999,7 +5023,6 @@ function copyShareLink() {
         }).catch(function() { fallbackCopy(url); });
     } else { fallbackCopy(url); }
 }
-
 function fallbackCopy(text) {
     var textarea = document.createElement('textarea');
     textarea.value = text;
@@ -5015,7 +5038,6 @@ function fallbackCopy(text) {
     } catch(e) { showToast('Failed to copy.'); }
     document.body.removeChild(textarea);
 }
-
 function shareOnWhatsApp() {
     var url = generateShareableUrl();
     if (!url) { showToast('Error generating share link.'); return; }
@@ -5023,7 +5045,6 @@ function shareOnWhatsApp() {
     var body = t('share_body') + '\n\n' + url;
     window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(title + '\n\n' + body), '_blank');
 }
-
 function shareViaEmail() {
     var url = generateShareableUrl();
     if (!url) { showToast('Error generating share link.'); return; }
@@ -5031,7 +5052,6 @@ function shareViaEmail() {
     var body = t('share_body') + '\n\n' + url;
     window.open('mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body), '_blank');
 }
-
 function checkForSharedResults() {
     var params = new URLSearchParams(window.location.search);
     var encoded = params.get('share');
@@ -5057,9 +5077,8 @@ function checkForSharedResults() {
 }
 
 // ================================================================
-// SECTION 12: UTILITY FUNCTIONS
+// SECTION 13: UTILITY FUNCTIONS
 // ================================================================
-
 function showToast(message, duration) {
     duration = duration || 3000;
     const toast = document.createElement('div');
@@ -5068,7 +5087,6 @@ function showToast(message, duration) {
     DOM.toastContainer.appendChild(toast);
     setTimeout(function() { toast.remove(); }, duration);
 }
-
 function debounce(fn, delay) {
     let timer;
     return function() {
@@ -5078,11 +5096,9 @@ function debounce(fn, delay) {
         timer = setTimeout(function() { fn.apply(ctx, args); }, delay);
     };
 }
-
 function isNotSureAnswer(answer) {
     return !answer || answer.indexOf('Not sure') !== -1 || answer.indexOf('🤷') !== -1;
 }
-
 function saveState() {
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify({
@@ -5101,7 +5117,6 @@ function saveState() {
         }));
     } catch (e) {}
 }
-
 function loadSavedState() {
     try {
         var raw = localStorage.getItem(STORAGE_KEY);
@@ -5114,9 +5129,7 @@ function loadSavedState() {
         return data;
     } catch (e) { return null; }
 }
-
 function clearSavedState() { try { localStorage.removeItem(STORAGE_KEY); } catch(e) {} }
-
 function saveTheme(isDark) { try { localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light'); } catch(e) {} }
 function loadTheme() {
     try { var t = localStorage.getItem(THEME_KEY); if (t === 'dark') return true; if (t === 'light') return false; } catch(e) {}
@@ -5124,9 +5137,8 @@ function loadTheme() {
 }
 
 // ================================================================
-// SECTION 13: SCREEN MANAGEMENT
+// SECTION 14: SCREEN MANAGEMENT
 // ================================================================
-
 function showScreen(screenName) {
     document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
     var target = document.getElementById(screenName);
@@ -5134,15 +5146,13 @@ function showScreen(screenName) {
 }
 
 // ================================================================
-// SECTION 14: DARK MODE
+// SECTION 15: DARK MODE
 // ================================================================
-
 function toggleDarkMode() {
     state.darkMode = !state.darkMode;
     applyTheme();
     saveTheme(state.darkMode);
 }
-
 function applyTheme() {
     document.body.classList.toggle('dark-mode', state.darkMode);
     DOM.themeIcon.textContent = state.darkMode ? '☀️' : '🌙';
@@ -5152,9 +5162,8 @@ function applyTheme() {
 }
 
 // ================================================================
-// SECTION 15: QUIZ LOGIC
+// SECTION 16: QUIZ LOGIC
 // ================================================================
-
 function startQuiz(restoreState) {
     state.quizStarted = true;
     state.isDiscoveryMode = false;
@@ -5170,16 +5179,16 @@ function startQuiz(restoreState) {
     showScreen('quiz-screen');
     renderQuestion();
 }
-
 function startDiscoveryMode() {
     state.isDiscoveryMode = true;
     state.quizStarted = true;
     state.discoveryCompare = [];
     state.personalityTraits = {};
+    state.results = [];
+    state.careerScores = {};
     showScreen('results-screen');
     generateDiscoveryResults();
 }
-
 function renderQuestion() {
     var question = questions[state.currentQuestion];
     var qNum = state.currentQuestion + 1;
@@ -5229,7 +5238,6 @@ function renderQuestion() {
     state.kbFocusIndex = -1;
     saveState();
 }
-
 function toggleOption(button) {
     var question = questions[state.currentQuestion];
     var isMultiSelect = question.multiSelect || false;
@@ -5251,7 +5259,6 @@ function toggleOption(button) {
         setTimeout(nextQuestion, 400);
     }
 }
-
 function updateMultiSelectAnswer() {
     var selected = DOM.optionsContainer.querySelectorAll('.option-btn.selected');
     state.answers[state.currentQuestion] = Array.from(selected).map(function(btn) {
@@ -5259,17 +5266,14 @@ function updateMultiSelectAnswer() {
         return spans[spans.length - 1].textContent;
     });
 }
-
 function updateSingleSelectAnswer(button) {
     var spans = button.querySelectorAll('span');
     state.answers[state.currentQuestion] = [spans[spans.length - 1].textContent];
 }
-
 function updateNextButtonState() {
     var currentAnswer = state.answers[state.currentQuestion] || [];
     DOM.nextBtn.disabled = currentAnswer.length === 0;
 }
-
 function nextQuestion() {
     var currentAnswer = state.answers[state.currentQuestion] || [];
     if (currentAnswer.length === 0) { showToast(t('please_select_answer')); return; }
@@ -5284,7 +5288,6 @@ function nextQuestion() {
     state.currentQuestion++;
     renderQuestion();
 }
-
 function prevQuestion() {
     if (state.currentQuestion > 0) {
         state.currentQuestion--;
@@ -5293,9 +5296,8 @@ function prevQuestion() {
 }
 
 // ================================================================
-// SECTION 16: KEYBOARD NAVIGATION
+// SECTION 17: KEYBOARD NAVIGATION
 // ================================================================
-
 function handleKeyboardNav(e) {
     if (!DOM.quizScreen.classList.contains('active')) return;
     var options = DOM.optionsContainer.querySelectorAll('.option-btn');
@@ -5322,7 +5324,6 @@ function handleKeyboardNav(e) {
         prevQuestion();
     }
 }
-
 function updateKbFocus(options) {
     options.forEach(function(opt, i) {
         opt.classList.toggle('kb-focus', i === state.kbFocusIndex);
@@ -5333,13 +5334,11 @@ function updateKbFocus(options) {
 }
 
 // ================================================================
-// SECTION 17: SMART SCORING ENGINE
+// SECTION 18: SMART SCORING ENGINE
 // ================================================================
-
 function calculateResults() {
     var clusterScores = { 'STEM': 0, 'Healthcare': 0, 'Business': 0, 'Creative': 0, 'Helping': 0, 'Outdoor': 0, 'Public Service': 0, 'Skilled Trades': 0 };
     var clusterCounts = { 'STEM': 0, 'Healthcare': 0, 'Business': 0, 'Creative': 0, 'Helping': 0, 'Outdoor': 0, 'Public Service': 0, 'Skilled Trades': 0 };
-
     state.answers.forEach(function(answer, index) {
         if (!answer || !answer.length) return;
         var question = questions[index];
@@ -5366,19 +5365,15 @@ function calculateResults() {
             }
         }
     });
-
     var avgCluster = {};
     for (var c in clusterScores) {
         avgCluster[c] = clusterCounts[c] > 0 ? clusterScores[c] / clusterCounts[c] : 2;
     }
-
     calculatePersonalityTraits();
-
     var scores = {};
     for (var name in careers) {
         var career = careers[name];
         var clusterScore = avgCluster[career.cluster] || 2;
-
         var traits = careerTraits[name] || [];
         var traitMatchTotal = 0;
         var traitMatchCount = 0;
@@ -5395,38 +5390,24 @@ function calculateResults() {
         });
         var avgTraitMatch = traitMatchCount > 0 ? traitMatchTotal / traitMatchCount : 0;
         var normalizedTraitMatch = (avgTraitMatch / 10) * 5;
-
         var combined = (clusterScore * 0.4) + (normalizedTraitMatch * 0.6);
         var pct = Math.round((combined / 5) * 100);
         pct = Math.max(0, Math.min(100, pct));
-
         scores[name] = pct;
     }
-
     state.careerScores = scores;
     state.results = Object.keys(scores).sort(function(a, b) { return scores[b] - scores[a]; });
 }
 
 // ================================================================
-// SECTION 18: PERSONALITY TRAITS CALCULATION
+// SECTION 19: PERSONALITY TRAITS CALCULATION
 // ================================================================
-
 function calculatePersonalityTraits() {
     var rawScores = {
-        'Analytical': 0,
-        'Creative': 0,
-        'Helping': 0,
-        'Technical': 0,
-        'Outdoor': 0,
-        'Leadership': 0,
-        'Communication': 0,
-        'Practical': 0,
-        'Strategic': 0,
-        'Resilience': 0,
-        'Detail-Oriented': 0,
-        'Entrepreneurial': 0
+        'Analytical': 0, 'Creative': 0, 'Helping': 0, 'Technical': 0,
+        'Outdoor': 0, 'Leadership': 0, 'Communication': 0, 'Practical': 0,
+        'Strategic': 0, 'Resilience': 0, 'Detail-Oriented': 0, 'Entrepreneurial': 0
     };
-
     state.answers.forEach(function(answer, index) {
         if (!answer || !answer.length) return;
         var question = questions[index];
@@ -5453,46 +5434,38 @@ function calculatePersonalityTraits() {
             });
         }
     });
-
     var maxScore = 0;
     for (var t in rawScores) {
         if (rawScores[t] > maxScore) maxScore = rawScores[t];
     }
     if (maxScore === 0) maxScore = 1;
-
     var normalized = {};
     for (var t in rawScores) {
         var val = Math.round((rawScores[t] / maxScore) * 10);
         if (val < 1 && rawScores[t] > 0) val = 1;
         normalized[t] = val;
     }
-
     state.personalityTraits = normalized;
 }
 
 // ================================================================
-// SECTION 19: RADAR CHART RENDER (ANIMATED)
+// SECTION 20: RADAR CHART RENDER (ANIMATED)
 // ================================================================
-
 function renderRadarChart() {
     var canvas = DOM.personalityChart;
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
     if (typeof Chart === 'undefined') { console.warn('Chart.js not loaded.'); return; }
-
     var traits = state.personalityTraits || {
         'Analytical': 3, 'Creative': 3, 'Helping': 3, 'Technical': 3,
         'Outdoor': 3, 'Leadership': 3, 'Communication': 3, 'Practical': 3,
         'Strategic': 3, 'Resilience': 3, 'Detail-Oriented': 3, 'Entrepreneurial': 3
     };
-
     if (window.personalityChartInstance) window.personalityChartInstance.destroy();
-
     var color = getComputedStyle(document.documentElement).getPropertyValue('--zm-green').trim() || '#0a7e6c';
     var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-bg').trim() || 'rgba(10, 126, 108, 0.15)';
     var gridColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-grid').trim() || '#e2e8f0';
     var textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim() || '#1a202c';
-
     window.personalityChartInstance = new Chart(ctx, {
         type: 'radar',
         data: {
@@ -5527,10 +5500,7 @@ function renderRadarChart() {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            animation: {
-                duration: 1500,
-                easing: 'easeOutQuart'
-            },
+            animation: { duration: 1500, easing: 'easeOutQuart' },
             plugins: {
                 legend: {
                     labels: { color: textColor, font: { size: 12, weight: 'bold' } }
@@ -5538,19 +5508,11 @@ function renderRadarChart() {
             },
             scales: {
                 r: {
-                    min: 0,
-                    max: 10,
-                    ticks: {
-                        stepSize: 2,
-                        color: textColor,
-                        backdropColor: 'transparent'
-                    },
+                    min: 0, max: 10,
+                    ticks: { stepSize: 2, color: textColor, backdropColor: 'transparent' },
                     grid: { color: gridColor },
                     angleLines: { color: gridColor },
-                    pointLabels: {
-                        color: textColor,
-                        font: { size: 10, weight: '600' }
-                    }
+                    pointLabels: { color: textColor, font: { size: 10, weight: '600' } }
                 }
             }
         }
@@ -5558,130 +5520,132 @@ function renderRadarChart() {
 }
 
 // ================================================================
-// SECTION 20: PERSONALITY INSIGHTS (NEW from V2)
+// SECTION 21: PERSONALITY INSIGHTS (V2 - FIXED)
 // ================================================================
-
 function renderPersonalityInsights() {
-    var container = document.getElementById('personality-insights');
+    var container = DOM.personalityInsights;
     if (!container) return;
-    container.style.display = 'block';
-    
-    var traits = state.personalityTraits || {};
-    var traitEntries = Object.keys(traits).map(function(key) {
-        return { name: key, score: traits[key] };
-    });
-    traitEntries.sort(function(a, b) { return b.score - a.score; });
-    
-    var top3 = traitEntries.slice(0, 3);
-    var bottom3 = traitEntries.slice(-3).reverse();
-    
-    var personalityMap = {
-        'Analytical': 'You are a logical thinker who enjoys breaking down complex problems.',
-        'Creative': 'You have a vivid imagination and love expressing ideas in unique ways.',
-        'Helping': 'You have a big heart and find fulfilment in supporting others.',
-        'Communication': 'You are a natural communicator who can connect with anyone.',
-        'Leadership': 'You have leadership qualities and can inspire others to follow.',
-        'Technical': 'You enjoy working with technology and understanding how things work.',
-        'Outdoor': 'You thrive in nature and prefer being active rather than stuck indoors.',
-        'Practical': 'You are pragmatic and prefer hands-on, real-world solutions.',
-        'Strategic': 'You think ahead and plan carefully to achieve your goals.',
-        'Resilience': 'You bounce back from setbacks and handle pressure well.',
-        'Detail-Oriented': 'You notice the small things and take pride in precision.',
-        'Entrepreneurial': 'You have a business mindset and think about opportunities.'
-    };
-    
-    var html = '<h2>🧠 Your Personality Insights</h2>';
-    html += '<div class="insights-grid">';
-    html += '<div class="insight-card insight-top"><h4>⭐ Your Strongest Traits</h4><ul>';
-    for (var i = 0; i < top3.length; i++) {
-        var desc = personalityMap[top3[i].name] || 'You scored high in ' + top3[i].name + '.';
-        html += '<li><strong>' + top3[i].name + '</strong>: ' + desc + '</li>';
+    try {
+        var traits = state.personalityTraits || {};
+        var traitEntries = Object.keys(traits).map(function(key) {
+            return { name: key, score: traits[key] };
+        });
+        traitEntries.sort(function(a, b) { return b.score - a.score; });
+        var top3 = traitEntries.slice(0, 3);
+        var bottom3 = traitEntries.slice(-3).reverse();
+        var personalityMap = {
+            'Analytical': 'You are a logical thinker who enjoys breaking down complex problems.',
+            'Creative': 'You have a vivid imagination and love expressing ideas in unique ways.',
+            'Helping': 'You have a big heart and find fulfilment in supporting others.',
+            'Communication': 'You are a natural communicator who can connect with anyone.',
+            'Leadership': 'You have leadership qualities and can inspire others to follow.',
+            'Technical': 'You enjoy working with technology and understanding how things work.',
+            'Outdoor': 'You thrive in nature and prefer being active rather than stuck indoors.',
+            'Practical': 'You are pragmatic and prefer hands-on, real-world solutions.',
+            'Strategic': 'You think ahead and plan carefully to achieve your goals.',
+            'Resilience': 'You bounce back from setbacks and handle pressure well.',
+            'Detail-Oriented': 'You notice the small things and take pride in precision.',
+            'Entrepreneurial': 'You have a business mindset and think about opportunities.'
+        };
+        var html = '<h2>🧠 Your Personality Insights</h2>';
+        html += '<div class="insights-grid">';
+        html += '<div class="insight-card insight-top"><h4>⭐ Your Strongest Traits</h4><ul>';
+        for (var i = 0; i < top3.length; i++) {
+            var desc = personalityMap[top3[i].name] || 'You scored high in ' + top3[i].name + '.';
+            html += '<li><strong>' + top3[i].name + '</strong>: ' + desc + '</li>';
+        }
+        html += '</ul></div>';
+        html += '<div class="insight-card insight-bottom"><h4>💡 Traits to Develop</h4><ul>';
+        for (var j = 0; j < bottom3.length; j++) {
+            html += '<li><strong>' + bottom3[j].name + '</strong> (score: ' + bottom3[j].score + ')</li>';
+        }
+        html += '</ul></div></div>';
+        container.innerHTML = html;
+        container.style.display = 'block';
+    } catch(e) {
+        console.warn('Personality Insights error:', e);
+        container.style.display = 'none';
     }
-    html += '</ul></div>';
-    html += '<div class="insight-card insight-bottom"><h4>💡 Traits to Develop</h4><ul>';
-    for (var j = 0; j < bottom3.length; j++) {
-        html += '<li><strong>' + bottom3[j].name + '</strong> (score: ' + bottom3[j].score + ')</li>';
-    }
-    html += '</ul></div></div>';
-    container.innerHTML = html;
 }
 
 // ================================================================
-// SECTION 21: TRAIT RADAR BARS (NEW from V2)
+// SECTION 22: TRAIT RADAR BARS (V2 - FIXED)
 // ================================================================
-
 function renderTraitRadarBars() {
-    var container = document.getElementById('trait-radar-section');
+    var container = DOM.traitRadarSection;
     if (!container) return;
-    container.style.display = 'block';
-    
-    var traits = state.personalityTraits || {};
-    var traitEntries = Object.keys(traits).map(function(key) {
-        return { name: key, score: traits[key] };
-    });
-    traitEntries.sort(function(a, b) { return b.score - a.score; });
-    var top10 = traitEntries.slice(0, 10);
-    var maxScore = top10.length > 0 ? top10[0].score : 1;
-    
-    var html = '<h3>📊 Your Trait Profile</h3><div class="trait-radar-container">';
-    for (var i = 0; i < top10.length; i++) {
-        var t = top10[i];
-        var pct = Math.round((t.score / maxScore) * 100);
-        html += '<div class="trait-bar-item">' +
-            '<span class="trait-bar-label">' + t.name + '</span>' +
-            '<div class="trait-bar"><div class="trait-bar-fill" style="width:' + pct + '%"></div></div>' +
-            '<span class="trait-bar-value">' + t.score + '</span>' +
-            '</div>';
+    try {
+        var traits = state.personalityTraits || {};
+        var traitEntries = Object.keys(traits).map(function(key) {
+            return { name: key, score: traits[key] };
+        });
+        traitEntries.sort(function(a, b) { return b.score - a.score; });
+        var top10 = traitEntries.slice(0, 10);
+        var maxScore = top10.length > 0 ? top10[0].score : 1;
+        var html = '<h3>📊 Your Trait Profile</h3><div class="trait-radar-container">';
+        for (var i = 0; i < top10.length; i++) {
+            var t = top10[i];
+            var pct = Math.round((t.score / maxScore) * 100);
+            html += '<div class="trait-bar-item">' +
+                '<span class="trait-bar-label">' + t.name + '</span>' +
+                '<div class="trait-bar"><div class="trait-bar-fill" style="width:' + pct + '%"></div></div>' +
+                '<span class="trait-bar-value">' + t.score + '</span>' +
+                '</div>';
+        }
+        html += '</div>';
+        container.innerHTML = html;
+        container.style.display = 'block';
+    } catch(e) {
+        console.warn('Trait Radar Bars error:', e);
+        container.style.display = 'none';
     }
-    html += '</div>';
-    container.innerHTML = html;
 }
 
 // ================================================================
-// SECTION 22: SMART DISCOVERY ENGINE (NEW from V2)
+// SECTION 23: SMART DISCOVERY (V2 - FIXED)
 // ================================================================
-
 function runSmartDiscovery() {
     var panel = document.getElementById('smart-discovery-panel');
     if (!panel) return;
     panel.style.display = 'block';
     panel.innerHTML = '<div class="ai-loading"><div class="spinner"></div><p>Analyzing your results...</p></div>';
-    
     setTimeout(function() {
-        var suggestions = smartDiscoveryEngine();
-        var html = '<h3>💡 Smart Discovery Results</h3><p class="ai-note">Based on your trait analysis and cluster exploration</p>';
-        html += '<div class="discovery-results">';
-        for (var i = 0; i < suggestions.length; i++) {
-            var s = suggestions[i];
-            var data = careers[s.name];
-            if (!data) continue;
-            html += '<div class="discovery-card">' +
-                '<div class="discovery-card-header">' +
-                '<span class="discovery-icon">' + data.icon + '</span>' +
-                '<h4>' + s.name + '</h4>' +
-                '<span class="discovery-cluster" style="background:' + getClusterBg(data.cluster) + ';color:' + getClusterColor(data.cluster) + '">' + data.cluster + '</span>' +
-                '</div>' +
-                '<p class="discovery-reason">💡 <strong>Why suggested:</strong> ' + s.reason + '</p>' +
-                '<p class="discovery-desc">' + data.description.substring(0, 150) + '...</p>' +
-                '<button class="btn-details-sm" data-career="' + s.name + '">View Details</button>' +
-                '</div>';
-        }
-        html += '</div>';
-        panel.innerHTML = html;
-        var btns = panel.querySelectorAll('.btn-details-sm');
-        for (var j = 0; j < btns.length; j++) {
-            btns[j].addEventListener('click', function() { showCareerDetails(this.getAttribute('data-career')); });
+        try {
+            var suggestions = smartDiscoveryEngine();
+            var html = '<h3>💡 Smart Discovery Results</h3><p class="ai-note">Based on your trait analysis and cluster exploration</p>';
+            html += '<div class="discovery-results">';
+            for (var i = 0; i < suggestions.length; i++) {
+                var s = suggestions[i];
+                var data = careers[s.name];
+                if (!data) continue;
+                html += '<div class="discovery-card">' +
+                    '<div class="discovery-card-header">' +
+                    '<span class="discovery-icon">' + data.icon + '</span>' +
+                    '<h4>' + s.name + '</h4>' +
+                    '<span class="discovery-cluster" style="background:' + getClusterBg(data.cluster) + ';color:' + getClusterColor(data.cluster) + '">' + data.cluster + '</span>' +
+                    '</div>' +
+                    '<p class="discovery-reason">💡 <strong>Why suggested:</strong> ' + s.reason + '</p>' +
+                    '<p class="discovery-desc">' + data.description.substring(0, 150) + '...</p>' +
+                    '<button class="btn-details-sm" data-career="' + s.name + '">View Details</button>' +
+                    '</div>';
+            }
+            html += '</div>';
+            panel.innerHTML = html;
+            var btns = panel.querySelectorAll('.btn-details-sm');
+            for (var j = 0; j < btns.length; j++) {
+                btns[j].addEventListener('click', function() { showCareerDetails(this.getAttribute('data-career')); });
+            }
+        } catch(e) {
+            panel.innerHTML = '<div class="ai-error"><p>Could not generate suggestions.</p><p><small>' + e.message + '</small></p></div>';
         }
     }, 800);
 }
-
 function smartDiscoveryEngine() {
     var suggestions = [];
     var seen = {};
     var topTraits = Object.keys(state.personalityTraits || {}).sort(function(a, b) {
         return (state.personalityTraits[b] || 0) - (state.personalityTraits[a] || 0);
     }).slice(0, 10);
-    
     var resultsList = state.results || [];
     for (var i = 10; i < Math.min(25, resultsList.length); i++) {
         var c = resultsList[i];
@@ -5690,7 +5654,6 @@ function smartDiscoveryEngine() {
             suggestions.push({ name: c, reason: 'This career almost made your top 10! It ranked #' + (i+1) + ' and may be worth exploring.' });
         }
     }
-    
     for (var careerName in careers) {
         if (careers.hasOwnProperty(careerName) && !seen[careerName]) {
             var careerData = careers[careerName];
@@ -5711,23 +5674,6 @@ function smartDiscoveryEngine() {
             }
         }
     }
-    
-    for (var bName in careers) {
-        if (careers.hasOwnProperty(bName) && !seen[bName]) {
-            var bTraits = careerTraits[bName] || [];
-            var crossMatch = 0;
-            for (var bt = 0; bt < bTraits.length; bt++) {
-                var displayKey = bTraits[bt].charAt(0).toUpperCase() + bTraits[bt].slice(1);
-                if (displayKey === 'Detailoriented') displayKey = 'Detail-Oriented';
-                if ((state.personalityTraits[displayKey] || 0) >= 3) crossMatch++;
-            }
-            if (crossMatch >= 3 && !seen[bName]) {
-                seen[bName] = true;
-                suggestions.push({ name: bName, reason: 'This career bridges multiple interest areas you showed strength in. Your diverse trait profile suggests you would thrive in this cross-disciplinary role.' });
-            }
-        }
-    }
-    
     suggestions.sort(function(a, b) {
         var sa = 0, sb = 0;
         for (var si = 0; si < resultsList.length; si++) {
@@ -5740,15 +5686,13 @@ function smartDiscoveryEngine() {
 }
 
 // ================================================================
-// SECTION 23: AI DISCOVERY (NEW from V2)
+// SECTION 24: AI DISCOVERY (V2 - FIXED)
 // ================================================================
-
 function showAIPanel() {
     var panel = document.getElementById('ai-discovery-panel');
     if (!panel) return;
     if (panel.style.display === 'block') { panel.style.display = 'none'; return; }
     panel.style.display = 'block';
-    
     var topTraits = Object.keys(state.personalityTraits || {}).sort(function(a, b) {
         return (state.personalityTraits[b] || 0) - (state.personalityTraits[a] || 0);
     }).slice(0, 8);
@@ -5759,7 +5703,6 @@ function showAIPanel() {
             answersText += 'Q' + q + ': ' + state.answers[q] + '\n';
         }
     }
-    
     var aiPrompt = 'I am a Zambian secondary school student doing a career guidance quiz. Here are my answers and results:\n\n' +
         'MY QUIZ ANSWERS:\n' + answersText +
         'MY TOP TRAITS: ' + topTraits.join(', ') + '\n\n' +
@@ -5768,7 +5711,6 @@ function showAIPanel() {
         'Please suggest 5 MORE career paths NOT in my top 10 that would suit me based on my answers. ' +
         'For each suggestion, explain WHY it fits me and what subjects I should focus on. ' +
         'Keep in mind I am a Zambian student - mention relevant Zambian institutions and opportunities where possible.';
-    
     panel.innerHTML =
         '<div class="ai-config">' +
         '<h3>🤖 AI-Powered Career Discovery</h3>' +
@@ -5791,14 +5733,11 @@ function showAIPanel() {
         '<button class="btn-primary" id="ai-go-btn">🚀 Get AI Suggestions</button>' +
         '<div id="ai-results-area"></div>' +
         '</div></div>';
-    
     document.getElementById('copy-prompt-btn').addEventListener('click', function() {
         var ta = document.getElementById('ai-prompt-textarea');
         ta.select();
         if (navigator.clipboard) {
-            navigator.clipboard.writeText(ta.value).then(function() {
-                showToast('Prompt copied! Now paste it in ChatGPT, Claude, or Gemini.', 'success');
-            });
+            navigator.clipboard.writeText(ta.value).then(function() { showToast('Prompt copied! Now paste it in ChatGPT, Claude, or Gemini.', 'success'); });
         } else {
             document.execCommand('copy');
             showToast('Prompt copied!', 'success');
@@ -5815,14 +5754,12 @@ function showAIPanel() {
         if (!url || !key) { showToast('Please enter both API URL and API Key', 'warning'); return; }
         if (!area) return;
         area.innerHTML = '<div class="ai-loading"><div class="spinner"></div><p>Asking AI for career suggestions...</p></div>';
-        
         var prompt = 'You are a career guidance expert for Zambian students. Based on the following quiz answers, suggest 5 additional career paths NOT in the already-shown list.\n\n' +
             'Student top traits: ' + topTraits.join(', ') + '\n' +
             'Already suggested: ' + top10.join(', ') + '\n' +
             'Quiz answers:\n' + answersText + '\n' +
             'All available careers: ' + Object.keys(careers).join(', ') + '\n\n' +
             'Respond ONLY with a valid JSON array of objects with keys: name, description, whyMatch, cluster. No markdown.';
-        
         fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
@@ -5864,18 +5801,15 @@ function showAIPanel() {
 }
 
 // ================================================================
-// SECTION 24: CAREER EXPLORER (NEW from V2)
+// SECTION 25: CAREER EXPLORER (V2 - FIXED)
 // ================================================================
-
 function showCareerExplorer() {
     var panel = document.getElementById('career-explorer-panel');
     if (!panel) return;
     if (panel.style.display === 'block') { panel.style.display = 'none'; return; }
     panel.style.display = 'block';
-    
     var clusterNames = ['STEM', 'Healthcare', 'Business', 'Creative', 'Helping', 'Outdoor', 'Public Service', 'Skilled Trades'];
     var clusterIcons = { 'STEM': '🔬', 'Healthcare': '🏥', 'Business': '💼', 'Creative': '🎨', 'Helping': '🤝', 'Outdoor': '🌿', 'Public Service': '🏛️', 'Skilled Trades': '🔧' };
-    
     var html = '<h3>🎯 Explore All ' + Object.keys(careers).length + ' Careers</h3>';
     html += '<div class="explorer-tabs" role="tablist">';
     html += '<button class="explorer-tab active" data-cluster="All" role="tab">All Careers</button>';
@@ -5887,7 +5821,6 @@ function showCareerExplorer() {
     html += '<input type="search" class="explorer-search" id="explorer-search-input" placeholder="Search all careers..." />';
     html += '<div id="explorer-results" class="explorer-results"></div>';
     panel.innerHTML = html;
-    
     var tabs = panel.querySelectorAll('.explorer-tab');
     for (var j = 0; j < tabs.length; j++) {
         tabs[j].addEventListener('click', function() {
@@ -5902,7 +5835,6 @@ function showCareerExplorer() {
     });
     filterExplorer('All');
 }
-
 function filterExplorer(clusterFilter) {
     var container = document.getElementById('explorer-results');
     if (!container) return;
@@ -5930,9 +5862,8 @@ function filterExplorer(clusterFilter) {
 }
 
 // ================================================================
-// SECTION 25: MILESTONE CELEBRATIONS (NEW from V2)
+// SECTION 26: MILESTONE CELEBRATIONS (V2)
 // ================================================================
-
 function fireMilestoneConfetti() {
     var canvas = document.getElementById('confetti-canvas');
     if (!canvas) return;
@@ -5979,36 +5910,25 @@ function fireMilestoneConfetti() {
     }
     draw();
 }
-
 function checkMilestone(questionNum) {
-    if (questionNum === 5) {
-        fireMilestoneConfetti();
-        showToast('🎉 Halfway there! You\'re doing great!', 'success');
-    } else if (questionNum === 10) {
-        fireMilestoneConfetti();
-        showToast('🌟 Almost done! Just 5 more questions!', 'success');
-    }
+    if (questionNum === 5) { fireMilestoneConfetti(); showToast('🎉 Halfway there! You\'re doing great!', 'success'); }
+    else if (questionNum === 10) { fireMilestoneConfetti(); showToast('🌟 Almost done! Just 5 more questions!', 'success'); }
 }
 
 // ================================================================
-// SECTION 26: FLOATING PARTICLES (NEW from V2)
+// SECTION 27: FLOATING PARTICLES (V2)
 // ================================================================
-
 function initParticles() {
     var canvas = document.getElementById('particles-canvas');
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
     var particles = [];
-    var isDark = document.body.classList.contains('dark-mode');
-    var baseColor = isDark ? '100,200,100' : '0,128,0';
-    
     function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
     resize();
     window.addEventListener('resize', resize);
-    
     var count = Math.min(50, Math.floor(window.innerWidth / 25));
     for (var i = 0; i < count; i++) {
         particles.push({
@@ -6020,7 +5940,6 @@ function initParticles() {
             opacity: Math.random() * 0.5 + 0.2
         });
     }
-    
     function animate() {
         if (!document.getElementById('welcome-screen').classList.contains('active')) {
             if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -6047,9 +5966,8 @@ function initParticles() {
 }
 
 // ================================================================
-// SECTION 27: TYPING EFFECT (NEW from V2)
+// SECTION 28: TYPING EFFECT (V2)
 // ================================================================
-
 var typingTimeout = null;
 function startTypingEffect() {
     var subtitle = document.getElementById('typing-subtitle');
@@ -6079,23 +5997,14 @@ function stopTypingEffect() {
 }
 
 // ================================================================
-// SECTION 28: RESULTS DISPLAY (MERGED - includes all new features)
+// SECTION 29: RESULTS DISPLAY (MERGED & FIXED)
 // ================================================================
-
 function displayResults() {
     DOM.careerSearch.style.display = 'flex';
-    if (DOM.resultsToolbar) {
-        DOM.resultsToolbar.style.display = 'flex';
-    }
-
+    if (DOM.resultsToolbar) { DOM.resultsToolbar.style.display = 'flex'; }
     if (state.isDiscoveryMode) { generateDiscoveryResults(); return; }
-
     var topCareers = state.results.slice(0, 15);
-    var topName = topCareers[0];
-    var topScore = state.careerScores[topName];
-
     DOM.resultsSubtitle.textContent = t('results_subtitle');
-
     renderStatsSummary(topCareers);
     renderFilterChips();
     renderCareerCards(topCareers);
@@ -6104,20 +6013,11 @@ function displayResults() {
     displaySubjectRecommendations();
     displayCareerClusters();
     displayComparisonTool();
-
-    // ---- NEW: Personality Insights (from V2) ----
-    renderPersonalityInsights();
-    
-    // ---- NEW: Trait Radar Bars (from V2) ----
-    renderTraitRadarBars();
-
-    // ---- NEW: AI Discovery section - update career count ----
+    // V2 Features (with error catching)
+    try { renderPersonalityInsights(); } catch(e) { console.warn('Personality Insights error:', e); }
+    try { renderTraitRadarBars(); } catch(e) { console.warn('Trait Radar Bars error:', e); }
     var totalCareersSpan = document.getElementById('ai-total-careers');
-    if (totalCareersSpan) {
-        totalCareersSpan.textContent = state.results ? state.results.length : 0;
-    }
-
-    // ---- NEW: Load More button (from V2) ----
+    if (totalCareersSpan) { totalCareersSpan.textContent = state.results ? state.results.length : 0; }
     var loadMoreContainer = document.getElementById('career-matches');
     if (loadMoreContainer && state.results && state.results.length > 15) {
         var loadMoreBtn = document.createElement('button');
@@ -6128,31 +6028,758 @@ function displayResults() {
             var newCount = Math.min(currentCount + 10, state.results.length);
             renderCareerCards(state.results.slice(0, newCount));
             loadMoreBtn.textContent = 'Show More Careers (' + (state.results.length - newCount) + ' remaining)';
-            if (newCount >= state.results.length) {
-                loadMoreBtn.style.display = 'none';
-            }
+            if (newCount >= state.results.length) { loadMoreBtn.style.display = 'none'; }
         });
         loadMoreContainer.appendChild(loadMoreBtn);
     }
-
     showShareButtons();
-
     DOM.discoveryMode.style.display = 'none';
     launchConfetti();
     clearSavedState();
 }
 
 // ================================================================
-// SECTIONS 29-40: REMAINING FUNCTIONS
-// (renderStatsSummary, renderFilterChips, renderCareerCards, etc.)
-// These are the same as your current file, so I am not re-pasting them
-// to save space. They are already complete in your existing script.js.
+// SECTION 30: DISCOVERY MODE (V2 - FIXED)
 // ================================================================
+function generateDiscoveryResults() {
+    DOM.careerSearch.style.display = 'none';
+    if (DOM.resultsToolbar) { DOM.resultsToolbar.style.display = 'none'; }
+    DOM.discoveryMode.style.display = 'block';
+    DOM.resultsSubtitle.textContent = t('discovery_title');
+    DOM.careerMatches.innerHTML = '';
+    DOM.statsSummary.innerHTML = '';
+    state.discoveryCompare = [];
+    updateDiscoveryCompareCount();
+    var clusterInfo = {
+        'STEM': { icon: '🔬', name: 'STEM', description: 'Science, Technology, Engineering & Math', activity: 'Try building a small project using recycled materials.' },
+        'Healthcare': { icon: '🏥', name: 'Healthcare', description: 'Medical and health-related careers', activity: 'Visit a clinic and ask if you can observe a nurse or doctor for a day.' },
+        'Business': { icon: '💼', name: 'Business', description: 'Finance, management, and entrepreneurship', activity: 'Start a small "business" selling snacks or crafts for one week.' },
+        'Creative': { icon: '🎨', name: 'Creative', description: 'Arts, media, and design', activity: 'Write a short story or draw a picture about your dream career.' },
+        'Helping': { icon: '🤝', name: 'Helping', description: 'Teaching, social work, and community', activity: 'Help a younger student with their homework or tutor a classmate.' },
+        'Outdoor': { icon: '🌿', name: 'Outdoor', description: 'Agriculture, conservation, and tourism', activity: 'Spend a day outdoors and observe what you enjoy most.' },
+        'Public Service': { icon: '🏛️', name: 'Public Service', description: 'Government, military, and emergency services', activity: 'Visit a government office or talk to a public servant.' },
+        'Skilled Trades': { icon: '🔧', name: 'Skilled Trades', description: 'Hands-on technical and craft careers', activity: 'Try building or fixing something with your hands.' }
+    };
+    var html = '<div style="grid-column:1/-1;text-align:center;margin-bottom:12px;color:var(--text-muted);font-size:14px;">' + t('discovery_instruction') + '</div>';
+    for (var cluster in clusterInfo) {
+        var info = clusterInfo[cluster];
+        var clusterCareers = Object.keys(careers).filter(function(n) { return careers[n] && careers[n].cluster === cluster; });
+        html += '<div class="discovery-card" data-discovery-cluster="' + cluster + '">' +
+            '<span class="cluster-icon" aria-hidden="true">' + info.icon + '</span>' +
+            '<h4>' + info.name + '</h4>' +
+            '<p>' + info.description + '</p>' +
+            '<div style="font-size:13px;color:var(--text-muted);margin:5px 0;">' +
+                clusterCareers.slice(0, 4).join(', ') + (clusterCareers.length > 4 ? ' +' + (clusterCareers.length - 4) + ' more' : '') +
+            '</div>' +
+            '<div class="try-activity">🔍 Try: ' + info.activity + '</div>' +
+        '</div>';
+    }
+    html += '<div class="discovery-next-steps"><h3>💡 ' + t('next_steps_title') + '</h3><ol>' +
+        '<li>' + t('next_step_1') + '</li>' +
+        '<li>' + t('next_step_2') + '</li>' +
+        '<li>' + t('next_step_3') + '</li>' +
+        '<li>' + t('next_step_4') + '</li>' +
+        '</ol>' +
+        '<p class="italic-note">🎯 ' + t('remember_note') + '</p>' +
+        '<button onclick="startQuiz(false)" class="btn-primary" style="margin-top:10px;">🔄 ' + t('retake_quiz_button') + '</button>' +
+        '</div>';
+    DOM.discoveryContent.innerHTML = html;
+    updateDiscoveryComparison();
+    try { displaySubjectRecommendations(); } catch(e) {}
+    try { displayCareerClusters(); } catch(e) {}
+    DOM.clearDiscoveryCompareBtn.textContent = t('clear_all');
+    DOM.clearDiscoveryCompareBtn.onclick = function() {
+        state.discoveryCompare = [];
+        updateDiscoveryCompareCount();
+        updateDiscoveryComparison();
+        showToast(t('clear_all') + '!');
+    };
+}
 
 // ================================================================
-// SECTION 41: SAMPLE RESULTS (from current project)
+// SECTION 31: STATS SUMMARY
 // ================================================================
+function renderStatsSummary(topCareers) {
+    var clusters = {};
+    var globalCount = 0;
+    var totalScore = 0;
+    topCareers.forEach(function(n) {
+        if (careers[n]) {
+            clusters[careers[n].cluster] = true;
+            if (careers[n].globalReady) globalCount++;
+            totalScore += state.careerScores[n];
+        }
+    });
+    var avgScore = Math.round(totalScore / Math.min(topCareers.length, 10));
+    var clusterCount = Object.keys(clusters).length;
+    DOM.statsSummary.innerHTML =
+        '<div class="stat-card"><span class="stat-value">' + Math.min(topCareers.length, 10) + '</span><span class="stat-label">' + t('top_matches') + '</span></div>' +
+        '<div class="stat-card"><span class="stat-value">' + clusterCount + '</span><span class="stat-label">' + t('clusters') + '</span></div>' +
+        '<div class="stat-card"><span class="stat-value">' + avgScore + '%</span><span class="stat-label">' + t('avg_match') + '</span></div>' +
+        '<div class="stat-card"><span class="stat-value">' + globalCount + '</span><span class="stat-label">' + t('global_ready') + '</span></div>';
+}
 
+// ================================================================
+// SECTION 32: FILTER CHIPS
+// ================================================================
+function renderFilterChips() {
+    var clusters = ['all', 'STEM', 'Healthcare', 'Business', 'Creative', 'Helping', 'Outdoor', 'Public Service', 'Skilled Trades'];
+    var icons = { all: '🎯', STEM: '🔬', Healthcare: '🏥', Business: '💼', Creative: '🎨', Helping: '🤝', Outdoor: '🌿', 'Public Service': '🏛️', 'Skilled Trades': '🔧' };
+    DOM.filterChips.innerHTML = clusters.map(function(c) {
+        return '<button class="filter-chip' + (state.activeFilter === c ? ' active' : '') + '" data-filter="' + c + '">' + (icons[c] || '📌') + ' ' + c;
+    }).join('');
+}
+
+// ================================================================
+// SECTION 33: CAREER CARDS
+// ================================================================
+function renderCareerCards(careerList) {
+    var query = state.searchQuery.toLowerCase();
+    var filter = state.activeFilter;
+    var filtered = careerList.filter(function(name) {
+        var career = careers[name];
+        if (!career) return false;
+        if (filter !== 'all' && career.cluster !== filter) return false;
+        if (query && name.toLowerCase().indexOf(query) === -1 &&
+            career.description.toLowerCase().indexOf(query) === -1 &&
+            career.cluster.toLowerCase().indexOf(query) === -1) return false;
+        return true;
+    });
+    if (filtered.length === 0) {
+        DOM.careerMatches.innerHTML = '<div class="no-results"><div class="no-results-icon">🔍</div><p>' + t('no_results') + '<br>' + t('try_different_keywords') + '</p></div>';
+        return;
+    }
+    var fragment = document.createDocumentFragment();
+    filtered.forEach(function(careerName, index) {
+        var career = careers[careerName];
+        var score = state.careerScores[careerName];
+        var scoreClass = score >= 70 ? 'high' : score >= 45 ? 'medium' : 'low';
+        var card = document.createElement('div');
+        card.className = 'career-card';
+        card.setAttribute('role', 'listitem');
+        card.dataset.career = careerName;
+        card.innerHTML =
+            '<div class="career-card-left">' +
+                '<span class="career-icon" aria-hidden="true">' + (career.icon || '🎯') + '</span>' +
+                '<div class="career-card-info">' +
+                    '<span class="career-name">' + careerName + '</span>' +
+                    '<span class="career-cluster" data-cluster="' + career.cluster + '">' + career.cluster + '</span>' +
+                '</div>' +
+            '</div>' +
+            '<div class="career-card-right">' +
+                '<span class="career-score">' + score + '%</span>' +
+                '<div class="score-bar"><div class="score-fill ' + scoreClass + '" style="--print-score-width:' + score + '%"></div></div>' +
+                '<button class="view-details-btn" data-career="' + careerName + '" aria-label="View details for ' + careerName + '">' + t('read_more') + '</button>' +
+            '</div>';
+        fragment.appendChild(card);
+        setTimeout(function() {
+            card.classList.add('revealed');
+            var fill = card.querySelector('.score-fill');
+            if (fill) fill.style.width = score + '%';
+        }, 80 * index);
+    });
+    DOM.careerMatches.innerHTML = '';
+    DOM.careerMatches.appendChild(fragment);
+}
+function handleCareerSearch(e) {
+    state.searchQuery = e.target.value;
+    renderCareerCards(state.results.slice(0, 15));
+}
+function handleFilterClick(e) {
+    var chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    state.activeFilter = chip.dataset.filter;
+    renderFilterChips();
+    renderCareerCards(state.results.slice(0, 15));
+}
+
+// ================================================================
+// SECTION 34: PATHWAY RECOMMENDATIONS
+// ================================================================
+function displayPathwayRecommendations() {
+    var topCareers = state.results.slice(0, 5);
+    var pathwayMap = {};
+    topCareers.forEach(function(name) {
+        var c = careers[name];
+        if (c && c.pathway) {
+            c.pathway.forEach(function(p) { pathwayMap[p] = (pathwayMap[p] || 0) + 1; });
+        }
+    });
+    var sortedPathways = Object.keys(pathwayMap).sort(function(a, b) { return pathwayMap[b] - pathwayMap[a]; });
+    if (sortedPathways.length === 0) {
+        DOM.pathwayDisplay.innerHTML = '<p>No pathway information available for your top careers.</p>';
+        return;
+    }
+    var pathwayDescriptions = {
+        'Natural Science': 'Focus on Mathematics, English, Chemistry, Biology, Physics, and Additional Mathematics.',
+        'Social Science': 'Focus on English, History, Geography, Civics, and Literature.',
+        'Business Studies': 'Focus on Mathematics, English, Commerce, Principles of Accounts, and Economics.',
+        'STEM': 'Focus on Mathematics, Physics, Chemistry, Biology, and ICT/Computer Studies.',
+        'Creative Arts': 'Focus on Art, Music, Drama, Design, and English.',
+        'Vocational Agriculture': 'Focus on Agriculture, Science, Biology, and Geography.',
+        'Vocational Technology': 'Focus on Design & Technology, Mathematics, Physics, and ICT.',
+        'Vocational PCA': 'Focus on Performing & Creative Arts, Music, Drama, and Art.',
+        'Vocational HEH': 'Focus on Home Economics, Hospitality, and English.',
+        'Vocational PES': 'Focus on Physical Education, Sports Science, and English.'
+    };
+    var pathwayDisplayNames = {
+        'Natural Science': '🔬 Natural Science Pathway',
+        'Social Science': '📖 Social Science Pathway',
+        'Business Studies': '💼 Business Studies Pathway',
+        'STEM': '🧪 STEM Pathway',
+        'Creative Arts': '🎨 Creative & Performing Arts Pathway',
+        'Vocational Agriculture': '🌾 Vocational Agriculture Pathway',
+        'Vocational Technology': '🔧 Vocational Technology Pathway',
+        'Vocational PCA': '🎭 Vocational Performing & Creative Arts Pathway',
+        'Vocational HEH': '🏠 Vocational Home Economics & Hospitality Pathway',
+        'Vocational PES': '🏃 Vocational Physical Education & Sports Pathway'
+    };
+    var html = '';
+    sortedPathways.forEach(function(p) {
+        var displayName = pathwayDisplayNames[p] || p;
+        var description = pathwayDescriptions[p] || 'Focus on subjects related to this career path.';
+        html += '<div class="pathway-card">' +
+            '<h3>' + displayName + '</h3>' +
+            '<p class="pathway-subjects">' + description + '</p>' +
+            '</div>';
+    });
+    html += '<p style="font-size:13px;color:var(--text-muted);margin-top:8px;">💡 ' + t('pathway_desc') + '</p>';
+    DOM.pathwayDisplay.innerHTML = html;
+}
+
+// ================================================================
+// SECTION 35: SUBJECT RECOMMENDATIONS
+// ================================================================
+function displaySubjectRecommendations() {
+    var topCareers = state.results.slice(0, 5);
+    var required = {};
+    var recommended = {};
+    topCareers.forEach(function(name) {
+        var c = careers[name];
+        if (!c) return;
+        if (c.requiredSubjects) {
+            c.requiredSubjects.forEach(function(s) { required[s] = (required[s] || 0) + 1; });
+        }
+        if (c.requiredSkills) {
+            c.requiredSkills.forEach(function(s) { required['Skill: ' + s] = (required['Skill: ' + s] || 0) + 1; });
+        }
+        if (c.recommendedSubjects) {
+            c.recommendedSubjects.forEach(function(s) { recommended[s] = (recommended[s] || 0) + 1; });
+        }
+    });
+    var sortedReq = Object.keys(required).sort(function(a, b) { return required[b] - required[a]; });
+    var sortedRec = Object.keys(recommended).sort(function(a, b) { return recommended[b] - recommended[a]; });
+    var html = '';
+    if (sortedReq.length) {
+        html += '<div class="subject-section-label">⭐ ' + t('must_have') + '</div><div class="subject-tags-row">';
+        sortedReq.forEach(function(s) {
+            var isSkill = s.indexOf('Skill: ') === 0;
+            var displayName = isSkill ? s.replace('Skill: ', '') : s;
+            html += '<span class="subject-tag required">' + displayName + (isSkill ? ' 🛠️' : '') + '</span>';
+        });
+        html += '</div>';
+    }
+    if (sortedRec.length) {
+        html += '<div class="subject-section-label">👍 ' + t('recommended') + '</div><div class="subject-tags-row">';
+        sortedRec.forEach(function(s) { html += '<span class="subject-tag">' + s + '</span>'; });
+        html += '</div>';
+    }
+    if (!html) html = '<p>No subject recommendations available.</p>';
+    DOM.subjectList.innerHTML = html;
+}
+
+// ================================================================
+// SECTION 36: CAREER CLUSTERS (Web Map)
+// ================================================================
+function displayCareerClusters() {
+    var clusterInfo = {
+        'STEM': { icon: '🔬', name: 'STEM' },
+        'Healthcare': { icon: '🏥', name: 'Healthcare' },
+        'Business': { icon: '💼', name: 'Business' },
+        'Creative': { icon: '🎨', name: 'Creative' },
+        'Helping': { icon: '🤝', name: 'Helping' },
+        'Outdoor': { icon: '🌿', name: 'Outdoor' },
+        'Public Service': { icon: '🏛️', name: 'Public Service' },
+        'Skilled Trades': { icon: '🔧', name: 'Skilled Trades' }
+    };
+    var clusterScores = {};
+    for (var cluster in clusterInfo) {
+        var clusterCareers = Object.keys(careers).filter(function(n) { return careers[n] && careers[n].cluster === cluster; });
+        if (clusterCareers.length > 0) {
+            var total = 0;
+            clusterCareers.forEach(function(n) { total += (state.careerScores[n] || 0); });
+            clusterScores[cluster] = Math.round(total / clusterCareers.length);
+        } else {
+            clusterScores[cluster] = 0;
+        }
+    }
+    var html = '';
+    for (var cl in clusterInfo) {
+        var info = clusterInfo[cl];
+        var score = clusterScores[cl] || 0;
+        var careersInCluster = Object.keys(careers).filter(function(n) { return careers[n] && careers[n].cluster === cl; });
+        html += '<div class="cluster-card" data-cluster="' + cl + '">' +
+            '<span class="cluster-icon" aria-hidden="true">' + info.icon + '</span>' +
+            '<div class="cluster-name">' + info.name + '</div>' +
+            '<div class="cluster-score">' + score + '% match</div>' +
+            '<div class="score-bar"><div class="score-fill high" style="width:' + score + '%"></div></div>' +
+            '<div class="cluster-careers" id="cluster-' + cl + '">' +
+            careersInCluster.map(function(n) {
+                return '<a class="cluster-career-item" data-career="' + n + '" style="cursor:pointer;">• ' + n + '</a>';
+            }).join('') +
+            '</div></div>';
+    }
+    DOM.careerClusters.innerHTML = html;
+    var clusterCards = DOM.careerClusters.querySelectorAll('.cluster-card');
+    clusterCards.forEach(function(card) {
+        card.addEventListener('click', function(e) {
+            if (e.target.closest('.cluster-career-item')) { return; }
+            var careersList = document.getElementById('cluster-' + this.dataset.cluster);
+            if (careersList) { careersList.classList.toggle('show'); }
+        });
+    });
+    var careerItems = DOM.careerClusters.querySelectorAll('.cluster-career-item');
+    careerItems.forEach(function(item) {
+        item.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var careerName = this.dataset.career;
+            if (careerName) { showCareerDetails(careerName); }
+        });
+    });
+}
+
+// ================================================================
+// SECTION 37: COMPARISON TOOL (5 Careers)
+// ================================================================
+function displayComparisonTool() {
+    var topCareers = state.results.slice(0, 20);
+    var html = '';
+    for (var i = 1; i <= 5; i++) {
+        html += '<select class="comparison-select" id="compare-' + i + '" aria-label="Select career ' + i + '">' +
+            '<option value="">' + t('select_career') + ' ' + i + '</option>' +
+            topCareers.map(function(n) { return '<option value="' + n + '">' + n + '</option>'; }).join('') +
+            '</select>';
+    }
+    DOM.comparisonSelectors.innerHTML = html;
+    updateComparison();
+    DOM.clearComparisonBtn.textContent = t('clear_all');
+    DOM.clearComparisonBtn.onclick = function() {
+        for (var i = 1; i <= 5; i++) {
+            var sel = document.getElementById('compare-' + i);
+            if (sel) sel.value = '';
+        }
+        updateComparison();
+        showToast(t('clear_all') + '!');
+    };
+}
+function updateComparison() {
+    var selected = [];
+    for (var i = 1; i <= 5; i++) {
+        var sel = document.getElementById('compare-' + i);
+        if (sel && sel.value) selected.push(sel.value);
+    }
+    if (!selected.length) {
+        DOM.comparisonTable.innerHTML = '<p style="padding:20px;text-align:center;color:var(--text-muted);">' + t('compare_desc') + '</p>';
+        return;
+    }
+    var features = [
+        { key: 'icon', label: 'Icon' },
+        { key: 'cluster', label: t('cluster') },
+        { key: 'salaryLocal', label: t('zambia') + ' ' + t('salary') },
+        { key: 'salaryGlobal', label: t('international') + ' ' + t('salary') },
+        { key: 'outlook', label: 'Job Outlook' },
+        { key: 'globalDemand', label: t('global_demand') }
+    ];
+    var html = '<table class="comparison-table"><thead><tr><th>' + t('feature') + '</th>';
+    selected.forEach(function(n) { html += '<th>' + n + '</th>'; });
+    html += '</tr></thead><tbody>';
+    features.forEach(function(f) {
+        html += '<tr><td><strong>' + f.label + '</strong></td>';
+        selected.forEach(function(n) {
+            var career = careers[n];
+            var value = career && career[f.key] ? career[f.key] : '—';
+            if (f.key === 'icon') value = value || '—';
+            html += '<td>' + value + '</td>';
+        });
+        html += '</tr>';
+    });
+    html += '<tr><td><strong>' + t('requirements') + '</strong></td>';
+    selected.forEach(function(n) {
+        var c = careers[n];
+        var reqs = [];
+        if (c && c.requiredSubjects) reqs = c.requiredSubjects;
+        else if (c && c.requiredSkills) reqs = c.requiredSkills.map(function(s) { return '🛠️ ' + s; });
+        html += '<td>' + (reqs.length ? reqs.join(', ') : '—') + '</td>';
+    });
+    html += '</tr>';
+    html += '<tr><td><strong>' + t('pathway') + '</strong></td>';
+    selected.forEach(function(n) {
+        var c = careers[n];
+        var pathwayDisplay = c && c.pathway ? c.pathway.join(', ') : '—';
+        html += '<td>' + pathwayDisplay + '</td>';
+    });
+    html += '</tr>';
+    html += '</tbody></table>';
+    DOM.comparisonTable.innerHTML = html;
+}
+
+// ================================================================
+// SECTION 38: DISCOVERY COMPARISON HELPERS
+// ================================================================
+function updateDiscoveryCompareCount() {
+    DOM.discoveryCompareCount.textContent = state.discoveryCompare.length;
+}
+function updateDiscoveryComparison() {
+    var selected = state.discoveryCompare;
+    if (!selected.length) {
+        DOM.discoveryCompareTable.innerHTML = '<p style="color:var(--text-muted);padding:20px;text-align:center;">' + t('discovery_compare_empty') + '</p>';
+        return;
+    }
+    var features = [
+        { key: 'icon', label: 'Icon' },
+        { key: 'cluster', label: t('cluster') },
+        { key: 'salaryLocal', label: t('zambia') + ' ' + t('salary') },
+        { key: 'salaryGlobal', label: t('international') + ' ' + t('salary') },
+        { key: 'outlook', label: 'Job Outlook' },
+        { key: 'globalDemand', label: t('global_demand') }
+    ];
+    var html = '<table class="comparison-table"><thead><tr><th>' + t('feature') + '</th>';
+    selected.forEach(function(n) { html += '<th>' + n + '</th>'; });
+    html += '</tr></thead><tbody>';
+    features.forEach(function(f) {
+        html += '<tr><td><strong>' + f.label + '</strong></td>';
+        selected.forEach(function(n) {
+            var career = careers[n];
+            var value = career && career[f.key] ? career[f.key] : '—';
+            if (f.key === 'icon') value = value || '—';
+            html += '<td>' + value + '</td>';
+        });
+        html += '</tr>';
+    });
+    html += '<tr><td><strong>' + t('requirements') + '</strong></td>';
+    selected.forEach(function(n) {
+        var c = careers[n];
+        var reqs = [];
+        if (c && c.requiredSubjects) reqs = c.requiredSubjects;
+        else if (c && c.requiredSkills) reqs = c.requiredSkills.map(function(s) { return '🛠️ ' + s; });
+        html += '<td>' + (reqs.length ? reqs.join(', ') : '—') + '</td>';
+    });
+    html += '</tr>';
+    html += '<tr><td><strong>' + t('pathway') + '</strong></td>';
+    selected.forEach(function(n) {
+        var c = careers[n];
+        var pathwayDisplay = c && c.pathway ? c.pathway.join(', ') : '—';
+        html += '<td>' + pathwayDisplay + '</td>';
+    });
+    html += '</tr>';
+    html += '</tbody></table>';
+    DOM.discoveryCompareTable.innerHTML = html;
+}
+
+// ================================================================
+// SECTION 39: CAREER DETAILS MODAL
+// ================================================================
+var modalCurrentCareer = null;
+function showCareerDetails(careerName) {
+    var career = careers[careerName];
+    if (!career) return;
+    modalCurrentCareer = careerName;
+    var reqText = '';
+    if (career.requiredSubjects) {
+        reqText = '<p><strong>Must have:</strong> ' + career.requiredSubjects.join(', ') + '</p>';
+        if (career.recommendedSubjects) { reqText += '<p><strong>Recommended:</strong> ' + career.recommendedSubjects.join(', ') + '</p>'; }
+    } else if (career.requiredSkills) {
+        reqText = '<p><strong>Required Skills:</strong> ' + career.requiredSkills.join(', ') + '</p>';
+    } else { reqText = '<p><strong>Requirements:</strong> Varies by employer</p>'; }
+    var institutionsText = career.institutions ? career.institutions.join(', ') : 'On-the-job training or self-study';
+    var pathwayText = career.pathway ? career.pathway.join(', ') : 'Various pathways available.';
+    var html =
+        '<span class="detail-icon" aria-hidden="true">' + (career.icon || '🎯') + '</span>' +
+        '<h2 id="modal-career-name">' + careerName + '</h2>' +
+        '<div class="detail-tags">' +
+            '<span class="detail-tag">' + career.cluster + '</span>' +
+            '<span class="detail-tag outlook">' + career.outlook + '</span>' +
+            (career.globalReady ? '<span class="detail-tag global">🌍 Global Ready</span>' : '') +
+        '</div>' +
+        '<div class="detail-section"><h4>📋 ' + t('what_they_do') + '</h4><p>' + career.description + '</p></div>' +
+        '<div class="detail-section"><h4>📚 ' + t('requirements') + '</h4>' + reqText + '</div>' +
+        '<div class="detail-section"><h4>🗺️ ' + t('career_pathway') + '</h4><p><strong>Form 1-4 Pathway:</strong> ' + pathwayText + '</p>' +
+        (career.pathwayDescription ? '<p style="margin-top:4px;font-size:14px;color:var(--text-secondary);">' + career.pathwayDescription + '</p>' : '') +
+        '</div>' +
+        '<div class="detail-section"><h4>🏫 ' + t('where_to_study') + '</h4><p>' + institutionsText + '</p></div>' +
+        '<div class="detail-section"><h4>💰 ' + t('salary') + '</h4>' +
+            '<p><strong>' + t('zambia') + ':</strong> ' + career.salaryLocal + '</p>' +
+            (career.salaryGlobal ? '<p><strong>' + t('international') + ':</strong> ' + career.salaryGlobal + '</p>' : '') + '</div>';
+    if (career.globalReady) {
+        html += '<div class="detail-section international"><h4>🌍 ' + t('international_opportunities') + '</h4>' +
+            '<p><strong>' + t('global_demand') + ':</strong> ' + career.globalDemand + '</p>' +
+            (career.countries ? '<p><strong>' + t('countries') + ':</strong> ' + career.countries.join(', ') : '') +
+            (career.scholarships ? '<p><strong>' + t('scholarships') + ':</strong> ' + career.scholarships.join(', ') : '') +
+            (career.pathwayAbroad ? '<p><strong>' + t('how_to_work_abroad') + ':</strong></p><ol>' +
+                career.pathwayAbroad.map(function(s) { return '<li>' + s + '</li>'; }).join('') + '</ol>' : '') +
+            '</div>';
+    }
+    if (career.story) {
+        html += '<div class="detail-section story"><h4>🌟 ' + t('career_story') + '</h4>' +
+            '<p style="font-style:italic;">' + career.story + '</p></div>';
+    }
+    if (career.careerDay) {
+        html += '<div class="detail-section activity"><h4>🔍 ' + t('career_day_activity') + '</h4>' +
+            '<p>' + career.careerDay + '</p></div>';
+    }
+    DOM.careerDetailContent.innerHTML = html;
+    var isInCompare = false;
+    if (state.isDiscoveryMode) {
+        isInCompare = state.discoveryCompare.indexOf(careerName) !== -1;
+        DOM.modalAddToCompare.style.display = 'inline-block';
+        DOM.modalAddToCompare.textContent = isInCompare ? '❌ ' + t('remove_from_compare') : '➕ ' + t('add_to_compare');
+        DOM.modalAddToCompare.dataset.career = careerName;
+    } else {
+        var compareList = [];
+        for (var i = 1; i <= 5; i++) {
+            var sel = document.getElementById('compare-' + i);
+            if (sel && sel.value) compareList.push(sel.value);
+        }
+        isInCompare = compareList.indexOf(careerName) !== -1;
+        DOM.modalAddToCompare.style.display = 'inline-block';
+        DOM.modalAddToCompare.textContent = isInCompare ? '❌ ' + t('remove_from_compare') : '➕ ' + t('add_to_compare');
+        DOM.modalAddToCompare.dataset.career = careerName;
+    }
+    DOM.careerModal.classList.add('active');
+    DOM.modalClose.focus();
+    document.body.style.overflow = 'hidden';
+}
+DOM.modalAddToCompare.addEventListener('click', function() {
+    var careerName = this.dataset.career;
+    if (!careerName) return;
+    if (state.isDiscoveryMode) {
+        var index = state.discoveryCompare.indexOf(careerName);
+        if (index !== -1) {
+            state.discoveryCompare.splice(index, 1);
+            showToast('Removed ' + careerName + ' from comparison.');
+        } else {
+            if (state.discoveryCompare.length >= 5) { showToast('You can only compare up to 5 careers!'); return; }
+            state.discoveryCompare.push(careerName);
+            showToast('Added ' + careerName + ' to comparison!');
+        }
+        updateDiscoveryCompareCount();
+        updateDiscoveryComparison();
+        var cards = document.querySelectorAll('.discovery-card');
+        cards.forEach(function(card) {
+            if (card.dataset.discoveryCluster) {
+                var list = card.querySelector('.discovery-career-list');
+                if (list) {
+                    toggleDiscoveryCareers(card.dataset.discoveryCluster, card);
+                }
+            }
+        });
+        var isNowInCompare = state.discoveryCompare.indexOf(careerName) !== -1;
+        DOM.modalAddToCompare.textContent = isNowInCompare ? '❌ ' + t('remove_from_compare') : '➕ ' + t('add_to_compare');
+    } else {
+        var compareList = [];
+        var compareSelectors = [];
+        for (var i = 1; i <= 5; i++) {
+            var sel = document.getElementById('compare-' + i);
+            if (sel) { compareSelectors.push(sel); if (sel.value) compareList.push(sel.value); }
+        }
+        var index = compareList.indexOf(careerName);
+        if (index !== -1) {
+            compareSelectors[index].value = '';
+            showToast('Removed ' + careerName + ' from comparison.');
+        } else {
+            if (compareList.length >= 5) { showToast('You can only compare up to 5 careers!'); return; }
+            var emptyIndex = -1;
+            for (var j = 0; j < compareSelectors.length; j++) {
+                if (!compareSelectors[j].value) { emptyIndex = j; break; }
+            }
+            if (emptyIndex !== -1) {
+                compareSelectors[emptyIndex].value = careerName;
+                showToast('Added ' + careerName + ' to comparison!');
+            }
+        }
+        updateComparison();
+        var updatedCompareList = [];
+        for (var k = 1; k <= 5; k++) {
+            var sel2 = document.getElementById('compare-' + k);
+            if (sel2 && sel2.value) updatedCompareList.push(sel2.value);
+        }
+        var isNowInCompare2 = updatedCompareList.indexOf(careerName) !== -1;
+        DOM.modalAddToCompare.textContent = isNowInCompare2 ? '❌ ' + t('remove_from_compare') : '➕ ' + t('add_to_compare');
+    }
+});
+function closeCareerModal() {
+    DOM.careerModal.classList.remove('active');
+    document.body.style.overflow = '';
+    modalCurrentCareer = null;
+}
+
+// ================================================================
+// SECTION 40: CONFETTI & LAUNCH
+// ================================================================
+function launchConfetti() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var canvas = DOM.confettiCanvas;
+    var ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var particles = [];
+    var colors = ['#008000','#DE2010','#EF7D00','#00b800','#ffd700','#3b82f6','#a855f7','#22c55e'];
+    for (var i = 0; i < 120; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            w: Math.random() * 10 + 5,
+            h: Math.random() * 6 + 3,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            vx: (Math.random() - 0.5) * 4,
+            vy: Math.random() * 3 + 2,
+            rotation: Math.random() * 360,
+            rotationSpeed: (Math.random() - 0.5) * 10,
+            opacity: 1
+        });
+    }
+    var frame = 0;
+    var maxFrames = 150;
+    function animate() {
+        frame++;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.05;
+            p.rotation += p.rotationSpeed;
+            if (frame > maxFrames - 40) p.opacity = Math.max(0, p.opacity - 0.03);
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rotation * Math.PI / 180);
+            ctx.globalAlpha = p.opacity;
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+            ctx.restore();
+        }
+        if (frame < maxFrames) { requestAnimationFrame(animate); }
+        else { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+    }
+    animate();
+}
+
+// ================================================================
+// SECTION 41: PDF & PRINT
+// ================================================================
+function generatePDF() {
+    if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
+        showToast('PDF libraries not loaded. Please check your internet connection and try again.');
+        return;
+    }
+    var selectedMode = document.querySelector('input[name="color-mode"]:checked');
+    var isColor = selectedMode ? selectedMode.value === 'color' : true;
+    var originalText = DOM.downloadPdfBtn.textContent;
+    DOM.downloadPdfBtn.textContent = '⏳ Generating PDF...';
+    DOM.downloadPdfBtn.disabled = true;
+    document.querySelectorAll('.score-fill').forEach(function(el) { el.style.transition = 'none'; });
+    document.querySelectorAll('.career-card').forEach(function(el) { el.classList.add('revealed'); });
+    var resultsSection = document.getElementById('results-screen');
+    html2canvas(resultsSection, {
+        scale: 2, useCORS: true,
+        backgroundColor: isColor ? '#ffffff' : '#f5f5f5',
+        logging: false,
+        width: resultsSection.scrollWidth,
+        height: resultsSection.scrollHeight
+    }).then(function(canvas) {
+        var imgData = canvas.toDataURL('image/png');
+        var PDFLib = window.jspdf && window.jspdf.jsPDF;
+        if (!PDFLib) {
+            showToast('PDF library not loaded. Please check your internet connection and try again.');
+            DOM.downloadPdfBtn.textContent = originalText;
+            DOM.downloadPdfBtn.disabled = false;
+            return;
+        }
+        var pdf = new PDFLib('p', 'mm', 'a4');
+        var pdfWidth = pdf.internal.pageSize.getWidth();
+        var pdfHeight = pdf.internal.pageSize.getHeight();
+        var imgWidth = pdfWidth;
+        var imgHeight = (canvas.height * pdfWidth) / canvas.width;
+        var heightLeft = imgHeight;
+        var position = 0;
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pdfHeight;
+        while (heightLeft > 0) {
+            position -= pdfHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pdfHeight;
+        }
+        var timestamp = new Date().toISOString().slice(0, 10);
+        pdf.save('Career_Quest_Report_' + timestamp + '.pdf');
+        DOM.downloadPdfBtn.textContent = originalText;
+        DOM.downloadPdfBtn.disabled = false;
+        showToast('✅ PDF downloaded successfully!');
+    }).catch(function(error) {
+        console.error('PDF generation error:', error);
+        showToast('❌ Error generating PDF. Try the print option instead.');
+        DOM.downloadPdfBtn.textContent = originalText;
+        DOM.downloadPdfBtn.disabled = false;
+    });
+}
+function printResults() {
+    var selectedMode = document.querySelector('input[name="color-mode"]:checked');
+    var isColor = selectedMode ? selectedMode.value === 'color' : true;
+    document.body.classList.toggle('bw-print', !isColor);
+    window.print();
+    setTimeout(function() { document.body.classList.remove('bw-print'); }, 5000);
+}
+
+// ================================================================
+// SECTION 42: BACK TO TOP
+// ================================================================
+function handleScroll() {
+    DOM.backToTop.classList.toggle('visible', window.scrollY > 400);
+}
+
+// ================================================================
+// SECTION 43: SAVED PROGRESS BANNER
+// ================================================================
+function checkSavedProgress() {
+    var saved = loadSavedState();
+    if (!saved || !saved.answers || saved.answers.length === 0) return;
+    if (typeof questions === 'undefined' || !questions.length) return;
+    var answeredCount = saved.answers.filter(function(a) { return a && a.length; }).length;
+    var total = questions.length;
+    if (answeredCount > 0 && !saved.quizCompleted) {
+        DOM.savedProgressBanner.innerHTML =
+            '<div class="saved-progress">' +
+            '<span>📌 You have ' + answeredCount + ' of ' + total + ' questions saved. Continue where you left off?</span>' +
+            '<button id="resume-btn">🚀 Continue Quiz</button>' +
+            '</div>';
+        document.getElementById('resume-btn').addEventListener('click', function() {
+            state.currentQuestion = saved.currentQuestion || 0;
+            state.answers = saved.answers || [];
+            state.compareList = saved.compareList || [];
+            state.personalityTraits = saved.personalityTraits || {};
+            startQuiz(true);
+        });
+    } else if (saved.quizCompleted && saved.results) {
+        DOM.savedProgressBanner.innerHTML =
+            '<div class="saved-progress">' +
+            '<span>📊 You have previous results. View them again?</span>' +
+            '<button id="view-results-btn">📈 View Results</button>' +
+            '</div>';
+        document.getElementById('view-results-btn').addEventListener('click', function() {
+            state.careerScores = saved.careerScores || {};
+            state.results = saved.results || [];
+            state.quizCompleted = true;
+            state.compareList = saved.compareList || [];
+            state.personalityTraits = saved.personalityTraits || {};
+            showScreen('results-screen');
+            displayResults();
+        });
+    }
+}
+
+// ================================================================
+// SECTION 44: SAMPLE RESULTS (FIXED)
+// ================================================================
 const sampleAnswers = [
     ['English', 'Art', 'ICT and Computer Studies', 'History'],
     ['Helping others', 'Drawing', 'Reading', 'Writing', 'Listening to music'],
@@ -6185,7 +6812,6 @@ const sampleAnswers = [
     ['I am supportive and encouraging', 'I am expressive and passionate'],
     ['Flexible schedule', 'I want to work on projects']
 ];
-
 function loadSampleResults() {
     state.currentQuestion = 0;
     state.answers = sampleAnswers.slice();
@@ -6196,7 +6822,6 @@ function loadSampleResults() {
     state.careerScores = {};
     state.compareList = [];
     state.personalityTraits = {};
-
     calculateResults();
     saveState();
     showScreen('results-screen');
@@ -6205,129 +6830,198 @@ function loadSampleResults() {
 }
 
 // ================================================================
-// SECTION 42: EVENT LISTENERS (MERGED)
+// SECTION 45: DISCOVERY MODE - TOGGLE CAREERS
 // ================================================================
+function toggleDiscoveryCareers(cluster, cardEl) {
+    var existing = cardEl.querySelector('.discovery-career-list');
+    if (existing) { existing.remove(); return; }
+    document.querySelectorAll('.discovery-career-list').forEach(function(el) { el.remove(); });
+    var careersInCluster = Object.keys(careers).filter(function(n) { return careers[n] && careers[n].cluster === cluster; });
+    var list = document.createElement('div');
+    list.className = 'discovery-career-list';
+    careersInCluster.forEach(function(name) {
+        var c = careers[name];
+        if (!c) return;
+        var reqs = c.requiredSubjects || c.requiredSkills || ['Various'];
+        var reqDisplay = reqs.slice(0, 3).join(', ') + (reqs.length > 3 ? ' +' + (reqs.length - 3) + ' more' : '');
+        var isInCompare = state.discoveryCompare.indexOf(name) !== -1;
+        var item = document.createElement('div');
+        item.className = 'discovery-career-item';
+        item.innerHTML =
+            '<h5 data-career="' + name + '">' + c.icon + ' ' + name + '</h5>' +
+            '<p>' + c.description.substring(0, 120) + '...</p>' +
+            '<p><strong>' + t('requirements') + ':</strong> ' + reqDisplay + '</p>' +
+            '<p><strong>' + t('pathway') + ':</strong> ' + (c.pathway ? c.pathway.join(', ') : 'Various') + '</p>' +
+            '<div class="career-tags"><span>' + c.outlook + '</span><span>' + c.salaryLocal + '</span>' +
+            (c.globalReady ? '<span>🌍 Global Ready</span>' : '') + '</div>' +
+            '<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">' +
+                '<button class="btn-small btn-secondary discovery-read-more" data-career="' + name + '" style="padding:4px 12px;font-size:12px;">📖 ' + t('read_more') + '</button>' +
+                (isInCompare ?
+                    '<button class="btn-small btn-secondary discovery-remove-compare" data-career="' + name + '" style="padding:4px 12px;font-size:12px;background:var(--zm-red);color:white;border-color:var(--zm-red);">❌ ' + t('remove_from_compare') + '</button>' :
+                    '<button class="btn-small btn-primary discovery-add-compare" data-career="' + name + '" style="padding:4px 12px;font-size:12px;" ' + (state.discoveryCompare.length >= 5 ? 'disabled' : '') + '>➕ ' + t('add_to_compare') + '</button>'
+                ) +
+            '</div>';
+        list.appendChild(item);
+    });
+    cardEl.appendChild(list);
+}
 
+DOM.discoveryContent.addEventListener('click', function(e) {
+    var discoveryCard = e.target.closest('.discovery-card');
+    if (discoveryCard && discoveryCard.dataset.discoveryCluster && !e.target.closest('.discovery-career-list')) {
+        toggleDiscoveryCareers(discoveryCard.dataset.discoveryCluster, discoveryCard);
+        return;
+    }
+    var readMoreBtn = e.target.closest('.discovery-read-more');
+    if (readMoreBtn) { showCareerDetails(readMoreBtn.dataset.career); return; }
+    var addBtn = e.target.closest('.discovery-add-compare');
+    if (addBtn) {
+        var careerName = addBtn.dataset.career;
+        if (state.discoveryCompare.length >= 5) { showToast('You can only compare up to 5 careers!'); return; }
+        if (state.discoveryCompare.indexOf(careerName) !== -1) { showToast('This career is already in the comparison.'); return; }
+        state.discoveryCompare.push(careerName);
+        updateDiscoveryCompareCount();
+        updateDiscoveryComparison();
+        var parentCard = addBtn.closest('.discovery-card');
+        if (parentCard && parentCard.dataset.discoveryCluster) { toggleDiscoveryCareers(parentCard.dataset.discoveryCluster, parentCard); }
+        showToast('Added ' + careerName + ' to comparison!');
+        return;
+    }
+    var removeBtn = e.target.closest('.discovery-remove-compare');
+    if (removeBtn) {
+        var careerName = removeBtn.dataset.career;
+        state.discoveryCompare = state.discoveryCompare.filter(function(c) { return c !== careerName; });
+        updateDiscoveryCompareCount();
+        updateDiscoveryComparison();
+        var parentCard = removeBtn.closest('.discovery-card');
+        if (parentCard && parentCard.dataset.discoveryCluster) { toggleDiscoveryCareers(parentCard.dataset.discoveryCluster, parentCard); }
+        showToast('Removed ' + careerName + ' from comparison.');
+        return;
+    }
+    var careerEl = e.target.closest('[data-career]');
+    if (careerEl) showCareerDetails(careerEl.dataset.career);
+});
+
+// ================================================================
+// SECTION 46: SHARE BUTTONS (VISIBILITY)
+// ================================================================
+function showShareButtons() {
+    var shareSection = document.querySelector('.share-results-section');
+    if (shareSection) { shareSection.style.display = 'block'; }
+}
+
+// ================================================================
+// SECTION 47: INITIALIZATION (FIXED - attaches ALL listeners)
+// ================================================================
 function init() {
     state.darkMode = loadTheme();
     applyTheme();
-
     var savedLang = getCurrentLanguage();
     state.language = savedLang;
     updateLanguageUI();
-
     var hasShared = checkForSharedResults();
-
     if (!hasShared) {
         showScreen('welcome-screen');
         checkSavedProgress();
     }
 
-    // ---- MAIN QUIZ BUTTONS ----
-    DOM.startQuizBtn.addEventListener('click', function() { startQuiz(false); });
-    DOM.iDontKnowBtn.addEventListener('click', startDiscoveryMode);
+    // --- QUIZ BUTTONS ---
+    if (DOM.startQuizBtn) DOM.startQuizBtn.addEventListener('click', function() { startQuiz(false); });
+    if (DOM.iDontKnowBtn) DOM.iDontKnowBtn.addEventListener('click', startDiscoveryMode);
+    if (DOM.sampleResultsBtn) DOM.sampleResultsBtn.addEventListener('click', function() { loadSampleResults(); });
 
-    // ---- SAMPLE RESULTS BUTTON ----
-    if (DOM.sampleResultsBtn) {
-        DOM.sampleResultsBtn.addEventListener('click', function() {
-            loadSampleResults();
-        });
-    }
+    // --- AI DISCOVERY BUTTONS ---
+    if (DOM.smartDiscoverBtn) DOM.smartDiscoverBtn.addEventListener('click', function() { runSmartDiscovery(); });
+    if (DOM.aiDiscoverBtn) DOM.aiDiscoverBtn.addEventListener('click', function() { showAIPanel(); });
+    if (DOM.exploreAllBtn) DOM.exploreAllBtn.addEventListener('click', function() { showCareerExplorer(); });
 
-    // ---- AI DISCOVERY BUTTONS (NEW from V2) ----
-    if (DOM.smartDiscoverBtn) {
-        DOM.smartDiscoverBtn.addEventListener('click', function() { runSmartDiscovery(); });
-    }
-    if (DOM.aiDiscoverBtn) {
-        DOM.aiDiscoverBtn.addEventListener('click', function() { showAIPanel(); });
-    }
-    if (DOM.exploreAllBtn) {
-        DOM.exploreAllBtn.addEventListener('click', function() { showCareerExplorer(); });
-    }
-
-    // ---- PARTICLES & TYPING (NEW from V2) ----
+    // --- PARTICLES & TYPING ---
     initParticles();
     startTypingEffect();
 
-    // ---- QUIZ NAVIGATION ----
-    DOM.prevBtn.addEventListener('click', prevQuestion);
-    DOM.nextBtn.addEventListener('click', nextQuestion);
+    // --- QUIZ NAVIGATION ---
+    if (DOM.prevBtn) DOM.prevBtn.addEventListener('click', prevQuestion);
+    if (DOM.nextBtn) DOM.nextBtn.addEventListener('click', nextQuestion);
+    if (DOM.optionsContainer) {
+        DOM.optionsContainer.addEventListener('click', function(e) {
+            var btn = e.target.closest('.option-btn');
+            if (btn) toggleOption(btn);
+        });
+    }
 
-    DOM.optionsContainer.addEventListener('click', function(e) {
-        var btn = e.target.closest('.option-btn');
-        if (btn) toggleOption(btn);
-    });
+    // --- PDF & PRINT ---
+    if (DOM.downloadPdfBtn) DOM.downloadPdfBtn.addEventListener('click', generatePDF);
+    if (DOM.printBtn) DOM.printBtn.addEventListener('click', printResults);
 
-    // ---- PDF & PRINT ----
-    DOM.downloadPdfBtn.addEventListener('click', generatePDF);
-    DOM.printBtn.addEventListener('click', printResults);
+    // --- RETAKE ---
+    if (DOM.retakeBtn) {
+        DOM.retakeBtn.addEventListener('click', function() {
+            var dm = state.darkMode;
+            var cm = state.colorMode;
+            var lang = state.language;
+            state = {
+                currentQuestion: 0,
+                answers: [],
+                quizStarted: false,
+                quizCompleted: false,
+                results: null,
+                careerScores: {},
+                isDiscoveryMode: false,
+                colorMode: cm,
+                activeFilter: 'all',
+                searchQuery: '',
+                darkMode: dm,
+                kbFocusIndex: -1,
+                discoveryCompare: [],
+                compareList: [],
+                personalityTraits: {},
+                language: lang,
+                shareData: null
+            };
+            clearSavedState();
+            showScreen('welcome-screen');
+            checkSavedProgress();
+        });
+    }
 
-    // ---- RETAKE ----
-    DOM.retakeBtn.addEventListener('click', function() {
-        var dm = state.darkMode;
-        var cm = state.colorMode;
-        var lang = state.language;
-        state = {
-            currentQuestion: 0,
-            answers: [],
-            quizStarted: false,
-            quizCompleted: false,
-            results: null,
-            careerScores: {},
-            isDiscoveryMode: false,
-            colorMode: cm,
-            activeFilter: 'all',
-            searchQuery: '',
-            darkMode: dm,
-            kbFocusIndex: -1,
-            discoveryCompare: [],
-            compareList: [],
-            personalityTraits: {},
-            language: lang,
-            shareData: null
-        };
-        clearSavedState();
-        showScreen('welcome-screen');
-        checkSavedProgress();
-    });
+    // --- CAREER MATCHES CLICKS ---
+    if (DOM.careerMatches) {
+        DOM.careerMatches.addEventListener('click', function(e) {
+            var detailBtn = e.target.closest('.view-details-btn');
+            if (detailBtn) { e.stopPropagation(); showCareerDetails(detailBtn.dataset.career); return; }
+            var card = e.target.closest('.career-card');
+            if (card && card.dataset.career) showCareerDetails(card.dataset.career);
+        });
+    }
 
-    // ---- CAREER MATCHES CLICKS ----
-    DOM.careerMatches.addEventListener('click', function(e) {
-        var detailBtn = e.target.closest('.view-details-btn');
-        if (detailBtn) { e.stopPropagation(); showCareerDetails(detailBtn.dataset.career); return; }
-        var card = e.target.closest('.career-card');
-        if (card && card.dataset.career) showCareerDetails(card.dataset.career);
-    });
-
-    // ---- CLUSTER CLICKS ----
-    DOM.careerClusters.addEventListener('click', function(e) {
-        if (e.target.closest('.cluster-career-item')) {
-            return;
-        }
-        var clusterCard = e.target.closest('.cluster-card');
-        if (clusterCard) {
-            var careersList = document.getElementById('cluster-' + clusterCard.dataset.cluster);
-            if (careersList) {
-                careersList.classList.toggle('show');
+    // --- CLUSTER CLICKS ---
+    if (DOM.careerClusters) {
+        DOM.careerClusters.addEventListener('click', function(e) {
+            if (e.target.closest('.cluster-career-item')) { return; }
+            var clusterCard = e.target.closest('.cluster-card');
+            if (clusterCard) {
+                var careersList = document.getElementById('cluster-' + clusterCard.dataset.cluster);
+                if (careersList) { careersList.classList.toggle('show'); }
             }
-            return;
-        }
-    });
+        });
+    }
 
-    // ---- COMPARISON & FILTER ----
-    DOM.comparisonSelectors.addEventListener('change', debounce(updateComparison, 200));
-    DOM.careerSearch.addEventListener('input', debounce(handleCareerSearch, 250));
-    DOM.filterChips.addEventListener('click', handleFilterClick);
+    // --- COMPARISON & FILTER ---
+    if (DOM.comparisonSelectors) DOM.comparisonSelectors.addEventListener('change', debounce(updateComparison, 200));
+    if (DOM.careerSearch) DOM.careerSearch.addEventListener('input', debounce(handleCareerSearch, 250));
+    if (DOM.filterChips) DOM.filterChips.addEventListener('click', handleFilterClick);
 
-    // ---- MODAL ----
-    DOM.modalClose.addEventListener('click', closeCareerModal);
-    DOM.careerModal.addEventListener('click', function(e) {
-        if (e.target === DOM.careerModal) closeCareerModal();
-    });
+    // --- MODAL ---
+    if (DOM.modalClose) DOM.modalClose.addEventListener('click', closeCareerModal);
+    if (DOM.careerModal) {
+        DOM.careerModal.addEventListener('click', function(e) {
+            if (e.target === DOM.careerModal) closeCareerModal();
+        });
+    }
 
-    // ---- DARK MODE & BACK TO TOP ----
-    DOM.darkModeToggle.addEventListener('click', toggleDarkMode);
-    DOM.backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    // --- DARK MODE & BACK TO TOP ---
+    if (DOM.darkModeToggle) DOM.darkModeToggle.addEventListener('click', toggleDarkMode);
+    if (DOM.backToTop) DOM.backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
@@ -6336,34 +7030,47 @@ function init() {
         handleKeyboardNav(e);
     });
 
-    DOM.colorModeRadios.forEach(function(r) {
-        r.addEventListener('change', function() { state.colorMode = this.value; });
-    });
+    if (DOM.colorModeRadios) {
+        DOM.colorModeRadios.forEach(function(r) {
+            r.addEventListener('change', function() { state.colorMode = this.value; });
+        });
+    }
 
     window.addEventListener('resize', function() {
-        DOM.confettiCanvas.width = window.innerWidth;
-        DOM.confettiCanvas.height = window.innerHeight;
+        if (DOM.confettiCanvas) {
+            DOM.confettiCanvas.width = window.innerWidth;
+            DOM.confettiCanvas.height = window.innerHeight;
+        }
+    });
+
+    // --- SHARE BUTTONS ---
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('#share-link-btn')) { copyShareLink(); return; }
+        if (e.target.closest('#share-whatsapp-btn')) { shareOnWhatsApp(); return; }
+        if (e.target.closest('#share-email-btn')) { shareViaEmail(); return; }
+    });
+
+    // --- LANGUAGE SWITCHER ---
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('.lang-btn');
+        if (btn) {
+            var lang = btn.dataset.lang;
+            if (lang && translations[lang]) {
+                switchLanguage(lang);
+                showToast('🌐 Language switched to ' + (lang === 'en' ? 'English' : lang === 'ny' ? 'Chinyanja' : lang === 'bem' ? 'Icibemba' : 'Chitonga'));
+            }
+        }
     });
 
     if (typeof console !== 'undefined') {
-        console.log('© Career Quest initialized successfully! (Merged Version)');
-        console.log('📚 Loaded ' + Object.keys(careers).length + ' careers across 8 clusters');
-        console.log('📝 Loaded ' + questions.length + ' questions with multi-select support');
-        console.log('🧠 Loaded ' + ALL_TRAITS.length + ' personality traits');
-        console.log('🗺️ Career pathways added for every career!');
-        console.log('📊 5-career comparison enabled!');
-        console.log('🔍 Enhanced Discovery Mode with cluster exploration!');
-        console.log('📈 12-trait Radar chart with 3x sensitivity!');
-        console.log('💰 Salaries updated to accurate Zambian standards!');
-        console.log('📤 Share Results feature enabled!');
-        console.log('🌐 4 Languages supported: English, Nyanja, Bemba, Tonga!');
-        console.log('🤖 AI Discovery, Smart Discovery, and Career Explorer enabled!');
+        console.log('© Career Quest initialized successfully! (Merged & Fixed)');
+        console.log('📚 Loaded ' + Object.keys(careers).length + ' careers');
+        console.log('📝 Loaded ' + questions.length + ' questions');
         console.log('✅ Language: ' + state.language);
     }
 }
 
 document.addEventListener('DOMContentLoaded', init);
-
 // ================================================================
 // END OF SCRIPT
 // ================================================================
