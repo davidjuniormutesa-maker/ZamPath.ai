@@ -2,15 +2,14 @@
 // CAREER QUEST - COMPLETE JAVASCRIPT APPLICATION
 // ================================================================
 // This file contains ALL logic for:
-// - 130+ careers across 8 clusters (STEM, Healthcare, Business, Creative,
-//   Helping, Outdoor, Public Service, Skilled Trades)
+// - 130+ careers across 8 clusters
 // - 30 fully defined multi-select questions (dynamically generated)
-// - 12 personality traits with dynamic radar chart (relative scoring)
+// - 12 personality traits with ANIMATED radar chart (1.5s smooth draw)
 // - 3x sensitivity scoring (60% personality, 40% cluster)
 // - 5-career comparison tool, Discovery mode
 // - 4 languages (English, Nyanja, Bemba, Tonga)
 // - Share results, PDF export, dark mode
-// - ENTIRELY GENERATED – all careers verified against Zambian job market
+// - SAMPLE RESULTS mode for instant demo
 // - Detailed comments on EVERY line
 // ================================================================
 
@@ -40,14 +39,8 @@
 // ================================================================
 
 const careers = {
-
-    // =============================================================
-    // CLUSTER: STEM (Science, Technology, Engineering, Mathematics)
-    // Contains 12 existing + 10 new = 22 careers
-    // =============================================================
-
-    // ---- EXISTING STEM CAREERS (12) ----
-
+    // ---- STEM CLUSTER (22 careers) ----
+    // Existing (12)
     'Mining Engineer': {
         cluster: 'STEM',
         icon: '⛏️',
@@ -350,9 +343,7 @@ const careers = {
         story: 'Grace works as an IT specialist for a bank in Lusaka.',
         careerDay: 'Learn how to set up a simple computer network or troubleshoot a computer problem.'
     },
-
-    // ---- NEW STEM CAREERS (10) ----
-
+    // New STEM (10)
     'Aerospace Engineer': {
         cluster: 'STEM',
         icon: '✈️',
@@ -604,13 +595,8 @@ const careers = {
         careerDay: 'Visit a weather station and learn about forecasting.'
     },
 
-    // =============================================================
-    // CLUSTER: HEALTHCARE (Medical and health-related careers)
-    // Contains 11 existing + 10 new = 21 careers
-    // =============================================================
-
-    // ---- EXISTING HEALTHCARE CAREERS (11) ----
-
+    // ---- HEALTHCARE CLUSTER (21 careers) ----
+    // Existing (11)
     'Medical Doctor': {
         cluster: 'Healthcare',
         icon: '🩺',
@@ -896,9 +882,7 @@ const careers = {
         story: 'Mr. Banda works in a hospital lab in Lusaka.',
         careerDay: 'Visit a hospital laboratory and see how tests are done.'
     },
-
-    // ---- NEW HEALTHCARE CAREERS (10) ----
-
+    // New Healthcare (10)
     'Public Health Officer': {
         cluster: 'Healthcare',
         icon: '🌍',
@@ -1153,13 +1137,8 @@ const careers = {
         careerDay: 'Learn about disease tracking and statistics.'
     },
 
-    // =============================================================
-    // CLUSTER: BUSINESS (Commerce, finance, and management)
-    // Contains 8 existing + 10 new = 18 careers
-    // =============================================================
-
-    // ---- EXISTING BUSINESS CAREERS (8) ----
-
+    // ---- BUSINESS CLUSTER (18 careers) ----
+    // Existing (8)
     'Accountant': {
         cluster: 'Business',
         icon: '📊',
@@ -1364,9 +1343,7 @@ const careers = {
         story: 'Mr. Phiri manages supply chains for a major company.',
         careerDay: 'Visit a warehouse or shipping company to see how goods are moved.'
     },
-
-    // ---- NEW BUSINESS CAREERS (10) ----
-
+    // New Business (10)
     'Business Analyst': {
         cluster: 'Business',
         icon: '📉',
@@ -1619,13 +1596,8 @@ const careers = {
         careerDay: 'Track a product from supplier to consumer.'
     },
 
-    // =============================================================
-    // CLUSTER: CREATIVE (Arts, media, and design)
-    // Contains 11 existing + 10 new = 21 careers
-    // =============================================================
-
-    // ---- EXISTING CREATIVE CAREERS (11) ----
-
+    // ---- CREATIVE CLUSTER (21 careers) ----
+    // Existing (11)
     'Graphic Designer': {
         cluster: 'Creative',
         icon: '🎨',
@@ -1902,9 +1874,7 @@ const careers = {
         story: 'Mr. Banda makes wooden toys in his workshop in Lusaka.',
         careerDay: 'Make a simple toy using recycled materials.'
     },
-
-    // ---- NEW CREATIVE CAREERS (10) ----
-
+    // New Creative (10)
     'Art Teacher': {
         cluster: 'Creative',
         icon: '🎨',
@@ -2154,13 +2124,8 @@ const careers = {
         careerDay: 'Write a short film script and shoot a scene with your phone.'
     },
 
-    // =============================================================
-    // CLUSTER: HELPING (Education, social work, community)
-    // Contains 6 existing + 10 new = 16 careers
-    // =============================================================
-
-    // ---- EXISTING HELPING CAREERS (6) ----
-
+    // ---- HELPING CLUSTER (16 careers) ----
+    // Existing (6)
     'Teacher': {
         cluster: 'Helping',
         icon: '👩🏽‍🏫',
@@ -2312,9 +2277,7 @@ const careers = {
         story: 'Mrs. Chirwa is a human rights lawyer in Zambia.',
         careerDay: 'Visit a court or a law firm to see lawyers in action.'
     },
-
-    // ---- NEW HELPING CAREERS (10) ----
-
+    // New Helping (10)
     'Community Development Facilitator': {
         cluster: 'Helping',
         icon: '👥',
@@ -2560,13 +2523,8 @@ const careers = {
         careerDay: 'Visit a victim support center and learn about their work.'
     },
 
-    // =============================================================
-    // CLUSTER: OUTDOOR (Nature, tourism, agriculture)
-    // Contains 6 existing + 10 new = 16 careers
-    // =============================================================
-
-    // ---- EXISTING OUTDOOR CAREERS (6) ----
-
+    // ---- OUTDOOR CLUSTER (16 careers) ----
+    // Existing (6)
     'Tour Guide': {
         cluster: 'Outdoor',
         icon: '🦁',
@@ -2717,9 +2675,7 @@ const careers = {
         story: 'Mr. Chanda is a surveyor who maps land for development projects.',
         careerDay: 'Learn how to use surveying equipment or map an area.'
     },
-
-    // ---- NEW OUTDOOR CAREERS (10) ----
-
+    // New Outdoor (10)
     'Safari Guide': {
         cluster: 'Outdoor',
         icon: '🦁',
@@ -2967,13 +2923,8 @@ const careers = {
         careerDay: 'Visit a nursery and learn about plant propagation.'
     },
 
-    // =============================================================
-    // CLUSTER: PUBLIC SERVICE (Government, military, emergency)
-    // Contains 6 existing + 10 new = 16 careers
-    // =============================================================
-
-    // ---- EXISTING PUBLIC SERVICE CAREERS (6) ----
-
+    // ---- PUBLIC SERVICE CLUSTER (16 careers) ----
+    // Existing (6)
     'Governor': {
         cluster: 'Public Service',
         icon: '🏛️',
@@ -3125,9 +3076,7 @@ const careers = {
         story: 'Captain Mwansa is a commercial pilot who flies for an international airline.',
         careerDay: 'Visit an airport and talk to a pilot about their career.'
     },
-
-    // ---- NEW PUBLIC SERVICE CAREERS (10) ----
-
+    // New Public Service (10)
     'Administrative Officer': {
         cluster: 'Public Service',
         icon: '📋',
@@ -3377,13 +3326,8 @@ const careers = {
         careerDay: 'Analyze a local policy and write a brief report.'
     },
 
-    // =============================================================
-    // CLUSTER: SKILLED TRADES (Hands-on technical and craft careers)
-    // Contains 6 existing + 10 new = 16 careers
-    // =============================================================
-
-    // ---- EXISTING SKILLED TRADES CAREERS (6) ----
-
+    // ---- SKILLED TRADES CLUSTER (16 careers) ----
+    // Existing (6)
     'Carpenter': {
         cluster: 'Skilled Trades',
         icon: '🪚',
@@ -3533,9 +3477,7 @@ const careers = {
         story: 'Mr. Banda works in a copper mine in Zambia.',
         careerDay: 'Learn about mining safety and the mining process.'
     },
-
-    // ---- NEW SKILLED TRADES CAREERS (10) ----
-
+    // New Skilled Trades (10)
     'Electrical Technician': {
         cluster: 'Skilled Trades',
         icon: '⚡',
@@ -3789,7 +3731,7 @@ const careers = {
 };
 
 // ================================================================
-// SECTION 2: PER-CAREER TRAIT TAGS (For personality matching)
+// SECTION 2: PER-CAREER TRAIT TAGS
 // ================================================================
 // This mapping connects each career to the personality traits it
 // requires. We use the same 12 trait names as the radar chart.
@@ -4337,6 +4279,7 @@ const translations = {
         'welcome_description': 'Not sure what career is right for you? Don\'t worry! Answer a few questions and we\'ll help you discover your perfect career path.',
         'start_quiz': 'Get Started',
         'i_dont_know': 'I Have No Idea',
+        'sample_results': '📊 View Sample Results',
         'built_for': 'Built for Zambian Students',
         'works_offline': 'Works Offline',
         'free_forever': 'Free Forever',
@@ -4455,6 +4398,7 @@ const translations = {
         'welcome_description': 'Simukudziwa ntchito yomwe ingakuyenereni? Osadandaula! Yankhani mafunso ochepa ndipo tidzakuthandizani kupeza njira yanu yabwino kwambiri.',
         'start_quiz': 'Yambani',
         'i_dont_know': 'Sindikudziwa',
+        'sample_results': '📊 Onani Zitsanzo',
         'built_for': 'Chopangidwira Ophunzira ku Zambia',
         'works_offline': 'Imagwira Popanda Internet',
         'free_forever': 'Kwaulere Nthawi Zonse',
@@ -4573,6 +4517,7 @@ const translations = {
         'welcome_description': 'Temwa mwishibe umulimo uletile? Nshisakamwene! Yisubishe ibipusho utuntuniko no twafwile ukukwafwa ukusanga inshila yenu isuma.',
         'start_quiz': 'Tambukeni',
         'i_dont_know': 'Nshishibe',
+        'sample_results': '📊 Moneni Icitambi',
         'built_for': 'Iyalengele Abana ba Sukulu mu Zambia',
         'works_offline': 'Ilesha Ng\'anda Intaneti',
         'free_forever': 'Yabula Malipilo Nshakwisa',
@@ -4691,6 +4636,7 @@ const translations = {
         'welcome_description': 'Tamuzi nso mwa kukonzya kucita mulimo nzi? Muleka kutetema! Amba makani aafwumbi atonganya tulimvwisya kuti mwasangane njila yenyu yabulemu.',
         'start_quiz': 'Tambukani',
         'i_dont_know': 'Ncindisena',
+        'sample_results': '📊 Onani Zibambilwe',
         'built_for': 'Yakalingidwe Abana ba Sukulu mu Zambia',
         'works_offline': 'Ilaamba Ng\'anda Intaneti',
         'free_forever': 'Yalubotu Nsiku Zyonse',
@@ -4974,6 +4920,7 @@ const DOM = {
     themeLabel: document.getElementById('theme-label'),
     startQuizBtn: document.getElementById('start-quiz-btn'),
     iDontKnowBtn: document.getElementById('i-dont-know-btn'),
+    sampleResultsBtn: document.getElementById('sample-results-btn'),
     savedProgressBanner: document.getElementById('saved-progress-banner'),
     questionCounter: document.getElementById('question-counter'),
     progressBar: document.getElementById('progress-bar'),
@@ -5644,10 +5591,11 @@ function calculatePersonalityTraits() {
 }
 
 // ================================================================
-// SECTION 19: RADAR CHART RENDER
+// SECTION 19: RADAR CHART RENDER (ANIMATED)
 // ================================================================
 // This uses Chart.js to draw the 12-trait radar chart on the results
 // screen. It uses the normalized personality scores from state.
+// The animation makes the chart draw smoothly from center outwards.
 // ================================================================
 
 function renderRadarChart() {
@@ -5703,6 +5651,13 @@ function renderRadarChart() {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            // ============================================================
+            // ANIMATION CONFIGURATION - This makes the chart draw smoothly
+            // ============================================================
+            animation: {
+                duration: 1500,            // 1.5 seconds animation
+                easing: 'easeOutQuart'      // Smooth, natural easing curve
+            },
             plugins: {
                 legend: {
                     labels: { color: textColor, font: { size: 12, weight: 'bold' } }
@@ -5774,7 +5729,106 @@ function showShareButtons() {
 }
 
 // ================================================================
-// SECTION 21: STATS SUMMARY
+// SECTION 21: SAMPLE RESULTS (NEW!)
+// ================================================================
+// This section defines a set of pre-filled answers for a realistic
+// "Creative & Helping" personality profile. Clicking the "Sample
+// Results" button loads these answers and instantly shows results.
+// ================================================================
+
+// Pre-filled answers for 30 questions (Creative & Helping profile)
+const sampleAnswers = [
+    // Q1: Subjects
+    ['English', 'Art', 'ICT and Computer Studies', 'History'],
+    // Q2: Activities
+    ['Helping others', 'Drawing', 'Reading', 'Writing', 'Listening to music'],
+    // Q3: Work Environment
+    ['Office', 'School', 'Remote work', 'Travel'],
+    // Q4: Kind of Work
+    ['Working closely with people', 'Creating new things', 'Teaching others'],
+    // Q5: Salary Importance
+    ['Somewhat important - comfortable salary'],
+    // Q6: Fulfilling Work
+    ['Making a difference', 'Teaching others', 'Creating art', 'Helping others'],
+    // Q7: Location
+    ['Both Zambia and abroad'],
+    // Q8: Team Setting
+    ['I can both lead and follow'],
+    // Q9: Thinking Style
+    ['Creative thinking', 'Imaginative thinking', 'A balance of all types'],
+    // Q10: Work Environment Style
+    ['A mix of routine and variety'],
+    // Q11: Impact
+    ['Help my community', 'Help businesses succeed'],
+    // Q12: Best Work Environment
+    ['Both - alone or with a team'],
+    // Q13: Skills
+    ['Creative skills', 'Communication skills', 'Leadership skills'],
+    // Q14: Work Life
+    ["I'm open to both"],
+    // Q15: Pressure
+    ['I can handle some pressure'],
+    // Q16: Learning Style
+    ['By doing', 'By discussing with others'],
+    // Q17: Personality
+    ['A combination of these'],
+    // Q18: Projects
+    ['Creating something new', 'Designing beautiful things', 'Helping people solve problems'],
+    // Q19: Motivation
+    ["Making a difference in people's lives", 'Learning new things'],
+    // Q20: Lifestyle
+    ['A balanced lifestyle with time for family', 'A creative lifestyle'],
+    // Q21: Social Interaction
+    ['I enjoy meeting new people', 'I like helping people directly'],
+    // Q22: Responsibility
+    ['I want to lead projects'],
+    // Q23: Work Environment Happiness
+    ['Friendly environment', 'Supportive environment'],
+    // Q24: Handling Challenges
+    ['I find creative solutions', 'I adapt quickly'],
+    // Q25: Recognition
+    ['Private appreciation', 'Being trusted with responsibility'],
+    // Q26: Work-Life Balance
+    ['I want a good balance'],
+    // Q27: Decision-Making
+    ['I weigh pros and cons', 'I trust my intuition'],
+    // Q28: Learning Style (repeated but allowed)
+    ['I learn by doing', 'I learn by discussing'],
+    // Q29: Communication Style
+    ['I am supportive and encouraging', 'I am expressive and passionate'],
+    // Q30: Work Schedule
+    ['Flexible schedule', 'I want to work on projects']
+];
+
+// Load the sample results into the app state and display results
+function loadSampleResults() {
+    // Clear any existing state and set the sample answers
+    state.currentQuestion = 0;
+    state.answers = sampleAnswers.slice(); // Deep copy of the sample array
+    state.quizStarted = true;
+    state.quizCompleted = true;
+    state.isDiscoveryMode = false;
+    state.results = null; // Will be recalculated
+    state.careerScores = {};
+    state.compareList = [];
+    state.personalityTraits = {};
+
+    // Calculate results based on the sample answers
+    calculateResults();
+    
+    // Save state to localStorage so it persists
+    saveState();
+    
+    // Show the results screen
+    showScreen('results-screen');
+    displayResults();
+    
+    // Show a toast notification to indicate sample mode
+    showToast('📊 Viewing sample results! This shows how the app works.');
+}
+
+// ================================================================
+// SECTION 22: STATS SUMMARY
 // ================================================================
 
 function renderStatsSummary(topCareers) {
@@ -5801,7 +5855,7 @@ function renderStatsSummary(topCareers) {
 }
 
 // ================================================================
-// SECTION 22: FILTER CHIPS
+// SECTION 23: FILTER CHIPS
 // ================================================================
 
 function renderFilterChips() {
@@ -5814,7 +5868,7 @@ function renderFilterChips() {
 }
 
 // ================================================================
-// SECTION 23: CAREER CARDS
+// SECTION 24: CAREER CARDS
 // ================================================================
 
 function renderCareerCards(careerList) {
@@ -5889,7 +5943,7 @@ function handleFilterClick(e) {
 }
 
 // ================================================================
-// SECTION 24: PATHWAY RECOMMENDATIONS
+// SECTION 25: PATHWAY RECOMMENDATIONS
 // ================================================================
 
 function displayPathwayRecommendations() {
@@ -5955,7 +6009,7 @@ function displayPathwayRecommendations() {
 }
 
 // ================================================================
-// SECTION 25: SUBJECT RECOMMENDATIONS
+// SECTION 26: SUBJECT RECOMMENDATIONS
 // ================================================================
 
 function displaySubjectRecommendations() {
@@ -6000,7 +6054,7 @@ function displaySubjectRecommendations() {
 }
 
 // ================================================================
-// SECTION 26: CAREER CLUSTERS (Web Map)
+// SECTION 27: CAREER CLUSTERS (Web Map)
 // ================================================================
 
 function displayCareerClusters() {
@@ -6072,7 +6126,7 @@ function displayCareerClusters() {
 }
 
 // ================================================================
-// SECTION 27: COMPARISON TOOL (5 Careers)
+// SECTION 28: COMPARISON TOOL (5 Careers)
 // ================================================================
 
 function displayComparisonTool() {
@@ -6157,7 +6211,7 @@ function updateComparison() {
 }
 
 // ================================================================
-// SECTION 28: ENHANCED DISCOVERY MODE
+// SECTION 29: DISCOVERY MODE
 // ================================================================
 
 function generateDiscoveryResults() {
@@ -6377,7 +6431,7 @@ function updateDiscoveryComparison() {
 }
 
 // ================================================================
-// SECTION 29: CAREER DETAILS MODAL
+// SECTION 30: CAREER DETAILS MODAL
 // ================================================================
 
 var modalCurrentCareer = null;
@@ -6542,7 +6596,7 @@ function closeCareerModal() {
 }
 
 // ================================================================
-// SECTION 30: CONFETTI ANIMATION
+// SECTION 31: CONFETTI ANIMATION
 // ================================================================
 
 function launchConfetti() {
@@ -6606,7 +6660,7 @@ function launchConfetti() {
 }
 
 // ================================================================
-// SECTION 31: PDF GENERATION & PRINTING
+// SECTION 32: PDF GENERATION & PRINTING
 // ================================================================
 
 function generatePDF() {
@@ -6685,7 +6739,7 @@ function printResults() {
 }
 
 // ================================================================
-// SECTION 32: BACK TO TOP
+// SECTION 33: BACK TO TOP
 // ================================================================
 
 function handleScroll() {
@@ -6693,7 +6747,7 @@ function handleScroll() {
 }
 
 // ================================================================
-// SECTION 33: SAVED PROGRESS BANNER
+// SECTION 34: SAVED PROGRESS BANNER
 // ================================================================
 
 function checkSavedProgress() {
@@ -6736,11 +6790,19 @@ function checkSavedProgress() {
 }
 
 // ================================================================
-// SECTION 34: EVENT LISTENERS
+// SECTION 35: EVENT LISTENERS
 // ================================================================
 
 DOM.startQuizBtn.addEventListener('click', function() { startQuiz(false); });
 DOM.iDontKnowBtn.addEventListener('click', startDiscoveryMode);
+
+// NEW: Sample Results button listener
+if (DOM.sampleResultsBtn) {
+    DOM.sampleResultsBtn.addEventListener('click', function() {
+        loadSampleResults();
+    });
+}
+
 DOM.prevBtn.addEventListener('click', prevQuestion);
 DOM.nextBtn.addEventListener('click', nextQuestion);
 
@@ -6831,7 +6893,7 @@ window.addEventListener('resize', function() {
 });
 
 // ================================================================
-// SECTION 35: LANGUAGE SELECTOR EVENT
+// SECTION 36: LANGUAGE SELECTOR EVENT
 // ================================================================
 
 document.addEventListener('click', function(e) {
@@ -6846,7 +6908,7 @@ document.addEventListener('click', function(e) {
 });
 
 // ================================================================
-// SECTION 36: SHARE BUTTONS EVENT
+// SECTION 37: SHARE BUTTONS EVENT
 // ================================================================
 
 document.addEventListener('click', function(e) {
@@ -6870,7 +6932,7 @@ document.addEventListener('click', function(e) {
 });
 
 // ================================================================
-// SECTION 37: INITIALIZATION
+// SECTION 38: INITIALIZATION
 // ================================================================
 // This runs when the page loads. It loads saved state, themes,
 // language, and checks for shared results.
