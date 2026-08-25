@@ -1,9 +1,21 @@
 <!-- ================================================================ -->
-<!-- CAREER QUEST - Main HTML Structure                               -->
+<!-- CAREER QUEST - COMPLETE HTML (MERGED VERSION)                    -->
 <!-- A career guidance web app for Zambian Form 2 students            -->
-<!-- ENHANCED with: Multi-language support, Sample Results mode,      -->
-<!-- Animated Radar Chart, Share Results feature                      -->
-<!-- FULLY OFFLINE - loads libraries from local /libs/ folder         -->
+<!-- ENHANCED with:                                                    -->
+<!--   - Floating particles background (from V2)                       -->
+<!--   - AI Discovery / Smart Discovery (from V2)                      -->
+<!--   - Career Explorer (Browse all careers) (from V2)               -->
+<!--   - Personality Insights (from V2)                               -->
+<!--   - Trait Radar Bars (from V2)                                   -->
+<!--   - Typing effect (from V2)                                      -->
+<!--   - Load More button (from V2)                                   -->
+<!--   - Multi-language support (from current)                        -->
+<!--   - Sample Results mode (from current)                           -->
+<!--   - Animated Radar Chart (from current)                          -->
+<!--   - Share Results feature (from current)                         -->
+<!--   - PDF Export with Color/B&W (from current)                     -->
+<!--   - 5-career comparison (from current)                           -->
+<!--   - Offline support (from current)                               -->
 <!-- ================================================================ -->
 
 <!DOCTYPE html>
@@ -32,6 +44,11 @@
     <!-- SKIP LINK - Accessibility feature for keyboard users         -->
     <!-- ============================================================ -->
     <a href="#main-content" class="skip-link" data-translate="skip_link">Skip to content</a>
+
+    <!-- ============================================================ -->
+    <!-- FLOATING PARTICLES CANVAS - Background animation (from V2)    -->
+    <!-- ============================================================ -->
+    <canvas class="particles-canvas" id="particles-canvas" aria-hidden="true"></canvas>
 
     <!-- ============================================================ -->
     <!-- CONFETTI CANVAS - For celebration animation when results show -->
@@ -112,7 +129,8 @@
                 <div class="welcome-content">
                     <div class="logo" aria-hidden="true">🎓</div>
                     <h1 data-translate="welcome_title">Career Quest</h1>
-                    <p class="subtitle" data-translate="welcome_subtitle">Discover Your Path to a Bright Future</p>
+                    <!-- TYPING EFFECT SUBTITLE (from V2) -->
+                    <p class="subtitle" data-translate="welcome_subtitle" id="typing-subtitle">Discover Your Path to a Bright Future</p>
                     <p class="description" data-translate="welcome_description">
                         Not sure what career is right for you? Don't worry!
                         Answer a few questions and we'll help you discover your perfect career path.
@@ -122,7 +140,7 @@
                         <!-- Main action buttons -->
                         <button id="start-quiz-btn" class="btn-primary" data-translate="start_quiz">🚀 Get Started</button>
                         <button id="i-dont-know-btn" class="btn-secondary" data-translate="i_dont_know">🤷 I Have No Idea</button>
-                        <!-- NEW: Sample Results button with direct onclick -->
+                        <!-- Sample Results button -->
                         <button id="sample-results-btn" class="btn-secondary" style="border-color:var(--zm-orange);color:var(--zm-orange);" onclick="loadSampleResults()" data-translate="sample_results">📊 View Sample Results</button>
                     </div>
                     <p class="note">
@@ -178,7 +196,17 @@
                     <div class="stats-summary" id="stats-summary" aria-label="Result statistics"></div>
 
                     <!-- ============================================================ -->
-                    <!-- RADAR CHART SECTION (ANIMATED)                              -->
+                    <!-- PERSONALITY INSIGHTS (from V2) - Shows top/bottom traits      -->
+                    <!-- ============================================================ -->
+                    <div id="personality-insights"></div>
+
+                    <!-- ============================================================ -->
+                    <!-- TRAIT RADAR BARS (from V2) - Visual trait display            -->
+                    <!-- ============================================================ -->
+                    <div id="trait-radar-section"></div>
+
+                    <!-- ============================================================ -->
+                    <!-- RADAR CHART SECTION (ANIMATED)                                -->
                     <!-- ============================================================ -->
                     <div class="radar-chart-section">
                         <h2 data-translate="personality_title">🧠 Your Personality Profile</h2>
@@ -238,6 +266,25 @@
                         <div id="comparison-table">
                         </div>
                         <button id="clear-comparison-btn" class="btn-secondary btn-small" style="margin-top:12px;" data-translate="clear_all">🗑️ Clear All</button>
+                    </section>
+
+                    <!-- ============================================================ -->
+                    <!-- AI DISCOVERY SECTION (from V2) - Smart Discovery + AI Chat    -->
+                    <!-- ============================================================ -->
+                    <section id="ai-discovery-section" class="ai-discovery-section" style="display:block; margin-top:2rem;">
+                        <div class="ai-discovery-divider"></div>
+                        <div class="ai-discovery-header">
+                            <h2 data-translate="ai_discovery_title">🤖 Want More Career Ideas?</h2>
+                            <p data-translate="ai_discovery_desc">We found <strong id="ai-total-careers">0</strong> careers for you. Want more options?</p>
+                        </div>
+                        <div class="ai-discovery-buttons">
+                            <button class="btn-primary" id="smart-discover-btn" data-translate="smart_discover">🔍 Smart Discovery</button>
+                            <button class="btn-secondary" id="ai-discover-btn" data-translate="ai_chat">🤖 Ask AI (Free)</button>
+                            <button class="btn-secondary" id="explore-all-btn" data-translate="explore_all">🎯 Explore All Careers</button>
+                        </div>
+                        <div id="smart-discovery-panel" style="display:none;"></div>
+                        <div id="ai-discovery-panel" style="display:none;"></div>
+                        <div id="career-explorer-panel" style="display:none;"></div>
                     </section>
 
                     <!-- ============================================================ -->
