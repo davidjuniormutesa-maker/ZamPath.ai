@@ -2306,6 +2306,10 @@ body.dark-mode .discovery-reason {
     .ai-copy-buttons { flex-direction: column; }
     .ai-copy-buttons a { text-align: center; }
 }
+
+/* ============================================================ */
+/* MOBILE TOUCH TARGETS & EXTRA POLISH (IMPROVEMENTS)          */
+/* ============================================================ */
 @media (max-width: 480px) {
     body { padding: 6px; }
     .screen { padding: 14px 12px; }
@@ -2313,14 +2317,66 @@ body.dark-mode .discovery-reason {
     .logo { font-size: 50px; }
     .btn-primary, .btn-secondary { padding: 12px 24px; font-size: 15px; }
     #question-container { padding: 16px; }
-    .option-btn { padding: 12px 14px; font-size: 14px; }
-    .option-letter { width: 24px; height: 24px; font-size: 11px; }
+    .option-btn {
+        padding: 16px 18px;
+        font-size: 16px;
+        min-height: 52px;
+    }
+    .option-letter {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+    }
     .career-score { font-size: 16px; }
     .chart-container { height: 220px; }
     #comparison-selectors { grid-template-columns: 1fr; }
     .results-header h1 { font-size: 26px; }
     .top-bar-brand { font-size: 12px; }
     .dark-mode-toggle span { display: none; }
+    .filter-chip {
+        padding: 8px 20px;
+        font-size: 15px;
+        min-height: 44px;
+    }
+    .comparison-select {
+        font-size: 14px;
+        padding: 12px 8px;
+        min-height: 44px;
+    }
+    .btn-link {
+        padding: 8px 12px;
+        font-size: 15px;
+    }
+}
+
+/* ============================================================ */
+/* RESET TOOLS BUTTON & CLEAR-ALL LINK                         */
+/* ============================================================ */
+#reset-toolbar-btn {
+    background: var(--bg-tertiary);
+    border-color: var(--border-medium);
+    color: var(--text-secondary);
+}
+#reset-toolbar-btn:hover {
+    border-color: var(--zm-orange);
+    color: var(--zm-orange);
+    background: var(--zm-orange-light);
+}
+
+/* Clear all button inside multi‑select (used as .btn-link) */
+.btn-link {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    padding: 4px 8px;
+    transition: color 0.2s;
+}
+.btn-link:hover {
+    color: var(--zm-green);
 }
 
 /* ============================================================ */
