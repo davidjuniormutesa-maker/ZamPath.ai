@@ -14,6 +14,7 @@
 //   - Discovery mode shows a friendly welcome message
 //   - PDF generation has a retry/refresh fallback
 //   - Added "Reset Tools" button in results screen
+//   - AI prompt now shows question text alongside answers
 // ALL FEATURES ARE MERGED. EVERY LINE IS COMPLETE.
 // ================================================================
 
@@ -22,7 +23,6 @@
 // ================================================================
 
 const careers = {
-    // ---- STEM CLUSTER (22 careers) ----
     'Mining Engineer': {
         cluster: 'STEM',
         icon: '⛏️',
@@ -5703,7 +5703,7 @@ function smartDiscoveryEngine() {
 }
 
 // ================================================================
-// SECTION 24: AI DISCOVERY (V2 - FIXED)
+// SECTION 24: AI DISCOVERY (V2 - FIXED + QUESTION CONTEXT IMPROVEMENT)
 // ================================================================
 function showAIPanel() {
     var panel = document.getElementById('ai-discovery-panel');
@@ -5714,27 +5714,34 @@ function showAIPanel() {
         return (state.personalityTraits[b] || 0) - (state.personalityTraits[a] || 0);
     }).slice(0, 8);
     var top10 = (state.results || []).slice(0, 10);
+
+    // --- IMPROVEMENT: Build answers text WITH full question context ---
     var answersText = '';
-    for (var q in state.answers) {
-        if (state.answers.hasOwnProperty(q) && state.answers[q]) {
-            answersText += 'Q' + q + ': ' + state.answers[q] + '\n';
+    for (var q = 0; q < state.answers.length; q++) {
+        var answer = state.answers[q];
+        if (answer && answer.length) {
+            var questionText = questions[q] ? questions[q].text : 'Question ' + (q + 1);
+            answersText += 'Q' + (q + 1) + ': ' + questionText + '\n';
+            answersText += '   Answer: ' + answer.join(', ') + '\n\n';
         }
     }
+
     var aiPrompt = 'I am a Zambian secondary school student doing a career guidance quiz. Here are my answers and results:\n\n' +
-        'MY QUIZ ANSWERS:\n' + answersText +
-        'MY TOP TRAITS: ' + topTraits.join(', ') + '\n\n' +
+        'MY QUIZ ANSWERS (with full question context):\n' + answersText +
+        '\nMY TOP TRAITS: ' + topTraits.join(', ') + '\n\n' +
         'MY TOP 10 CAREER MATCHES: ' + top10.join(', ') + '\n\n' +
         'ALL ' + Object.keys(careers).length + ' AVAILABLE CAREERS: ' + Object.keys(careers).join(', ') + '\n\n' +
         'Please suggest 5 MORE career paths NOT in my top 10 that would suit me based on my answers. ' +
-        'For each suggestion, explain WHY it fits me and what subjects I should focus on. ' +
+        'For each suggestion, explain WHY it fits me (referencing specific answers if possible) and what subjects I should focus on. ' +
         'Keep in mind I am a Zambian student - mention relevant Zambian institutions and opportunities where possible.';
+
     panel.innerHTML =
         '<div class="ai-config">' +
         '<h3>🤖 AI-Powered Career Discovery</h3>' +
-        '<p class="ai-note">Get personalised career suggestions from any AI chatbot. We will prepare your prompt - just copy and paste!</p>' +
+        '<p class="ai-note">Get personalised career suggestions from any AI chatbot. Your personalised prompt includes your answers WITH the full question context for better AI understanding. Just copy and paste!</p>' +
         '<div class="ai-prompt-box">' +
         '<label>Your personalised AI prompt is ready:</label>' +
-        '<textarea id="ai-prompt-textarea" readonly rows="10">' + aiPrompt + '</textarea>' +
+        '<textarea id="ai-prompt-textarea" readonly rows="12">' + aiPrompt + '</textarea>' +
         '<div class="ai-copy-buttons">' +
         '<button class="btn-primary" id="copy-prompt-btn">📋 Copy Prompt</button>' +
         '<a href="https://chatgpt.com" target="_blank" class="btn-secondary">💬 Open ChatGPT</a>' +
@@ -5750,6 +5757,7 @@ function showAIPanel() {
         '<button class="btn-primary" id="ai-go-btn">🚀 Get AI Suggestions</button>' +
         '<div id="ai-results-area"></div>' +
         '</div></div>';
+
     document.getElementById('copy-prompt-btn').addEventListener('click', function() {
         var ta = document.getElementById('ai-prompt-textarea');
         ta.select();
@@ -5760,10 +5768,12 @@ function showAIPanel() {
             showToast('Prompt copied!', 'success');
         }
     });
+
     document.getElementById('toggle-advanced').addEventListener('click', function() {
         var adv = document.getElementById('ai-advanced-panel');
         adv.style.display = adv.style.display === 'none' ? 'block' : 'none';
     });
+
     document.getElementById('ai-go-btn').addEventListener('click', function() {
         var url = document.getElementById('ai-api-url').value.trim();
         var key = document.getElementById('ai-api-key').value.trim();
@@ -5771,12 +5781,15 @@ function showAIPanel() {
         if (!url || !key) { showToast('Please enter both API URL and API Key', 'warning'); return; }
         if (!area) return;
         area.innerHTML = '<div class="ai-loading"><div class="spinner"></div><p>Asking AI for career suggestions...</p></div>';
-        var prompt = 'You are a career guidance expert for Zambian students. Based on the following quiz answers, suggest 5 additional career paths NOT in the already-shown list.\n\n' +
+
+        // Use the same prompt with question context for the API call
+        var prompt = 'You are a career guidance expert for Zambian students. Based on the following quiz answers (with full question context), suggest 5 additional career paths NOT in the already-shown list.\n\n' +
             'Student top traits: ' + topTraits.join(', ') + '\n' +
             'Already suggested: ' + top10.join(', ') + '\n' +
-            'Quiz answers:\n' + answersText + '\n' +
-            'All available careers: ' + Object.keys(careers).join(', ') + '\n\n' +
+            'Quiz answers (with question context):\n' + answersText +
+            '\nAll available careers: ' + Object.keys(careers).join(', ') + '\n\n' +
             'Respond ONLY with a valid JSON array of objects with keys: name, description, whyMatch, cluster. No markdown.';
+
         fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
@@ -6067,6 +6080,16 @@ function generateDiscoveryResults() {
     DOM.statsSummary.innerHTML = '';
     state.discoveryCompare = [];
     updateDiscoveryCompareCount();
+
+    // --- IMPROVEMENT: Welcome message in discovery mode ---
+    var welcomeMsg = document.createElement('p');
+    welcomeMsg.style.fontSize = '18px';
+    welcomeMsg.style.textAlign = 'center';
+    welcomeMsg.style.marginBottom = '16px';
+    welcomeMsg.style.color = 'var(--zm-green)';
+    welcomeMsg.style.fontWeight = 'bold';
+    welcomeMsg.textContent = '🌟 Click any cluster below to explore careers. Don\'t worry – you can take the quiz anytime!';
+
     var clusterInfo = {
         'STEM': { icon: '🔬', name: 'STEM', description: 'Science, Technology, Engineering & Math', activity: 'Try building a small project using recycled materials.' },
         'Healthcare': { icon: '🏥', name: 'Healthcare', description: 'Medical and health-related careers', activity: 'Visit a clinic and ask if you can observe a nurse or doctor for a day.' },
@@ -6101,6 +6124,9 @@ function generateDiscoveryResults() {
         '<button onclick="startQuiz(false)" class="btn-primary" style="margin-top:10px;">🔄 ' + t('retake_quiz_button') + '</button>' +
         '</div>';
     DOM.discoveryContent.innerHTML = html;
+    // Prepend the welcome message
+    DOM.discoveryContent.prepend(welcomeMsg);
+
     updateDiscoveryComparison();
     try { displaySubjectRecommendations(); } catch(e) {}
     try { displayCareerClusters(); } catch(e) {}
@@ -7129,7 +7155,7 @@ function init() {
         console.log('📚 Loaded ' + Object.keys(careers).length + ' careers');
         console.log('📝 Loaded ' + questions.length + ' questions');
         console.log('✅ Language: ' + state.language);
-        console.log('✅ Improvements: Search filter reset, comparison badges, clear-all button, reset tools, PDF retry');
+        console.log('✅ Improvements: Search filter reset, comparison badges, clear-all button, reset tools, PDF retry, AI prompt with question context');
     }
 }
 
