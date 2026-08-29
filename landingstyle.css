@@ -1,8 +1,10 @@
 /* ============================================================ */
-/* ZAMPATH.AI - LANDING PAGE STYLES                            */
+/* ZAMPATH.AI - LANDING PAGE STYLES (IMPROVED)                 */
 /* Complete styling for the professional marketing page         */
 /* Zambia-themed with green, red, orange, and black             */
 /* FULLY OFFLINE - uses system fonts, no external CDN calls     */
+/* IMPROVEMENTS: Better mobile touch targets, consistent        */
+/* hover effects, improved dark mode, Download App button style */
 /* ============================================================ */
 
 /* ============================================================ */
@@ -78,6 +80,9 @@ body { font-family: var(--font-family); background: var(--bg-primary); color: va
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
+/* ============================================================ */
+/* NAVIGATION                                                   */
+/* ============================================================ */
 .navbar {
     position: fixed; top: 0; left: 0; right: 0;
     background: var(--bg-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -134,6 +139,9 @@ body.dark-mode .lang-btn.active { background: var(--zm-green); color: white; }
 .mobile-toggle.active span:nth-child(2) { opacity: 0; }
 .mobile-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
 
+/* ============================================================ */
+/* HERO SECTION                                                 */
+/* ============================================================ */
 .hero { padding: 140px 0 80px; background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); min-height: 100vh; display: flex; align-items: center; transition: background var(--transition-slow); }
 .hero-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .hero-badge { display: inline-block; background: var(--zm-green-light); color: var(--zm-green); padding: 6px 16px; border-radius: var(--radius-xl); font-size: 14px; font-weight: 600; margin-bottom: 20px; }
@@ -142,11 +150,34 @@ body.dark-mode .lang-btn.active { background: var(--zm-green); color: white; }
 .hero-text .highlight::after { content: ''; position: absolute; bottom: 4px; left: 0; right: 0; height: 8px; background: rgba(0, 128, 0, 0.15); border-radius: 4px; z-index: -1; }
 .hero-description { font-size: 20px; color: var(--text-secondary); line-height: 1.7; max-width: 500px; margin-bottom: 32px; }
 .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
+
+/* Primary Button */
 .btn-primary { display: inline-block; background: var(--gradient-primary); color: white; padding: 16px 36px; border-radius: var(--radius-xl); font-weight: 700; font-size: 17px; text-decoration: none; transition: all var(--transition-bounce); box-shadow: var(--shadow-green); border: none; cursor: pointer; }
 .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 30px rgba(0, 128, 0, 0.35); }
 .btn-primary.btn-large { padding: 20px 48px; font-size: 20px; }
+
+/* Secondary Button */
 .btn-secondary { display: inline-block; background: transparent; color: var(--text-primary); padding: 16px 36px; border-radius: var(--radius-xl); font-weight: 600; font-size: 17px; text-decoration: none; border: 2px solid var(--border-light); transition: all var(--transition-base); cursor: pointer; }
 .btn-secondary:hover { border-color: var(--zm-green); color: var(--zm-green); transform: translateY(-2px); }
+
+/* Download App Button (PWA) */
+#install-app-btn {
+    background: var(--gradient-secondary) !important;
+    box-shadow: 0 4px 15px rgba(239, 125, 0, 0.35) !important;
+    display: none;
+}
+#install-app-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(239, 125, 0, 0.45) !important;
+}
+.pulse-glow {
+    animation: pulse-glow 1.5s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(239, 125, 0, 0.3), var(--shadow-sm); }
+    50% { box-shadow: 0 0 20px rgba(239, 125, 0, 0.6), 0 0 40px rgba(239, 125, 0, 0.3), var(--shadow-md); }
+}
+
 .hero-trust { display: flex; gap: 24px; flex-wrap: wrap; }
 .hero-trust span { font-size: 14px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
 
@@ -163,11 +194,17 @@ body.dark-mode .lang-btn.active { background: var(--zm-green); color: white; }
 .center-circle { width: 160px; height: 160px; background: var(--gradient-primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 72px; box-shadow: 0 0 60px rgba(0, 128, 0, 0.2); animation: pulse 2s ease-in-out infinite; }
 @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
+/* ============================================================ */
+/* SECTION HEADERS                                              */
+/* ============================================================ */
 .section-header { text-align: center; margin-bottom: 60px; }
 .section-tag { display: inline-block; background: var(--zm-green-light); color: var(--zm-green); padding: 4px 16px; border-radius: var(--radius-xl); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
 .section-header h2 { font-size: 40px; font-weight: 800; color: var(--text-primary); margin-bottom: 12px; }
 .section-header p { font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
 
+/* ============================================================ */
+/* FEATURES                                                     */
+/* ============================================================ */
 .features { padding: 80px 0; background: var(--bg-secondary); transition: background var(--transition-slow); }
 .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
 .feature-card { background: var(--bg-glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 32px 28px; border-radius: var(--radius-md); border: 1px solid rgba(255, 255, 255, 0.08); transition: all var(--transition-bounce); text-align: center; box-shadow: var(--shadow-sm); }
@@ -176,6 +213,9 @@ body.dark-mode .lang-btn.active { background: var(--zm-green); color: white; }
 .feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
 .feature-card p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
 
+/* ============================================================ */
+/* HOW IT WORKS                                                 */
+/* ============================================================ */
 .how-it-works { padding: 80px 0; background: var(--bg-primary); transition: background var(--transition-slow); }
 .steps-container { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
 .step { background: var(--bg-glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 32px 28px; border-radius: var(--radius-md); border: 1px solid rgba(255, 255, 255, 0.08); text-align: center; flex: 1; min-width: 200px; max-width: 300px; transition: all var(--transition-bounce); box-shadow: var(--shadow-sm); }
@@ -187,11 +227,17 @@ body.dark-mode .lang-btn.active { background: var(--zm-green); color: white; }
 .step-arrow { font-size: 28px; color: var(--zm-green); font-weight: 700; }
 .steps-cta { text-align: center; }
 
+/* ============================================================ */
+/* STATS                                                        */
+/* ============================================================ */
 .stats { padding: 80px 0; background: var(--gradient-primary); color: white; }
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
 .stat-number { font-size: 52px; font-weight: 900; line-height: 1; margin-bottom: 8px; }
 .stat-label { font-size: 16px; opacity: 0.85; font-weight: 500; }
 
+/* ============================================================ */
+/* TESTIMONIALS                                                 */
+/* ============================================================ */
 .testimonials { padding: 80px 0; background: var(--bg-secondary); transition: background var(--transition-slow); }
 .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
 .testimonial-card { background: var(--bg-glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 32px 28px; border-radius: var(--radius-md); border: 1px solid rgba(255, 255, 255, 0.08); transition: all var(--transition-bounce); box-shadow: var(--shadow-sm); }
@@ -203,12 +249,18 @@ body.dark-mode .lang-btn.active { background: var(--zm-green); color: white; }
 .author-name { font-weight: 600; font-size: 15px; display: block; color: var(--text-primary); }
 .author-location { font-size: 13px; color: var(--text-muted); }
 
+/* ============================================================ */
+/* CTA SECTION                                                  */
+/* ============================================================ */
 .cta-section { padding: 100px 0; background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); transition: background var(--transition-slow); }
 .cta-content { text-align: center; max-width: 700px; margin: 0 auto; }
 .cta-content h2 { font-size: 44px; font-weight: 800; margin-bottom: 16px; }
 .cta-content p { font-size: 18px; color: var(--text-secondary); margin-bottom: 32px; }
 .cta-note { font-size: 14px !important; color: var(--text-muted) !important; margin-top: 16px !important; margin-bottom: 0 !important; }
 
+/* ============================================================ */
+/* FOOTER                                                       */
+/* ============================================================ */
 .footer { background: var(--zm-black); color: white; padding: 60px 0 24px; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
 .footer-brand .brand-icon { font-size: 28px; }
@@ -221,6 +273,9 @@ body.dark-mode .lang-btn.active { background: var(--zm-green); color: white; }
 .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 24px; text-align: center; }
 .footer-bottom p { color: rgba(255, 255, 255, 0.6); font-size: 14px; margin-bottom: 4px; }
 
+/* ============================================================ */
+/* RESPONSIVE                                                   */
+/* ============================================================ */
 @media (max-width: 1024px) {
     .hero-container { grid-template-columns: 1fr; text-align: center; gap: 40px; }
     .hero-text h1 { font-size: 44px; }
@@ -235,6 +290,7 @@ body.dark-mode .lang-btn.active { background: var(--zm-green); color: white; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
     .footer-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
 @media (max-width: 768px) {
     .mobile-toggle { display: flex; }
     .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); flex-direction: column; padding: 20px 24px; gap: 16px; border-bottom: 1px solid var(--border-light); box-shadow: var(--shadow-md); }
@@ -248,7 +304,7 @@ body.dark-mode .lang-btn.active { background: var(--zm-green); color: white; }
     .hero-text h1 { font-size: 32px; }
     .hero-description { font-size: 17px; }
     .hero-buttons { flex-direction: column; align-items: center; }
-    .hero-buttons a { width: 100%; max-width: 300px; text-align: center; }
+    .hero-buttons a, .hero-buttons button { width: 100%; max-width: 300px; text-align: center; }
     .hero-graphic { width: 220px; height: 220px; }
     .center-circle { width: 90px; height: 90px; font-size: 40px; }
     .floating-icon { font-size: 28px; }
@@ -265,22 +321,62 @@ body.dark-mode .lang-btn.active { background: var(--zm-green); color: white; }
     .footer-grid { grid-template-columns: 1fr; gap: 30px; }
     .footer-brand p { max-width: 100%; }
     body.dark-mode .nav-links.active { background: var(--bg-secondary); }
+
+    /* --- IMPROVEMENT: Better touch targets on mobile --- */
+    .btn-primary, .btn-secondary {
+        padding: 18px 28px;
+        font-size: 16px;
+        min-height: 54px;
+        min-width: 200px;
+    }
+    #install-app-btn {
+        padding: 18px 28px;
+        font-size: 16px;
+        min-height: 54px;
+    }
+    .nav-cta {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    .dark-mode-toggle {
+        padding: 8px 12px;
+        min-height: 40px;
+    }
+    .lang-btn {
+        padding: 6px 8px;
+        min-height: 36px;
+    }
+    .lang-btn .flag {
+        font-size: 18px;
+    }
 }
+
 @media (max-width: 480px) {
     .hero-text h1 { font-size: 28px; }
     .hero { padding: 80px 0 40px; }
     .container { padding: 0 16px; }
-    .btn-primary, .btn-secondary { padding: 14px 24px; font-size: 15px; }
+    .btn-primary, .btn-secondary {
+        padding: 16px 24px;
+        font-size: 15px;
+        min-height: 48px;
+    }
     .btn-primary.btn-large { padding: 16px 32px; font-size: 17px; }
     .section-header h2 { font-size: 26px; }
     .section-header p { font-size: 16px; }
     .stat-number { font-size: 30px; }
+    .hero-buttons a, .hero-buttons button { max-width: 100%; }
 }
+
+/* ============================================================ */
+/* ACCESSIBILITY & PRINT                                        */
+/* ============================================================ */
 :focus-visible { outline: 3px solid var(--zm-green); outline-offset: 2px; border-radius: 4px; }
+
 @media (prefers-reduced-motion: reduce) {
     * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     html { scroll-behavior: auto; }
 }
+
 @media print {
     .navbar { position: static; background: white !important; box-shadow: none !important; }
     .hero { min-height: auto; padding: 40px 0; }
@@ -290,4 +386,5 @@ body.dark-mode .lang-btn.active { background: var(--zm-green); color: white; }
     .footer { background: #333 !important; }
     .floating-icon { display: none !important; }
     .language-switcher { display: none !important; }
+    #install-app-btn { display: none !important; }
 }

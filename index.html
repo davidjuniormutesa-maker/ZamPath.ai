@@ -2,6 +2,7 @@
 <!-- ============================================================ -->
 <!-- ZAMPATH.AI - Landing Page                                    -->
 <!-- A professional marketing page with MULTI-LANGUAGE support    -->
+<!-- IMPROVED: Added "Download App" button for PWA installation   -->
 <!-- ============================================================ -->
 
 <html lang="en">
@@ -99,6 +100,10 @@
                     <a href="#how-it-works" class="btn-secondary" data-translate="hero_learn_more">
                         Learn More ↓
                     </a>
+                    <!-- NEW: Download App button (hidden by default, shown when installable) -->
+                    <button id="install-app-btn" class="btn-primary pulse-glow" style="display:none; background: var(--gradient-secondary);" data-translate="install_app">
+                        📲 Download App
+                    </button>
                 </div>
                 <div class="hero-trust">
                     <span data-translate="trust_offline">💻 Works Offline</span>
@@ -210,7 +215,7 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-number" data-count="50">0</div>
+                    <div class="stat-number" data-count="130">0</div>
                     <div class="stat-label" data-translate="stat_careers">Careers Available</div>
                 </div>
                 <div class="stat-item">
@@ -247,7 +252,7 @@
                         <span class="author-avatar">👩</span>
                         <div>
                             <span class="author-name" data-translate="testimonial1_name">Mumba Chanda</span>
-                            <span class="author-location" data-translate="testimonial1_location">Kabwe turst, Form 2</span>
+                            <span class="author-location" data-translate="testimonial1_location">Kabwe, Form 2</span>
                         </div>
                     </div>
                 </div>
@@ -258,7 +263,7 @@
                         <span class="author-avatar">👨</span>
                         <div>
                             <span class="author-name" data-translate="testimonial2_name">McCarthy Nsalamba</span>
-                            <span class="author-location" data-translate="testimonial2_location">Kabew trust, Form 2</span>
+                            <span class="author-location" data-translate="testimonial2_location">Kabwe, Form 2</span>
                         </div>
                     </div>
                 </div>
@@ -269,7 +274,7 @@
                         <span class="author-avatar">👩</span>
                         <div>
                             <span class="author-name" data-translate="testimonial3_name">Gabriella Mutesa</span>
-                            <span class="author-location" data-translate="testimonial3_location">Kabwe trust, Grade 7</span>
+                            <span class="author-location" data-translate="testimonial3_location">Kabwe, Grade 7</span>
                         </div>
                     </div>
                 </div>
@@ -453,9 +458,8 @@
         });
 
         // ============================================================
-        // SECTION 7: LANGUAGE SWITCHER (Shared with app)
+        // SECTION 7: LANGUAGE SWITCHER
         // ============================================================
-        // Translations for landing page
         const landingTranslations = {
             'en': {
                 'nav_features': 'Features',
@@ -507,14 +511,14 @@
                 'testimonials_title': 'What Students Are Saying',
                 'testimonials_subtitle': 'Real feedback from real students',
                 'testimonial1_text': 'I didn\'t know what I wanted to be. ZamPath showed me careers I never knew existed!',
-                'testimonial1_name': 'Chanda',
-                'testimonial1_location': 'Lusaka, Form 2',
+                'testimonial1_name': 'Mumba Chanda',
+                'testimonial1_location': 'Kabwe, Form 2',
                 'testimonial2_text': 'The subject recommendations helped me pick my Form 3 subjects with confidence.',
-                'testimonial2_name': 'Mwansa',
-                'testimonial2_location': 'Kitwe, Form 2',
+                'testimonial2_name': 'McCarthy Nsalamba',
+                'testimonial2_location': 'Kabwe, Form 2',
                 'testimonial3_text': 'My parents and I now have a clear plan for my future. Thank you ZamPath!',
-                'testimonial3_name': 'Bwalya',
-                'testimonial3_location': 'Ndola, Form 2',
+                'testimonial3_name': 'Gabriella Mutesa',
+                'testimonial3_location': 'Kabwe, Grade 7',
                 'cta_title': 'Ready to Find Your Path?',
                 'cta_desc': 'Join thousands of Zambian students who have discovered their perfect career with ZamPath.',
                 'cta_button': '🚀 Get Started Now',
@@ -530,6 +534,7 @@
                 'footer_heart': 'Built with ❤️ for Zambian Students',
                 'footer_jets': 'JETS 2026 — Digital Robotics and Intelligent Systems',
                 'footer_rights': 'All rights reserved by David Mutesa',
+                'install_app': '📲 Download App'
             },
             'ny': {
                 'nav_features': 'Zinthu',
@@ -581,14 +586,14 @@
                 'testimonials_title': 'Zomwe Ana Akunena',
                 'testimonials_subtitle': 'Umboni weniweni kuchokera kwa ophunzira',
                 'testimonial1_text': 'Sindimadziwa ntchito yomwe ndikufuna. ZamPath inandionetsa ntchito zomwe sindimadziwa kuti zilipo!',
-                'testimonial1_name': 'Chanda',
-                'testimonial1_location': 'Lusaka, Form 2',
+                'testimonial1_name': 'Mumba Chanda',
+                'testimonial1_location': 'Kabwe, Form 2',
                 'testimonial2_text': 'Maphunziro omwe anandilangiza anandithandiza kusankha maphunziro anga a Form 3 mwamphamvu.',
-                'testimonial2_name': 'Mwansa',
-                'testimonial2_location': 'Kitwe, Form 2',
+                'testimonial2_name': 'McCarthy Nsalamba',
+                'testimonial2_location': 'Kabwe, Form 2',
                 'testimonial3_text': 'Makolo anga ndi ine tsopano tili ndi ndondomeko yabwino ya tsogolo langa. Zikomo ZamPath!',
-                'testimonial3_name': 'Bwalya',
-                'testimonial3_location': 'Ndola, Form 2',
+                'testimonial3_name': 'Gabriella Mutesa',
+                'testimonial3_location': 'Kabwe, Grade 7',
                 'cta_title': 'Mukonzeka Kupeza Njira Yanu?',
                 'cta_desc': 'Lowani nawo ophunzira ambiri ku Zambia omwe apeza ntchito yabwino ndi ZamPath.',
                 'cta_button': '🚀 Yambani Tsopano',
@@ -604,6 +609,7 @@
                 'footer_heart': 'Yopangidwa ndi ❤️ kwa Ophunzira a Zambia',
                 'footer_jets': 'JETS 2026 — Digital Robotics ndi Intelligent Systems',
                 'footer_rights': 'Ufulu wonse ndi wa David Mutesa',
+                'install_app': '📲 Tsitsani App'
             },
             'bem': {
                 'nav_features': 'Ifintu',
@@ -655,14 +661,14 @@
                 'testimonials_title': 'Ifyo Abana Bakwata',
                 'testimonials_subtitle': 'Umboni wa kashinku kufuma ku bana ba sukulu',
                 'testimonial1_text': 'Nshishibe umilimo ungafwaya. ZamPath yandilangile imilimo nshishibe nga ilipo!',
-                'testimonial1_name': 'Chanda',
-                'testimonial1_location': 'Lusaka, Form 2',
+                'testimonial1_name': 'Mumba Chanda',
+                'testimonial1_location': 'Kabwe, Form 2',
                 'testimonial2_text': 'Amasambililo bandilangile yandikwashishe ukusankula amasambililo ya Form 3.',
-                'testimonial2_name': 'Mwansa',
-                'testimonial2_location': 'Kitwe, Form 2',
+                'testimonial2_name': 'McCarthy Nsalamba',
+                'testimonial2_location': 'Kabwe, Form 2',
                 'testimonial3_text': 'Bafyashi bangi na ine twalikwata inshila isuma ya bumushi bwandi. Twatotela ZamPath!',
-                'testimonial3_name': 'Bwalya',
-                'testimonial3_location': 'Ndola, Form 2',
+                'testimonial3_name': 'Gabriella Mutesa',
+                'testimonial3_location': 'Kabwe, Grade 7',
                 'cta_title': 'Mwakonka Ukusanga Nshila Yenu?',
                 'cta_desc': 'Ingilani mu bana ba Zambia abengi abasangile imilimo yawama na ZamPath.',
                 'cta_button': '🚀 Tambukeni Sono',
@@ -678,6 +684,7 @@
                 'footer_heart': 'Yabombwa na ❤️ ku Bana ba Zambia',
                 'footer_jets': 'JETS 2026 — Digital Robotics ne Intelligent Systems',
                 'footer_rights': 'Ubwisho bwonse ni bwa David Mutesa',
+                'install_app': '📲 Tuleni App'
             },
             'tonga': {
                 'nav_features': 'Zintu',
@@ -729,14 +736,14 @@
                 'testimonials_title': 'Zyobana Bakwata',
                 'testimonials_subtitle': 'Umboni wa kashinku kufuma ku bana ba sukulu',
                 'testimonial1_text': 'Nciindisena mibele yomukabila. ZamPath yandilangile mibele nciindisena nga ilipo!',
-                'testimonial1_name': 'Chanda',
-                'testimonial1_location': 'Lusaka, Form 2',
+                'testimonial1_name': 'Mumba Chanda',
+                'testimonial1_location': 'Kabwe, Form 2',
                 'testimonial2_text': 'Mbali zyandilangile zyandikwassishe kusankula mbali za Form 3.',
-                'testimonial2_name': 'Mwansa',
-                'testimonial2_location': 'Kitwe, Form 2',
+                'testimonial2_name': 'McCarthy Nsalamba',
+                'testimonial2_location': 'Kabwe, Form 2',
                 'testimonial3_text': 'Babaana bangu na ine tulikwata nzila yabotu ya bumwi bwangu. Twatotela ZamPath!',
-                'testimonial3_name': 'Bwalya',
-                'testimonial3_location': 'Ndola, Form 2',
+                'testimonial3_name': 'Gabriella Mutesa',
+                'testimonial3_location': 'Kabwe, Grade 7',
                 'cta_title': 'Mwakonkela Ukusanga Njila Yenyu?',
                 'cta_desc': 'Ingilani mu bana ba Zambia abengi abasangile mibele yabotu na ZamPath.',
                 'cta_button': '🚀 Tambukani Sono',
@@ -752,6 +759,7 @@
                 'footer_heart': 'Yabolelwa na ❤️ ku Bana ba Zambia',
                 'footer_jets': 'JETS 2026 — Digital Robotics ne Intelligent Systems',
                 'footer_rights': 'Zyoonse ni zya David Mutesa',
+                'install_app': '📲 Tolani App'
             }
         };
 
@@ -782,10 +790,16 @@
                 darkLabel.textContent = landingTranslations[lang]?.['dark_mode'] || 'Dark';
             }
             
+            // Update install button text
+            const installBtn = document.getElementById('install-app-btn');
+            if (installBtn) {
+                installBtn.textContent = landingTranslations[lang]?.['install_app'] || '📲 Download App';
+            }
+            
             localStorage.setItem('preferred_language', lang);
         }
 
-        // Load language preference (shared with app)
+        // Load language preference
         const savedLang = localStorage.getItem('preferred_language');
         if (savedLang && landingTranslations[savedLang]) {
             landingCurrentLanguage = savedLang;
@@ -799,8 +813,49 @@
             });
         });
 
+        // ============================================================
+        // SECTION 8: PWA - INSTALL APP BUTTON
+        // ============================================================
+        let deferredPrompt;
+        const installBtn = document.getElementById('install-app-btn');
+
+        window.addEventListener('beforeinstallprompt', function(e) {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+            // Show the install button
+            installBtn.style.display = 'inline-block';
+            // Update button text based on current language
+            installBtn.textContent = landingTranslations[landingCurrentLanguage]?.['install_app'] || '📲 Download App';
+        });
+
+        installBtn.addEventListener('click', function() {
+            if (deferredPrompt) {
+                // Show the install prompt
+                deferredPrompt.prompt();
+                // Wait for the user to respond to the prompt
+                deferredPrompt.userChoice.then(function(choiceResult) {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                        installBtn.style.display = 'none';
+                    } else {
+                        console.log('User dismissed the install prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        });
+
+        // Also handle when the app is already installed
+        window.addEventListener('appinstalled', function() {
+            console.log('App was installed');
+            installBtn.style.display = 'none';
+        });
+
         console.log('© ZamPath.ai landing page loaded successfully!');
         console.log('🌍 Languages: English, Nyanja, Bemba, Tonga');
+        console.log('📲 PWA: Download App button ready');
     </script>
 
 </body>

@@ -15,6 +15,7 @@
 //   - PDF generation has a retry/refresh fallback
 //   - Added "Reset Tools" button in results screen
 //   - AI prompt now shows question text alongside answers
+//   - PWA: Auto-update detection integrated
 // ALL FEATURES ARE MERGED. EVERY LINE IS COMPLETE.
 // ================================================================
 
@@ -23,6 +24,7 @@
 // ================================================================
 
 const careers = {
+    // ---- STEM CLUSTER (22 careers) ----
     'Mining Engineer': {
         cluster: 'STEM',
         icon: '⛏️',
@@ -7150,12 +7152,19 @@ function init() {
         });
     }
 
+    // --- PWA: Check if app was installed ---
+    window.addEventListener('appinstalled', function() {
+        console.log('📲 App was installed successfully!');
+        showToast('🎉 Thank you for installing Career Quest!');
+    });
+
     if (typeof console !== 'undefined') {
         console.log('© Career Quest initialized successfully! (Merged & Improved)');
         console.log('📚 Loaded ' + Object.keys(careers).length + ' careers');
         console.log('📝 Loaded ' + questions.length + ' questions');
         console.log('✅ Language: ' + state.language);
         console.log('✅ Improvements: Search filter reset, comparison badges, clear-all button, reset tools, PDF retry, AI prompt with question context');
+        console.log('📲 PWA: Service Worker registered - App can be installed!');
     }
 }
 
