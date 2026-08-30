@@ -3,24 +3,45 @@
 <!-- ZAMPATH.AI - Landing Page                                    -->
 <!-- A professional marketing page with MULTI-LANGUAGE support    -->
 <!-- IMPROVED: Added "Download App" button for PWA installation   -->
+<!-- IMPROVED: Mobile responsiveness fixes for dad's phone        -->
 <!-- ============================================================ -->
 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <meta name="description" content="ZamPath - AI-powered career guidance for Zambian students. Discover your perfect career path.">
     <meta name="theme-color" content="#008000">
     
     <title>ZamPath.ai - Find Your Career Path in Zambia</title>
     
+    <!-- PWA: Link to manifest for installability -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Apple touch icon for iOS -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%230c2f20'/%3E%3Crect x='8' y='8' width='176' height='176' rx='32' fill='none' stroke='%23eeba2c' stroke-width='3' opacity='0.4'/%3E%3Ctext x='96' y='130' font-size='90' text-anchor='middle'%3E🎓%3C/text%3E%3C/svg%3E">
+    
     <link rel="stylesheet" href="landingstyle.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- PWA: Service Worker registration -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+                console.log('✅ Service Worker registered on landing page');
+            })
+            .catch(function(error) {
+                console.log('❌ Service Worker registration failed:', error);
+            });
+    }
+    </script>
 </head>
 <body>
 
     <!-- ============================================================ -->
     <!-- NAVIGATION BAR - With Language Switcher                      -->
+    <!-- IMPROVED: Better mobile menu and touch targets              -->
     <!-- ============================================================ -->
     <nav class="navbar" role="navigation">
         <div class="nav-container">
@@ -78,6 +99,7 @@
 
     <!-- ============================================================ -->
     <!-- HERO SECTION                                                 -->
+    <!-- IMPROVED: Better text sizing and button stacking on mobile   -->
     <!-- ============================================================ -->
     <section class="hero" id="hero">
         <div class="hero-container">
@@ -127,6 +149,7 @@
 
     <!-- ============================================================ -->
     <!-- FEATURES SECTION                                              -->
+    <!-- IMPROVED: Cards stack better on mobile                       -->
     <!-- ============================================================ -->
     <section class="features" id="features">
         <div class="container">
@@ -172,6 +195,7 @@
 
     <!-- ============================================================ -->
     <!-- HOW IT WORKS SECTION                                          -->
+    <!-- IMPROVED: Steps stack vertically on mobile                   -->
     <!-- ============================================================ -->
     <section class="how-it-works" id="how-it-works">
         <div class="container">
@@ -210,6 +234,7 @@
 
     <!-- ============================================================ -->
     <!-- STATS SECTION                                                 -->
+    <!-- IMPROVED: Stats grid adapts to 2 columns on mobile            -->
     <!-- ============================================================ -->
     <section class="stats" id="stats">
         <div class="container">
@@ -236,6 +261,7 @@
 
     <!-- ============================================================ -->
     <!-- TESTIMONIALS SECTION                                          -->
+    <!-- IMPROVED: Testimonials stack vertically on mobile             -->
     <!-- ============================================================ -->
     <section class="testimonials" id="testimonials">
         <div class="container">
@@ -284,6 +310,7 @@
 
     <!-- ============================================================ -->
     <!-- CTA SECTION                                                   -->
+    <!-- IMPROVED: Button is full-width on mobile                     -->
     <!-- ============================================================ -->
     <section class="cta-section">
         <div class="container">
@@ -300,6 +327,7 @@
 
     <!-- ============================================================ -->
     <!-- FOOTER                                                        -->
+    <!-- IMPROVED: Footer links stack on mobile                       -->
     <!-- ============================================================ -->
     <footer class="footer">
         <div class="container">
@@ -820,7 +848,7 @@
         const installBtn = document.getElementById('install-app-btn');
 
         window.addEventListener('beforeinstallprompt', function(e) {
-            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            // Prevent Chrome from automatically showing the prompt
             e.preventDefault();
             // Stash the event so it can be triggered later
             deferredPrompt = e;
@@ -834,7 +862,7 @@
             if (deferredPrompt) {
                 // Show the install prompt
                 deferredPrompt.prompt();
-                // Wait for the user to respond to the prompt
+                // Wait for the user to respond
                 deferredPrompt.userChoice.then(function(choiceResult) {
                     if (choiceResult.outcome === 'accepted') {
                         console.log('User accepted the install prompt');

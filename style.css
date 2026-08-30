@@ -1,22 +1,24 @@
 /* ============================================================ */
 /* CAREER QUEST - COMPLETE MERGED STYLESHEET                  */
-/* Combines:                                                   */
-/*   - Current project: Radar chart, comparison, share,         */
-/*     language switcher, pathways, modal add-to-compare        */
-/*   - V2 project: Particles, AI Discovery, Career Explorer,   */
-/*     Personality Insights, Trait Bars, Typing effect         */
-/* Zambia-themed with green, red, orange, and black            */
-/* FULLY OFFLINE - uses system fonts, no external CDN calls     */
-/* IMPROVEMENTS: Better mobile touch targets, reset tools      */
-/* button, clear-all link, consistent transitions              */
+/* ============================================================ */
+/* This file contains ALL styles for the app:                   */
+/* 1. Zambia-themed design tokens (colors, shadows, fonts)      */
+/* 2. Dark mode support                                        */
+/* 3. Loading screen animations                                */
+/* 4. Bell notification system styles                          */
+/* 5. All app screens (welcome, quiz, results)                 */
+/* 6. Career cards, comparison tool, radar chart               */
+/* 7. Mobile responsiveness fixes                              */
+/* 8. Print styles                                             */
 /* ============================================================ */
 
 /* ============================================================ */
 /* CSS CUSTOM PROPERTIES (Design Tokens)                        */
+/* These variables are used throughout the app for consistency  */
 /* ============================================================ */
 
 :root {
-    /* Zambia Flag Colors */
+    /* Zambia Flag Colors - matching the Zambian flag */
     --zm-green: #0a7e6c;
     --zm-green-dark: #065f52;
     --zm-green-light: #e6f4f1;
@@ -27,14 +29,15 @@
     --zm-orange: #d97706;
     --zm-orange-light: #fffbeb;
     --zm-black: #1e293b;
+    --zm-gold: #eeba2c; /* Zambia gold - used for accents and bell */
 
-    /* Gradients */
+    /* Gradients for buttons and backgrounds */
     --gradient-primary: linear-gradient(135deg, #0a7e6c, #0d9488);
     --gradient-secondary: linear-gradient(135deg, #d97706, #f59e0b);
     --gradient-accent: linear-gradient(135deg, #b91c1c, #dc2626);
     --gradient-glow: radial-gradient(circle at 50% 50%, rgba(10, 126, 108, 0.08), transparent 70%);
 
-    /* Neutrals */
+    /* Neutrals for light and dark mode */
     --bg-primary: #f8fafc;
     --bg-secondary: #ffffff;
     --bg-tertiary: #f1f5f9;
@@ -47,7 +50,7 @@
     --border-light: #e2e8f0;
     --border-medium: #cbd5e1;
 
-    /* Cluster Colors */
+    /* Cluster Colors - each career cluster has a unique color */
     --cluster-stem: #2563eb;
     --cluster-stem-bg: #eff6ff;
     --cluster-healthcare: #dc2626;
@@ -65,20 +68,20 @@
     --cluster-skilled: #f97316;
     --cluster-skilled-bg: #fff7ed;
 
-    /* Shadows */
+    /* Shadows for depth */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.07);
     --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08);
     --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.1);
     --shadow-green: 0 4px 15px rgba(10, 126, 108, 0.25);
 
-    /* Border Radius */
+    /* Border Radius for rounded corners */
     --radius-sm: 6px;
     --radius-md: 12px;
     --radius-lg: 16px;
     --radius-xl: 50px;
 
-    /* Transitions */
+    /* Transitions for smooth animations */
     --transition-fast: 0.15s ease;
     --transition-base: 0.25s ease;
     --transition-slow: 0.4s ease;
@@ -91,6 +94,7 @@
 
 /* ============================================================ */
 /* DARK MODE                                                    */
+/* All colors are inverted for dark mode                       */
 /* ============================================================ */
 body.dark-mode {
     --bg-primary: #0f172a;
@@ -121,7 +125,8 @@ body.dark-mode {
 }
 
 /* ============================================================ */
-/* RESET & BASE                                                 */
+/* RESET & BASE STYLES                                          */
+/* Removes default browser styles and sets up the page          */
 /* ============================================================ */
 *,
 *::before,
@@ -147,6 +152,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Subtle dot pattern background */
 body::before {
     content: '';
     position: fixed;
@@ -166,6 +172,7 @@ body::before {
     color: white;
 }
 
+/* Custom scrollbar - matches the Zambia theme */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -175,13 +182,14 @@ body::before {
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--zm-green);
+    background: linear-gradient(180deg, var(--zm-green), var(--zm-green-dark));
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
     background: var(--zm-green-dark);
 }
 
+/* Focus indicators for accessibility */
 :focus-visible {
     outline: 3px solid var(--zm-green);
     outline-offset: 2px;
@@ -192,7 +200,293 @@ body::before {
 }
 
 /* ============================================================ */
-/* SKIP LINK                                                    */
+/* LOADING SCREEN ANIMATIONS                                    */
+/* NEW: Used during app startup and installation               */
+/* ============================================================ */
+
+/* Logo floating animation */
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-10px) scale(1.05); }
+}
+
+/* Spinner for loading states */
+.loading-spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255,255,255,0.1);
+    border-top-color: var(--zm-gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Pulse animation for the install button on loading screen */
+#loading-install-btn {
+    animation: pulseBtn 2s ease-in-out infinite;
+}
+
+@keyframes pulseBtn {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); box-shadow: 0 0 20px rgba(238, 186, 44, 0.3); }
+}
+
+/* ============================================================ */
+/* BELL NOTIFICATION STYLES                                     */
+/* NEW: YouTube-style notification bell with red dot           */
+/* ============================================================ */
+
+.bell-container {
+    position: relative;
+    display: inline-block;
+    margin-left: 4px;
+}
+
+.bell-button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    position: relative;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.bell-button:hover {
+    background: var(--bg-tertiary);
+    color: var(--zm-green);
+    transform: scale(1.05);
+}
+
+.bell-button:active {
+    transform: scale(0.95);
+}
+
+/* Red dot notification badge - pulses when active */
+.bell-dot {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 12px;
+    height: 12px;
+    background: #dc2626;
+    border-radius: 50%;
+    border: 2px solid var(--bg-secondary);
+    animation: bellDotPulse 2s ease-in-out infinite;
+}
+
+@keyframes bellDotPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+/* Bell dropdown panel */
+.bell-panel {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 320px;
+    max-width: 90vw;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+    z-index: 1000;
+    overflow: hidden;
+    animation: bellSlideDown 0.25s ease;
+}
+
+@keyframes bellSlideDown {
+    from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.bell-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border-light);
+    background: var(--bg-tertiary);
+}
+
+.bell-panel-header h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.bell-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.bell-close:hover {
+    color: var(--text-primary);
+}
+
+.bell-panel-body {
+    padding: 16px 18px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Bell notification items */
+.bell-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.bell-item:last-child {
+    border-bottom: none;
+}
+
+.bell-item-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+}
+
+.bell-item-content {
+    flex: 1;
+}
+
+.bell-item-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.bell-item-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+    line-height: 1.4;
+}
+
+.bell-item-action {
+    margin-top: 8px;
+}
+
+.bell-item-action .btn-primary,
+.bell-item-action .btn-secondary {
+    padding: 6px 16px;
+    font-size: 13px;
+    min-height: 36px;
+}
+
+/* Install button in bell panel */
+.bell-install-btn {
+    background: var(--gradient-secondary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--radius-xl);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    margin-top: 4px;
+    font-family: inherit;
+}
+
+.bell-install-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(239, 125, 0, 0.3);
+}
+
+/* Status badges in bell panel */
+.bell-status-badge {
+    display: inline-block;
+    padding: 2px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.bell-status-badge.installed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.bell-status-badge.not-installed {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.bell-status-badge.updating {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+/* Dark mode bell styles */
+body.dark-mode .bell-button {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .bell-button:hover {
+    background: var(--bg-tertiary);
+    color: var(--zm-green);
+}
+
+body.dark-mode .bell-dot {
+    border-color: var(--bg-secondary);
+}
+
+body.dark-mode .bell-panel {
+    background: var(--bg-secondary);
+    border-color: var(--border-light);
+}
+
+body.dark-mode .bell-panel-header {
+    background: var(--bg-tertiary);
+}
+
+body.dark-mode .bell-item {
+    border-bottom-color: var(--border-light);
+}
+
+body.dark-mode .bell-status-badge.installed {
+    background: #064e3b;
+    color: #86efac;
+}
+
+body.dark-mode .bell-status-badge.not-installed {
+    background: #451a03;
+    color: #fcd34d;
+}
+
+body.dark-mode .bell-status-badge.updating {
+    background: #1e1b4b;
+    color: #93c5fd;
+}
+
+/* ============================================================ */
+/* SKIP LINK - Accessibility feature                           */
 /* ============================================================ */
 .skip-link {
     position: absolute;
@@ -214,6 +508,7 @@ body::before {
 
 /* ============================================================ */
 /* FLOATING PARTICLES CANVAS (V2)                              */
+/* Background animation particles                               */
 /* ============================================================ */
 .particles-canvas {
     position: fixed;
@@ -370,6 +665,7 @@ body::before {
 
 /* ============================================================ */
 /* SCREENS                                                      */
+/* Each screen (welcome, quiz, results) is shown/hidden        */
 /* ============================================================ */
 .screen {
     display: none;
@@ -399,10 +695,6 @@ body::before {
     animation: logoFloat 4s ease-in-out infinite;
     filter: drop-shadow(0 10px 20px rgba(10, 126, 108, 0.15));
 }
-@keyframes logoFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
 
 .welcome-content h1 {
     font-size: 44px;
@@ -415,7 +707,7 @@ body::before {
     background-clip: text;
 }
 
-/* Typing Effect Subtitle (V2) */
+/* Typing Effect Subtitle (V2) - animates typing in */
 .subtitle {
     font-size: 20px;
     color: var(--zm-orange);
@@ -2349,6 +2641,30 @@ body.dark-mode .discovery-reason {
         padding: 8px 12px;
         font-size: 15px;
     }
+    
+    /* Bell responsive fixes */
+    .bell-panel {
+        width: 100%;
+        max-width: 100vw;
+        right: -10px;
+        top: 48px;
+        border-radius: 12px 12px 0 0;
+        max-height: 80vh;
+    }
+    .bell-panel-body {
+        max-height: 60vh;
+    }
+    .bell-button {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+    .bell-dot {
+        width: 10px;
+        height: 10px;
+        top: 2px;
+        right: 2px;
+    }
 }
 
 /* ============================================================ */
@@ -2392,7 +2708,8 @@ body.dark-mode .discovery-reason {
     .filter-chips, .search-bar, .share-results-section, .language-switcher, .dark-mode-toggle,
     #clear-comparison-btn, #clear-discovery-compare-btn, .ai-discovery-section,
     .particles-canvas, .load-more-btn, .btn-details-sm,
-    .discovery-add-compare, .discovery-remove-compare, .discovery-read-more {
+    .discovery-add-compare, .discovery-remove-compare, .discovery-read-more,
+    .bell-container {
         display: none !important;
     }
     .screen:not(#results-screen) { display: none !important; }
