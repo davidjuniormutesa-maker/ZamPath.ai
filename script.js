@@ -16,6 +16,7 @@
 //   - Added "Reset Tools" button in results screen
 //   - AI prompt now shows question text alongside answers
 //   - PWA: Auto-update detection integrated
+//   - Discovery mode: compact cluster cards, clean career lists
 // ALL FEATURES ARE MERGED. EVERY LINE IS COMPLETE.
 // ================================================================
 
@@ -4619,7 +4620,7 @@ const translations = {
         'avg_match': 'Aveleji Yakufwanana',
         'global_ready': 'Zyakonzekela Calo Consi',
         'personality_title': 'Mbwenu Yenyu',
-        'personality_desc': 'Chishusho ichi chili kulaanga mbwenu zyenu zyakukula potengera makani enyu. Muzi ukukula, ni zyakukula!',
+        'personality_desc': 'Chishusho ichi chili kulaanga mbwenu zyenyu zyakukula potengera makani enyu. Muzi ukukula, ni zyakukula!',
         'search_placeholder': 'Sakani mikondo',
         'pathway_title': 'Njila Yenyu Yabulemu',
         'pathway_desc': 'Kuti mutsatire mikondo iyakanilwe kuli imwe, mubela kulanda njila iyi mu Form 1-4:',
@@ -4696,7 +4697,7 @@ const translations = {
         'contact_us': 'Tumikizeni',
         'all_rights_reserved': 'Zyonse zya David Mutesa',
         'contact_email': 'davidjuniormutesa@gmail.com',
-        'your_future_starts_here': 'Bumunthu bwenyu butendeka pano.',
+        'your_future_starts_here': 'Bumunthu bwenu butendeka pano.',
         'find_your_path': 'Sangani njila yenyu.',
         'start_your_journey': 'Tambukani Ulendo Wenyu',
         'learn_more': 'Mumeni Zyinji',
@@ -5145,7 +5146,7 @@ function applyTheme() {
     DOM.themeIcon.textContent = state.darkMode ? '☀️' : '🌙';
     DOM.themeLabel.textContent = state.darkMode ? t('light_mode') : t('dark_mode');
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.content = state.darkMode ? '#0f172a' : '#0a7e6c';
+    if (meta) meta.content = state.darkMode ? '#0f172a' : '#008000';
 }
 
 // ================================================================
@@ -5481,8 +5482,8 @@ function renderRadarChart() {
         'Strategic': 3, 'Resilience': 3, 'Detail-Oriented': 3, 'Entrepreneurial': 3
     };
     if (window.personalityChartInstance) window.personalityChartInstance.destroy();
-    var color = getComputedStyle(document.documentElement).getPropertyValue('--zm-green').trim() || '#0a7e6c';
-    var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-bg').trim() || 'rgba(10, 126, 108, 0.15)';
+    var color = getComputedStyle(document.documentElement).getPropertyValue('--zm-green').trim() || '#008000';
+    var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-bg').trim() || 'rgba(0, 128, 0, 0.15)';
     var gridColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-grid').trim() || '#e2e8f0';
     var textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim() || '#1a202c';
     window.personalityChartInstance = new Chart(ctx, {
@@ -6901,24 +6902,45 @@ function loadSampleResults() {
 }
 
 // ================================================================
-// SECTION 45: DISCOVERY MODE - TOGGLE CAREERS
+// SECTION 45: DISCOVERY MODE - TOGGLE CAREERS (UPDATED)
 // ================================================================
 function toggleDiscoveryCareers(cluster, cardEl) {
+    // Close any other open lists first (keep only one open at a time)
+    document.querySelectorAll('.discovery-career-list').forEach(function(el) {
+        if (el.closest('.discovery-card') !== cardEl) {
+            el.remove();
+        }
+    });
+    
     var existing = cardEl.querySelector('.discovery-career-list');
-    if (existing) { existing.remove(); return; }
-    document.querySelectorAll('.discovery-career-list').forEach(function(el) { el.remove(); });
-    var careersInCluster = Object.keys(careers).filter(function(n) { return careers[n] && careers[n].cluster === cluster; });
+    if (existing) { 
+        existing.remove(); 
+        return; 
+    }
+    
+    var careersInCluster = Object.keys(careers).filter(function(n) { 
+        return careers[n] && careers[n].cluster === cluster; 
+    });
+    
     var list = document.createElement('div');
     list.className = 'discovery-career-list';
+    
+    if (careersInCluster.length === 0) {
+        list.innerHTML = '<p style="color:var(--text-muted);padding:12px;text-align:center;">No careers found in this cluster.</p>';
+        cardEl.appendChild(list);
+        return;
+    }
+    
     careersInCluster.forEach(function(name) {
         var c = careers[name];
         if (!c) return;
         var reqs = c.requiredSubjects || c.requiredSkills || ['Various'];
         var reqDisplay = reqs.slice(0, 3).join(', ') + (reqs.length > 3 ? ' +' + (reqs.length - 3) + ' more' : '');
         var isInCompare = state.discoveryCompare.indexOf(name) !== -1;
+        
         var item = document.createElement('div');
         item.className = 'discovery-career-item';
-        item.innerHTML =
+        item.innerHTML = 
             '<h5 data-career="' + name + '">' + c.icon + ' ' + name + '</h5>' +
             '<p>' + c.description.substring(0, 120) + '...</p>' +
             '<p><strong>' + t('requirements') + ':</strong> ' + reqDisplay + '</p>' +
@@ -6934,7 +6956,13 @@ function toggleDiscoveryCareers(cluster, cardEl) {
             '</div>';
         list.appendChild(item);
     });
+    
     cardEl.appendChild(list);
+    
+    // Scroll the list into view smoothly
+    setTimeout(function() {
+        list.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
 }
 
 DOM.discoveryContent.addEventListener('click', function(e) {
