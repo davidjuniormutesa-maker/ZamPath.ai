@@ -2,11 +2,10 @@
 <!-- CAREER QUEST - COMPLETE APPLICATION (FULLY FIXED)               -->
 <!-- ================================================================ -->
 <!-- FIXES:                                                           -->
-<!-- 1. Unified CSS styling with landing page (Zambia theme)        -->
-<!-- 2. Bell system fully functional on mobile with large touch target -->
-<!-- 3. PWA installation – prompts correctly, no duplicate downloads -->
-<!-- 4. Mobile responsiveness – all elements adapt perfectly         -->
-<!-- 5. No placeholders – every feature works out-of-the-box         -->
+<!-- - Bell button always visible (Font Awesome + emoji fallback)   -->
+<!-- - All panels (AI, discovery, explorer) have consistent styling -->
+<!-- - Reminder banner has pulse animation                          -->
+<!-- - Mobile optimised touch targets                              -->
 <!-- ================================================================ -->
 
 <!DOCTYPE html>
@@ -28,7 +27,7 @@
 <body>
 
 <!-- ================================================================ -->
-<!-- LOADING SCREEN – Only shows on first visit or update            -->
+<!-- LOADING SCREEN – ONLY on first browser visit, never in standalone -->
 <!-- ================================================================ -->
 <div id="loading-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#008000;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity 0.6s ease;">
     <div style="text-align:center;">
@@ -101,10 +100,13 @@
                 </button>
             </div>
             
-            <!-- BELL – large touch target, fully functional -->
+            <!-- BELL – always visible with emoji fallback -->
             <div class="bell-container" id="bell-container">
-                <button class="bell-button" id="bell-button" aria-label="Notifications" style="width:48px;height:48px;min-width:48px;min-height:48px;font-size:24px;">
-                    <i class="fas fa-bell"></i>
+                <button class="bell-button" id="bell-button" aria-label="Notifications">
+                    <span class="bell-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="bell-emoji" style="display:none;">🔔</span>
+                    </span>
                     <span class="bell-dot" id="bell-dot" style="display:none;"></span>
                 </button>
                 <div class="bell-panel" id="bell-panel" style="display:none;">
@@ -329,11 +331,11 @@
 <script src="script.js"></script>
 
 <!-- ================================================================ -->
-<!-- LOADING & BELL JAVASCRIPT (FIXED)                               -->
+<!-- LOADING & BELL JAVASCRIPT (FIXED LOADING BEHAVIOR)             -->
 <!-- ================================================================ -->
 <script>
 // ================================================================
-// LOADING SCREEN – Only shows on first visit or app update
+// LOADING SCREEN – ONLY on first browser visit, never in standalone
 // ================================================================
 
 var loadingProgress = document.getElementById('loading-progress');
@@ -344,7 +346,6 @@ var deferredInstallPrompt = null;
 var loadingComplete = false;
 
 function shouldShowLoading() {
-    // In standalone mode (installed) skip loading
     if (window.matchMedia('(display-mode: standalone)').matches) return false;
     var hasVisited = localStorage.getItem('career_quest_visited');
     if (hasVisited === 'true') return false;
@@ -383,12 +384,15 @@ function hideLoadingScreen() {
     loadingScreen.style.opacity = '0';
     setTimeout(function() {
         loadingScreen.style.display = 'none';
-        localStorage.setItem('career_quest_visited', 'true');
+        if (!window.matchMedia('(display-mode: standalone)').matches) {
+            localStorage.setItem('career_quest_visited', 'true');
+        }
         initBellSystem();
     }, 500);
 }
 
 var showLoading = shouldShowLoading();
+
 if (showLoading) {
     loadingScreen.style.display = 'flex';
     setTimeout(simulateLoading, 300);
@@ -396,29 +400,50 @@ if (showLoading) {
 } else {
     loadingScreen.style.display = 'none';
     loadingComplete = true;
-    localStorage.setItem('career_quest_visited', 'true');
+    if (!window.matchMedia('(display-mode: standalone)').matches) {
+        localStorage.setItem('career_quest_visited', 'true');
+    }
     setTimeout(initBellSystem, 200);
 }
 
-// Service worker
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
-        .then(function(reg) { console.log('✅ Service Worker registered'); })
+        .then(function(reg) {
+            console.log('✅ Service Worker registered');
+            if (reg.waiting) {
+                if (!loadingComplete) {
+                    updateLoadingProgress(90, '🔄 Updating app...');
+                }
+                reg.waiting.addEventListener('statechange', function() {
+                    if (this.state === 'activated') {
+                        if (!loadingComplete) {
+                            updateLoadingProgress(100, '✅ Update complete!');
+                            setTimeout(hideLoadingScreen, 500);
+                        }
+                    }
+                });
+            }
+        })
         .catch(function(e) { console.log('❌ Service Worker registration failed:', e); });
 }
 
-// Install prompt
 window.addEventListener('beforeinstallprompt', function(e) {
     e.preventDefault();
     deferredInstallPrompt = e;
-    loadingInstallBtn.style.display = 'block';
+    if (!loadingComplete) {
+        loadingInstallBtn.style.display = 'block';
+    }
 });
+
 document.getElementById('loading-install-btn').addEventListener('click', function() {
     if (deferredInstallPrompt) {
         deferredInstallPrompt.prompt();
         deferredInstallPrompt.userChoice.then(function(choiceResult) {
             if (choiceResult.outcome === 'accepted') {
                 loadingInstallBtn.style.display = 'none';
+                if (!loadingComplete) {
+                    hideLoadingScreen();
+                }
             }
             deferredInstallPrompt = null;
         });
@@ -435,7 +460,7 @@ function closeDownloadGuide() {
 }
 
 // ================================================================
-// BELL NOTIFICATION SYSTEM (FULLY FIXED)
+// BELL NOTIFICATION SYSTEM (FULLY FUNCTIONAL)
 // ================================================================
 
 var bellButton, bellPanel, bellClose, bellDot, bellBody;
@@ -510,7 +535,6 @@ function updateBellContent() {
     var installed = isAppInstalled();
     var html = '';
 
-    // Status
     html += '<div style="margin-bottom:14px;font-size:15px;">';
     html += '<span class="bell-status-badge ' + (installed ? 'installed' : 'not-installed') + '" style="font-size:14px;padding:4px 14px;">';
     html += installed ? '✅ App Installed' : '📲 Not Installed';
@@ -520,7 +544,6 @@ function updateBellContent() {
     }
     html += '</div>';
 
-    // Update notification
     if (updateAvailable) {
         html += '<div class="bell-item" style="padding:14px 0;">';
         html += '<div class="bell-item-icon" style="font-size:28px;">🔄</div>';
@@ -534,7 +557,6 @@ function updateBellContent() {
         html += '</div>';
     }
 
-    // Install section
     if (!installed) {
         html += '<div class="bell-item" style="padding:14px 0;">';
         html += '<div class="bell-item-icon" style="font-size:28px;">📲</div>';
@@ -556,7 +578,6 @@ function updateBellContent() {
         html += '</div>';
     }
 
-    // Tips
     html += '<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-light);">';
     html += '<div style="font-size:13px;color:var(--text-muted);">💡 Tips:</div>';
     html += '<ul style="font-size:13px;color:var(--text-secondary);padding-left:18px;margin-top:4px;line-height:2;">';

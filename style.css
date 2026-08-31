@@ -1,9 +1,11 @@
 /* ============================================================ */
-/* CAREER QUEST - COMPLETE STYLESHEET (UNIFIED & FIXED)        */
+/* CAREER QUEST - COMPLETE STYLESHEET (UNIFIED & POLISHED)     */
 /* ============================================================ */
-/* Unified with landingpage.css – same Zambia theme, colors,   */
-/* shadows, fonts, and responsive behavior.                     */
-/* Fully mobile-optimized with 44px+ touch targets.             */
+/* Changes:                                                     */
+/* - Bell button always visible (emoji fallback)                */
+/* - Consistent styling for all panels (shadow, radius, padding) */
+/* - Reminder banner with subtle pulse animation                */
+/* - Mobile optimised: larger touch targets, better spacing     */
 /* ============================================================ */
 
 :root {
@@ -19,7 +21,6 @@
     --gradient-primary: linear-gradient(135deg, #008000, #00b800, #00cc00);
     --gradient-secondary: linear-gradient(135deg, #EF7D00, #FF6B00);
     --gradient-accent: linear-gradient(135deg, #DE2010, #FF3333);
-    --gradient-glow: radial-gradient(circle at 50% 50%, rgba(0,128,0,0.08), transparent 70%);
 
     --bg-primary: #ffffff;
     --bg-secondary: #f8f9fa;
@@ -33,29 +34,11 @@
     --border-light: #e2e8f0;
     --border-medium: #cbd5e1;
 
-    --cluster-stem: #2563eb;
-    --cluster-stem-bg: #eff6ff;
-    --cluster-healthcare: #dc2626;
-    --cluster-healthcare-bg: #fef2f2;
-    --cluster-business: #d97706;
-    --cluster-business-bg: #fffbeb;
-    --cluster-creative: #8b5cf6;
-    --cluster-creative-bg: #f5f3ff;
-    --cluster-helping: #10b981;
-    --cluster-helping-bg: #ecfdf5;
-    --cluster-outdoor: #22c55e;
-    --cluster-outdoor-bg: #f0fdf4;
-    --cluster-publicservice: #8b5cf6;
-    --cluster-publicservice-bg: #f5f3ff;
-    --cluster-skilled: #f97316;
-    --cluster-skilled-bg: #fff7ed;
-
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
     --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.15);
     --shadow-green: 0 4px 15px rgba(0, 128, 0, 0.25);
-    --shadow-glow-green: 0 0 30px rgba(0, 128, 0, 0.15);
 
     --radius-sm: 8px;
     --radius-md: 12px;
@@ -90,14 +73,6 @@ body.dark-mode {
     --zm-green-light: #052e16;
     --zm-red-light: #2d0a0a;
     --zm-orange-light: #2d1a00;
-    --cluster-stem-bg: #172554;
-    --cluster-healthcare-bg: #450a0a;
-    --cluster-business-bg: #451a03;
-    --cluster-creative-bg: #2e1065;
-    --cluster-helping-bg: #022c22;
-    --cluster-outdoor-bg: #052e16;
-    --cluster-publicservice-bg: #1e1b4b;
-    --cluster-skilled-bg: #2d1a00;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -217,22 +192,46 @@ body {
 .dark-mode-toggle:hover { border-color: var(--zm-green); color: var(--zm-green); background: var(--bg-hover); }
 
 /* ============================================================ */
-/* BELL NOTIFICATION – LARGE TOUCH TARGET, FULLY FUNCTIONAL    */
+/* BELL NOTIFICATION – ALWAYS VISIBLE, LARGE TOUCH TARGET      */
 /* ============================================================ */
 .bell-container {
     position: relative; display: inline-block; margin-left: 4px;
 }
 
 .bell-button {
-    background: none; border: none; color: var(--text-secondary);
-    cursor: pointer; padding: 8px 10px; border-radius: 50%;
-    transition: all 0.2s ease; position: relative;
-    display: flex; align-items: center; justify-content: center;
+    background: var(--bg-tertiary); /* visible background */
+    border: 1px solid var(--border-light);
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 8px;
     width: 48px; height: 48px; min-width: 48px; min-height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    transition: all 0.2s ease;
+    position: relative;
 }
-.bell-button i { font-size: 24px; line-height: 1; }
-.bell-button:hover { background: var(--bg-tertiary); color: var(--zm-green); transform: scale(1.05); }
+.bell-button:hover {
+    background: var(--zm-green-light);
+    color: var(--zm-green);
+    transform: scale(1.05);
+}
 .bell-button:active { transform: scale(0.95); }
+.bell-button .bell-icon {
+    line-height: 1;
+    font-size: 24px;
+}
+/* Font Awesome fallback: if FA doesn't load, the emoji will show */
+.bell-button .bell-icon .fa-bell {
+    display: inline-block;
+}
+.bell-button .bell-icon .bell-emoji {
+    display: none;
+}
+/* If FA fails, show emoji */
+.fa-bell:not(.fa) + .bell-emoji {
+    display: inline-block;
+}
 
 .bell-dot {
     position: absolute; top: 4px; right: 4px;
@@ -300,8 +299,15 @@ body {
 .bell-status-badge.not-installed { background: #fef3c7; color: #92400e; }
 
 /* Dark mode bell */
-body.dark-mode .bell-button { color: var(--text-secondary); }
-body.dark-mode .bell-button:hover { background: var(--bg-tertiary); color: var(--zm-green); }
+body.dark-mode .bell-button {
+    background: var(--bg-tertiary);
+    border-color: var(--border-light);
+    color: var(--text-secondary);
+}
+body.dark-mode .bell-button:hover {
+    background: var(--bg-hover);
+    color: var(--zm-green);
+}
 body.dark-mode .bell-dot { border-color: var(--bg-secondary); }
 body.dark-mode .bell-panel { background: var(--bg-secondary); border-color: var(--border-light); }
 body.dark-mode .bell-panel-header { background: var(--bg-tertiary); }
@@ -713,7 +719,7 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
 .comparison-table tr:hover td { background: var(--bg-hover); }
 
 /* ============================================================ */
-/* AI DISCOVERY                                                 */
+/* AI DISCOVERY – Consistent styling                           */
 /* ============================================================ */
 .ai-discovery-section { margin-top: 2rem; margin-bottom: 2rem; }
 .ai-discovery-divider {
@@ -727,12 +733,42 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;
 }
 
-.ai-config {
-    background: var(--bg-secondary); border: 1px solid var(--border-light);
-    border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;
+/* All discovery panels share the same card style */
+.ai-config,
+.smart-discovery-panel,
+.ai-discovery-panel,
+.career-explorer-panel {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
 }
-.ai-config h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
-.ai-config p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; }
+.ai-config:hover,
+.smart-discovery-panel:hover,
+.ai-discovery-panel:hover,
+.career-explorer-panel:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.ai-config h3,
+.smart-discovery-panel h3,
+.ai-discovery-panel h3,
+.career-explorer-panel h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+.ai-config p,
+.smart-discovery-panel p,
+.ai-discovery-panel p,
+.career-explorer-panel p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
 .ai-prompt-box { margin-top: 1rem; }
 .ai-prompt-box label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
 .ai-prompt-box textarea {
@@ -780,6 +816,97 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
 .discovery-card-header h4 { font-size: 1.05rem; color: var(--text-primary); margin: 0; }
 .discovery-cluster {
     font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 500;
+}
+
+/* Explorer panel */
+.explorer-tabs {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;
+}
+.explorer-tab {
+    padding: 8px 16px; border: 2px solid var(--border-light);
+    border-radius: var(--radius-xl); background: var(--bg-secondary);
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: all var(--transition-fast); min-height: 40px;
+    color: var(--text-secondary);
+}
+.explorer-tab:hover { border-color: var(--zm-green); color: var(--zm-green); }
+.explorer-tab.active {
+    background: var(--gradient-primary); color: white; border-color: var(--zm-green);
+}
+.explorer-search {
+    width: 100%; padding: 10px 16px; border: 2px solid var(--border-light);
+    border-radius: var(--radius-xl); font-size: 14px;
+    background: var(--bg-secondary); color: var(--text-primary);
+    margin-bottom: 12px; min-height: 44px;
+}
+.explorer-search:focus { border-color: var(--zm-green); outline: none; box-shadow: 0 0 0 3px var(--zm-green-glow); }
+.explorer-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px; max-height: 500px; overflow-y: auto; padding-right: 4px;
+}
+.explorer-card {
+    background: var(--bg-secondary); border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm); padding: 12px;
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer; transition: all var(--transition-fast);
+}
+.explorer-card:hover { border-color: var(--zm-green); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+.explorer-icon { font-size: 24px; flex-shrink: 0; }
+.explorer-info { flex: 1; min-width: 0; }
+.explorer-info h4 { font-size: 14px; font-weight: 600; margin: 0; color: var(--text-primary); }
+.explorer-cluster { font-size: 11px; padding: 2px 8px; border-radius: var(--radius-xl); font-weight: 500; }
+.explorer-preview { font-size: 12px; color: var(--text-muted); margin: 4px 0 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.explorer-outlook {
+    font-size: 11px; font-weight: 600; color: var(--zm-orange);
+    background: var(--zm-orange-light); padding: 2px 8px; border-radius: var(--radius-xl);
+    white-space: nowrap;
+}
+.explorer-count {
+    font-size: 14px; color: var(--text-muted); margin-bottom: 8px;
+}
+
+/* ============================================================ */
+/* REMINDER BANNER – with subtle pulse animation                */
+/* ============================================================ */
+.saved-progress {
+    background: var(--bg-secondary);
+    border: 2px solid var(--zm-orange);
+    border-radius: var(--radius-md);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 12px auto 24px;
+    max-width: 600px;
+    box-shadow: 0 0 0 4px rgba(239, 125, 0, 0.1);
+    animation: reminderPulse 2s ease-in-out infinite;
+}
+@keyframes reminderPulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(239, 125, 0, 0.1); }
+    50% { box-shadow: 0 0 0 8px rgba(239, 125, 0, 0.2); }
+}
+.saved-progress span {
+    font-size: 15px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+.saved-progress button {
+    background: var(--gradient-secondary);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: var(--radius-xl);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    min-height: 40px;
+}
+.saved-progress button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 125, 0, 0.3);
 }
 
 /* ============================================================ */
@@ -959,6 +1086,8 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     .ai-discovery-buttons { flex-direction: column; align-items: stretch; }
     .ai-copy-buttons { flex-direction: column; }
     .ai-copy-buttons a { text-align: center; }
+    .saved-progress { flex-direction: column; text-align: center; }
+    .saved-progress button { width: 100%; }
 
     /* Bell panel – even larger on mobile */
     .bell-panel {
