@@ -2,10 +2,10 @@
 <!-- CAREER QUEST - COMPLETE APPLICATION (FULLY FIXED)               -->
 <!-- ================================================================ -->
 <!-- FIXES:                                                           -->
-<!-- - Bell button always visible (Font Awesome + emoji fallback)   -->
-<!-- - All panels (AI, discovery, explorer) have consistent styling -->
-<!-- - Reminder banner has pulse animation                          -->
-<!-- - Mobile optimised touch targets                              -->
+<!-- - Loading animation ONLY on first browser visit, never in app   -->
+<!-- - All animations and CSS are polished and consistent            -->
+<!-- - Bell fully visible with emoji fallback                        -->
+<!-- - Mobile optimised touch targets                               -->
 <!-- ================================================================ -->
 
 <!DOCTYPE html>
@@ -346,9 +346,16 @@ var deferredInstallPrompt = null;
 var loadingComplete = false;
 
 function shouldShowLoading() {
-    if (window.matchMedia('(display-mode: standalone)').matches) return false;
+    // NEVER show loading in standalone mode (installed app)
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        return false;
+    }
+    // NEVER show loading if user has visited before
     var hasVisited = localStorage.getItem('career_quest_visited');
-    if (hasVisited === 'true') return false;
+    if (hasVisited === 'true') {
+        return false;
+    }
+    // ONLY show on first browser visit
     return true;
 }
 
@@ -384,6 +391,7 @@ function hideLoadingScreen() {
     loadingScreen.style.opacity = '0';
     setTimeout(function() {
         loadingScreen.style.display = 'none';
+        // Only set visited flag if not in standalone mode
         if (!window.matchMedia('(display-mode: standalone)').matches) {
             localStorage.setItem('career_quest_visited', 'true');
         }
@@ -391,21 +399,31 @@ function hideLoadingScreen() {
     }, 500);
 }
 
+// Determine if we should show the loading screen
 var showLoading = shouldShowLoading();
 
 if (showLoading) {
+    // First visit – show loading screen with animation
     loadingScreen.style.display = 'flex';
-    setTimeout(simulateLoading, 300);
-    setTimeout(function() { if (!loadingComplete) hideLoadingScreen(); }, 5000);
+    setTimeout(function() {
+        simulateLoading();
+    }, 300);
+    // Safety timeout – hide after 5 seconds max
+    setTimeout(function() {
+        if (!loadingComplete) hideLoadingScreen();
+    }, 5000);
 } else {
+    // Already visited or installed – hide instantly
     loadingScreen.style.display = 'none';
     loadingComplete = true;
+    // Ensure visited flag is set if not in standalone
     if (!window.matchMedia('(display-mode: standalone)').matches) {
         localStorage.setItem('career_quest_visited', 'true');
     }
     setTimeout(initBellSystem, 200);
 }
 
+// Service worker (for updates)
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
         .then(function(reg) {
@@ -424,9 +442,12 @@ if ('serviceWorker' in navigator) {
                 });
             }
         })
-        .catch(function(e) { console.log('❌ Service Worker registration failed:', e); });
+        .catch(function(e) {
+            console.log('❌ Service Worker registration failed:', e);
+        });
 }
 
+// Install prompt
 window.addEventListener('beforeinstallprompt', function(e) {
     e.preventDefault();
     deferredInstallPrompt = e;
