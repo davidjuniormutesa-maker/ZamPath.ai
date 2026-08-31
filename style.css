@@ -1,11 +1,8 @@
 /* ============================================================ */
 /* CAREER QUEST - COMPLETE STYLESHEET (UNIFIED & POLISHED)     */
 /* ============================================================ */
-/* Changes:                                                     */
-/* - Bell button always visible (emoji fallback)                */
-/* - Consistent styling for all panels (shadow, radius, padding) */
-/* - Reminder banner with subtle pulse animation                */
-/* - Mobile optimised: larger touch targets, better spacing     */
+/* Now includes full card styling for AI discovery panels and  */
+/* smooth animations for a polished user experience.           */
 /* ============================================================ */
 
 :root {
@@ -199,7 +196,7 @@ body {
 }
 
 .bell-button {
-    background: var(--bg-tertiary); /* visible background */
+    background: var(--bg-tertiary);
     border: 1px solid var(--border-light);
     border-radius: 50%;
     color: var(--text-secondary);
@@ -221,7 +218,6 @@ body {
     line-height: 1;
     font-size: 24px;
 }
-/* Font Awesome fallback: if FA doesn't load, the emoji will show */
 .bell-button .bell-icon .fa-bell {
     display: inline-block;
 }
@@ -719,7 +715,7 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
 .comparison-table tr:hover td { background: var(--bg-hover); }
 
 /* ============================================================ */
-/* AI DISCOVERY – Consistent styling                           */
+/* AI DISCOVERY – FIXED CARD STYLING & ANIMATIONS              */
 /* ============================================================ */
 .ai-discovery-section { margin-top: 2rem; margin-bottom: 2rem; }
 .ai-discovery-divider {
@@ -733,8 +729,7 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;
 }
 
-/* All discovery panels share the same card style */
-.ai-config,
+/* Individual panels – card style with fade-up animation */
 .smart-discovery-panel,
 .ai-discovery-panel,
 .career-explorer-panel {
@@ -745,15 +740,25 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     margin-bottom: 1.5rem;
     box-shadow: var(--shadow-sm);
     transition: all var(--transition-base);
+    animation: fadeSlideUp 0.5s ease forwards;
 }
-.ai-config:hover,
 .smart-discovery-panel:hover,
 .ai-discovery-panel:hover,
 .career-explorer-panel:hover {
     box-shadow: var(--shadow-md);
 }
+/* Entrance animation for panels when they become visible */
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-.ai-config h3,
 .smart-discovery-panel h3,
 .ai-discovery-panel h3,
 .career-explorer-panel h3 {
@@ -761,7 +766,6 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     margin-bottom: 0.5rem;
     color: var(--text-primary);
 }
-.ai-config p,
 .smart-discovery-panel p,
 .ai-discovery-panel p,
 .career-explorer-panel p {
@@ -818,7 +822,7 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 500;
 }
 
-/* Explorer panel */
+/* Explorer panel – card-like grid */
 .explorer-tabs {
     display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;
 }
