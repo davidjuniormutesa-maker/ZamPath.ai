@@ -1,11 +1,11 @@
 /* ============================================================ */
-/* CAREER QUEST - COMPLETE STYLESHEET (ENHANCED & POLISHED)    */
+/* CAREER QUEST - COMPLETE STYLESHEET (UNIFIED & POLISHED)     */
 /* ============================================================ */
 /* Improvements:                                                */
-/* - Loading animation ONLY on first browser visit, never in app */
-/* - All cards have consistent styling (shadow, radius, hover)  */
-/* - Smooth entrance animations for all panels                  */
-/* - Better mobile touch targets and spacing                   */
+/* - Discovery mode: compact cluster cards, clean career lists  */
+/* - Loading animation ONLY on first browser visit              */
+/* - Consistent card styling across all panels                  */
+/* - Smooth animations for all interactions                     */
 /* ============================================================ */
 
 :root {
@@ -1019,6 +1019,145 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
 }
 
 /* ============================================================ */
+/* DISCOVERY MODE – FIXED: COMPACT CLUSTERS & CLEAN LISTS      */
+/* ============================================================ */
+#discovery-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+#discovery-content .discovery-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 14px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#discovery-content .discovery-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--zm-green);
+    box-shadow: var(--shadow-md);
+}
+
+#discovery-content .discovery-card .cluster-icon {
+    font-size: 28px;
+    margin-bottom: 4px;
+}
+
+#discovery-content .discovery-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+#discovery-content .discovery-card p {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 2px 0 0;
+    display: none;
+}
+
+#discovery-content .discovery-card .try-activity {
+    display: none;
+}
+
+/* Career list – clean overlay style */
+.discovery-career-list {
+    margin-top: 16px;
+    padding: 16px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    max-height: 400px;
+    overflow-y: auto;
+    animation: fadeSlideUp 0.3s ease;
+}
+
+.discovery-career-list .discovery-career-item {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
+}
+
+.discovery-career-list .discovery-career-item:last-child {
+    margin-bottom: 0;
+}
+
+.discovery-career-list .discovery-career-item:hover {
+    border-color: var(--zm-green);
+    box-shadow: var(--shadow-sm);
+}
+
+.discovery-career-list .discovery-career-item h5 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 4px 0;
+    cursor: pointer;
+}
+
+.discovery-career-list .discovery-career-item h5:hover {
+    color: var(--zm-green);
+}
+
+.discovery-career-list .discovery-career-item p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 4px 0;
+    line-height: 1.5;
+}
+
+.discovery-career-list .discovery-career-item .career-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.discovery-career-list .discovery-career-item .career-tags span {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: var(--radius-xl);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-light);
+    color: var(--text-muted);
+}
+
+.discovery-career-list .discovery-career-item .career-tags span:first-child {
+    background: var(--zm-green-light);
+    color: var(--zm-green);
+    border-color: var(--zm-green);
+}
+
+.discovery-career-list .discovery-career-item .career-tags span:last-child {
+    background: var(--zm-orange-light);
+    color: var(--zm-orange);
+    border-color: var(--zm-orange);
+}
+
+.discovery-career-list .discovery-career-item .btn-small {
+    padding: 4px 14px;
+    font-size: 12px;
+    min-height: 32px;
+}
+
+/* ============================================================ */
 /* REMINDER BANNER – with subtle pulse animation                */
 /* ============================================================ */
 .saved-progress {
@@ -1349,6 +1488,35 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     .saved-progress { flex-direction: column; text-align: center; }
     .saved-progress button { width: 100%; }
 
+    /* Discovery mode mobile */
+    #discovery-content {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+    }
+    #discovery-content .discovery-card {
+        min-height: 80px;
+        padding: 12px 8px;
+    }
+    #discovery-content .discovery-card .cluster-icon {
+        font-size: 24px;
+    }
+    #discovery-content .discovery-card h4 {
+        font-size: 12px;
+    }
+    .discovery-career-list {
+        max-height: 300px;
+        padding: 12px;
+    }
+    .discovery-career-list .discovery-career-item {
+        padding: 12px 14px;
+    }
+    .discovery-career-list .discovery-career-item h5 {
+        font-size: 14px;
+    }
+    .discovery-career-list .discovery-career-item p {
+        font-size: 12px;
+    }
+
     /* Bell panel – even larger on mobile */
     .bell-panel {
         width: 100%;
@@ -1387,6 +1555,22 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     .filter-chip { padding: 8px 20px; font-size: 15px; min-height: 44px; }
     .comparison-select { font-size: 14px; padding: 12px 8px; min-height: 44px; }
     .btn-link { padding: 8px 12px; font-size: 15px; }
+
+    /* Discovery mode very small */
+    #discovery-content {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
+    }
+    #discovery-content .discovery-card {
+        min-height: 70px;
+        padding: 10px 6px;
+    }
+    #discovery-content .discovery-card .cluster-icon {
+        font-size: 20px;
+    }
+    #discovery-content .discovery-card h4 {
+        font-size: 11px;
+    }
 
     /* Even bigger bell on very small screens */
     .bell-button { width: 52px; height: 52px; min-width: 52px; min-height: 52px; padding: 8px; }
