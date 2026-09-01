@@ -1,40 +1,68 @@
 <!DOCTYPE html>
 <!-- ============================================================ -->
-<!-- ZAMPATH.AI - Landing Page                                    -->
+<!-- ZAMPATH.AI - Landing Page  (V3 — FULLY UPGRADED)             -->
 <!-- A professional marketing page with MULTI-LANGUAGE support    -->
-<!-- IMPROVED: Added "Download App" button for PWA installation   -->
-<!-- IMPROVED: Mobile responsiveness fixes for dad's phone        -->
+<!-- WHAT'S NEW:                                                  -->
+<!--  • Full offline support (Google Fonts CDN removed)           -->
+<!--  • Social sharing preview (Open Graph + Twitter cards)       -->
+<!--  • Pinch-zoom enabled (accessibility)                        -->
+<!--  • iOS install instructions fallback                         -->
+<!--  • Dark mode respects system preference on first visit       -->
+<!--  • Service worker: relative path + registers after load      -->
+<!--  • Safe-area aware sticky header for notched phones          -->
 <!-- ============================================================ -->
 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <meta name="description" content="ZamPath - AI-powered career guidance for Zambian students. Discover your perfect career path.">
-    <meta name="theme-color" content="#008000">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="ZamPath - AI-powered career guidance for Zambian students. 130+ careers, subject guidance and printable reports. Works offline and 100% free.">
+    <meta name="keywords" content="Zambia, career guidance, students, Form 2, subjects, AI, offline, ZamPath, JETS">
+    <meta name="author" content="David Mutesa">
+    <meta name="theme-color" content="#008000" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0c2f20" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="light dark">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ZamPath">
+
+    <!-- Social sharing (WhatsApp / Facebook / X link previews) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ZamPath.ai — Find Your Career Path in Zambia">
+    <meta property="og:description" content="Free AI-powered career guidance for Zambian students. 130+ careers, subject advice and printable reports. Works offline!">
+    <meta property="og:site_name" content="ZamPath.ai">
+    <meta property="og:locale" content="en_ZM">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ZamPath.ai — Find Your Career Path in Zambia">
+    <meta name="twitter:description" content="Free AI-powered career guidance for Zambian students. Works offline!">
     
     <title>ZamPath.ai - Find Your Career Path in Zambia</title>
     
     <!-- PWA: Link to manifest for installability -->
     <link rel="manifest" href="manifest.json">
     
-    <!-- Apple touch icon for iOS -->
+    <!-- Icons (inline SVG = zero extra downloads, works offline) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230c2f20'/%3E%3Ctext x='50' y='72' font-size='52' text-anchor='middle'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%230c2f20'/%3E%3Crect x='8' y='8' width='176' height='176' rx='32' fill='none' stroke='%23eeba2c' stroke-width='3' opacity='0.4'/%3E%3Ctext x='96' y='130' font-size='90' text-anchor='middle'%3E🎓%3C/text%3E%3C/svg%3E">
     
     <link rel="stylesheet" href="landingstyle.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- PWA: Service Worker registration -->
+    <!-- PWA: Service Worker registration (relative path, registered
+         after page load so it never slows down first paint) -->
     <script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-            .then(function(registration) {
-                console.log('✅ Service Worker registered on landing page');
-            })
-            .catch(function(error) {
-                console.log('❌ Service Worker registration failed:', error);
-            });
-    }
+    (function () {
+        if (!('serviceWorker' in navigator)) return;
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('./sw.js')
+                .then(function (registration) {
+                    console.log('✅ Service Worker registered on landing page');
+                })
+                .catch(function (error) {
+                    console.log('ℹ️ Service Worker not active yet:', error.message);
+                });
+        });
+    })();
     </script>
 </head>
 <body>
@@ -52,11 +80,13 @@
             </div>
             
             <!-- Center: Navigation links -->
-            <ul class="nav-links">
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#features" data-translate="nav_features">Features</a></li>
                 <li><a href="#how-it-works" data-translate="nav_how_it_works">How It Works</a></li>
                 <li><a href="#testimonials" data-translate="nav_testimonials">Testimonials</a></li>
                 <li><a href="#stats" data-translate="nav_stats">Stats</a></li>
+                <!-- V3.1: CTA lives inside the phone menu (hidden on desktop) -->
+                <li class="mobile-only"><a href="app.html" class="mobile-menu-cta" data-translate="get_started">Get Started 🚀</a></li>
             </ul>
             
             <!-- Right: Language Switcher + Dark Mode + CTA -->
@@ -91,7 +121,7 @@
             </div>
             
             <!-- Mobile menu toggle -->
-            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
                 <span></span><span></span><span></span>
             </button>
         </div>
@@ -273,6 +303,7 @@
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars" aria-label="Rated 5 out of 5 stars">★★★★★</div>
                     <p class="testimonial-text" data-translate="testimonial1_text">I didn't know what I wanted to be. ZamPath showed me careers I never knew existed!</p>
                     <div class="testimonial-author">
                         <span class="author-avatar">👩</span>
@@ -284,6 +315,7 @@
                 </div>
                 <div class="testimonial-card">
                     <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars" aria-label="Rated 5 out of 5 stars">★★★★★</div>
                     <p class="testimonial-text" data-translate="testimonial2_text">The subject recommendations helped me pick my Form 3 subjects with confidence.</p>
                     <div class="testimonial-author">
                         <span class="author-avatar">👨</span>
@@ -295,6 +327,7 @@
                 </div>
                 <div class="testimonial-card">
                     <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars" aria-label="Rated 5 out of 5 stars">★★★★★</div>
                     <p class="testimonial-text" data-translate="testimonial3_text">My parents and I now have a clear plan for my future. Thank you ZamPath!</p>
                     <div class="testimonial-author">
                         <span class="author-avatar">👩</span>
@@ -359,22 +392,48 @@
     </footer>
 
     <!-- ============================================================ -->
+    <!-- SEO: STRUCTURED DATA (helps Google understand the product)   -->
+    <!-- ============================================================ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ZamPath Career Quest",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "description": "AI-powered career guidance tool for Zambian students. 130+ careers, subject recommendations and printable reports. Free and works offline.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ZMW" },
+      "author": { "@type": "Person", "name": "David Mutesa" },
+      "inLanguage": ["en", "ny", "bem", "tonga"]
+    }
+    </script>
+
+    <!-- ============================================================ -->
     <!-- JAVASCRIPT                                                   -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
-        // SECTION 1: MOBILE MENU TOGGLE
+        // SECTION 1: MOBILE MENU TOGGLE (with ARIA + scroll lock)
         // ============================================================
         const mobileToggle = document.getElementById('mobileToggle');
-        const navLinks = document.querySelector('.nav-links');
-        
+        const navLinks = document.getElementById('nav-links');
+
+        function closeMobileMenu() {
+            navLinks.classList.remove('active');
+            mobileToggle.classList.remove('active');
+            mobileToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('nav-open');
+        }
+
         mobileToggle.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            this.classList.toggle('active');
+            const isOpen = navLinks.classList.toggle('active');
+            this.classList.toggle('active', isOpen);
+            this.setAttribute('aria-expanded', String(isOpen));
+            document.body.classList.toggle('nav-open', isOpen);
         });
 
         // ============================================================
-        // SECTION 2: SMOOTH SCROLLING
+        // SECTION 2: SMOOTH SCROLLING (closes menu + respects navbar)
         // ============================================================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -384,35 +443,34 @@
                 if (target) {
                     e.preventDefault();
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    navLinks.classList.remove('active');
-                    mobileToggle.classList.remove('active');
+                    closeMobileMenu();
                 }
             });
         });
 
         // ============================================================
-        // SECTION 3: STAT COUNTER ANIMATION
+        // SECTION 3: STAT COUNTER ANIMATION (smooth rAF + easing)
         // ============================================================
         const statNumbers = document.querySelectorAll('.stat-number');
         let animated = false;
 
         function animateStat(element) {
-            const target = parseInt(element.getAttribute('data-count'));
-            let current = 0;
-            const increment = Math.ceil(target / 40);
-            const timer = setInterval(function() {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                element.textContent = current;
-            }, 30);
+            const target = parseInt(element.getAttribute('data-count'), 10) || 0;
+            const duration = 1400;
+            const startTime = performance.now();
+            function tick(now) {
+                const progress = Math.min((now - startTime) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+                element.textContent = Math.round(target * eased);
+                if (progress < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
         }
 
         function checkStatsVisibility() {
             if (animated) return;
             const statsSection = document.querySelector('.stats');
+            if (!statsSection) return;
             const rect = statsSection.getBoundingClientRect();
             const isVisible = rect.top < window.innerHeight - 100 && rect.bottom > 0;
             if (isVisible) {
@@ -428,7 +486,7 @@
                 checkStatsVisibility();
                 scrollTimeout = null;
             }, 100);
-        });
+        }, { passive: true });
 
         window.addEventListener('load', checkStatsVisibility);
 
@@ -446,11 +504,16 @@
         }
 
         // ============================================================
-        // SECTION 4: NAVBAR SCROLL EFFECT
+        // SECTION 4: NAVBAR SCROLL EFFECT (passive)
         // ============================================================
         const navbar = document.querySelector('.navbar');
         window.addEventListener('scroll', function() {
             navbar.classList.toggle('scrolled', window.scrollY > 50);
+        }, { passive: true });
+
+        // Close mobile menu with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeMobileMenu();
         });
 
         // ============================================================
@@ -470,11 +533,23 @@
         const landingThemeLabel = document.getElementById('landing-theme-label');
         let landingDarkMode = false;
 
-        if (localStorage.getItem('landing_theme') === 'dark') {
+        // V3.1: shared theme key — stays in sync with the Career Quest app.
+        // Falls back to the legacy landing key, then to the system preference.
+        const savedTheme = localStorage.getItem('zampath_theme') || localStorage.getItem('landing_theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
             landingDarkMode = true;
             document.body.classList.add('dark-mode');
             landingThemeIcon.textContent = '☀️';
             landingThemeLabel.textContent = 'Light';
+        }
+
+        function persistLandingTheme(isDark) {
+            try {
+                var v = isDark ? 'dark' : 'light';
+                localStorage.setItem('zampath_theme', v);   // shared with the app
+                localStorage.setItem('landing_theme', v);   // legacy copy
+            } catch (e) {}
         }
 
         landingToggle.addEventListener('click', function() {
@@ -482,7 +557,7 @@
             document.body.classList.toggle('dark-mode', landingDarkMode);
             landingThemeIcon.textContent = landingDarkMode ? '☀️' : '🌙';
             landingThemeLabel.textContent = landingDarkMode ? 'Light' : 'Dark';
-            localStorage.setItem('landing_theme', landingDarkMode ? 'dark' : 'light');
+            persistLandingTheme(landingDarkMode);
         });
 
         // ============================================================
@@ -872,6 +947,15 @@
                     }
                     deferredPrompt = null;
                 });
+            } else {
+                // NEW: iOS Safari never fires beforeinstallprompt — show manual steps
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+                if (isIOS) {
+                    alert('📲 Install ZamPath on iPhone:\n\n1. Tap the Share button (□↑) in Safari\n2. Scroll and tap "Add to Home Screen"\n3. Tap Add — done!');
+                } else {
+                    alert('📲 To install this app:\n\n• Chrome/Android: open the ⋮ menu and tap "Install app" or "Add to Home screen".\n\nTip: the button appears automatically when your browser allows installation.');
+                }
             }
         });
 

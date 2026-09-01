@@ -44,6 +44,25 @@
     --radius-lg: 20px;
     --radius-xl: 50px;
 
+    /* V3 FIX: cluster colours were referenced but never defined,
+       leaving every cluster badge unstyled. Now defined once. */
+    --cluster-stem: #2563eb;
+    --cluster-stem-bg: #eff6ff;
+    --cluster-healthcare: #dc2626;
+    --cluster-healthcare-bg: #fef2f2;
+    --cluster-business: #d97706;
+    --cluster-business-bg: #fffbeb;
+    --cluster-creative: #8b5cf6;
+    --cluster-creative-bg: #faf5ff;
+    --cluster-helping: #10b981;
+    --cluster-helping-bg: #ecfdf5;
+    --cluster-outdoor: #22c55e;
+    --cluster-outdoor-bg: #f0fdf4;
+    --cluster-publicservice: #8b5cf6;
+    --cluster-publicservice-bg: #f5f3ff;
+    --cluster-skilled: #f97316;
+    --cluster-skilled-bg: #fff7ed;
+
     --transition-fast: 0.15s ease;
     --transition-base: 0.3s ease;
     --transition-slow: 0.5s ease;
@@ -51,6 +70,9 @@
 
     --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     --font-mono: 'SF Mono', 'Fira Code', monospace;
+
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 body.dark-mode {
@@ -71,6 +93,23 @@ body.dark-mode {
     --zm-green-light: #052e16;
     --zm-red-light: #2d0a0a;
     --zm-orange-light: #2d1a00;
+    /* Dark-mode friendly cluster tints */
+    --cluster-stem: #7fafff;
+    --cluster-stem-bg: #12233f;
+    --cluster-healthcare: #ff8f8f;
+    --cluster-healthcare-bg: #3b1212;
+    --cluster-business: #ffc266;
+    --cluster-business-bg: #3a2506;
+    --cluster-creative: #c4a8ff;
+    --cluster-creative-bg: #2a1444;
+    --cluster-helping: #5eead4;
+    --cluster-helping-bg: #06302a;
+    --cluster-outdoor: #86efac;
+    --cluster-outdoor-bg: #0c3220;
+    --cluster-publicservice: #c4a8ff;
+    --cluster-publicservice-bg: #2a1444;
+    --cluster-skilled: #fdba74;
+    --cluster-skilled-bg: #3a1e08;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -80,12 +119,19 @@ body {
     font-family: var(--font-family);
     background: var(--bg-primary);
     min-height: 100vh;
-    padding: 20px;
+    padding: calc(16px + var(--safe-top)) 16px calc(16px + var(--safe-bottom));
     color: var(--text-primary);
     line-height: 1.6;
     transition: background var(--transition-slow), color var(--transition-slow);
     -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
     position: relative;
+    overflow-wrap: break-word;
+}
+
+/* In standalone (installed) mode give the top bar room for the notch */
+@media (display-mode: standalone) {
+    body { padding-top: calc(var(--safe-top) + 8px); }
 }
 
 body::before {
@@ -226,9 +272,6 @@ body::before {
 }
 .bell-button:active { transform: scale(0.95); }
 .bell-button .bell-icon { line-height: 1; font-size: 24px; }
-.bell-button .bell-icon .fa-bell { display: inline-block; }
-.bell-button .bell-icon .bell-emoji { display: none; }
-.fa-bell:not(.fa) + .bell-emoji { display: inline-block; }
 
 .bell-dot {
     position: absolute; top: 4px; right: 4px;
@@ -351,6 +394,26 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
 }
 
 /* ============================================================ */
+/* WELCOME QUICK-FACT CHIPS (V3.1)                              */
+/* ============================================================ */
+.welcome-chips {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    margin: 0 auto 28px; max-width: 460px;
+}
+.welcome-chips .chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    padding: 6px 14px;
+    font-size: 13px; font-weight: 600; color: var(--text-secondary);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+.welcome-chips .chip b { color: var(--zm-green); font-weight: 800; }
+.welcome-chips .chip:hover { transform: translateY(-2px); border-color: var(--zm-green); }
+
+/* ============================================================ */
 /* BUTTONS                                                      */
 /* ============================================================ */
 .btn-primary {
@@ -395,12 +458,41 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
 }
 .progress-bar {
     width: 100%; height: 6px; background: var(--bg-tertiary); border-radius: 10px;
-    overflow: hidden; margin-bottom: 28px;
+    overflow: hidden; margin-bottom: 6px; /* V3.1: dots row provides spacing now */
 }
 .progress-fill {
     height: 100%; background: var(--gradient-primary); border-radius: 10px;
     transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); width: 0%;
 }
+
+/* ============================================================ */
+/* QUESTION NAVIGATOR DOTS (V3.1)                               */
+/* ============================================================ */
+.question-dots {
+    display: flex; gap: 7px; align-items: center;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    padding: 10px 2px; margin-bottom: 8px;
+    scrollbar-width: none; -ms-overflow-style: none;
+}
+.question-dots::-webkit-scrollbar { display: none; }
+.q-dot {
+    flex-shrink: 0;
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-medium);
+    cursor: pointer; padding: 0;
+    transition: transform var(--transition-fast), background var(--transition-fast),
+                border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.q-dot:hover { transform: scale(1.25); border-color: var(--zm-green); }
+.q-dot.answered { background: var(--zm-green); border-color: var(--zm-green); }
+.q-dot.current {
+    width: 20px; height: 20px;
+    background: var(--gradient-primary); border-color: var(--zm-green);
+    box-shadow: 0 0 0 4px var(--zm-green-glow);
+}
+.q-dot.locked { opacity: 0.35; cursor: not-allowed; }
+.q-dot.locked:hover { transform: none; border-color: var(--border-medium); }
 #question-container {
     background: var(--bg-secondary); padding: 32px; border-radius: var(--radius-md);
     border: 1px solid var(--border-light); min-height: 260px;
@@ -419,6 +511,7 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     gap: 12px; min-height: 50px;
 }
 .option-btn:hover { border-color: var(--zm-green); background: var(--zm-green-light); transform: translateX(4px); }
+.option-btn:active { transform: scale(0.985); }
 .option-btn.selected { border-color: var(--zm-green); background: var(--zm-green-light); box-shadow: 0 0 0 3px var(--zm-green-glow); }
 .option-btn .option-letter {
     display: inline-flex; align-items: center; justify-content: center;
@@ -434,6 +527,10 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
 .quiz-navigation { display: flex; justify-content: space-between; margin-top: 24px; gap: 12px; }
 .quiz-tip {
     text-align: center; margin-top: 16px; font-size: 13px; color: var(--text-muted);
+}
+/* V3: keyboard tips are meaningless on touch screens — hide them there */
+@media (hover: none) and (pointer: coarse) {
+    .quiz-tip { display: none; }
 }
 .quiz-tip kbd {
     background: var(--bg-tertiary); border: 1px solid var(--border-light);
@@ -1256,6 +1353,7 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     left: 0;
     width: 100%;
     height: 100%;
+    height: 100dvh;
     background: rgba(15, 23, 42, 0.6);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
@@ -1335,12 +1433,13 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
 /* ============================================================ */
 .toast-container {
     position: fixed;
-    bottom: 24px;
+    bottom: calc(24px + var(--safe-bottom));
     right: 24px;
     z-index: 2000;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    pointer-events: none;
 }
 .toast {
     background: var(--bg-secondary);
@@ -1353,6 +1452,7 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     font-size: 14px;
     animation: toastIn 0.3s ease, toastOut 0.3s ease 2.7s forwards;
     max-width: 320px;
+    pointer-events: auto;
 }
 @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 @keyframes toastOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
@@ -1371,7 +1471,7 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
 }
 #back-to-top {
     position: fixed;
-    bottom: 24px;
+    bottom: calc(24px + var(--safe-bottom));
     left: 24px;
     width: 44px;
     height: 44px;
@@ -1421,9 +1521,13 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
 /* RESPONSIVE – FULL MOBILE OPTIMIZATION                       */
 /* ============================================================ */
 @media (max-width: 768px) {
-    body { padding: 10px; }
+    body { padding: calc(10px + var(--safe-top)) 10px calc(10px + var(--safe-bottom)); }
     .screen { padding: 20px 16px; }
-    .top-bar { padding: 10px 16px; flex-wrap: wrap; gap: 8px; }
+    .top-bar {
+        padding: 10px 14px;
+        padding-top: calc(10px + var(--safe-top));
+        flex-wrap: wrap; gap: 8px;
+    }
     .top-bar-brand { font-size: 14px; }
     .back-home-link { font-size: 12px !important; }
     .brand-divider { display: none; }
@@ -1437,6 +1541,12 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     .welcome-buttons button { width: 100%; max-width: 300px; }
     #question-text { font-size: 18px; }
     #question-container { padding: 20px; }
+    /* V3.1: slightly larger dots for touch on phones */
+    .question-dots { gap: 8px; padding: 10px 0; }
+    .q-dot { width: 14px; height: 14px; }
+    .q-dot.current { width: 22px; height: 22px; }
+    .welcome-chips { gap: 6px; }
+    .welcome-chips .chip { padding: 7px 12px; font-size: 12px; }
     .quiz-navigation { flex-direction: column; align-items: stretch; }
     .quiz-navigation button { width: 100%; }
     .chart-container { height: 280px; }
@@ -1494,10 +1604,25 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     .bell-panel-header { padding: 12px 16px; }
     .bell-panel-header h4 { font-size: 15px; }
     .bell-close { font-size: 24px; min-width: 36px; min-height: 36px; }
+
+    /* V3: toasts become full-width banners above the thumb zone */
+    .toast-container { left: 12px; right: 12px; bottom: calc(16px + var(--safe-bottom)); align-items: stretch; }
+    .toast { max-width: 100%; animation: toastInUp 0.3s ease, toastOutUp 0.3s ease 2.7s forwards; }
+
+    /* V3: keep the scroll-to-top button clear of the toast area */
+    #back-to-top { bottom: calc(76px + var(--safe-bottom)); left: 16px; }
+
+    /* V3: long career names wrap instead of overflowing */
+    .career-name { overflow-wrap: anywhere; }
+    .comparison-table { font-size: 12px; }
+    .comparison-table th, .comparison-table td { padding: 8px 10px; }
 }
 
+@keyframes toastInUp { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes toastOutUp { from { transform: translateY(0); opacity: 1; } to { transform: translateY(24px); opacity: 0; } }
+
 @media (max-width: 480px) {
-    body { padding: 6px; }
+    body { padding: calc(6px + var(--safe-top)) 6px calc(6px + var(--safe-bottom)); }
     .screen { padding: 14px 12px; }
     .welcome-content h1 { font-size: 28px; }
     .logo { font-size: 50px; }
@@ -1510,7 +1635,8 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     #comparison-selectors { grid-template-columns: 1fr; }
     .results-header h1 { font-size: 26px; }
     .top-bar-brand { font-size: 12px; }
-    .dark-mode-toggle span { display: none; }
+    /* V3 FIX: hide only the label — hiding all spans blanked the icon too */
+    .dark-mode-toggle #theme-label { display: none; }
     .filter-chip { padding: 8px 20px; font-size: 15px; min-height: 44px; }
     .comparison-select { font-size: 14px; padding: 12px 8px; min-height: 44px; }
     .btn-link { padding: 8px 12px; font-size: 15px; }
@@ -1524,8 +1650,15 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     #discovery-content .discovery-card h4 { font-size: 11px; }
 
     .bell-button { width: 52px; height: 52px; min-width: 52px; min-height: 52px; padding: 8px; }
-    .bell-button i { font-size: 28px; }
+    .bell-button .bell-icon { font-size: 28px; }
     .bell-panel { top: 56px; }
+}
+
+/* ============================================================ */
+/* V3: PRINT — also hide the new toast/banner layer             */
+/* ============================================================ */
+@media print {
+    .toast-container { display: none !important; }
 }
 
 /* ============================================================ */

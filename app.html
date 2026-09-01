@@ -1,28 +1,36 @@
 <!-- ================================================================ -->
-<!-- CAREER QUEST - COMPLETE APPLICATION (FULLY FIXED)               -->
+<!-- CAREER QUEST - COMPLETE APPLICATION (V3 — FULLY UPGRADED)       -->
 <!-- ================================================================ -->
-<!-- FIXES:                                                           -->
-<!-- - Loading animation ONLY on first browser visit, never in app   -->
-<!-- - All animations and CSS are polished and consistent            -->
-<!-- - Bell fully visible with emoji fallback                        -->
-<!-- - Mobile optimised touch targets                               -->
+<!-- WHAT'S NEW IN V3:                                               -->
+<!--  • CRITICAL FIX: #toast-container / #confetti-canvas /          -->
+<!--    #back-to-top were missing → toasts, celebration & scroll     -->
+<!--    button now work again (no more console crashes)              -->
+<!--  • 100% offline: Font Awesome CDN removed (pure emoji bell)     -->
+<!--  • Pinch-zoom enabled, safe-area aware for notched phones       -->
+<!--  • Chart.js fallback: radar chart still renders if lib missing  -->
+<!--  • Swipe left/right to navigate quiz questions on touch phones  -->
+<!--  • Service worker: relative path, registers after page load     -->
 <!-- ================================================================ -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Career Quest - Free career guidance tool for Zambian students. Discover your perfect career path based on your interests and strengths.">
-    <meta name="theme-color" content="#008000">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Career Quest - Free career guidance tool for Zambian students. 130+ careers, 30 questions, 4 languages. Works offline!">
+    <meta name="theme-color" content="#008000" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0c2f20" media="(prefers-color-scheme: dark)">
     <meta name="color-scheme" content="light dark">
-    <title>© ZamPath - Career Quest</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Career Quest">
+    <title>ZamPath - Career Quest</title>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%23008000'/%3E%3Crect x='8' y='8' width='176' height='176' rx='32' fill='none' stroke='%23eeba2c' stroke-width='3' opacity='0.4'/%3E%3Ctext x='96' y='130' font-size='90' text-anchor='middle'%3E🎓%3C/text%3E%3C/svg%3E">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23008000'/%3E%3Ctext x='50' y='72' font-size='52' text-anchor='middle'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
-    <script src="libs/chart.min.js"></script>
+    <script src="libs/chart.min.js" defer></script>
 </head>
 <body>
 
@@ -103,10 +111,7 @@
             <!-- BELL – always visible with emoji fallback -->
             <div class="bell-container" id="bell-container">
                 <button class="bell-button" id="bell-button" aria-label="Notifications">
-                    <span class="bell-icon">
-                        <i class="fas fa-bell"></i>
-                        <span class="bell-emoji" style="display:none;">🔔</span>
-                    </span>
+                    <span class="bell-icon" aria-hidden="true">🔔</span>
                     <span class="bell-dot" id="bell-dot" style="display:none;"></span>
                 </button>
                 <div class="bell-panel" id="bell-panel" style="display:none;">
@@ -140,6 +145,13 @@
                     Not sure what career is right for you? Don't worry!
                     Answer a few questions and we'll help you discover your perfect career path.
                 </p>
+                <!-- V3.1: quick facts chips -->
+                <div class="welcome-chips" role="list" aria-label="Quick facts">
+                    <span class="chip" role="listitem"><span aria-hidden="true">📚</span> <b id="chip-careers">144</b> Careers</span>
+                    <span class="chip" role="listitem"><span aria-hidden="true">🌍</span> 4 Languages</span>
+                    <span class="chip" role="listitem"><span aria-hidden="true">📶</span> Works Offline</span>
+                    <span class="chip" role="listitem"><span aria-hidden="true">🇿🇲</span> Made for Zambia</span>
+                </div>
                 <div id="saved-progress-banner"></div>
                 <div class="welcome-buttons">
                     <button id="start-quiz-btn" class="btn-primary" data-translate="start_quiz">🚀 Get Started</button>
@@ -166,6 +178,8 @@
                 <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
                     <div id="progress-fill" class="progress-fill"></div>
                 </div>
+                <!-- V3.1: tappable navigator — jump back to review any answered question -->
+                <div id="question-dots" class="question-dots" role="group" aria-label="Question navigator"></div>
                 <div id="question-container" aria-live="polite">
                     <h2 id="question-text">Loading question...</h2>
                     <div id="options-container" role="group" aria-label="Answer options"></div>
@@ -324,11 +338,20 @@
 </div>
 
 <!-- ================================================================ -->
+<!-- CRITICAL FIX V3: These 3 elements were missing in the previous  -->
+<!-- version, which crashed toasts, the confetti celebration and the -->
+<!-- scroll-to-top button. They are now restored.                    -->
+<!-- ================================================================ -->
+<div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="false"></div>
+<canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+<button id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+
+<!-- ================================================================ -->
 <!-- LIBRARIES                                                       -->
 <!-- ================================================================ -->
-<script src="libs/html2canvas.min.js"></script>
-<script src="libs/jspdf.umd.min.js"></script>
-<script src="script.js"></script>
+<script src="libs/html2canvas.min.js" defer></script>
+<script src="libs/jspdf.umd.min.js" defer></script>
+<script src="script.js" defer></script>
 
 <!-- ================================================================ -->
 <!-- LOADING & BELL JAVASCRIPT (FIXED LOADING BEHAVIOR)             -->
@@ -423,28 +446,30 @@ if (showLoading) {
     setTimeout(initBellSystem, 200);
 }
 
-// Service worker (for updates)
+// Service worker (for updates) — relative path, registered after page load
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-        .then(function(reg) {
-            console.log('✅ Service Worker registered');
-            if (reg.waiting) {
-                if (!loadingComplete) {
-                    updateLoadingProgress(90, '🔄 Updating app...');
-                }
-                reg.waiting.addEventListener('statechange', function() {
-                    if (this.state === 'activated') {
-                        if (!loadingComplete) {
-                            updateLoadingProgress(100, '✅ Update complete!');
-                            setTimeout(hideLoadingScreen, 500);
-                        }
+    window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./sw.js')
+            .then(function(reg) {
+                console.log('✅ Service Worker registered');
+                if (reg.waiting) {
+                    if (!loadingComplete) {
+                        updateLoadingProgress(90, '🔄 Updating app...');
                     }
-                });
-            }
-        })
-        .catch(function(e) {
-            console.log('❌ Service Worker registration failed:', e);
-        });
+                    reg.waiting.addEventListener('statechange', function() {
+                        if (this.state === 'activated') {
+                            if (!loadingComplete) {
+                                updateLoadingProgress(100, '✅ Update complete!');
+                                setTimeout(hideLoadingScreen, 500);
+                            }
+                        }
+                    });
+                }
+            })
+            .catch(function(e) {
+                console.log('ℹ️ Service Worker not active yet:', e.message);
+            });
+    });
 }
 
 // Install prompt
@@ -664,11 +689,7 @@ function closeBell() {
 function showToast(message, duration) {
     duration = duration || 3000;
     var container = document.getElementById('toast-container');
-    if (!container) {
-        container = document.createElement('div');
-        container.className = 'toast-container';
-        document.body.appendChild(container);
-    }
+    if (!container) return; // graceful guard — never crash
     var toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;

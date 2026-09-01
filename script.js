@@ -4217,6 +4217,7 @@ const ALL_TRAITS = [
 const translations = {
     'en': {
         'app_title': 'Career Quest',
+        'app_name': 'Career Quest',
         'welcome_title': 'Discover Your Path to a Bright Future',
         'welcome_subtitle': 'Discover Your Path to a Bright Future',
         'welcome_description': 'Not sure what career is right for you? Don\'t worry! Answer a few questions and we\'ll help you discover your perfect career path.',
@@ -4341,6 +4342,7 @@ const translations = {
     },
     'ny': {
         'app_title': 'Career Quest',
+        'app_name': 'Career Quest',
         'welcome_title': 'Pezani Njira Yanu Yatsogolo',
         'welcome_subtitle': 'Pezani Njira Yanu Yatsogolo',
         'welcome_description': 'Simukudziwa ntchito yomwe ingakuyenereni? Osadandaula! Yankhani mafunso ochepa ndipo tidzakuthandizani kupeza njira yanu yabwino kwambiri.',
@@ -4465,6 +4467,7 @@ const translations = {
     },
     'bem': {
         'app_title': 'Career Quest',
+        'app_name': 'Career Quest',
         'welcome_title': 'Sangana Inshila Yenu Yakumushi',
         'welcome_subtitle': 'Sangana Inshila Yenu Yakumushi',
         'welcome_description': 'Temwa mwishibe umulimo uletile? Nshisakamwene! Yisubishe ibipusho utuntuniko no twafwile ukukwafwa ukusanga inshila yenu isuma.',
@@ -4589,6 +4592,7 @@ const translations = {
     },
     'tonga': {
         'app_title': 'Career Quest',
+        'app_name': 'Career Quest',
         'welcome_title': 'Sangana Njila Yenyu Yabulemu',
         'welcome_subtitle': 'Sangana Njila Yenyu Yabulemu',
         'welcome_description': 'Tamuzi nso mwa kukonzya kucita mulimo nzi? Muleka kutetema! Amba makani aafwumbi atonganya tulimvwisya kuti mwasangane njila yenyu yabulemu.',
@@ -4820,6 +4824,9 @@ const questions = buildQuestions();
 const STORAGE_KEY = 'career_quest_state';
 const THEME_KEY = 'career_quest_theme';
 const LANGUAGE_KEY = 'career_quest_language';
+// V3.1: shared theme key — the landing page and the app now follow ONE
+// dark-mode setting (each also writes its legacy key for old copies).
+const SHARED_THEME_KEY = 'zampath_theme';
 
 let state = {
     currentQuestion: 0,
@@ -4858,6 +4865,7 @@ const DOM = {
     questionCounter: document.getElementById('question-counter'),
     progressBar: document.getElementById('progress-bar'),
     progressFill: document.getElementById('progress-fill'),
+    questionDots: document.getElementById('question-dots'),
     questionContainer: document.getElementById('question-container'),
     questionText: document.getElementById('question-text'),
     optionsContainer: document.getElementById('options-container'),
@@ -5069,11 +5077,17 @@ function checkForSharedResults() {
 // ================================================================
 function showToast(message, duration) {
     duration = duration || 3000;
+    // V3 FIX: guard against missing container (older layouts) — never crash
+    if (!DOM.toastContainer) return;
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;
     DOM.toastContainer.appendChild(toast);
     setTimeout(function() { toast.remove(); }, duration);
+}
+// V3: subtle haptic feedback for phones (safe no-op on desktop)
+function haptic(pattern) {
+    try { if (navigator.vibrate) navigator.vibrate(pattern || 10); } catch (e) { /* ignore */ }
 }
 function debounce(fn, delay) {
     let timer;
@@ -5118,9 +5132,21 @@ function loadSavedState() {
     } catch (e) { return null; }
 }
 function clearSavedState() { try { localStorage.removeItem(STORAGE_KEY); } catch(e) {} }
-function saveTheme(isDark) { try { localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light'); } catch(e) {} }
+function saveTheme(isDark) {
+    try {
+        var v = isDark ? 'dark' : 'light';
+        localStorage.setItem(SHARED_THEME_KEY, v); // V3.1: syncs with landing page
+        localStorage.setItem(THEME_KEY, v);        // keep legacy key in sync too
+    } catch(e) {}
+}
 function loadTheme() {
-    try { var t = localStorage.getItem(THEME_KEY); if (t === 'dark') return true; if (t === 'light') return false; } catch(e) {}
+    // V3.1: prefer the shared key (landing ⇄ app sync), fall back to legacy,
+    // then to the device system preference on first ever visit.
+    try {
+        var t = localStorage.getItem(SHARED_THEME_KEY) || localStorage.getItem(THEME_KEY);
+        if (t === 'dark') return true;
+        if (t === 'light') return false;
+    } catch(e) {}
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
@@ -5256,7 +5282,61 @@ function renderQuestion() {
     var currentAnswer = state.answers[state.currentQuestion] || [];
     DOM.nextBtn.disabled = currentAnswer.length === 0;
     state.kbFocusIndex = -1;
+    renderQuestionDots(); // V3.1: keep the navigator in sync
     saveState();
+}
+
+// ================================================================
+// SECTION 16b: QUESTION NAVIGATOR DOTS (V3.1)
+// A row of tappable dots — jump back to any answered question, or
+// forward to the first unanswered one. Locked ahead = keeps the quiz
+// fair (no answer-skipping) while still letting users review.
+// ================================================================
+function isQuestionAnswered(i) {
+    var a = state.answers[i];
+    return !!(a && a.length);
+}
+function getMaxUnlockedIndex() {
+    var total = questions.length;
+    for (var i = 0; i < total; i++) {
+        if (!isQuestionAnswered(i)) return i;
+    }
+    return total - 1;
+}
+function renderQuestionDots() {
+    if (!DOM.questionDots) return;
+    var total = questions.length;
+    var maxUnlocked = getMaxUnlockedIndex();
+    var html = '';
+    for (var i = 0; i < total; i++) {
+        var classes = ['q-dot'];
+        var label;
+        if (i === state.currentQuestion) classes.push('current');
+        if (isQuestionAnswered(i)) classes.push('answered');
+        var locked = i > maxUnlocked;
+        if (locked) classes.push('locked');
+        label = 'Question ' + (i + 1) + (isQuestionAnswered(i) ? ' (answered)' : '') +
+                (locked ? ' (locked)' : '');
+        html += '<button type="button" class="' + classes.join(' ') + '" data-index="' + i + '"'
+             + (locked ? ' disabled aria-disabled="true"' : '')
+             + ' aria-label="' + label + '" title="' + label + '"></button>';
+    }
+    DOM.questionDots.innerHTML = html;
+    // Keep the current dot visible on small screens (dots overflow-x scroll)
+    var current = DOM.questionDots.querySelector('.q-dot.current');
+    if (current && current.scrollIntoView) {
+        current.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+    }
+}
+function handleDotClick(e) {
+    var dot = e.target.closest('.q-dot');
+    if (!dot || dot.classList.contains('locked')) return;
+    var idx = parseInt(dot.dataset.index, 10);
+    if (isNaN(idx) || idx === state.currentQuestion) return;
+    state.currentQuestion = idx;
+    renderQuestion();
+    scrollQuestionIntoView();
+    haptic(4);
 }
 function toggleOption(button) {
     var question = questions[state.currentQuestion];
@@ -5273,6 +5353,7 @@ function toggleOption(button) {
         button.setAttribute('aria-checked', 'true');
         updateSingleSelectAnswer(button);
     }
+    haptic(8); // V3: tiny tap buzz on phones — makes selection feel physical
     updateNextButtonState();
     saveState();
     if (!isMultiSelect && state.currentQuestion < questions.length - 1) {
@@ -5293,6 +5374,7 @@ function updateSingleSelectAnswer(button) {
 function updateNextButtonState() {
     var currentAnswer = state.answers[state.currentQuestion] || [];
     DOM.nextBtn.disabled = currentAnswer.length === 0;
+    renderQuestionDots(); // V3.1: answered dot lights up immediately
 }
 function nextQuestion() {
     var currentAnswer = state.answers[state.currentQuestion] || [];
@@ -5307,12 +5389,26 @@ function nextQuestion() {
     }
     state.currentQuestion++;
     renderQuestion();
+    scrollQuestionIntoView(); // V3: mobile — keep the new question visible
 }
 function prevQuestion() {
     if (state.currentQuestion > 0) {
         state.currentQuestion--;
         renderQuestion();
+        scrollQuestionIntoView(); // V3: mobile
     }
+}
+// V3 NEW: on phones the quiz can be taller than the viewport; after moving
+// to another question, bring the question back into view.
+function scrollQuestionIntoView() {
+    if (window.innerWidth > 768) return; // desktop layouts show everything
+    requestAnimationFrame(function() {
+        var bar = document.querySelector('.quiz-container .progress-bar');
+        var top = bar ? bar.getBoundingClientRect().top + window.pageYOffset - 70 : 0;
+        if (window.pageYOffset > top) {
+            window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+    });
 }
 
 // ================================================================
@@ -5474,8 +5570,13 @@ function calculatePersonalityTraits() {
 function renderRadarChart() {
     var canvas = DOM.personalityChart;
     if (!canvas) return;
+    // V3 NEW: if Chart.js failed to load, draw a lightweight radar manually
+    // so the personality profile ALWAYS renders (great for offline/CDN fails).
+    if (typeof Chart === 'undefined') {
+        drawFallbackRadar(canvas);
+        return;
+    }
     var ctx = canvas.getContext('2d');
-    if (typeof Chart === 'undefined') { console.warn('Chart.js not loaded.'); return; }
     var traits = state.personalityTraits || {
         'Analytical': 3, 'Creative': 3, 'Helping': 3, 'Technical': 3,
         'Outdoor': 3, 'Leadership': 3, 'Communication': 3, 'Practical': 3,
@@ -5537,6 +5638,110 @@ function renderRadarChart() {
             }
         }
     });
+}
+
+// ================================================================
+// SECTION 20b: FALLBACK RADAR (V3 — pure canvas, no Chart.js needed)
+// ================================================================
+function drawFallbackRadar(canvas) {
+    var traits = state.personalityTraits || {};
+    var labels = ['Analytical', 'Creative', 'Helping', 'Technical', 'Outdoor', 'Leadership', 'Communication', 'Practical', 'Strategic', 'Resilience', 'Detail-Oriented', 'Entrepreneurial'];
+    var data = labels.map(function(k) { return traits[k] || 3; });
+    var css = getComputedStyle(document.documentElement);
+    var color = css.getPropertyValue('--zm-green').trim() || '#008000';
+    var gridColor = css.getPropertyValue('--border-light').trim() || '#e2e8f0';
+    var textColor = css.getPropertyValue('--text-secondary').trim() || '#4a5568';
+
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.parentElement ? canvas.parentElement.getBoundingClientRect() : { width: 460, height: 340 };
+    var w = Math.max(rect.width, 280), h = Math.max(rect.height, 300);
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+    var ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    var cx = w / 2, cy = h / 2 + 6, radius = Math.min(w, h) / 2 - 46;
+    var n = labels.length, max = 10;
+
+    // grid rings + axes
+    ctx.strokeStyle = gridColor; ctx.fillStyle = 'transparent'; ctx.lineWidth = 1;
+    for (var ring = 1; ring <= 5; ring++) {
+        ctx.beginPath();
+        for (var i = 0; i <= n; i++) {
+            var ang = (Math.PI * 2 * i) / n - Math.PI / 2;
+            var r = radius * (ring / 5);
+            var x = cx + r * Math.cos(ang), y = cy + r * Math.sin(ang);
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+    }
+    for (var i = 0; i < n; i++) {
+        var ang = (Math.PI * 2 * i) / n - Math.PI / 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + radius * Math.cos(ang), cy + radius * Math.sin(ang));
+        ctx.stroke();
+    }
+
+    // data polygon (animated sweep)
+    var t0 = null;
+    function frame(ts) {
+        if (t0 === null) t0 = ts;
+        var progress = Math.min((ts - t0) / 900, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        ctx.clearRect(0, 0, w, h);
+
+        // re-draw grid quickly
+        ctx.strokeStyle = gridColor; ctx.lineWidth = 1;
+        for (var ring = 1; ring <= 5; ring++) {
+            ctx.beginPath();
+            for (var k = 0; k <= n; k++) {
+                var ang2 = (Math.PI * 2 * k) / n - Math.PI / 2;
+                var r2 = radius * (ring / 5);
+                var x2 = cx + r2 * Math.cos(ang2), y2 = cy + r2 * Math.sin(ang2);
+                if (k === 0) ctx.moveTo(x2, y2); else ctx.lineTo(x2, y2);
+            }
+            ctx.stroke();
+        }
+
+        // polygon
+        ctx.beginPath();
+        for (var j = 0; j <= n; j++) {
+            var idx = j % n;
+            var ang3 = (Math.PI * 2 * idx) / n - Math.PI / 2;
+            var val = (data[idx] / max) * eased;
+            var x3 = cx + radius * val * Math.cos(ang3);
+            var y3 = cy + radius * val * Math.sin(ang3);
+            if (j === 0) ctx.moveTo(x3, y3); else ctx.lineTo(x3, y3);
+        }
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(0, 128, 0, 0.15)';
+        ctx.fill();
+        ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.stroke();
+
+        // points
+        for (var p = 0; p < n; p++) {
+            var angP = (Math.PI * 2 * p) / n - Math.PI / 2;
+            var valP = (data[p] / max) * eased;
+            ctx.beginPath();
+            ctx.arc(cx + radius * valP * Math.cos(angP), cy + radius * valP * Math.sin(angP), 3.5, 0, Math.PI * 2);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        // labels
+        ctx.fillStyle = textColor;
+        ctx.font = '600 10px system-ui, sans-serif';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        for (var l = 0; l < n; l++) {
+            var angL = (Math.PI * 2 * l) / n - Math.PI / 2;
+            var lx = cx + (radius + 22) * Math.cos(angL);
+            var ly = cy + (radius + 22) * Math.sin(angL);
+            ctx.fillText(labels[l], lx, ly);
+        }
+
+        if (progress < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
 }
 
 // ================================================================
@@ -5999,32 +6204,70 @@ function initParticles() {
 }
 
 // ================================================================
-// SECTION 28: TYPING EFFECT (V2)
+// SECTION 28: TYPING EFFECT (V3.1 — rotating taglines)
 // ================================================================
 var typingTimeout = null;
+// English gets a rotating set of taglines; other languages keep their
+// translated subtitle. Respects prefers-reduced-motion (static text).
+function getTaglines() {
+    if (state.language === 'en') {
+        return [
+            'Discover Your Path to a Bright Future',
+            '144 careers. One perfect match for you.',
+            'Answer 30 questions. Get your roadmap.',
+            'Built in Zambia, for Zambia.',
+            'Your future starts with one tap.'
+        ];
+    }
+    return [t('welcome_subtitle')];
+}
 function startTypingEffect() {
     var subtitle = document.getElementById('typing-subtitle');
     if (!subtitle) return;
-    var fullText = 'Discover Your Path to a Bright Future';
-    subtitle.textContent = '';
+    stopTypingEffect();
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var taglines = getTaglines();
+    var tagIndex = 0;
     subtitle.classList.add('typing-active');
+
+    if (reduced || taglines.length === 1) {
+        subtitle.textContent = taglines[0];
+        if (reduced) subtitle.classList.remove('typing-active');
+        return;
+    }
+
     var charIndex = 0;
-    function typeNext() {
-        if (charIndex < fullText.length) {
-            subtitle.textContent += fullText.charAt(charIndex);
+    var deleting = false;
+    function tick() {
+        var full = taglines[tagIndex];
+        if (!deleting) {
             charIndex++;
-            typingTimeout = setTimeout(typeNext, 50);
+            subtitle.textContent = full.slice(0, charIndex);
+            if (charIndex >= full.length) {
+                deleting = true;
+                typingTimeout = setTimeout(tick, 1900); // hold so it can be read
+                return;
+            }
+            typingTimeout = setTimeout(tick, 42);
         } else {
-            subtitle.classList.remove('typing-active');
+            charIndex--;
+            subtitle.textContent = full.slice(0, charIndex);
+            if (charIndex <= 0) {
+                deleting = false;
+                tagIndex = (tagIndex + 1) % taglines.length;
+                typingTimeout = setTimeout(tick, 350);
+                return;
+            }
+            typingTimeout = setTimeout(tick, 20); // delete faster than typing
         }
     }
-    typeNext();
+    tick();
 }
 function stopTypingEffect() {
-    if (typingTimeout) clearTimeout(typingTimeout);
+    if (typingTimeout) { clearTimeout(typingTimeout); typingTimeout = null; }
     var subtitle = document.getElementById('typing-subtitle');
     if (subtitle) {
-        subtitle.textContent = 'Discover Your Path to a Bright Future';
+        subtitle.textContent = t('welcome_subtitle');
         subtitle.classList.remove('typing-active');
     }
 }
@@ -6686,6 +6929,8 @@ function closeCareerModal() {
 function launchConfetti() {
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var canvas = DOM.confettiCanvas;
+    // V3 FIX: guard against missing canvas — skip celebration instead of crashing
+    if (!canvas || !canvas.getContext) return;
     var ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -6806,7 +7051,10 @@ function printResults() {
 // SECTION 42: BACK TO TOP
 // ================================================================
 function handleScroll() {
-    DOM.backToTop.classList.toggle('visible', window.scrollY > 400);
+    // V3 FIX: guard against missing button instead of throwing on every scroll
+    if (DOM.backToTop) {
+        DOM.backToTop.classList.toggle('visible', window.scrollY > 400);
+    }
 }
 
 // ================================================================
@@ -7038,9 +7286,16 @@ function init() {
     initParticles();
     startTypingEffect();
 
+    // --- V3.1: live career count on the welcome chip ---
+    var chipCareers = document.getElementById('chip-careers');
+    if (chipCareers && typeof careers !== 'undefined') {
+        chipCareers.textContent = String(Object.keys(careers).length);
+    }
+
     // --- QUIZ NAVIGATION ---
     if (DOM.prevBtn) DOM.prevBtn.addEventListener('click', prevQuestion);
     if (DOM.nextBtn) DOM.nextBtn.addEventListener('click', nextQuestion);
+    if (DOM.questionDots) DOM.questionDots.addEventListener('click', handleDotClick); // V3.1
     if (DOM.optionsContainer) {
         DOM.optionsContainer.addEventListener('click', function(e) {
             var btn = e.target.closest('.option-btn');
@@ -7197,6 +7452,42 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
 // ================================================================
-// END OF SCRIPT
+// SECTION 48: V3 MOBILE ENHANCEMENT LAYER
+// Swipe left/right to move between quiz questions (touch phones).
+// Safe: ignores vertical scrolls, option taps, and multi-select.
+// ================================================================
+(function initSwipeNavigation() {
+    var startX = 0, startY = 0, tracking = false;
+
+    document.addEventListener('touchstart', function(e) {
+        if (e.touches.length !== 1) { tracking = false; return; }
+        var quizScreen = document.getElementById('quiz-screen');
+        if (!quizScreen || !quizScreen.classList.contains('active')) return;
+        if (e.target.closest('.option-btn') || e.target.closest('button') || e.target.closest('input')) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        tracking = true;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+        if (!tracking) return;
+        tracking = false;
+        var dx = e.changedTouches[0].clientX - startX;
+        var dy = e.changedTouches[0].clientY - startY;
+        // Horizontal swipe only: significant X movement, small Y movement
+        if (Math.abs(dx) < 70 || Math.abs(dy) > 45) return;
+        if (dx < 0) {
+            // swipe left = next
+            if (DOM.nextBtn && !DOM.nextBtn.disabled) { haptic(6); nextQuestion(); }
+        } else {
+            // swipe right = previous
+            if (DOM.prevBtn && DOM.prevBtn.style.display !== 'none') { haptic(6); prevQuestion(); }
+        }
+    }, { passive: true });
+})();
+
+// ================================================================
+// END OF SCRIPT (V3)
 // ================================================================
