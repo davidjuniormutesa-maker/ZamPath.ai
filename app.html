@@ -35,6 +35,13 @@
 <body>
 
 <!-- ================================================================ -->
+<!-- V3.2 LEVEL 3: OFFLINE STATUS BANNER                              -->
+<!-- Shows whenever the internet drops — reassures users that the      -->
+<!-- app still works fully offline (it does!). Styled in style.css.    -->
+<!-- ================================================================ -->
+<div id="offline-banner" class="offline-banner" role="status" aria-live="polite" style="display:none;">📶 You are offline. Don't worry, everything still works!</div>
+
+<!-- ================================================================ -->
 <!-- LOADING SCREEN – ONLY on first browser visit, never in standalone -->
 <!-- ================================================================ -->
 <div id="loading-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#008000;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity 0.6s ease;">
@@ -287,6 +294,8 @@
                 </div>
 
                 <div class="results-actions">
+                    <!-- V3.2 LEVEL 3: quick printable top-3 summary for parents/teachers -->
+                    <button id="print-top3-btn" class="btn-secondary" data-translate="print_top3">🖨️ Print My Top 3</button>
                     <button id="download-pdf-btn" class="btn-primary" data-translate="download_pdf">📄 Download PDF Report</button>
                     <button id="print-btn" class="btn-secondary" data-translate="print_report">🖨️ Print Report</button>
                     <button id="retake-btn" class="btn-secondary" data-translate="retake_quiz">🔄 Retake Quiz</button>
@@ -305,6 +314,8 @@
                     <div class="discovery-header">
                         <h2 data-translate="discovery_title">🔍 Discovery Mode</h2>
                         <p data-translate="discovery_desc">That's okay! Let's explore all your options together.</p>
+                        <!-- V3.2 LEVEL 3: random career generator — pure fun, zero pressure -->
+                        <button id="surprise-btn" class="surprise-btn" type="button">🎲 Surprise Me!</button>
                         <p style="font-size:14px;color:var(--text-muted);" data-translate="discovery_instruction">
                             Click on a cluster below to see careers. Then click <strong>"Read More"</strong> for details or 
                             <strong>"Add to Compare"</strong> to compare careers side-by-side.
@@ -391,6 +402,38 @@ var progressSteps = [
 ];
 var currentStep = 0;
 
+// ================================================================
+// V3.2 LEVEL 4: ZAMBIAN FUN FACTS MACHINE 🇿🇲
+// The loading screen now teaches you something about Zambia while
+// it loads — researched local facts, rotating every second.
+// ================================================================
+var zambiaFacts = [
+    '🇿🇲 Zambia has 73 tribes living together in peace!',
+    '🦁 Victoria Falls is one of the 7 Natural Wonders of the World!',
+    '📚 Copper is our biggest export — we are the Copperbelt!',
+    '🦅 The African fish eagle is our national bird!',
+    '⚽ Legend Kalusha Bwalya was African Footballer of the Year 1988!',
+    '🌍 "Mosi-oa-Tunya" means "the smoke that thunders"!',
+    '💰 Our currency, the Kwacha, means "dawn" — a new day!',
+    '🐘 Zambia has some of the biggest elephant herds in Africa!'
+];
+var factIndex = Math.floor(Math.random() * zambiaFacts.length);
+var factTimer = null;
+
+// Rotates a fun fact into the loading status line every second
+function startLoadingFacts() {
+    if (factTimer || !loadingStatus) return;
+    loadingStatus.textContent = zambiaFacts[factIndex % zambiaFacts.length];
+    factIndex++;
+    factTimer = setInterval(function() {
+        loadingStatus.textContent = zambiaFacts[factIndex % zambiaFacts.length];
+        factIndex++;
+    }, 1000);
+}
+function stopLoadingFacts() {
+    if (factTimer) { clearInterval(factTimer); factTimer = null; }
+}
+
 function updateLoadingProgress(pct, text) {
     if (pct !== undefined) loadingProgress.style.width = Math.min(pct, 100) + '%';
     if (text) loadingStatus.textContent = text;
@@ -399,10 +442,11 @@ function updateLoadingProgress(pct, text) {
 function simulateLoading() {
     if (currentStep < progressSteps.length) {
         var step = progressSteps[currentStep];
-        updateLoadingProgress(step.pct, step.text);
+        updateLoadingProgress(step.pct);  // V3.2: bar only — fun facts own the text
         currentStep++;
         setTimeout(simulateLoading, 150 + Math.random() * 200);
     } else {
+        stopLoadingFacts();
         updateLoadingProgress(100, '🎉 Ready!');
         setTimeout(function() { hideLoadingScreen(); }, 400);
     }
@@ -411,6 +455,7 @@ function simulateLoading() {
 function hideLoadingScreen() {
     if (loadingComplete) return;
     loadingComplete = true;
+    stopLoadingFacts();  // V3.2: facts stop with the loading screen
     loadingScreen.style.opacity = '0';
     setTimeout(function() {
         loadingScreen.style.display = 'none';
@@ -428,6 +473,7 @@ var showLoading = shouldShowLoading();
 if (showLoading) {
     // First visit – show loading screen with animation
     loadingScreen.style.display = 'flex';
+    startLoadingFacts();  // V3.2: Zambian fun facts while loading
     setTimeout(function() {
         simulateLoading();
     }, 300);
@@ -471,6 +517,25 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
+// ================================================================
+// V3.2 LEVEL 3: OFFLINE STATUS BANNER LISTENERS
+// The banner appears whenever the connection drops and hides when
+// it returns — also checked once on load (e.g. opened offline).
+// ================================================================
+(function () {
+    var banner = document.getElementById('offline-banner');
+    if (!banner) return;
+    function showOfflineBanner() { banner.style.display = 'block'; }
+    function hideOfflineBanner() { banner.style.display = 'none'; }
+    function updateOfflineBanner() {
+        if (navigator.onLine === false) showOfflineBanner(); else hideOfflineBanner();
+    }
+    window.addEventListener('offline', showOfflineBanner);
+    window.addEventListener('online', hideOfflineBanner);
+    window.addEventListener('load', updateOfflineBanner);
+    updateOfflineBanner();
+})();
 
 // Install prompt
 window.addEventListener('beforeinstallprompt', function(e) {

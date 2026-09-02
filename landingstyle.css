@@ -594,6 +594,25 @@ section[id], footer[id] { scroll-margin-top: calc(var(--navbar-height) + 16px); 
         .lang-btn .flag { font-size: 13px; }
     }
 
+    /* V3.2: COLLAPSIBLE LANGUAGE SWITCHER (≤400px) — only the ACTIVE
+       pill is visible so the navbar never wraps. Tapping the pill
+       opens a small dropdown below the navbar (JS toggles .collapsed);
+       picking a language collapses it back. Desktop is unaffected. */
+    @media (max-width: 400px) {
+        .language-switcher.collapsed .lang-btn:not(.active) { display: none; }
+        .language-switcher { position: relative; }
+        .language-switcher:not(.collapsed) {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 10px;
+            z-index: 1200;
+            padding: 5px 7px;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+            animation: menuSlide 0.2s ease;
+        }
+        .lang-btn { min-width: 36px; min-height: 36px; }
+    }
+
     /* --- Hero --- */
     .hero { padding-top: calc(var(--navbar-height) + var(--safe-top) + 32px); min-height: auto; }
     .hero-text h1 { font-size: clamp(30px, 8.5vw, 38px); }

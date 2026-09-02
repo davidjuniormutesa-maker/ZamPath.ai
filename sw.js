@@ -10,7 +10,7 @@
 //  • Robust SKIP_WAITING handling with client notification
 // ================================================================
 
-const CACHE_VERSION = 3; // Increment to force clients to update
+const CACHE_VERSION = 4; // V3.2: new questions, why-box, offline banner, surprise me
 const CACHE_NAME = 'career-quest-v' + CACHE_VERSION;
 
 // App shell — HTML pages are also matched at runtime (network-first)

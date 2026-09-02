@@ -917,6 +917,44 @@
         });
 
         // ============================================================
+        // V3.2: COLLAPSIBLE LANGUAGE SWITCHER ON VERY SMALL PHONES
+        // On screens ≤400px only the ACTIVE language pill is shown so
+        // the navbar always fits on one row. Tap the pill to reveal
+        // all four languages in a small dropdown; picking one collapses
+        // the switcher again. Desktop is completely unaffected.
+        // ============================================================
+        const langSwitcher = document.querySelector('.language-switcher');
+        const smallNavMedia = window.matchMedia('(max-width: 400px)');
+
+        function collapseLangSwitcher() {
+            if (!langSwitcher) return;
+            if (smallNavMedia.matches) {
+                langSwitcher.classList.add('collapsed');
+                langSwitcher.setAttribute('aria-expanded', 'false');
+            } else {
+                langSwitcher.classList.remove('collapsed');
+                langSwitcher.setAttribute('aria-expanded', 'true');
+            }
+        }
+        collapseLangSwitcher();
+        if (smallNavMedia.addEventListener) smallNavMedia.addEventListener('change', collapseLangSwitcher);
+        else if (smallNavMedia.addListener) smallNavMedia.addListener(collapseLangSwitcher); // older Safari
+
+        // Tap the active pill to expand; tap any language to select + collapse
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (!langSwitcher || !smallNavMedia.matches) return;
+                if (langSwitcher.classList.contains('collapsed')) {
+                    langSwitcher.classList.remove('collapsed');
+                    langSwitcher.setAttribute('aria-expanded', 'true');
+                } else {
+                    // A language was just picked — collapse after a beat
+                    setTimeout(collapseLangSwitcher, 250);
+                }
+            });
+        });
+
+        // ============================================================
         // SECTION 8: PWA - INSTALL APP BUTTON
         // ============================================================
         let deferredPrompt;
