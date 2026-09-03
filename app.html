@@ -1,65 +1,125 @@
 <!-- ================================================================ -->
-<!-- CAREER QUEST - COMPLETE APPLICATION (V3 — FULLY UPGRADED)       -->
+<!-- CAREER QUEST - COMPLETE APPLICATION (V3.3 — PATHWAY FILTERS)    -->
 <!-- ================================================================ -->
-<!-- WHAT THIS FILE DOES:                                             -->
-<!--  • This is the MAIN APP - where students take the quiz           -->
-<!--  • Has 3 screens: Welcome, Quiz, and Results                     -->
-<!--  • Contains the career database and matching engine              -->
-<!--  • Works completely offline (PWA)                                -->
-<!--  • Supports 4 languages (English, Nyanja, Bemba, Tonga)          -->
-<!--  • Has a beautiful loading screen with Zambian fun facts         -->
 <!--                                                                  -->
-<!-- WHAT'S NEW IN V3:                                               -->
-<!--  • CRITICAL FIX: #toast-container / #confetti-canvas /          -->
-<!--    #back-to-top were missing → toasts, celebration & scroll     -->
-<!--    button now work again (no more console crashes)              -->
-<!--  • 100% offline: Font Awesome CDN removed (pure emoji bell)     -->
-<!--  • Pinch-zoom enabled, safe-area aware for notched phones       -->
-<!--  • Chart.js fallback: radar chart still renders if lib missing  -->
-<!--  • Swipe left/right to navigate quiz questions on touch phones  -->
-<!--  • Service worker: relative path, registers after page load     -->
-<!-- ================================================================ -->
+<!--  WHAT THIS FILE IS:                                              -->
+<!--  This is the MAIN application file. It contains the entire       -->
+<!--  user interface for the Career Quest app. When a student opens   -->
+<!--  this file in their browser (or installed app), they see:        -->
+<!--                                                                  -->
+│  1. A LOADING SCREEN (first visit only) with Zambian fun facts    │
+│  2. A WELCOME SCREEN with "Get Started", "I Have No Idea", and    │
+│     "View Sample Results" buttons.                                │
+│  3. A QUIZ SCREEN with 25-35 questions, progress bar, and        │
+│     keyboard navigation.                                          │
+│  4. A RESULTS SCREEN with:                                        │
+│     - Stats summary (top matches, clusters, avg match, etc.)     │
+│     - Personality radar chart                                     │
+│     - Search bar                                                  │
+│     - NEW: Cluster/Pathway toggle buttons                         │
+│     - Filter chips (show clusters OR pathways)                    │
+│     - Career match cards with match percentages                   │
+│     - Pathway & subject recommendations                           │
+│     - Career web map (clickable clusters)                         │
+│     - Comparison tool (compare up to 5 careers)                   │
+│     - AI Discovery (Smart Discovery, AI Chat, Explore All)       │
+│     - Share results (copy link, WhatsApp, email)                 │
+│     - Print/PDF/Retake buttons                                    │
+│  5. A MODAL pop-up for detailed career information                │
+│     - Includes the "⭐ Why we picked this for you" gold box       │
+│                                                                  │
+│  HOW IT WORKS:                                                    │
+│  - JavaScript (script.js) handles all the logic.                 │
+│  - CSS (style.css) handles all the styling.                      │
+│  - This file only provides the HTML structure.                   │
+│  - The app is fully responsive (works on phones, tablets,        │
+│    and desktops).                                                │
+│  - It works OFFLINE (thanks to the service worker).              │
+│                                                                  │
+│  ZAMBIAN EDUCATION CONTEXT:                                      │
+│  - The new Zambian curriculum has specific "pathways" that       │
+│    students choose in Form 1-4 (Natural Science, Business        │
+│    Studies, STEM, Creative Arts, Vocational Agriculture, etc.). │
+│  - This app lets students filter careers by these pathways,      │
+│    making it directly relevant to their subject choices.         │
+│                                                                  │
+│  JETS 2026 PROJECT: Built by David Mutesa for the JETS          │
+│  competition. This app helps Zambian students discover their     │
+│  perfect career path.                                            │
+│ ================================================================ -->
 
 <!DOCTYPE html>
-<!-- HTML5 DOCTYPE: Tells the browser to use the latest rendering engine -->
+<!-- HTML5 DOCTYPE: This tells the browser to use the latest, most
+     standards-compliant rendering engine. Without this, browsers
+     might use "quirks mode" which can break layouts. -->
 <html lang="en">
 <head>
     <!-- ============================================================ -->
-    <!-- CHARACTER ENCODING: UTF-8 supports ALL languages, including   -->
-    <!-- special characters like emojis, Bemba letters, etc.          -->
+    <!-- HEAD: Metadata and external resources                        -->
+    <!-- This section contains information about the page that the    -->
+    <!-- browser needs BEFORE rendering the content.                  -->
     <!-- ============================================================ -->
+
+    <!-- CHARACTER ENCODING: UTF-8 is the universal character set.    -->
+    <!-- It supports ALL languages, including:                        -->
+    <!--   - English (A-Z)                                            -->
+    <!--   - Special characters (é, ñ, ü)                            -->
+    <!--   - Emojis (🎓, 🇿🇲, 🔔)                                     -->
+    <!--   - Bemba, Nyanja, and Tonga characters                     -->
+    <!-- Without this, emojis and special letters would appear as    -->
+    <!-- garbage characters (�).                                     -->
     <meta charset="UTF-8">
     
     <!-- ============================================================ -->
-    <!-- VIEWPORT: Makes the page responsive on mobile devices         -->
-    <!-- width=device-width = use the device's actual width          -->
-    <!-- initial-scale=1.0 = don't zoom in or out by default         -->
-    <!-- viewport-fit=cover = fills the screen on iPhones with notches -->
+    <!-- VIEWPORT: Controls how the page scales on mobile devices.    -->
+    <!-- This is CRITICAL for making the app look good on phones.    -->
+    <!--                                                              -->
+    <!-- width=device-width       → Use the device's actual width    -->
+    <!-- initial-scale=1.0        → Don't zoom in or out by default  -->
+    <!-- viewport-fit=cover       → On iPhones with notches, fill the-->
+    <!--                            entire screen (including the     -->
+    <!--                            notch area)                      -->
     <!-- ============================================================ -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     
     <!-- ============================================================ -->
-    <!-- META DESCRIPTION: Shown in Google search results              -->
-    <!-- Also used when sharing links on social media                 -->
+    <!-- META DESCRIPTION: Shown in Google search results.            -->
+    <!-- This is what people see when they search for career         -->
+    <!-- guidance tools. It should be clear and compelling.          -->
     <!-- ============================================================ -->
     <meta name="description" content="Career Quest - Free career guidance tool for Zambian students. 130+ careers, 30 questions, 4 languages. Works offline!">
     
     <!-- ============================================================ -->
-    <!-- THEME COLOR: Changes the browser/phone status bar color      -->
-    <!-- Light mode = Zambian green (#008000)                         -->
-    <!-- Dark mode = Dark green (#0c2f20) for better contrast         -->
+    <!-- THEME COLOR: Changes the browser/phone status bar color.    -->
+    <!-- This makes the app feel more native and polished.           -->
+    <!--                                                              -->
+    <!-- Light mode: Zambian green (#008000)                         -->
+    <!-- Dark mode: Dark green (#0c2f20) for better contrast         -->
+    <!-- The "media" attribute tells the browser which color to use  -->
+    <!-- based on the user's system preference.                      -->
     <!-- ============================================================ -->
     <meta name="theme-color" content="#008000" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0c2f20" media="(prefers-color-scheme: dark)">
     
     <!-- ============================================================ -->
-    <!-- COLOR SCHEME: Tells the browser your page supports both modes -->
+    <!-- COLOR SCHEME: Tells the browser that this page supports      -->
+    <!-- both light and dark modes. This prevents the browser from   -->
+    <!-- flashing a white screen before the dark mode CSS loads.     -->
     <!-- ============================================================ -->
     <meta name="color-scheme" content="light dark">
     
     <!-- ============================================================ -->
-    <!-- APPLE PWA: Required for iOS home screen installation         -->
-    <!-- These tags make the app feel native on iPhone                -->
+    <!-- APPLE PWA: These tags are required for iOS home screen       -->
+    <!-- installation. Without them, the app won't work properly on  -->
+    <!-- iPhones.                                                     -->
+    <!--                                                              -->
+    <!-- apple-mobile-web-app-capable: Makes the app open in         -->
+    │   "standalone" mode (no Safari address bar).                   │
+    │ mobile-web-app-capable: Same for Android.                     │
+    │ apple-mobile-web-app-status-bar-style: Makes the status bar   │
+    │   translucent (black) so it blends with the app.              │
+    │ apple-mobile-web-app-title: The name shown under the icon on  │
+    │   the home screen.                                            │
     <!-- ============================================================ -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -67,37 +127,77 @@
     <meta name="apple-mobile-web-app-title" content="Career Quest">
     
     <!-- ============================================================ -->
-    <!-- PAGE TITLE: Shows in the browser tab                         -->
+    <!-- PAGE TITLE: Shows in the browser tab.                        -->
+    <!-- This is also used as the default name when bookmarking.     -->
     <!-- ============================================================ -->
     <title>ZamPath - Career Quest</title>
     
     <!-- ============================================================ -->
-    <!-- PWA MANIFEST: The JSON file that makes this installable      -->
+    <!-- PWA MANIFEST: The JSON file that makes this installable.     -->
+    <!-- This file tells the browser:                                 -->
+    │   - What icon to use                                          │
+    │   - What name to display                                      │
+    │   - How to open (standalone, fullscreen, etc.)               │
+    │   - What colors to use                                        │
+    │   - What shortcuts to show on long-press                     │
+    │                                                               │
+    │ Without this file, the app cannot be installed on the        │
+    │ home screen.                                                 │
     <!-- ============================================================ -->
     <link rel="manifest" href="manifest.json">
     
     <!-- ============================================================ -->
-    <!-- APPLE TOUCH ICON: Used when saving to iPhone home screen     -->
-    <!-- Inline SVG so it loads instantly with NO external requests   -->
+    <!-- APPLE TOUCH ICON: Used when saving to iPhone home screen.    -->
+    │ The data:image/svg+xml format means the icon is embedded      │
+    │ directly in the HTML (no external request). This is           │
+    │ important for offline-first apps.                             │
+    │                                                               │
+    │ The icon shows:                                               │
+    │   - Green background (#008000 = Zambian green)               │
+    │   - Gold border (#eeba2c = Zambian gold)                    │
+    │   - Graduation cap emoji (🎓)                                 │
+    │ This branding makes the app instantly recognizable.          │
     <!-- ============================================================ -->
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%23008000'/%3E%3Crect x='8' y='8' width='176' height='176' rx='32' fill='none' stroke='%23eeba2c' stroke-width='3' opacity='0.4'/%3E%3Ctext x='96' y='130' font-size='90' text-anchor='middle'%3E🎓%3C/text%3E%3C/svg%3E">
     
     <!-- ============================================================ -->
-    <!-- FAVICON: The tiny icon shown in browser tabs                 -->
-    <!-- Inline SVG = zero external requests                          -->
+    <!-- FAVICON: The tiny icon shown in browser tabs and bookmarks.  -->
+    │ This is the 16x16 or 32x32 version of the app icon.           │
+    │ Inline SVG = zero external requests.                          │
     <!-- ============================================================ -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23008000'/%3E%3Ctext x='50' y='72' font-size='52' text-anchor='middle'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
     
     <!-- ============================================================ -->
-    <!-- STYLESHEET: ALL the styling for the entire app               -->
-    <!-- This file is fully commented and contains all UI styles      -->
+    <!-- STYLESHEET: ALL the styling for the entire app.              -->
+    │ This file contains:                                            │
+    │   - CSS variables (colors, fonts, shadows)                   │
+    │   - Dark mode overrides                                       │
+    │   - Layout for all screens                                    │
+    │   - Card designs                                              │
+    │   - Button styles                                             │
+    │   - Form styles                                               │
+    │   - Modal styles                                              │
+    │   - Toast and notification styles                             │
+    │   - Responsive breakpoints                                    │
+    │   - Print styles                                              │
+    │   - NEW: Filter toggle styles (Clusters ↔ Pathways)          │
+    │                                                               │
+    │ The file is fully commented so judges can see every detail.  │
     <!-- ============================================================ -->
     <link rel="stylesheet" href="style.css">
     
     <!-- ============================================================ -->
-    <!-- CHART.JS: Creates the personality radar chart                -->
-    <!-- defer = download in background, don't block page rendering   -->
-    <!-- If it fails to load, we have a fallback canvas renderer      -->
+    <!-- CHART.JS: Creates the personality radar chart.              -->
+    │ This is a heavy library (200KB) that renders the interactive  │
+    │ radar chart showing the user's personality traits.            │
+    │                                                               │
+    │ The "defer" attribute means the browser downloads this in     │
+    │ the background while continuing to parse the HTML. This      │
+    │ prevents the library from blocking the page load.             │
+    │                                                               │
+    │ If this library fails to load (e.g., offline), the app has    │
+    │ a fallback that draws a radar chart using raw Canvas API.    │
+    │ This is a key feature for offline-first reliability.          │
     <!-- ============================================================ -->
     <script src="libs/chart.min.js" defer></script>
 </head>
@@ -105,49 +205,97 @@
 
 <!-- ================================================================ -->
 <!-- V3.2 LEVEL 3: OFFLINE STATUS BANNER                              -->
-<!-- Shows whenever the internet drops — reassures users that the      -->
-<!-- app still works fully offline (it does!). Styled in style.css.    -->
 <!-- ================================================================ -->
-<!-- OFFLINE BANNER: Appears when internet disconnects               -->
-<!-- role="status" = tells screen readers this is important          -->
-<!-- aria-live="polite" = updates are announced but don't interrupt  -->
-<!-- style="display:none" = hidden by default, shown by JavaScript   -->
+<!-- OFFLINE BANNER: Appears when the internet connection drops.    -->
+│ This reassures users that the app still works offline.            │
+│                                                                   │
+│ KEY ATTRIBUTES:                                                   │
+│   - id="offline-banner" → Used by JavaScript to show/hide        │
+│   - class="offline-banner" → Styled in style.css                 │
+│   - role="status" → Tells screen readers this is important       │
+│   - aria-live="polite" → Updates are announced but don't        │
+│     interrupt the user                                           │
+│   - style="display:none" → Hidden by default, shown by JS        │
+│                                                                   │
+│ The banner uses Zambian red (#DE2010) to grab attention and       │
+│ includes a 📶 emoji for visual communication.                     │
+<!-- ================================================================ -->
 <div id="offline-banner" class="offline-banner" role="status" aria-live="polite" style="display:none;">📶 You are offline. Don't worry, everything still works!</div>
 
 <!-- ================================================================ -->
 <!-- LOADING SCREEN – ONLY on first browser visit, never in standalone -->
 <!-- ================================================================ -->
-<!-- LOADING SCREEN: Shows while the app loads on first visit         -->
-<!-- position:fixed = stays on top of everything                      -->
-<!-- z-index:99999 = highest layer so nothing shows through           -->
-<!-- transition:opacity = fades out smoothly when done                -->
-<!-- The loading screen has:                                           -->
-<!--   • An animated graduation cap (bounces up and down)            -->
-<!--   • The app title in gold (#eeba2c = Zambian gold)              -->
-<!--   • Rotating Zambian fun facts (see the JavaScript below)       -->
-<!--   • A progress bar that fills from 0% to 100%                   -->
-<!--   • An "Install App" button (appears when PWA install is ready) -->
+<!-- LOADING SCREEN: Shows while the app loads on the FIRST visit.   -->
+│ This screen is only shown ONCE per user (the first time they      │
+│ open the app in a browser). After that, localStorage remembers    │
+│ they've visited and skips the loading screen.                     │
+│                                                                   │
+│ WHY A LOADING SCREEN?                                             │
+│   - It gives the app a "native app" feel (like a real game or    │
+│     application).                                                 │
+│   - It masks the time taken to load the career database (130+    │
+│     careers is a lot of data!).                                  │
+│   - It educates the user with Zambian fun facts.                 │
+│   - It shows a progress bar, which reduces perceived wait time.  │
+│                                                                   │
+│ POSITIONING:                                                      │
+│   - position:fixed → Stays on top of everything                  │
+│   - top:0, left:0, width:100%, height:100% → Full screen        │
+│   - z-index:99999 → Highest layer so NOTHING shows through      │
+│   - background:#008000 → Zambian green, brand color             │
+│   - transition:opacity 0.6s → Fades out smoothly when done      │
+│                                                                   │
+│ CONTENTS:                                                         │
+│   1. Animated graduation cap (bounces up and down)              │
+│   2. App title in Zambian gold (#eeba2c)                         │
+│   3. Loading status text (rotates through fun facts)             │
+│   4. Progress bar (fills from 0% to 100%)                        │
+│   5. Install App button (appears when PWA install is ready)      │
 <!-- ================================================================ -->
 <div id="loading-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#008000;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity 0.6s ease;">
     <div style="text-align:center;">
-        <!-- LOGO: Animated graduation cap that floats -->
-        <!-- animation:logoFloat = bounces up and down gently -->
+        <!-- ======================================================== -->
+        <!-- LOGO: Animated graduation cap                           -->
+        │ animation:logoFloat → Defined in style.css. It bounces   │
+        │ up and down gently, creating a friendly, welcoming feel. │
+        <!-- ======================================================== -->
         <div style="font-size:64px;margin-bottom:16px;animation:logoFloat 2s ease-in-out infinite;">🎓</div>
         
-        <!-- APP TITLE: Shows in gold (#eeba2c = Zambian gold) -->
+        <!-- ======================================================== -->
+        <!-- APP TITLE: In Zambian gold (#eeba2c)                    -->
+        │ Gold is a royal color and represents Zambia's mineral    │
+        │ wealth. It also stands out against the green background. │
+        <!-- ======================================================== -->
         <h2 style="color:#eeba2c;font-size:28px;font-weight:700;margin-bottom:8px;">Career Quest</h2>
         
-        <!-- LOADING STATUS: Shows progress messages (will rotate through fun facts!) -->
-        <!-- Updated by JavaScript during loading -->
+        <!-- ======================================================== -->
+        <!-- LOADING STATUS: Shows progress messages                 │
+        │ This element's text is updated by JavaScript. Initially   │
+        │ "Loading...", then it rotates through Zambian fun facts.  │
+        │ The text is semi-transparent white to be readable but    │
+        │ not overpowering.                                         │
+        <!-- ======================================================== -->
         <p id="loading-status" style="color:rgba(255,255,255,0.7);font-size:16px;margin-bottom:24px;">Loading...</p>
         
-        <!-- PROGRESS BAR: Visually shows how much has loaded -->
+        <!-- ======================================================== -->
+        <!-- PROGRESS BAR: Visual indicator of loading progress      │
+        │ The outer div is the track (grey/transparent).            │
+        │ The inner div (loading-progress) starts at 0% width and   │
+        │ increases to 100%. The gold gradient makes it look shiny. │
+        <!-- ======================================================== -->
         <div style="max-width:300px;width:80%;margin:0 auto;background:rgba(255,255,255,0.1);border-radius:50px;overflow:hidden;height:8px;">
-            <!-- PROGRESS FILL: Width increases from 0% to 100% -->
             <div id="loading-progress" style="width:0%;height:100%;background:linear-gradient(90deg,#eeba2c,#f0c84a);border-radius:50px;transition:width 0.3s ease;"></div>
         </div>
         
-        <!-- INSTALL BUTTON: Only appears when the browser supports PWA installation -->
+        <!-- ======================================================== -->
+        <!-- INSTALL BUTTON: Appears when the browser supports PWA   │
+        │ installation. This is hidden by default (display:none)    │
+        │ and shown by JavaScript when the beforeinstallprompt      │
+        │ event fires.                                              │
+        │                                                           │
+        │ The button uses the same gold gradient as the progress   │
+        │ bar to maintain visual consistency.                      │
+        <!-- ======================================================== -->
         <div id="loading-download-btn" style="display:none;margin-top:20px;">
             <button id="loading-install-btn" style="background:#eeba2c;color:#008000;font-weight:700;padding:14px 36px;border-radius:50px;border:none;cursor:pointer;font-size:18px;min-height:54px;">📲 Install App</button>
         </div>
@@ -157,20 +305,32 @@
 <!-- ================================================================ -->
 <!-- DOWNLOAD GUIDE MODAL – shows after installation                 -->
 <!-- ================================================================ -->
-<!-- INSTALLATION GUIDE: Shows after the app is installed to help    -->
-<!-- users find it on their home screen.                            -->
-<!-- position:fixed = overlay on top of everything                   -->
-<!-- z-index:9998 = below loading screen but above everything else   -->
+<!-- INSTALLATION GUIDE: Shows after the app is installed.           -->
+│ This modal appears when the user installs the app, helping them   │
+│ find it on their home screen. Many users don't know where        │
+│ installed PWAs go, so this is a helpful UX touch.                │
+│                                                                   │
+│ POSITIONING:                                                      │
+│   - position:fixed → Overlay on top of everything                │
+│   - background:rgba(0,0,0,0.7) → Dark semi-transparent backdrop  │
+│   - z-index:9998 → Below loading screen but above everything else│
+│   - justify-content:center, align-items:center → Centers modal   │
+│                                                                   │
+│ CONTENTS:                                                         │
+│   1. Phone emoji (📲) for visual communication                   │
+│   2. "App Installed!" title                                      │
+│   3. Instructions on how to find the app on Android              │
+│   4. A "Got it!" button to close the modal                      │
 <!-- ================================================================ -->
 <div id="download-guide-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9998;justify-content:center;align-items:center;padding:20px;">
     <div style="background:var(--bg-secondary);border-radius:var(--radius-lg);max-width:400px;width:100%;padding:30px;text-align:center;box-shadow:var(--shadow-xl);">
-        <!-- PHONE EMOJI: Makes it feel friendly and inviting -->
+        <!-- Phone emoji makes it feel friendly and inviting -->
         <span style="font-size:48px;display:block;margin-bottom:12px;">📲</span>
         <h2 style="color:var(--zm-green);margin-bottom:8px;">App Installed!</h2>
         <p style="color:var(--text-secondary);font-size:16px;margin-bottom:16px;">Your app is now on your phone. Here's how to find it:</p>
         <div style="text-align:left;background:var(--bg-tertiary);padding:16px;border-radius:var(--radius-sm);margin-bottom:16px;">
             <p style="margin-bottom:8px;"><strong>📱 On Android:</strong></p>
-            <!-- Ordered list: Step-by-step instructions -->
+            <!-- Ordered list (numbered) provides clear, easy-to-follow steps -->
             <ol style="padding-left:20px;color:var(--text-secondary);line-height:2;">
                 <li>Go to your <strong>Home Screen</strong></li>
                 <li>Look for the <strong>🎓 Career Quest</strong> icon</li>
@@ -184,18 +344,30 @@
 
 <!-- ================================================================ -->
 <!-- MAIN APP                                                        -->
-<!-- This is the main application container. Everything inside is     -->
-<!-- the actual app. It has a max-width of 960px and is centered      -->
-<!-- on larger screens.                                              -->
+<!-- ================================================================ -->
+<!-- APP CONTAINER: The main app wrapper.                            -->
+│ This div holds the entire application. It has a max-width of 960px│
+│ which makes it readable on large screens, and is centered.        │
+│ It has a subtle shadow and rounded corners for a polished look.   │
+│                                                                    │
+│ The class "app" is used in CSS to style the main container.      │
 <!-- ================================================================ -->
 <div id="app">
     
     <!-- ============================================================ -->
     <!-- TOP BAR: Navigation bar at the very top of the app           -->
     <!-- ============================================================ -->
-    <!-- NAV: Semantic HTML for navigation - good for accessibility   -->
-    <!-- role="navigation" = tells screen readers this is a nav area  -->
-    <!-- aria-label="App navigation" = describes the nav for screen readers -->
+    <!-- NAV: Semantic HTML element for navigation.                   -->
+    │ role="navigation" → Tells screen readers this is a nav area.  │
+    │ aria-label="App navigation" → Describes the nav for screen    │
+    │ readers.                                                       │
+    │                                                               │
+    │ The top bar has a glass effect (blurred background) and is    │
+    │ sticky (stays at the top when scrolling).                     │
+    │ It contains:                                                  │
+    │   - Left: Brand logo and name                                 │
+    │   - Right: Language switcher, bell, dark mode toggle          │
+    <!-- ============================================================ -->
     <nav class="top-bar" role="navigation" aria-label="App navigation">
         
         <!-- ========================================================== -->
@@ -204,6 +376,7 @@
         <div class="top-bar-brand">
             <!-- BACK TO LANDING PAGE: Clicking this takes you back to ZamPath.ai -->
             <!-- on hover, translates left slightly (smooth UX) -->
+            <!-- data-translate enables multi-language support -->
             <a href="index.html" class="back-home-link" style="text-decoration:none;color:var(--zm-green);display:flex;align-items:center;gap:6px;font-weight:600;font-size:14px;transition:all 0.3s ease;">
                 <span style="font-size:18px;">←</span> <!-- Left arrow icon -->
                 <span data-translate="back_home">Back to ZamPath.ai</span> <!-- Translates to other languages -->
@@ -220,9 +393,27 @@
             
             <!-- ====================================================== -->
             <!-- LANGUAGE SWITCHER: Toggle between 4 languages          -->
+            │ This is a group of 4 buttons (EN, NY, BE, TO).          │
+            │ The active language has a green background.             │
+            │ Clicking any button triggers a JavaScript function that │
+            │ updates all text on the page to that language.         │
+            │                                                         │
+            │ role="group" = Groups these related buttons together    │
+            │ aria-label="Language selector" = Describes the group   │
+            │                                                         │
+            │ Languages:                                             │
+            │   - EN: English (default)                               │
+            │   - NY: Nyanja (Chichewa) - spoken by over 2 million   │
+            │          Zambians                                       │
+            │   - BE: Bemba (Icibemba) - spoken by over 3 million    │
+            │          Zambians                                       │
+            │   - TO: Tonga (Chitonga) - spoken by over 1 million    │
+            │          Zambians                                       │
+            │                                                         │
+            │ This is a key feature for accessibility in Zambia,     │
+            │ where many students are more comfortable in their      │
+            │ local language.                                        │
             <!-- ====================================================== -->
-            <!-- role="group" = groups these related buttons together   -->
-            <!-- aria-label="Language selector" = describes the group   -->
             <div class="language-switcher" role="group" aria-label="Language selector">
                 <!-- ENGLISH: Default language -->
                 <button class="lang-btn active" data-lang="en" aria-label="English" title="English">
@@ -248,6 +439,17 @@
             
             <!-- ====================================================== -->
             <!-- BELL NOTIFICATION: Shows updates, install info, etc.  -->
+            │ The bell icon opens a dropdown panel with:              │
+            │   - Install status (Installed/Not Installed)           │
+            │   - Update notifications (if a new version is ready)   │
+            │   - An "Install App" button (if not installed)         │
+            │   - Helpful tips                                       │
+            │                                                         │
+            │ The red dot appears when there's a notification        │
+            │ (e.g., update available).                              │
+            │                                                         │
+            │ This is a common pattern in mobile apps, making        │
+            │ users feel at home.                                    │
             <!-- ====================================================== -->
             <div class="bell-container" id="bell-container">
                 <!-- BELL BUTTON: Click to open notification panel -->
@@ -263,6 +465,7 @@
                         <button class="bell-close" id="bell-close">×</button> <!-- Close button -->
                     </div>
                     <div class="bell-panel-body" id="bell-panel-body">
+                        <!-- This is dynamically populated by JavaScript -->
                         <p style="color:var(--text-muted);text-align:center;padding:20px 0;">Loading...</p>
                     </div>
                 </div>
@@ -270,6 +473,18 @@
             
             <!-- ====================================================== -->
             <!-- DARK MODE TOGGLE: Switch between light and dark themes -->
+            │ This button toggles dark mode on/off.                   │
+            │ The icon changes between 🌙 (moon) and ☀️ (sun).        │
+            │ The label changes between "Dark" and "Light".          │
+            │                                                         │
+            │ Dark mode is important for:                             │
+            │   - Reducing eye strain in low-light conditions        │
+            │   - Saving battery on OLED screens                     │
+            │   - Accessibility for users with light sensitivity     │
+            │   - Making the app look modern and polished            │
+            │                                                         │
+            │ The user's preference is saved in localStorage so it   │
+            │ persists across visits.                                │
             <!-- ====================================================== -->
             <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode">
                 <span id="theme-icon" aria-hidden="true">🌙</span> <!-- Moon = dark mode -->
@@ -280,19 +495,39 @@
 
     <!-- ============================================================ -->
     <!-- MAIN CONTENT: All the screens of the app                     -->
-    <!-- Each screen is a <section> with class "screen". Only one     -->
-    <!-- screen is visible at a time (class "active").               -->
+    │ The app has 3 main screens:                                    │
+    │   1. Welcome Screen (id="welcome-screen")                      │
+    │   2. Quiz Screen (id="quiz-screen")                            │
+    │   3. Results Screen (id="results-screen")                      │
+    │                                                               │
+    │ Each screen is a <section> with class "screen". Only one      │
+    │ screen is visible at a time (class "active").                 │
+    │ JavaScript toggles the "active" class to switch between       │
+    │ screens.                                                      │
     <!-- ============================================================ -->
     <main id="main-content">
         
         <!-- ============================================================ -->
         <!-- WELCOME SCREEN: The first screen users see                   -->
-        <!-- This is the landing page of the app itself.                  -->
+        │ This is the landing page of the app itself. It appears when   │
+        │ the app first loads (unless there's a saved quiz in progress).│
+        │                                                               │
+        │ It contains:                                                  │
+        │   1. A big animated graduation cap (logo)                    │
+        │   2. The app title ("Career Quest")                         │
+        │   3. An animated subtitle (typing effect)                    │
+        │   4. A description of what the app does                      │
+        │   5. Quick facts chips (careers count, languages, offline)   │
+        │   6. A saved progress banner (if the user has unfinished     │
+        │      quiz)                                                   │
+        │   7. Three main action buttons:                              │
+        │      - "Get Started" → Starts the quiz                      │
+        │      - "I Have No Idea" → Enters Discovery Mode             │
+        │      - "View Sample Results" → Shows a demo                 │
+        │   8. Footer text (copyright, contact, quote)                │
+        │                                                               │
+        │ The screen is centered and uses the green gradient theme.    │
         <!-- ============================================================ -->
-        <!-- SECTION: Semantic HTML for the welcome area                  -->
-        <!-- class="screen active" = this screen is visible by default    -->
-        <!-- role="region" = tells screen readers this is a content area  -->
-        <!-- aria-label="Welcome" = describes the region for screen readers -->
         <section id="welcome-screen" class="screen active" role="region" aria-label="Welcome">
             <div class="welcome-content">
                 <!-- BIG LOGO: Animated graduation cap -->
@@ -314,8 +549,18 @@
                 
                 <!-- ====================================================== -->
                 <!-- QUICK FACTS CHIPS: Small badges showing key info      -->
-                <!-- role="list" = tells screen readers this is a list     -->
-                <!-- aria-label="Quick facts" = describes the list         -->
+                │ These chips appear as small pills under the description.│
+                │ They give the user confidence by showing:              │
+                │   - The number of careers (144)                       │
+                │   - That it supports 4 languages                      │
+                │   - That it works offline                             │
+                │   - That it's made for Zambia                         │
+                │                                                       │
+                │ The "b" tag inside each chip is bolded to emphasize   │
+                │ the number (e.g., "144 Careers").                     │
+                │                                                       │
+                │ role="list" and role="listitem" are for accessibility.│
+                │ aria-label="Quick facts" describes the list.         │
                 <!-- ====================================================== -->
                 <div class="welcome-chips" role="list" aria-label="Quick facts">
                     <span class="chip" role="listitem"><span aria-hidden="true">📚</span> <b id="chip-careers">144</b> Careers</span> <!-- Dynamically updated -->
@@ -325,11 +570,29 @@
                 </div>
                 
                 <!-- SAVED PROGRESS BANNER: Shows if the user has unfinished quiz -->
-                <!-- This is dynamically populated by JavaScript -->
+                │ This is an empty div that JavaScript fills with a      │
+                │ "Continue where you left off?" message if the user    │
+                │ has saved progress in localStorage.                   │
+                │ It appears between the chips and the buttons.         │
+                <!-- ====================================================== -->
                 <div id="saved-progress-banner"></div>
                 
                 <!-- ====================================================== -->
                 <!-- MAIN BUTTONS: 3 main actions                         -->
+                │ These three buttons are the primary entry points to    │
+                │ the app.                                               │
+                │                                                        │
+                │ 1. "🚀 Get Started" → btn-primary class (green,       │
+                │    gradient, prominent). This is the main call-to-    │
+                │    action.                                            │
+                │ 2. "🤷 I Have No Idea" → btn-secondary class         │
+                │    (white with border). This is for students who      │
+                │    are unsure and want to explore first.              │
+                │ 3. "📊 View Sample Results" → btn-secondary class     │
+                │    with orange border. This shows a demo of the      │
+                │    results screen.                                    │
+                │                                                        │
+                │ The buttons are responsive (stack on mobile).         │
                 <!-- ====================================================== -->
                 <div class="welcome-buttons">
                     <!-- START QUIZ: Begins the career quiz -->
@@ -340,7 +603,18 @@
                     <button id="sample-results-btn" class="btn-secondary" style="border-color:var(--zm-orange);color:var(--zm-orange);" onclick="loadSampleResults()" data-translate="sample_results">📊 View Sample Results</button>
                 </div>
                 
-                <!-- FOOTER NOTE: Copyright, contact info, and a quote -->
+                <!-- ====================================================== -->
+                <!-- FOOTER NOTE: Copyright, contact info, and a quote    -->
+                │ This small text at the bottom of the welcome screen    │
+                │ provides legal and contact information.               │
+                │                                                        │
+                │ The quote from Abraham Lincoln is inspirational and    │
+                │ aligns with the app's mission of helping students     │
+                │ create their own futures.                             │
+                │                                                        │
+                │ data-translate attributes allow each part to be        │
+                │ translated into different languages.                  │
+                <!-- ====================================================== -->
                 <p class="note">
                     <span data-translate="built_for">© Built for Zambian Students.</span>
                     <span data-translate="works_offline">💻 Works Offline.</span>
@@ -353,29 +627,54 @@
         </section>
 
         <!-- ============================================================ -->
-        <!-- QUIZ SCREEN: Where the 35 questions are displayed             -->
+        <!-- QUIZ SCREEN: Where the 25-35 questions are displayed         -->
+        │ This screen appears when the user clicks "Get Started".        │
+        │ It displays one question at a time with a progress bar.        │
+        │                                                               │
+        │ FEATURES:                                                     │
+        │   - Question counter (e.g., "Question 3 of 25")              │
+        │   - Progress bar (shows how far through the quiz)            │
+        │   - Question navigator dots (clickable dots to jump to any   │
+        │     answered question)                                       │
+        │   - The question text                                       │
+        │   - Answer options (buttons that can be toggled)            │
+        │   - Multi-select hint (when applicable)                     │
+        │   - Previous/Next navigation buttons                         │
+        │   - Keyboard shortcuts (1-9 to select, Enter to next,       │
+        │     Backspace to previous)                                  │
+        │   - Swipe left/right on mobile to navigate                  │
+        │                                                               │
+        │ The quiz is the core of the app. It collects the user's      │
+        │ answers and feeds them into the scoring engine.              │
         <!-- ============================================================ -->
         <section id="quiz-screen" class="screen" role="region" aria-label="Career Quiz">
             <div class="quiz-container">
                 <!-- QUIZ HEADER: Shows question number -->
                 <div class="quiz-header">
+                    <!-- aria-live="polite" = screen readers announce changes -->
                     <span id="question-counter" aria-live="polite">Question 1 of 30</span> <!-- Updates dynamically -->
                 </div>
                 
                 <!-- PROGRESS BAR: Visual indicator of how far through the quiz -->
-                <!-- role="progressbar" = tells screen readers this is a progress bar -->
-                <!-- aria-valuemin/max/now = tells screen readers the current progress -->
+                │ role="progressbar" = tells screen readers this is a progress bar │
+                │ aria-valuemin/max/now = tells screen readers the current progress│
                 <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
                     <div id="progress-fill" class="progress-fill"></div> <!-- Width increases -->
                 </div>
                 
                 <!-- QUESTION NAVIGATOR DOTS: Clickable dots to jump between questions -->
-                <!-- role="group" = groups the dots together -->
-                <!-- aria-label="Question navigator" = describes the group -->
+                │ This is a row of small circles. Each circle represents a question. │
+                │  - Green dot = answered                                           │
+                │  - Highlighted dot = current question                             │
+                │  - Grey dot = unanswered                                         │
+                │  - Locked dot = cannot go ahead (must answer in order)           │
+                │                                                                    │
+                │ role="group" = groups the dots together                           │
+                │ aria-label="Question navigator" = describes the group             │
                 <div id="question-dots" class="question-dots" role="group" aria-label="Question navigator"></div>
                 
                 <!-- QUESTION CONTAINER: The current question and options -->
-                <!-- aria-live="polite" = screen readers announce changes politely -->
+                │ aria-live="polite" = screen readers announce changes politely      │
                 <div id="question-container" aria-live="polite">
                     <h2 id="question-text">Loading question...</h2> <!-- Question text -->
                     <div id="options-container" role="group" aria-label="Answer options"></div> <!-- Answer buttons -->
@@ -392,7 +691,7 @@
                 </div>
                 
                 <!-- KEYBOARD TIPS: Shows keyboard shortcuts for desktop users -->
-                <!-- aria-hidden="true" = screen readers skip this (it's just a visual tip) -->
+                │ aria-hidden="true" = screen readers skip this (it's just a visual tip)│
                 <p class="quiz-tip" aria-hidden="true">
                     <span data-translate="keyboard_tip">Tip:</span> <kbd>1</kbd>-<kbd>9</kbd> <span data-translate="keyboard_select">to select</span>, <kbd>Enter</kbd> <span data-translate="keyboard_next">for next</span>, <kbd>Backspace</kbd> <span data-translate="keyboard_prev">for previous</span>
                 </p>
@@ -401,21 +700,30 @@
 
         <!-- ============================================================ -->
         <!-- RESULTS SCREEN: Shows career matches after quiz              -->
-        <!-- This is the most complex screen with many components:        -->
-        <!--   • Stats summary (4 cards)                                  -->
-        <!--   • Personality insights                                     -->
-        <!--   • Trait radar bars                                         -->
-        <!--   • Radar chart (personality profile)                        -->
-        <!--   • Search bar and filter chips                              -->
-        <!--   • Career match cards                                       -->
-        <!--   • Pathway recommendations                                 -->
-        <!--   • Subject recommendations                                 -->
-        <!--   • Career web map (clusters)                                -->
-        <!--   • Comparison tool (5 careers)                              -->
-        <!--   • AI Discovery (smart discovery, AI chat, explore all)     -->
-        <!--   • Share results                                            -->
-        <!--   • Print/PDF/Retake buttons                                 -->
-        <!--   • Discovery mode (I Have No Idea)                          -->
+        │ This is the most complex screen with many components.          │
+        │ It appears after the user completes the quiz.                 │
+        │                                                               │
+        │ COMPONENTS (in order):                                        │
+        │   1. Stats summary (4 cards: top matches, clusters, avg      │
+        │      match, global ready)                                    │
+        │   2. Personality insights (your strongest traits)            │
+        │   3. Trait radar bars (horizontal bar chart)                 │
+        │   4. Radar chart (personality profile - interactive)         │
+        │   5. Toolbar (search bar + filter toggle + filter chips)     │
+        │   6. Career match cards (the main list)                     │
+        │   7. Pathway recommendations (subject pathways)             │
+        │   8. Subject recommendations (must-have + recommended)      │
+        │   9. Career web map (clickable clusters)                    │
+        │  10. Comparison tool (select up to 5 careers)              │
+        │  11. AI Discovery (Smart Discovery, AI Chat, Explore All)  │
+        │  12. Share results (copy link, WhatsApp, email)            │
+        │  13. Results actions (Print Top 3, PDF, Print, Retake,     │
+        │      Reset Tools, PDF color options)                       │
+        │  14. Discovery mode (hidden, shown when "I Have No Idea"   │
+        │      is clicked)                                           │
+        │                                                               │
+        │ This screen is packed with features to help students         │
+        │ explore their career options.                                │
         <!-- ============================================================ -->
         <section id="results-screen" class="screen" role="region" aria-label="Career Results">
             <div class="results-container">
@@ -425,8 +733,8 @@
                     <p id="results-subtitle" data-translate="results_subtitle">Based on your answers, here are the best careers for you!</p>
                 </header>
 
-                <!-- STATS SUMMARY: 4 key numbers (top matches, clusters, avg match, global ready) -->
-                <!-- aria-label="Result statistics" = describes the region -->
+                <!-- STATS SUMMARY: 4 key numbers -->
+                │ aria-label="Result statistics" = describes the region │
                 <div class="stats-summary" id="stats-summary" aria-label="Result statistics"></div>
                 
                 <!-- PERSONALITY INSIGHTS: Shows your strongest traits -->
@@ -447,15 +755,89 @@
                     </div>
                 </div>
 
-                <!-- RESULTS TOOLBAR: Search bar and filter chips -->
+                <!-- ============================================================ -->
+                <!-- RESULTS TOOLBAR: Search bar, toggle buttons, filter chips    │
+                │ This is the main filtering area for career matches.          │
+                │                                                               │
+                │ 1. SEARCH BAR: Type to filter careers by name or description │
+                │ 2. TOGGLE BUTTONS: Switch between Cluster and Pathway modes  │
+                │ 3. FILTER CHIPS: Show clusters OR pathways (dynamically       │
+                │    generated)                                                │
+                │                                                               │
+                │ THE TOGGLE IS THE KEY NEW FEATURE IN V3.3:                   │
+                │   - "Clusters" mode: Shows career clusters (STEM, Healthcare,│
+                │     etc.) - this is the traditional view.                    │
+                │   - "Pathways" mode: Shows Zambian education pathways        │
+                │     (Natural Science, Business Studies, etc.) - this is the  │
+                │     new view that aligns with the Zambian curriculum.        │
+                │                                                               │
+                │ When you click a pathway (e.g., "Natural Science"), the      │
+                │ career list filters to show only careers that match that     │
+                │ pathway. This helps students see which careers are           │
+                │ available to them based on their subject choices.            │
+                <!-- ============================================================ -->
                 <div class="results-toolbar">
+                    <!-- SEARCH BAR: Filters careers by name or description -->
                     <input type="search" class="search-bar" id="career-search" placeholder="🔍 Search careers..." aria-label="Search careers" data-translate="search_placeholder">
-                    <div class="filter-chips" id="filter-chips" role="group" aria-label="Filter by cluster"></div>
+                    
+                    <!-- ========================================================== -->
+                    <!-- V3.3 NEW: CLUSTER / PATHWAY TOGGLE BUTTONS                -->
+                    │ These two buttons let users switch between filtering by:     │
+                    │   - Career cluster (STEM, Healthcare, etc.) - the          │
+                    │     traditional way of grouping careers                    │
+                    │   - Zambian education pathway (Natural Science, Business   │
+                    │     Studies, etc.) - the new way aligned with the          │
+                    │     Zambian curriculum                                     │
+                    │                                                            │
+                    │ The active button has a green gradient background.          │
+                    │ Clicking one toggles the state and updates the filter chips│
+                    │ below.                                                     │
+                    │                                                            │
+                    │ This is a major UX improvement that makes the app much     │
+                    │ more relevant to Zambian students who need to choose       │
+                    │ their Form 1-4 subjects.                                   │
+                    │                                                            │
+                    │ role="group" = groups these related buttons together       │
+                    │ aria-label="Filter by mode" = describes the group          │
+                    <!-- ========================================================== -->
+                    <div class="filter-toggle-group" role="group" aria-label="Filter by mode">
+                        <!-- CLUSTER TOGGLE: Shows cluster filters (default) -->
+                        <button class="filter-toggle active" id="cluster-toggle" data-mode="cluster" data-translate="filter_clusters">📊 Clusters</button>
+                        
+                        <!-- PATHWAY TOGGLE: Shows pathway filters (new curriculum) -->
+                        <button class="filter-toggle" id="pathway-toggle" data-mode="pathway" data-translate="filter_pathways">🗺️ Pathways</button>
+                    </div>
+                    
+                    <!-- FILTER CHIPS: Shows either clusters or pathways depending on toggle -->
+                    │ This container is dynamically populated by JavaScript.      │
+                    │ It shows a row of clickable pills (e.g., "STEM",           │
+                    │ "Healthcare", "Natural Science", "Business Studies").      │
+                    │ Clicking a chip filters the career list.                   │
+                    │                                                             │
+                    │ The chips have a "active" state (green background) when    │
+                    │ selected.                                                   │
+                    │                                                             │
+                    │ role="group" = groups the chips together                   │
+                    │ aria-label="Filter options" = describes the group          │
+                    <!-- ========================================================== -->
+                    <div class="filter-chips" id="filter-chips" role="group" aria-label="Filter options"></div>
                 </div>
 
                 <!-- CAREER MATCHES: The list of career cards -->
-                <!-- role="list" = tells screen readers this is a list -->
-                <!-- aria-label="Career match results" = describes the list -->
+                │ This is the main list of career matches. Each career is        │
+                │ displayed as a card with:                                     │
+                │   - Icon (emoji)                                              │
+                │   - Name                                                      │
+                │   - Cluster (e.g., "STEM")                                    │
+                │   - Match percentage (e.g., "87%")                           │
+                │   - A score bar (visual representation of the match)         │
+                │   - A "Read More" button to open the modal                   │
+                │                                                               │
+                │ The cards have a "Revealed" animation (slide up).             │
+                │                                                               │
+                │ role="list" = tells screen readers this is a list            │
+                │ aria-label="Career match results" = describes the list       │
+                <!-- ============================================================ -->
                 <div id="career-matches" role="list" aria-label="Career match results"></div>
 
                 <!-- PATHWAY RECOMMENDATIONS: Suggested subject pathways -->
@@ -547,6 +929,17 @@
                 </div>
 
                 <!-- DISCOVERY MODE: Shown when "I Have No Idea" is clicked -->
+                │ This mode appears when the user clicks "I Have No Idea" on  │
+                │ the welcome screen. It bypasses the quiz and shows all     │
+                │ career clusters with a "Surprise Me" button.               │
+                │                                                            │
+                │ The "Surprise Me" button picks a random career and shows  │
+                │ its details with confetti. This is a fun, low-pressure     │
+                │ way to explore careers.                                   │
+                │                                                            │
+                │ The discovery comparison table lets users add careers      │
+                │ from clusters and compare them side-by-side.              │
+                <!-- ============================================================ -->
                 <div id="discovery-mode" style="display:none;">
                     <div class="discovery-header">
                         <h2 data-translate="discovery_title">🔍 Discovery Mode</h2>
@@ -576,16 +969,41 @@
 
 <!-- ================================================================ -->
 <!-- MODAL: Pop-up that shows detailed career information            -->
+│ This is a modal dialog that appears when the user clicks          │
+│ "Read More" on a career card. It shows the full career details    │
+│ including:                                                         │
+│   - Career icon (emoji)                                          │
+│   - Career name                                                   │
+│   - Cluster tag (e.g., "STEM")                                   │
+│   - Outlook tag (e.g., "🔥 High Demand")                         │
+│   - Global Ready tag (if applicable)                             │
+│   - ⭐ "Why we picked this for you" gold box (the key feature!)  │
+│   - "What They Do" description                                   │
+│   - "Requirements" (subjects or skills)                          │
+│   - "Career Pathway" (Form 1-4 subjects)                         │
+│   - "Where to Study" (institutions)                              │
+│   - "Salary" (Zambia and International)                          │
+│   - "International Opportunities" (if applicable)                │
+│   - "Career Story" (inspirational)                               │
+│   - "Career Day Activity" (practical suggestion)                │
+│   - "Add to Compare" button (adds career to comparison)          │
+│                                                                   │
+│ The modal is accessible:                                         │
+│   - role="dialog" = tells screen readers this is a popup        │
+│   - aria-modal="true" = focus stays inside the modal            │
+│   - aria-labelledby="modal-career-name" = tells screen readers   │
+│     the title                                                    │
+│                                                                   │
+│ The "Why we picked this" gold box is the most important feature  │
+│ for judges because it PROVES the AI is not random—it shows the   │
+│ exact traits from the user's answers that match this career.     │
 <!-- ================================================================ -->
-<!-- MODAL: Overlay with career details                               -->
-<!-- role="dialog" = tells screen readers this is a popup            -->
-<!-- aria-modal="true" = focus stays inside the modal                -->
-<!-- aria-labelledby="modal-career-name" = tells screen readers the title -->
 <div id="career-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-career-name">
     <div class="modal-content">
         <!-- CLOSE BUTTON: X in the top-right corner -->
         <button class="modal-close" aria-label="Close details">&times;</button>
         <div id="career-detail-content"></div> <!-- Career details inserted here -->
+        <!-- ADD TO COMPARE BUTTON: Appears inside the modal -->
         <button id="modal-add-to-compare" class="btn-primary btn-small" style="margin-top:16px;display:none;" data-translate="add_to_compare">➕ Add to Compare</button>
     </div>
 </div>
@@ -597,82 +1015,90 @@
 <!-- ================================================================ -->
 
 <!-- TOAST CONTAINER: Holds notification toasts (small pop-up messages) -->
-<!-- aria-live="polite" = screen readers announce new toasts politely -->
-<!-- aria-atomic="false" = only announce new changes, not the whole container -->
+│ Toasts are small messages that appear at the bottom of the screen  │
+│ for a few seconds (e.g., "Copied to clipboard!").                 │
+│ aria-live="polite" = screen readers announce new toasts politely  │
+│ aria-atomic="false" = only announce new changes, not the whole    │
+│ container                                                         │
 <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="false"></div>
 
 <!-- CONFETTI CANVAS: Draws celebration confetti when quiz is complete -->
-<!-- aria-hidden="true" = screen readers ignore this (it's visual only) -->
+│ This canvas is used by JavaScript to draw confetti particles.      │
+│ It's hidden from screen readers (aria-hidden="true") because it's  │
+│ purely decorative.                                                 │
 <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
 
 <!-- BACK TO TOP: Scrolls the user back to the top of the page -->
+│ This button appears when the user scrolls down 400px.              │
+│ It's a floating button in the bottom-left corner.                  │
+│ Clicking it scrolls smoothly to the top.                          │
 <button id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
 
 <!-- ================================================================ -->
 <!-- LIBRARIES                                                       -->
+│ These are external JavaScript libraries used by the app.           │
+│ They are loaded with the "defer" attribute so they don't block    │
+│ the page rendering.                                                │
+│                                                                    │
+│ 1. html2canvas: Converts the page to an image for PDF generation  │
+│ 2. jsPDF: Creates PDF files from the captured image               │
+│ 3. script.js: ALL the main app logic (loaded last)                │
 <!-- ================================================================ -->
-
-<!-- html2canvas: Converts the page to an image for PDF generation -->
-<!-- defer = download in background, don't block page rendering -->
 <script src="libs/html2canvas.min.js" defer></script>
-
-<!-- jsPDF: Creates PDF files from the captured image -->
-<!-- defer = download in background, don't block page rendering -->
 <script src="libs/jspdf.umd.min.js" defer></script>
-
-<!-- MAIN SCRIPT: ALL the JavaScript logic for the app -->
-<!-- defer = download in background, don't block page rendering -->
 <script src="script.js" defer></script>
 
 <!-- ================================================================ -->
 <!-- LOADING & BELL JAVASCRIPT (FIXED LOADING BEHAVIOR)             -->
+│ This is the inline JavaScript that handles:                       │
+│   1. The loading screen behavior (shows only on first visit)      │
+│   2. The Zambian fun facts rotation                                │
+│   3. The bell notification system                                  │
+│   4. The offline status banner                                     │
+│   5. The PWA install prompt                                        │
+│   6. The toast system                                              │
+│                                                                    │
+│ This code is inline because it needs to run BEFORE the main       │
+│ script.js loads. It's responsible for the loading screen which    │
+│ is the first thing users see.                                     │
 <!-- ================================================================ -->
 <script>
 // ================================================================
 // LOADING SCREEN – ONLY on first browser visit, never in standalone
 // ================================================================
 
-// Get references to loading screen elements
-// These variables point to the HTML elements we need to control
-var loadingProgress = document.getElementById('loading-progress');
-var loadingStatus = document.getElementById('loading-status');
-var loadingScreen = document.getElementById('loading-screen');
-var loadingInstallBtn = document.getElementById('loading-download-btn');
+// Get references to loading screen elements so we can control them.
+var loadingProgress = document.getElementById('loading-progress'); // The progress bar fill
+var loadingStatus = document.getElementById('loading-status');     // The status text
+var loadingScreen = document.getElementById('loading-screen');     // The loading screen container
+var loadingInstallBtn = document.getElementById('loading-download-btn'); // Install button container
 
-// Store the install prompt for later use
-// This is set by the beforeinstallprompt event
+// Store the install prompt for later use (set by beforeinstallprompt event)
 var deferredInstallPrompt = null;
-var loadingComplete = false; // Flag to track if loading is finished
+var loadingComplete = false; // Flag to prevent multiple hide calls
 
 // ================================================================
 // SHOULD SHOW LOADING: Only show on first visit in a browser
 // Never show in standalone mode (app already installed)
-// This function checks THREE conditions:
-//   1. Is the app running in standalone mode? (installed)
-//   2. Has the user visited before? (stored in localStorage)
-//   3. If neither, it's the first visit → show loading
 // ================================================================
 function shouldShowLoading() {
-    // CHECK STANDALONE: If the app is installed and running standalone
-    // Standalone mode means the user opened it from their home screen
+    // Check 1: Is the app running in standalone mode (installed)?
+    // If yes, skip loading screen.
     if (window.matchMedia('(display-mode: standalone)').matches) {
-        return false; // Don't show loading screen
+        return false;
     }
-    // CHECK VISITED: If user has visited before
-    // We store this in localStorage when the app loads
+    // Check 2: Has the user visited before?
+    // We store this in localStorage when the app loads.
     var hasVisited = localStorage.getItem('career_quest_visited');
     if (hasVisited === 'true') {
-        return false; // Don't show loading screen
+        return false;
     }
-    // FIRST VISIT: Show loading screen
+    // If neither, this is the first visit → show loading screen.
     return true;
 }
 
 // ================================================================
 // LOADING STEPS: The progress messages shown during loading
-// Each step has a percentage and a message
-// The percentages are: 20%, 40%, 60%, 80%, 95%
-// The final 100% is shown when all steps complete
 // ================================================================
 var progressSteps = [
     { pct: 20, text: '📚 Loading careers...' },
@@ -685,10 +1111,6 @@ var currentStep = 0; // Track which step we're on
 
 // ================================================================
 // V3.2 LEVEL 4: ZAMBIAN FUN FACTS MACHINE 🇿🇲
-// The loading screen now teaches you something about Zambia while
-// it loads — researched local facts, rotating every second.
-// These facts show on the loading screen to make waiting more
-// interesting and to show Zambian pride.
 // ================================================================
 var zambiaFacts = [
     '🇿🇲 Zambia has 73 tribes living together in peace!',
@@ -700,85 +1122,52 @@ var zambiaFacts = [
     '💰 Our currency, the Kwacha, means "dawn" — a new day!',
     '🐘 Zambia has some of the biggest elephant herds in Africa!'
 ];
-var factIndex = Math.floor(Math.random() * zambiaFacts.length); // Random starting fact
+var factIndex = Math.floor(Math.random() * zambiaFacts.length); // Random starting point
 var factTimer = null; // Timer for rotating facts
 
-// ================================================================
-// START LOADING FACTS: Rotates a fun fact into the status line
-// every second while the app loads. Stops when loading completes.
-// This runs in the background while the progress bar advances.
-// ================================================================
 function startLoadingFacts() {
-    if (factTimer || !loadingStatus) return; // Already running or no element
-    // Show first fact immediately
+    if (factTimer || !loadingStatus) return; // Already running
     loadingStatus.textContent = zambiaFacts[factIndex % zambiaFacts.length];
-    factIndex++; // Move to next fact
-    // Set interval to change fact every 1 second
+    factIndex++;
     factTimer = setInterval(function() {
         loadingStatus.textContent = zambiaFacts[factIndex % zambiaFacts.length];
-        factIndex++; // Move to next fact for next time
+        factIndex++;
     }, 1000);
 }
 
-// ================================================================
-// STOP LOADING FACTS: Clears the timer when loading completes
-// This prevents the facts from continuing to rotate after the
-// loading screen disappears.
-// ================================================================
 function stopLoadingFacts() {
-    if (factTimer) { 
-        clearInterval(factTimer); 
-        factTimer = null; 
-    }
+    if (factTimer) { clearInterval(factTimer); factTimer = null; }
 }
 
-// ================================================================
-// UPDATE LOADING PROGRESS: Updates the progress bar and status text
-// ================================================================
 function updateLoadingProgress(pct, text) {
     if (pct !== undefined) {
-        loadingProgress.style.width = Math.min(pct, 100) + '%'; // Cap at 100%
+        // Cap at 100% to prevent overflow
+        loadingProgress.style.width = Math.min(pct, 100) + '%';
     }
     if (text) loadingStatus.textContent = text; // Override the fun fact if needed
 }
 
-// ================================================================
-// SIMULATE LOADING: Steps through the progress steps with delays
-// Each step waits a random time (150-350ms) before advancing.
-// This gives a natural "loading" feel even though everything is
-// already loaded (we're just showing the user progress).
-// ================================================================
 function simulateLoading() {
     if (currentStep < progressSteps.length) {
-        // Get the current step
         var step = progressSteps[currentStep];
-        // Update the progress bar (fun facts control the text)
         updateLoadingProgress(step.pct);
-        currentStep++; // Move to next step
+        currentStep++;
         // Wait a random amount (150-350ms) before the next step
         setTimeout(simulateLoading, 150 + Math.random() * 200);
     } else {
-        // All steps complete
-        stopLoadingFacts(); // Stop rotating facts
-        updateLoadingProgress(100, '🎉 Ready!'); // Show ready message
-        // Wait 400ms then hide the loading screen
+        stopLoadingFacts();
+        updateLoadingProgress(100, '🎉 Ready!');
         setTimeout(function() { hideLoadingScreen(); }, 400);
     }
 }
 
-// ================================================================
-// HIDE LOADING SCREEN: Fades out the loading screen
-// Sets loadingComplete to true, fades the screen out, then hides it
-// Also sets the visited flag in localStorage so it won't show again
-// ================================================================
 function hideLoadingScreen() {
-    if (loadingComplete) return; // Already hidden
-    loadingComplete = true; // Mark as complete
-    stopLoadingFacts(); // Stop the fact rotation
+    if (loadingComplete) return;
+    loadingComplete = true;
+    stopLoadingFacts();
     loadingScreen.style.opacity = '0'; // Fade out
     setTimeout(function() {
         loadingScreen.style.display = 'none'; // Hide completely
-        // Only set visited flag if not in standalone mode
         if (!window.matchMedia('(display-mode: standalone)').matches) {
             localStorage.setItem('career_quest_visited', 'true'); // Remember this visit
         }
@@ -792,43 +1181,30 @@ function hideLoadingScreen() {
 var showLoading = shouldShowLoading();
 
 if (showLoading) {
-    // FIRST VISIT: Show loading screen with animation
-    loadingScreen.style.display = 'flex'; // Show the loading screen
-    startLoadingFacts(); // Start Zambian fun facts
-    setTimeout(function() {
-        simulateLoading(); // Start the loading simulation
-    }, 300); // Wait 300ms before starting
-    // SAFETY TIMEOUT: Hide after 5 seconds max (in case something breaks)
-    // This prevents the loading screen from getting stuck forever
+    loadingScreen.style.display = 'flex';
+    startLoadingFacts();
+    setTimeout(function() { simulateLoading(); }, 300);
+    // SAFETY TIMEOUT: Hide after 5 seconds max (prevents infinite loading)
     setTimeout(function() {
         if (!loadingComplete) hideLoadingScreen();
     }, 5000);
 } else {
-    // ALREADY VISITED or INSTALLED: Hide instantly
-    loadingScreen.style.display = 'none'; // Hide loading screen
-    loadingComplete = true; // Mark as complete
-    // Ensure visited flag is set if not in standalone
+    loadingScreen.style.display = 'none';
+    loadingComplete = true;
     if (!window.matchMedia('(display-mode: standalone)').matches) {
         localStorage.setItem('career_quest_visited', 'true');
     }
-    setTimeout(initBellSystem, 200); // Initialize bell after a short delay
+    setTimeout(initBellSystem, 200);
 }
 
 // ================================================================
 // SERVICE WORKER: Handles offline support and updates
-// The service worker (sw.js) runs in the background and:
-//   1. Caches the app files for offline use
-//   2. Updates the app when new versions are available
-//   3. Intercepts network requests to serve cached files
 // ================================================================
 if ('serviceWorker' in navigator) {
-    // Wait for the page to load completely
     window.addEventListener('load', function () {
-        // Register the service worker (sw.js)
         navigator.serviceWorker.register('./sw.js')
             .then(function(reg) {
-                console.log('✅ Service Worker registered'); // Log success
-                // If there's a waiting update, show it
+                console.log('✅ Service Worker registered');
                 if (reg.waiting) {
                     if (!loadingComplete) {
                         updateLoadingProgress(90, '🔄 Updating app...');
@@ -850,120 +1226,83 @@ if ('serviceWorker' in navigator) {
 }
 
 // ================================================================
-// V3.2 LEVEL 3: OFFLINE STATUS BANNER LISTENERS
-// The banner appears whenever the connection drops and hides when
-// it returns — also checked once on load (e.g. opened offline).
-// This is an Immediately Invoked Function Expression (IIFE) that
-// runs as soon as the script loads.
+// OFFLINE STATUS BANNER
 // ================================================================
 (function () {
-    var banner = document.getElementById('offline-banner'); // Get the banner element
-    if (!banner) return; // Exit if no banner
-    
-    function showOfflineBanner() { banner.style.display = 'block'; } // Show banner
-    function hideOfflineBanner() { banner.style.display = 'none'; } // Hide banner
-    
+    var banner = document.getElementById('offline-banner');
+    if (!banner) return;
+    function showOfflineBanner() { banner.style.display = 'block'; }
+    function hideOfflineBanner() { banner.style.display = 'none'; }
     function updateOfflineBanner() {
-        // Show if offline, hide if online
         if (navigator.onLine === false) showOfflineBanner(); 
         else hideOfflineBanner();
     }
-    
-    // Listen for offline/online events from the browser
     window.addEventListener('offline', showOfflineBanner);
     window.addEventListener('online', hideOfflineBanner);
-    // Check once on load
     window.addEventListener('load', updateOfflineBanner);
-    updateOfflineBanner(); // Check immediately
+    updateOfflineBanner();
 })();
 
 // ================================================================
-// INSTALL PROMPT: Shows the "Install App" button
-// The beforeinstallprompt event is fired by the browser when the
-// website meets the PWA criteria (manifest, service worker, etc.)
+// INSTALL PROMPT
 // ================================================================
 window.addEventListener('beforeinstallprompt', function(e) {
-    e.preventDefault(); // Prevent the default browser prompt
-    deferredInstallPrompt = e; // Store the event for later
+    e.preventDefault();
+    deferredInstallPrompt = e;
     if (!loadingComplete) {
-        loadingInstallBtn.style.display = 'block'; // Show install button
+        loadingInstallBtn.style.display = 'block';
     }
 });
 
-// ================================================================
-// INSTALL BUTTON CLICK: Triggers the install prompt
-// When the user clicks the install button, we call prompt() on the
-// stored event. This shows the browser's install dialog.
-// ================================================================
 document.getElementById('loading-install-btn').addEventListener('click', function() {
     if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt(); // Show the install prompt
+        deferredInstallPrompt.prompt();
         deferredInstallPrompt.userChoice.then(function(choiceResult) {
             if (choiceResult.outcome === 'accepted') {
-                loadingInstallBtn.style.display = 'none'; // Hide button after install
+                loadingInstallBtn.style.display = 'none';
                 if (!loadingComplete) {
-                    hideLoadingScreen(); // Hide loading if it's still showing
+                    hideLoadingScreen();
                 }
             }
-            deferredInstallPrompt = null; // Clear the stored event
+            deferredInstallPrompt = null;
         });
     }
 });
 
-// ================================================================
-// DOWNLOAD GUIDE: Shows the guide modal after installation
-// The modal helps users find the app on their home screen after
-// they've installed it. This is especially helpful for students
-// who may not know where installed apps go.
-// ================================================================
 function showDownloadGuide() {
     var guide = document.getElementById('download-guide-modal');
-    if (guide) guide.style.display = 'flex'; // Show the guide
+    if (guide) guide.style.display = 'flex';
 }
 function closeDownloadGuide() {
     var guide = document.getElementById('download-guide-modal');
-    if (guide) guide.style.display = 'none'; // Hide the guide
+    if (guide) guide.style.display = 'none';
 }
 
 // ================================================================
-// BELL NOTIFICATION SYSTEM: Handles updates and install prompts
-// The bell system has a button that opens a panel showing:
-//   1. Whether the app is installed
-//   2. If there's an update available
-//   3. An install button (if not installed)
+// BELL NOTIFICATION SYSTEM
 // ================================================================
-
-// Global variables for the bell system
 var bellButton, bellPanel, bellClose, bellDot, bellBody;
-var isBellOpen = false; // Is the bell panel open?
-var updateAvailable = false; // Is there an app update available?
-var installPromptEvent = null; // The install prompt event
+var isBellOpen = false;
+var updateAvailable = false;
+var installPromptEvent = null;
 
-// ================================================================
-// INIT BELL SYSTEM: Sets up the bell notification system
-// This is called after the loading screen is hidden.
-// ================================================================
 function initBellSystem() {
-    // Get references to all bell elements
     bellButton = document.getElementById('bell-button');
     bellPanel = document.getElementById('bell-panel');
     bellClose = document.getElementById('bell-close');
     bellDot = document.getElementById('bell-dot');
     bellBody = document.getElementById('bell-panel-body');
 
-    // Click on bell button: toggle the panel
     bellButton.addEventListener('click', function(e) {
-        e.stopPropagation(); // Prevent click from bubbling up
-        toggleBell(); // Open/close the panel
+        e.stopPropagation();
+        toggleBell();
     });
 
-    // Click on close button: close the panel
     bellClose.addEventListener('click', function(e) {
         e.stopPropagation();
         closeBell();
     });
 
-    // Click outside the panel: close it
     document.addEventListener('click', function(e) {
         if (isBellOpen) {
             var container = document.getElementById('bell-container');
@@ -973,75 +1312,47 @@ function initBellSystem() {
         }
     });
 
-    // Listen for install prompt
     window.addEventListener('beforeinstallprompt', function(e) {
         e.preventDefault();
         installPromptEvent = e;
-        updateBellContent(); // Update the bell content
+        updateBellContent();
     });
 
-    // Listen for app installed event
     window.addEventListener('appinstalled', function() {
-        localStorage.setItem('app_installed', 'true'); // Remember it's installed
-        showBellDot(false); // Hide the notification dot
-        setTimeout(updateBellContent, 500); // Update content after delay
-        setTimeout(showDownloadGuide, 1000); // Show the guide
+        localStorage.setItem('app_installed', 'true');
+        showBellDot(false);
+        setTimeout(updateBellContent, 500);
+        setTimeout(showDownloadGuide, 1000);
     });
 
-    // Listen for service worker update messages
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.addEventListener('message', function(event) {
             if (event.data && event.data.type === 'UPDATE_AVAILABLE') {
-                updateAvailable = true; // Mark update as available
-                showBellDot(true); // Show the notification dot
-                updateBellContent(); // Update the bell content
+                updateAvailable = true;
+                showBellDot(true);
+                updateBellContent();
             }
         });
     }
 
-    // Update bell content after a short delay
     setTimeout(updateBellContent, 500);
 }
 
-// ================================================================
-// IS APP INSTALLED: Checks if the app is installed
-// Three ways to check:
-//   1. display-mode: standalone (native PWA)
-//   2. localStorage flag (set when installed)
-//   3. iOS standalone (navigator.standalone)
-// ================================================================
 function isAppInstalled() {
-    // Check if running in standalone mode (installed)
     if (window.matchMedia('(display-mode: standalone)').matches) return true;
-    // Check local storage flag
     if (localStorage.getItem('app_installed') === 'true') return true;
-    // Check iOS standalone mode
     if (window.navigator.standalone === true) return true;
-    return false; // Not installed
+    return false;
 }
 
-// ================================================================
-// SHOW/HIDE BELL DOT: Controls the red notification dot
-// The dot appears when there's an update available.
-// ================================================================
 function showBellDot(show) {
-    bellDot.style.display = show ? 'block' : 'none'; // Show or hide
+    bellDot.style.display = show ? 'block' : 'none';
 }
 
-// ================================================================
-// UPDATE BELL CONTENT: Renders the content inside the bell panel
-// This function generates HTML for the bell panel content.
-// It shows:
-//   1. Install status badge (Installed/Not Installed)
-//   2. Update notification (if available)
-//   3. Install button (if not installed)
-//   4. Helpful tips
-// ================================================================
 function updateBellContent() {
-    var installed = isAppInstalled(); // Check if installed
-    var html = ''; // Start with empty HTML
+    var installed = isAppInstalled();
+    var html = '';
 
-    // Status badge: Shows if app is installed
     html += '<div style="margin-bottom:14px;font-size:15px;">';
     html += '<span class="bell-status-badge ' + (installed ? 'installed' : 'not-installed') + '" style="font-size:14px;padding:4px 14px;">';
     html += installed ? '✅ App Installed' : '📲 Not Installed';
@@ -1051,7 +1362,6 @@ function updateBellContent() {
     }
     html += '</div>';
 
-    // Update available section
     if (updateAvailable) {
         html += '<div class="bell-item" style="padding:14px 0;">';
         html += '<div class="bell-item-icon" style="font-size:28px;">🔄</div>';
@@ -1065,7 +1375,6 @@ function updateBellContent() {
         html += '</div>';
     }
 
-    // Install section: Show if not installed
     if (!installed) {
         html += '<div class="bell-item" style="padding:14px 0;">';
         html += '<div class="bell-item-icon" style="font-size:28px;">📲</div>';
@@ -1078,7 +1387,6 @@ function updateBellContent() {
         html += '</div>';
         html += '</div>';
     } else {
-        // Already installed: Show confirmation
         html += '<div class="bell-item" style="padding:14px 0;">';
         html += '<div class="bell-item-icon" style="font-size:28px;">🎯</div>';
         html += '<div class="bell-item-content">';
@@ -1088,7 +1396,6 @@ function updateBellContent() {
         html += '</div>';
     }
 
-    // Tips section: Helpful information
     html += '<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-light);">';
     html += '<div style="font-size:13px;color:var(--text-muted);">💡 Tips:</div>';
     html += '<ul style="font-size:13px;color:var(--text-secondary);padding-left:18px;margin-top:4px;line-height:2;">';
@@ -1098,89 +1405,68 @@ function updateBellContent() {
     html += '</ul>';
     html += '</div>';
 
-    bellBody.innerHTML = html; // Set the HTML content
+    bellBody.innerHTML = html;
 
-    // Set up the install button inside the bell
     var installBtn = document.getElementById('bell-install-btn');
     if (installBtn) {
         installBtn.addEventListener('click', function() {
             if (installPromptEvent) {
-                installPromptEvent.prompt(); // Show install prompt
+                installPromptEvent.prompt();
                 installPromptEvent.userChoice.then(function(choiceResult) {
                     if (choiceResult.outcome === 'accepted') {
                         localStorage.setItem('app_installed', 'true');
-                        closeBell(); // Close the bell panel
+                        closeBell();
                         showToast('🎉 App installed! Check your home screen.');
                         setTimeout(updateBellContent, 1000);
                     }
                     installPromptEvent = null;
                 });
             } else {
-                showDownloadGuide(); // Show manual install guide
+                showDownloadGuide();
             }
         });
     }
 }
 
-// ================================================================
-// REFRESH APP: Forces the app to update from the service worker
-// This is called when the user clicks "Update Now" in the bell.
-// ================================================================
 window.refreshApp = function() {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.ready.then(function(reg) {
             if (reg.waiting) {
-                reg.waiting.postMessage({ type: 'SKIP_WAITING' }); // Skip waiting
+                reg.waiting.postMessage({ type: 'SKIP_WAITING' });
             }
-            setTimeout(function() { window.location.reload(); }, 500); // Reload page
+            setTimeout(function() { window.location.reload(); }, 500);
         });
     } else {
-        window.location.reload(); // Just reload if no service worker
+        window.location.reload();
     }
 };
 
-// ================================================================
-// TOGGLE BELL: Opens or closes the bell panel
-// ================================================================
 function toggleBell() {
     if (isBellOpen) closeBell();
     else openBell();
 }
 
-// ================================================================
-// OPEN BELL: Opens the bell panel
-// ================================================================
 function openBell() {
     isBellOpen = true;
-    bellPanel.style.display = 'block'; // Show the panel
-    updateBellContent(); // Refresh content
-    showBellDot(false); // Hide the dot once opened
+    bellPanel.style.display = 'block';
+    updateBellContent();
+    showBellDot(false);
 }
 
-// ================================================================
-// CLOSE BELL: Closes the bell panel
-// ================================================================
 function closeBell() {
     isBellOpen = false;
-    bellPanel.style.display = 'none'; // Hide the panel
+    bellPanel.style.display = 'none';
 }
 
-// ================================================================
-// SHOW TOAST: Displays a small notification message
-// Toasts are small pop-up messages that appear at the bottom of
-// the screen. They auto-dismiss after a few seconds.
-// ================================================================
 function showToast(message, duration) {
-    duration = duration || 3000; // Default to 3 seconds
+    duration = duration || 3000;
     var container = document.getElementById('toast-container');
-    if (!container) return; // Guard: no container, exit
+    if (!container) return;
     var toast = document.createElement('div');
-    toast.className = 'toast'; // Toast styling (see style.css)
-    toast.textContent = message; // The message
-    container.appendChild(toast); // Add to container
-    setTimeout(function() { 
-        if (toast.parentNode) toast.remove(); // Remove after duration
-    }, duration);
+    toast.className = 'toast';
+    toast.textContent = message;
+    container.appendChild(toast);
+    setTimeout(function() { if (toast.parentNode) toast.remove(); }, duration);
 }
 </script>
 
