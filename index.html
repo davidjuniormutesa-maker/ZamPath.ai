@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!-- ============================================================ -->
 <!-- ZAMPATH.AI - Landing Page  (V3 — FULLY UPGRADED)             -->
 <!-- A professional marketing page with MULTI-LANGUAGE support    -->
@@ -9,118 +10,50 @@
 <!--  • Dark mode respects system preference on first visit       -->
 <!--  • Service worker: relative path + registers after load      -->
 <!--  • Safe-area aware sticky header for notched phones          -->
-<!--  • Updated hero badge to "🇿🇲 Your Career Counselling Guide"  -->
 <!-- ============================================================ -->
 
-<!DOCTYPE html>
-<!-- DOCTYPE: Tells the browser to use the latest HTML5 rendering engine -->
 <html lang="en">
 <head>
-    <!-- ============================================================ -->
-    <!-- META CHARSET: UTF-8 supports all characters, including emojis -->
-    <!-- ============================================================ -->
     <meta charset="UTF-8">
-    
-    <!-- ============================================================ -->
-    <!-- VIEWPORT: Makes the page responsive on mobile devices         -->
-    <!-- width=device-width = use the device's actual width          -->
-    <!-- initial-scale=1.0 = don't zoom in or out by default         -->
-    <!-- viewport-fit=cover = fills the screen on iPhones with notches -->
-    <!-- ============================================================ -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    
-    <!-- ============================================================ -->
-    <!-- META DESCRIPTION: Shown in Google search results              -->
-    <!-- Also used when sharing links on social media                 -->
-    <!-- ============================================================ -->
     <meta name="description" content="ZamPath - AI-powered career guidance for Zambian students. 130+ careers, subject guidance and printable reports. Works offline and 100% free.">
-    
-    <!-- ============================================================ -->
-    <!-- META KEYWORDS: Helps search engines understand the page      -->
-    <!-- ============================================================ -->
     <meta name="keywords" content="Zambia, career guidance, students, Form 2, subjects, AI, offline, ZamPath, JETS">
-    
-    <!-- ============================================================ -->
-    <!-- META AUTHOR: Credits the creator of the page                 -->
-    <!-- ============================================================ -->
     <meta name="author" content="David Mutesa">
-    
-    <!-- ============================================================ -->
-    <!-- THEME COLOR: Changes the browser/phone status bar color      -->
-    <!-- Light mode = Zambian green (#008000)                         -->
-    <!-- Dark mode = Dark green (#0c2f20) for better contrast         -->
-    <!-- ============================================================ -->
     <meta name="theme-color" content="#008000" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0c2f20" media="(prefers-color-scheme: dark)">
-    
-    <!-- ============================================================ -->
-    <!-- COLOR SCHEME: Tells the browser your page supports both modes -->
-    <!-- ============================================================ -->
     <meta name="color-scheme" content="light dark">
-    
-    <!-- ============================================================ -->
-    <!-- APPLE PWA: Required for iOS home screen installation         -->
-    <!-- These tags make the page feel like a native app on iPhone    -->
-    <!-- ============================================================ -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ZamPath">
-    
-    <!-- ============================================================ -->
-    <!-- SOCIAL SHARING: Open Graph tags for WhatsApp/Facebook/X      -->
-    <!-- When someone shares this link, these control the preview     -->
-    <!-- ============================================================ -->
-    <meta property="og:type" content="website"> <!-- Tells Facebook this is a webpage -->
+
+    <!-- Social sharing (WhatsApp / Facebook / X link previews) -->
+    <meta property="og:type" content="website">
     <meta property="og:title" content="ZamPath.ai — Find Your Career Path in Zambia">
     <meta property="og:description" content="Free AI-powered career guidance for Zambian students. 130+ careers, subject advice and printable reports. Works offline!">
     <meta property="og:site_name" content="ZamPath.ai">
-    <meta property="og:locale" content="en_ZM"> <!-- English/Zambia locale -->
-    
-    <!-- ============================================================ -->
-    <!-- TWITTER CARD: Controls how the link looks on X/Twitter       -->
-    <!-- ============================================================ -->
+    <meta property="og:locale" content="en_ZM">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="ZamPath.ai — Find Your Career Path in Zambia">
     <meta name="twitter:description" content="Free AI-powered career guidance for Zambian students. Works offline!">
     
-    <!-- ============================================================ -->
-    <!-- PAGE TITLE: Shows in the browser tab                         -->
-    <!-- ============================================================ -->
     <title>ZamPath.ai - Find Your Career Path in Zambia</title>
     
-    <!-- ============================================================ -->
-    <!-- PWA MANIFEST: The JSON file that makes this installable      -->
-    <!-- ============================================================ -->
+    <!-- PWA: Link to manifest for installability -->
     <link rel="manifest" href="manifest.json">
     
-    <!-- ============================================================ -->
-    <!-- ICONS: Inline SVG so they load instantly with NO external    -->
-    <!-- requests. Perfect for offline-first applications.            -->
-    <!-- ============================================================ -->
-    <!-- FAVICON: The tiny icon in browser tabs -->
+    <!-- Icons (inline SVG = zero extra downloads, works offline) -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230c2f20'/%3E%3Ctext x='50' y='72' font-size='52' text-anchor='middle'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
-    
-    <!-- APPLE TOUCH ICON: Used when saving to iPhone home screen -->
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%230c2f20'/%3E%3Crect x='8' y='8' width='176' height='176' rx='32' fill='none' stroke='%23eeba2c' stroke-width='3' opacity='0.4'/%3E%3Ctext x='96' y='130' font-size='90' text-anchor='middle'%3E🎓%3C/text%3E%3C/svg%3E">
     
-    <!-- ============================================================ -->
-    <!-- STYLESHEET: All the styling for the landing page             -->
-    <!-- ============================================================ -->
     <link rel="stylesheet" href="landingstyle.css">
     
-    <!-- ============================================================ -->
-    <!-- SERVICE WORKER: Handles offline support and updates          -->
-    <!-- Registered after page load so it never slows down first paint -->
-    <!-- ============================================================ -->
+    <!-- PWA: Service Worker registration (relative path, registered
+         after page load so it never slows down first paint) -->
     <script>
     (function () {
-        // Check if the browser supports Service Workers
         if (!('serviceWorker' in navigator)) return;
-        
-        // Wait for the page to load completely before registering
         window.addEventListener('load', function () {
-            // Register the service worker (sw.js) - relative path
             navigator.serviceWorker.register('./sw.js')
                 .then(function (registration) {
                     console.log('✅ Service Worker registered on landing page');
@@ -140,226 +73,147 @@
     <!-- ============================================================ -->
     <nav class="navbar" role="navigation">
         <div class="nav-container">
-            
-            <!-- ========================================================== -->
-            <!-- LEFT SIDE: Brand logo and name                            -->
-            <!-- ========================================================== -->
+            <!-- Left: Brand logo and name -->
             <div class="nav-brand">
-                <span class="brand-icon">🇿🇲</span> <!-- Zambian flag emoji -->
-                <span class="brand-name">ZamPath<span class="brand-dot">.</span>ai</span> <!-- Brand name with dot -->
+                <span class="brand-icon">🇿🇲</span>
+                <span class="brand-name">ZamPath<span class="brand-dot">.</span>ai</span>
             </div>
             
-            <!-- ========================================================== -->
-            <!-- CENTER: Navigation links (desktop)                        -->
-            <!-- ========================================================== -->
+            <!-- Center: Navigation links -->
             <ul class="nav-links" id="nav-links">
-                <li><a href="#features" data-translate="nav_features">Features</a></li> <!-- Features section -->
-                <li><a href="#how-it-works" data-translate="nav_how_it_works">How It Works</a></li> <!-- How it works -->
-                <li><a href="#testimonials" data-translate="nav_testimonials">Testimonials</a></li> <!-- Testimonials -->
-                <li><a href="#stats" data-translate="nav_stats">Stats</a></li> <!-- Statistics -->
+                <li><a href="#features" data-translate="nav_features">Features</a></li>
+                <li><a href="#how-it-works" data-translate="nav_how_it_works">How It Works</a></li>
+                <li><a href="#testimonials" data-translate="nav_testimonials">Testimonials</a></li>
+                <li><a href="#stats" data-translate="nav_stats">Stats</a></li>
                 <!-- V3.1: CTA lives inside the phone menu (hidden on desktop) -->
                 <li class="mobile-only"><a href="app.html" class="mobile-menu-cta" data-translate="get_started">Get Started 🚀</a></li>
             </ul>
             
-            <!-- ========================================================== -->
-            <!-- RIGHT SIDE: Language Switcher + Dark Mode + CTA          -->
-            <!-- ========================================================== -->
+            <!-- Right: Language Switcher + Dark Mode + CTA -->
             <div class="nav-actions">
-                <!-- ====================================================== -->
-                <!-- LANGUAGE SWITCHER: Toggle between 4 languages         -->
-                <!-- ====================================================== -->
+                <!-- Language Switcher -->
                 <div class="language-switcher" role="group" aria-label="Language selector">
-                    <!-- ENGLISH: Default language -->
                     <button class="lang-btn active" data-lang="en" aria-label="English" title="English">
-                        <span class="flag">🇬🇧</span> <!-- UK flag emoji -->
-                        <span class="lang-label">EN</span> <!-- Short label -->
+                        <span class="flag">🇬🇧</span>
+                        <span class="lang-label">EN</span>
                     </button>
-                    <!-- NYANJA: Local Zambian language -->
                     <button class="lang-btn" data-lang="ny" aria-label="Nyanja" title="Nyanja">
-                        <span class="flag">🇿🇲</span> <!-- Zambian flag -->
+                        <span class="flag">🇿🇲</span>
                         <span class="lang-label">NY</span>
                     </button>
-                    <!-- BEMBA: Another Zambian language -->
                     <button class="lang-btn" data-lang="bem" aria-label="Bemba" title="Bemba">
                         <span class="flag">🇿🇲</span>
                         <span class="lang-label">BE</span>
                     </button>
-                    <!-- TONGA: Another Zambian language -->
                     <button class="lang-btn" data-lang="tonga" aria-label="Tonga" title="Tonga">
                         <span class="flag">🇿🇲</span>
                         <span class="lang-label">TO</span>
                     </button>
                 </div>
                 
-                <!-- ====================================================== -->
-                <!-- DARK MODE TOGGLE: Switch between light and dark       -->
-                <!-- ====================================================== -->
+                <!-- Dark mode toggle -->
                 <button class="dark-mode-toggle" id="landing-dark-toggle" aria-label="Toggle dark mode">
-                    <span id="landing-theme-icon" aria-hidden="true">🌙</span> <!-- Moon icon -->
-                    <span id="landing-theme-label" data-translate="dark_mode">Dark</span> <!-- Label -->
+                    <span id="landing-theme-icon" aria-hidden="true">🌙</span>
+                    <span id="landing-theme-label" data-translate="dark_mode">Dark</span>
                 </button>
                 
-                <!-- ====================================================== -->
-                <!-- CALL TO ACTION: Takes user to the main app           -->
-                <!-- ====================================================== -->
                 <a href="app.html" class="nav-cta" data-translate="get_started">Get Started 🚀</a>
             </div>
             
-            <!-- ========================================================== -->
-            <!-- MOBILE MENU TOGGLE: Three-line hamburger icon            -->
-            <!-- aria-expanded tells screen readers if the menu is open   -->
-            <!-- aria-controls links this button to the nav-links list    -->
-            <!-- ========================================================== -->
+            <!-- Mobile menu toggle -->
             <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
-                <span></span><span></span><span></span> <!-- Three lines for hamburger -->
+                <span></span><span></span><span></span>
             </button>
         </div>
     </nav>
 
     <!-- ============================================================ -->
-    <!-- HERO SECTION - The main banner at the top of the page       -->
+    <!-- HERO SECTION                                                 -->
     <!-- IMPROVED: Better text sizing and button stacking on mobile   -->
     <!-- ============================================================ -->
     <section class="hero" id="hero">
         <div class="hero-container">
-            
-            <!-- ========================================================== -->
-            <!-- LEFT SIDE: Hero text content                              -->
-            <!-- ========================================================== -->
             <div class="hero-text">
-                <!-- ====================================================== -->
-                <!-- HERO BADGE: The "badge" at the top of the hero         -->
-                <!-- V3.2 CHANGED: Now says "🇿🇲 Your Career Counselling Guide" -->
-                <!-- instead of "🏆 JETS 2024 Winner" to be more personal    -->
-                <!-- and relevant to the app's purpose                     -->
-                <!-- ====================================================== -->
-                <div class="hero-badge" data-translate="hero_badge">🇿🇲 Your Career Counselling Guide</div>
-                
-                <!-- ====================================================== -->
-                <!-- MAIN HEADLINE: Big bold title                        -->
-                <!-- The <br> tags create line breaks for visual impact   -->
-                <!-- ====================================================== -->
+                <div class="hero-badge" data-translate="hero_badge">🏆 JETS 2024 Winner</div>
                 <h1>
                     <span data-translate="hero_title_line1">Discover Your</span><br>
                     <span class="highlight" data-translate="hero_title_line2">Perfect Career</span><br>
                     <span data-translate="hero_title_line3">Path in Zambia</span>
                 </h1>
-                
-                <!-- ====================================================== -->
-                <!-- HERO DESCRIPTION: Explains what ZamPath does          -->
-                <!-- ====================================================== -->
                 <p class="hero-description" data-translate="hero_description">
                     ZamPath uses artificial intelligence to help Form 2 students 
                     find careers that match their interests and strengths — 
                     completely free and offline.
                 </p>
-                
-                <!-- ====================================================== -->
-                <!-- HERO BUTTONS: Main action buttons                    -->
-                <!-- ====================================================== -->
                 <div class="hero-buttons">
-                    <!-- PRIMARY CTA: Starts the journey -->
                     <a href="app.html" class="btn-primary" data-translate="hero_cta">
                         🚀 Start Your Journey
                     </a>
-                    <!-- SECONDARY CTA: Scrolls to "How It Works" section -->
                     <a href="#how-it-works" class="btn-secondary" data-translate="hero_learn_more">
                         Learn More ↓
                     </a>
-                    <!-- DOWNLOAD APP BUTTON: Hidden by default, shown when installable -->
+                    <!-- NEW: Download App button (hidden by default, shown when installable) -->
                     <button id="install-app-btn" class="btn-primary pulse-glow" style="display:none; background: var(--gradient-secondary);" data-translate="install_app">
                         📲 Download App
                     </button>
                 </div>
-                
-                <!-- ====================================================== -->
-                <!-- HERO TRUST BADGES: Small trust indicators            -->
-                <!-- These show key benefits at a glance                  -->
-                <!-- ====================================================== -->
                 <div class="hero-trust">
-                    <span data-translate="trust_offline">💻 Works Offline</span> <!-- Offline support -->
-                    <span data-translate="trust_zambia">© Built for Zambia</span> <!-- Made locally -->
-                    <span data-translate="trust_free">💰 100% Free</span> <!-- Free forever -->
+                    <span data-translate="trust_offline">💻 Works Offline</span>
+                    <span data-translate="trust_zambia">© Built for Zambia</span>
+                    <span data-translate="trust_free">💰 100% Free</span>
                 </div>
             </div>
-            
-            <!-- ========================================================== -->
-            <!-- RIGHT SIDE: Hero image with floating icons               -->
-            <!-- ========================================================== -->
             <div class="hero-image">
                 <div class="hero-graphic">
-                    <!-- FLOATING ICONS: Represent different career clusters -->
-                    <!-- They float around the center circle with CSS animations -->
-                    <div class="floating-icon icon1">👷</div> <!-- Construction/Engineer -->
-                    <div class="floating-icon icon2">🩺</div> <!-- Healthcare/Medical -->
-                    <div class="floating-icon icon3">💻</div> <!-- Technology/IT -->
-                    <div class="floating-icon icon4">👩‍🏫</div> <!-- Teaching/Helping -->
-                    <div class="floating-icon icon5">🌾</div> <!-- Agriculture/Outdoor -->
-                    <div class="floating-icon icon6">🎨</div> <!-- Creative/Arts -->
-                    
-                    <!-- CENTER CIRCLE: The main visual focus -->
-                    <!-- Has a rotating dashed ring animation -->
-                    <div class="center-circle"><span>🎓</span></div> <!-- Graduation cap -->
+                    <div class="floating-icon icon1">👷</div>
+                    <div class="floating-icon icon2">🩺</div>
+                    <div class="floating-icon icon3">💻</div>
+                    <div class="floating-icon icon4">👩‍🏫</div>
+                    <div class="floating-icon icon5">🌾</div>
+                    <div class="floating-icon icon6">🎨</div>
+                    <div class="center-circle"><span>🎓</span></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ============================================================ -->
-    <!-- FEATURES SECTION - 6 key features of the app                -->
+    <!-- FEATURES SECTION                                              -->
     <!-- IMPROVED: Cards stack better on mobile                       -->
     <!-- ============================================================ -->
     <section class="features" id="features">
         <div class="container">
-            <!-- ========================================================== -->
-            <!-- SECTION HEADER: Title and subtitle                        -->
-            <!-- ========================================================== -->
             <div class="section-header">
-                <span class="section-tag" data-translate="features_tag">Features</span> <!-- Tag/badge -->
-                <h2 data-translate="features_title">Why Choose ZamPath?</h2> <!-- Main title -->
-                <p data-translate="features_subtitle">Everything you need to discover your perfect career</p> <!-- Subtitle -->
+                <span class="section-tag" data-translate="features_tag">Features</span>
+                <h2 data-translate="features_title">Why Choose ZamPath?</h2>
+                <p data-translate="features_subtitle">Everything you need to discover your perfect career</p>
             </div>
-            
-            <!-- ========================================================== -->
-            <!-- FEATURES GRID: 6 feature cards in a 3x2 grid             -->
-            <!-- ========================================================== -->
             <div class="features-grid">
-                <!-- FEATURE CARD 1: AI-Powered Matching -->
                 <div class="feature-card">
-                    <div class="feature-icon">🧠</div> <!-- Icon -->
-                    <h3 data-translate="feature_ai_title">AI-Powered Matching</h3> <!-- Title -->
-                    <p data-translate="feature_ai_desc">Our smart AI analyzes your interests and matches you to careers you'll love.</p> <!-- Description -->
+                    <div class="feature-icon">🧠</div>
+                    <h3 data-translate="feature_ai_title">AI-Powered Matching</h3>
+                    <p data-translate="feature_ai_desc">Our smart AI analyzes your interests and matches you to careers you'll love.</p>
                 </div>
-                
-                <!-- FEATURE CARD 2: Subject Guidance -->
                 <div class="feature-card">
                     <div class="feature-icon">📚</div>
                     <h3 data-translate="feature_subjects_title">Subject Guidance</h3>
                     <p data-translate="feature_subjects_desc">Know exactly which subjects to choose for Form 3-4 for your dream career.</p>
                 </div>
-                
-                <!-- FEATURE CARD 3: Global Opportunities -->
                 <div class="feature-card">
                     <div class="feature-icon">🌍</div>
                     <h3 data-translate="feature_global_title">Global Opportunities</h3>
                     <p data-translate="feature_global_desc">Discover how to work abroad with step-by-step pathways and scholarships.</p>
                 </div>
-                
-                <!-- FEATURE CARD 4: Compare Careers -->
                 <div class="feature-card">
                     <div class="feature-icon">📊</div>
                     <h3 data-translate="feature_compare_title">Compare Careers</h3>
                     <p data-translate="feature_compare_desc">Compare up to 3 careers side-by-side — salaries, subjects, and more.</p>
                 </div>
-                
-                <!-- FEATURE CARD 5: Printable Reports -->
                 <div class="feature-card">
                     <div class="feature-icon">📄</div>
                     <h3 data-translate="feature_pdf_title">Printable Reports</h3>
                     <p data-translate="feature_pdf_desc">Download your results as a PDF to share with parents and teachers.</p>
                 </div>
-                
-                <!-- FEATURE CARD 6: Works Offline -->
                 <div class="feature-card">
                     <div class="feature-icon">📶</div>
                     <h3 data-translate="feature_offline_title">Works Offline</h3>
@@ -370,47 +224,31 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- HOW IT WORKS SECTION - 3 simple steps                       -->
+    <!-- HOW IT WORKS SECTION                                          -->
     <!-- IMPROVED: Steps stack vertically on mobile                   -->
     <!-- ============================================================ -->
     <section class="how-it-works" id="how-it-works">
         <div class="container">
-            <!-- ========================================================== -->
-            <!-- SECTION HEADER                                            -->
-            <!-- ========================================================== -->
             <div class="section-header">
                 <span class="section-tag" data-translate="how_tag">How It Works</span>
                 <h2 data-translate="how_title">Find Your Path in 3 Simple Steps</h2>
                 <p data-translate="how_subtitle">It's quick, easy, and completely free</p>
             </div>
-            
-            <!-- ========================================================== -->
-            <!-- STEPS CONTAINER: 3 steps with arrows between them        -->
-            <!-- ========================================================== -->
             <div class="steps-container">
-                <!-- STEP 1: Answer Questions -->
                 <div class="step">
-                    <div class="step-number">1</div> <!-- Step number -->
-                    <div class="step-icon">📝</div> <!-- Icon -->
-                    <h3 data-translate="step1_title">Answer Questions</h3> <!-- Title -->
-                    <p data-translate="step1_desc">Answer 30 simple questions about your interests, subjects, and preferences.</p> <!-- Description -->
+                    <div class="step-number">1</div>
+                    <div class="step-icon">📝</div>
+                    <h3 data-translate="step1_title">Answer Questions</h3>
+                    <p data-translate="step1_desc">Answer 30 simple questions about your interests, subjects, and preferences.</p>
                 </div>
-                
-                <!-- ARROW: Points to the next step -->
                 <div class="step-arrow">→</div>
-                
-                <!-- STEP 2: AI Analysis -->
                 <div class="step">
                     <div class="step-number">2</div>
                     <div class="step-icon">🧠</div>
                     <h3 data-translate="step2_title">AI Analysis</h3>
                     <p data-translate="step2_desc">Our AI engine analyzes your answers and finds your perfect career matches.</p>
                 </div>
-                
-                <!-- ARROW: Points to the next step -->
                 <div class="step-arrow">→</div>
-                
-                <!-- STEP 3: Get Results -->
                 <div class="step">
                     <div class="step-number">3</div>
                     <div class="step-icon">🎯</div>
@@ -418,10 +256,6 @@
                     <p data-translate="step3_desc">Discover your top career matches, required subjects, and pathway to success.</p>
                 </div>
             </div>
-            
-            <!-- ========================================================== -->
-            <!-- STEPS CTA: Button to start the quiz                      -->
-            <!-- ========================================================== -->
             <div class="steps-cta">
                 <a href="app.html" class="btn-primary" data-translate="how_cta">Start Now →</a>
             </div>
@@ -429,31 +263,24 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- STATS SECTION - 4 key statistics                            -->
+    <!-- STATS SECTION                                                 -->
     <!-- IMPROVED: Stats grid adapts to 2 columns on mobile            -->
     <!-- ============================================================ -->
     <section class="stats" id="stats">
         <div class="container">
             <div class="stats-grid">
-                <!-- STAT 1: Careers Available -->
                 <div class="stat-item">
-                    <div class="stat-number" data-count="130">0</div> <!-- Animated counter -->
+                    <div class="stat-number" data-count="130">0</div>
                     <div class="stat-label" data-translate="stat_careers">Careers Available</div>
                 </div>
-                
-                <!-- STAT 2: Zambian Institutions -->
                 <div class="stat-item">
                     <div class="stat-number" data-count="30">0</div>
                     <div class="stat-label" data-translate="stat_institutions">Zambian Institutions</div>
                 </div>
-                
-                <!-- STAT 3: Questions -->
                 <div class="stat-item">
                     <div class="stat-number" data-count="30">0</div>
                     <div class="stat-label" data-translate="stat_questions">Questions</div>
                 </div>
-                
-                <!-- STAT 4: Free Forever -->
                 <div class="stat-item">
                     <div class="stat-number" data-count="100">0</div>
                     <div class="stat-label" data-translate="stat_free">% Free Forever</div>
@@ -463,39 +290,29 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- TESTIMONIALS SECTION - Student feedback                     -->
+    <!-- TESTIMONIALS SECTION                                          -->
     <!-- IMPROVED: Testimonials stack vertically on mobile             -->
     <!-- ============================================================ -->
     <section class="testimonials" id="testimonials">
         <div class="container">
-            <!-- ========================================================== -->
-            <!-- SECTION HEADER                                            -->
-            <!-- ========================================================== -->
             <div class="section-header">
                 <span class="section-tag" data-translate="testimonials_tag">Testimonials</span>
                 <h2 data-translate="testimonials_title">What Students Are Saying</h2>
                 <p data-translate="testimonials_subtitle">Real feedback from real students</p>
             </div>
-            
-            <!-- ========================================================== -->
-            <!-- TESTIMONIALS GRID: 3 testimonials in a row               -->
-            <!-- ========================================================== -->
             <div class="testimonials-grid">
-                <!-- TESTIMONIAL 1: Mumba Chanda -->
                 <div class="testimonial-card">
-                    <div class="testimonial-quote">"</div> <!-- Quote mark -->
-                    <div class="testimonial-stars" aria-label="Rated 5 out of 5 stars">★★★★★</div> <!-- 5-star rating -->
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars" aria-label="Rated 5 out of 5 stars">★★★★★</div>
                     <p class="testimonial-text" data-translate="testimonial1_text">I didn't know what I wanted to be. ZamPath showed me careers I never knew existed!</p>
                     <div class="testimonial-author">
-                        <span class="author-avatar">👩</span> <!-- Avatar emoji -->
+                        <span class="author-avatar">👩</span>
                         <div>
-                            <span class="author-name" data-translate="testimonial1_name">Mumba Chanda</span> <!-- Name -->
-                            <span class="author-location" data-translate="testimonial1_location">Kabwe, Form 2</span> <!-- Location -->
+                            <span class="author-name" data-translate="testimonial1_name">Mumba Chanda</span>
+                            <span class="author-location" data-translate="testimonial1_location">Kabwe, Form 2</span>
                         </div>
                     </div>
                 </div>
-                
-                <!-- TESTIMONIAL 2: McCarthy Nsalamba -->
                 <div class="testimonial-card">
                     <div class="testimonial-quote">"</div>
                     <div class="testimonial-stars" aria-label="Rated 5 out of 5 stars">★★★★★</div>
@@ -508,8 +325,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- TESTIMONIAL 3: Gabriella Mutesa -->
                 <div class="testimonial-card">
                     <div class="testimonial-quote">"</div>
                     <div class="testimonial-stars" aria-label="Rated 5 out of 5 stars">★★★★★</div>
@@ -527,66 +342,51 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- CTA SECTION - Final call to action                          -->
+    <!-- CTA SECTION                                                   -->
     <!-- IMPROVED: Button is full-width on mobile                     -->
     <!-- ============================================================ -->
     <section class="cta-section">
         <div class="container">
             <div class="cta-content">
-                <h2 data-translate="cta_title">Ready to Find Your Path?</h2> <!-- Main title -->
-                <p data-translate="cta_desc">Join thousands of Zambian students who have discovered their perfect career with ZamPath.</p> <!-- Description -->
+                <h2 data-translate="cta_title">Ready to Find Your Path?</h2>
+                <p data-translate="cta_desc">Join thousands of Zambian students who have discovered their perfect career with ZamPath.</p>
                 <a href="app.html" class="btn-primary btn-large" data-translate="cta_button">
                     🚀 Get Started Now
-                </a> <!-- Big CTA button -->
-                <p class="cta-note" data-translate="cta_note">It's free. It's quick. It could change your life.</p> <!-- Note -->
+                </a>
+                <p class="cta-note" data-translate="cta_note">It's free. It's quick. It could change your life.</p>
             </div>
         </div>
     </section>
 
     <!-- ============================================================ -->
-    <!-- FOOTER - Bottom of the page                                 -->
+    <!-- FOOTER                                                        -->
     <!-- IMPROVED: Footer links stack on mobile                       -->
     <!-- ============================================================ -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <!-- ========================================================== -->
-                <!-- FOOTER BRAND: Logo and description                         -->
-                <!-- ========================================================== -->
                 <div class="footer-brand">
-                    <span class="brand-icon">©</span> <!-- Copyright symbol -->
-                    <span class="brand-name">ZamPath<span class="brand-dot">.</span>ai</span> <!-- Brand name -->
-                    <p data-translate="footer_brand_desc">Your AI-powered career navigator for Zambian students.</p> <!-- Description -->
+                    <span class="brand-icon">©</span>
+                    <span class="brand-name">ZamPath<span class="brand-dot">.</span>ai</span>
+                    <p data-translate="footer_brand_desc">Your AI-powered career navigator for Zambian students.</p>
                 </div>
-                
-                <!-- ========================================================== -->
-                <!-- FOOTER LINKS: Quick links section                         -->
-                <!-- ========================================================== -->
                 <div class="footer-links">
-                    <h4 data-translate="footer_quick_links">Quick Links</h4> <!-- Section title -->
-                    <a href="#features" data-translate="footer_features">Features</a> <!-- Features link -->
-                    <a href="#how-it-works" data-translate="footer_how_it_works">How It Works</a> <!-- How it works -->
-                    <a href="#testimonials" data-translate="footer_testimonials">Testimonials</a> <!-- Testimonials -->
-                    <a href="app.html" data-translate="footer_launch">🚀 Launch Career Quest</a> <!-- App link -->
+                    <h4 data-translate="footer_quick_links">Quick Links</h4>
+                    <a href="#features" data-translate="footer_features">Features</a>
+                    <a href="#how-it-works" data-translate="footer_how_it_works">How It Works</a>
+                    <a href="#testimonials" data-translate="footer_testimonials">Testimonials</a>
+                    <a href="app.html" data-translate="footer_launch">🚀 Launch Career Quest</a>
                 </div>
-                
-                <!-- ========================================================== -->
-                <!-- FOOTER CONTACT: Contact information                      -->
-                <!-- ========================================================== -->
                 <div class="footer-links">
-                    <h4 data-translate="footer_contact">Get In Touch</h4> <!-- Section title -->
-                    <a href="mailto:davidjuniormutesa@gmail.com?subject=ZamPath.ai%20Inquiry" data-translate="footer_email">📧 Contact Me</a> <!-- Email link -->
+                    <h4 data-translate="footer_contact">Get In Touch</h4>
+                    <a href="mailto:davidjuniormutesa@gmail.com?subject=ZamPath.ai%20Inquiry" data-translate="footer_email">📧 Contact Me</a>
                 </div>
             </div>
-            
-            <!-- ========================================================== -->
-            <!-- FOOTER BOTTOM: Copyright and credits                      -->
-            <!-- ========================================================== -->
             <div class="footer-bottom">
-                <p>© 2026 ZamPath.ai | <span data-translate="footer_heart">Built with ❤️ for Zambian Students</span></p> <!-- Copyright -->
-                <p data-translate="footer_jets">JETS 2026 — Digital Robotics and Intelligent Systems</p> <!-- JETS credit -->
-                <p data-translate="footer_rights">All rights reserved by David Mutesa</p> <!-- Rights reserved -->
-                <p>Contact: davidjuniormutesa@gmail.com</p> <!-- Contact email -->
+                <p>© 2026 ZamPath.ai | <span data-translate="footer_heart">Built with ❤️ for Zambian Students</span></p>
+                <p data-translate="footer_jets">JETS 2026 — Digital Robotics and Intelligent Systems</p>
+                <p data-translate="footer_rights">All rights reserved by David Mutesa</p>
+                <p>Contact: davidjuniormutesa@gmail.com</p>
             </div>
         </div>
     </footer>
@@ -596,60 +396,54 @@
     <!-- ============================================================ -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org", // Uses Schema.org vocabulary
-      "@type": "WebApplication", // This is a web application
-      "name": "ZamPath Career Quest", // App name
-      "applicationCategory": "EducationalApplication", // Category
-      "operatingSystem": "Any", // Works on any OS
-      "description": "AI-powered career guidance tool for Zambian students. 130+ careers, subject recommendations and printable reports. Free and works offline.", // Description
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ZMW" }, // It's free!
-      "author": { "@type": "Person", "name": "David Mutesa" }, // Author
-      "inLanguage": ["en", "ny", "bem", "tonga"] // Languages supported
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ZamPath Career Quest",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "description": "AI-powered career guidance tool for Zambian students. 130+ careers, subject recommendations and printable reports. Free and works offline.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ZMW" },
+      "author": { "@type": "Person", "name": "David Mutesa" },
+      "inLanguage": ["en", "ny", "bem", "tonga"]
     }
     </script>
 
     <!-- ============================================================ -->
-    <!-- JAVASCRIPT - All the interactive logic                       -->
+    <!-- JAVASCRIPT                                                   -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
         // SECTION 1: MOBILE MENU TOGGLE (with ARIA + scroll lock)
         // ============================================================
-        
-        // Get references to the menu toggle button and the nav links list
         const mobileToggle = document.getElementById('mobileToggle');
         const navLinks = document.getElementById('nav-links');
 
-        // Function to close the mobile menu
         function closeMobileMenu() {
-            navLinks.classList.remove('active'); // Hide the menu
-            mobileToggle.classList.remove('active'); // Reset the button state
-            mobileToggle.setAttribute('aria-expanded', 'false'); // Tell screen readers it's closed
-            document.body.classList.remove('nav-open'); // Unlock body scroll
+            navLinks.classList.remove('active');
+            mobileToggle.classList.remove('active');
+            mobileToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('nav-open');
         }
 
-        // Click event on the hamburger button
         mobileToggle.addEventListener('click', function() {
-            const isOpen = navLinks.classList.toggle('active'); // Toggle menu visibility
-            this.classList.toggle('active', isOpen); // Toggle button state
-            this.setAttribute('aria-expanded', String(isOpen)); // Update aria-expanded
-            document.body.classList.toggle('nav-open', isOpen); // Lock/unlock body scroll
+            const isOpen = navLinks.classList.toggle('active');
+            this.classList.toggle('active', isOpen);
+            this.setAttribute('aria-expanded', String(isOpen));
+            document.body.classList.toggle('nav-open', isOpen);
         });
 
         // ============================================================
         // SECTION 2: SMOOTH SCROLLING (closes menu + respects navbar)
         // ============================================================
-        
-        // Find all links that start with "#" (anchor links)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');
-                if (targetId === '#') return; // Ignore empty links
+                if (targetId === '#') return;
                 const target = document.querySelector(targetId);
                 if (target) {
-                    e.preventDefault(); // Prevent default jump
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Smooth scroll
-                    closeMobileMenu(); // Close the mobile menu if open
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    closeMobileMenu();
                 }
             });
         });
@@ -657,40 +451,34 @@
         // ============================================================
         // SECTION 3: STAT COUNTER ANIMATION (smooth rAF + easing)
         // ============================================================
-        
-        // Get all stat number elements
         const statNumbers = document.querySelectorAll('.stat-number');
-        let animated = false; // Flag to prevent multiple animations
+        let animated = false;
 
-        // Animates a single stat from 0 to its target value
         function animateStat(element) {
-            const target = parseInt(element.getAttribute('data-count'), 10) || 0; // Get target number
-            const duration = 1400; // Animation duration in ms
-            const startTime = performance.now(); // When the animation started
-            
+            const target = parseInt(element.getAttribute('data-count'), 10) || 0;
+            const duration = 1400;
+            const startTime = performance.now();
             function tick(now) {
-                const progress = Math.min((now - startTime) / duration, 1); // Progress from 0 to 1
-                const eased = 1 - Math.pow(1 - progress, 3); // Ease-out cubic for smooth finish
-                element.textContent = Math.round(target * eased); // Update the number
-                if (progress < 1) requestAnimationFrame(tick); // Continue until done
+                const progress = Math.min((now - startTime) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+                element.textContent = Math.round(target * eased);
+                if (progress < 1) requestAnimationFrame(tick);
             }
             requestAnimationFrame(tick);
         }
 
-        // Check if the stats section is visible in the viewport
         function checkStatsVisibility() {
-            if (animated) return; // Already animated
+            if (animated) return;
             const statsSection = document.querySelector('.stats');
             if (!statsSection) return;
             const rect = statsSection.getBoundingClientRect();
             const isVisible = rect.top < window.innerHeight - 100 && rect.bottom > 0;
             if (isVisible) {
-                animated = true; // Mark as animated
-                statNumbers.forEach(function(stat) { animateStat(stat); }); // Animate each stat
+                animated = true;
+                statNumbers.forEach(function(stat) { animateStat(stat); });
             }
         }
 
-        // Debounced scroll listener to check visibility
         let scrollTimeout;
         window.addEventListener('scroll', function() {
             if (scrollTimeout) return;
@@ -700,10 +488,8 @@
             }, 100);
         }, { passive: true });
 
-        // Check on page load
         window.addEventListener('load', checkStatsVisibility);
 
-        // Use IntersectionObserver for better performance (modern browsers)
         if ('IntersectionObserver' in window) {
             const observer = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
@@ -720,15 +506,12 @@
         // ============================================================
         // SECTION 4: NAVBAR SCROLL EFFECT (passive)
         // ============================================================
-        
-        // Get the navbar element
         const navbar = document.querySelector('.navbar');
-        // Add a class when the user scrolls down 50px (makes navbar stickier)
         window.addEventListener('scroll', function() {
             navbar.classList.toggle('scrolled', window.scrollY > 50);
         }, { passive: true });
 
-        // Close mobile menu with Escape key (accessibility)
+        // Close mobile menu with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeMobileMenu();
         });
@@ -736,38 +519,31 @@
         // ============================================================
         // SECTION 5: KEYBOARD ACCESSIBILITY
         // ============================================================
-        
-        // Make all important links focusable and clickable with Enter key
         document.querySelectorAll('.nav-links a, .hero-buttons a, .steps-cta a, .cta-section a, .footer-links a').forEach(function(link) {
             link.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') this.click(); // Press Enter to activate link
+                if (e.key === 'Enter') this.click();
             });
         });
 
         // ============================================================
         // SECTION 6: DARK MODE
         // ============================================================
-        
-        // Get dark mode elements
         const landingToggle = document.getElementById('landing-dark-toggle');
         const landingThemeIcon = document.getElementById('landing-theme-icon');
         const landingThemeLabel = document.getElementById('landing-theme-label');
-        let landingDarkMode = false; // Track dark mode state
+        let landingDarkMode = false;
 
         // V3.1: shared theme key — stays in sync with the Career Quest app.
         // Falls back to the legacy landing key, then to the system preference.
         const savedTheme = localStorage.getItem('zampath_theme') || localStorage.getItem('landing_theme');
         const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        // If dark mode was saved or system prefers dark, enable it
         if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
             landingDarkMode = true;
-            document.body.classList.add('dark-mode'); // Add dark mode class
-            landingThemeIcon.textContent = '☀️'; // Show sun icon
-            landingThemeLabel.textContent = 'Light'; // Show "Light" label
+            document.body.classList.add('dark-mode');
+            landingThemeIcon.textContent = '☀️';
+            landingThemeLabel.textContent = 'Light';
         }
 
-        // Save dark mode preference to localStorage
         function persistLandingTheme(isDark) {
             try {
                 var v = isDark ? 'dark' : 'light';
@@ -776,20 +552,17 @@
             } catch (e) {}
         }
 
-        // Toggle dark mode on button click
         landingToggle.addEventListener('click', function() {
-            landingDarkMode = !landingDarkMode; // Flip the state
-            document.body.classList.toggle('dark-mode', landingDarkMode); // Toggle class
-            landingThemeIcon.textContent = landingDarkMode ? '☀️' : '🌙'; // Update icon
-            landingThemeLabel.textContent = landingDarkMode ? 'Light' : 'Dark'; // Update label
-            persistLandingTheme(landingDarkMode); // Save preference
+            landingDarkMode = !landingDarkMode;
+            document.body.classList.toggle('dark-mode', landingDarkMode);
+            landingThemeIcon.textContent = landingDarkMode ? '☀️' : '🌙';
+            landingThemeLabel.textContent = landingDarkMode ? 'Light' : 'Dark';
+            persistLandingTheme(landingDarkMode);
         });
 
         // ============================================================
         // SECTION 7: LANGUAGE SWITCHER
         // ============================================================
-        
-        // All translations for the landing page in 4 languages
         const landingTranslations = {
             'en': {
                 'nav_features': 'Features',
@@ -798,8 +571,7 @@
                 'nav_stats': 'Stats',
                 'dark_mode': 'Dark',
                 'get_started': 'Get Started 🚀',
-                // UPDATED: Changed from "🏆 JETS 2024 Winner" to "🇿🇲 Your Career Counselling Guide"
-                'hero_badge': '🇿🇲 Your Career Counselling Guide',
+                'hero_badge': '🏆 JETS 2024 Winner',
                 'hero_title_line1': 'Discover Your',
                 'hero_title_line2': 'Perfect Career',
                 'hero_title_line3': 'Path in Zambia',
@@ -868,15 +640,13 @@
                 'install_app': '📲 Download App'
             },
             'ny': {
-                // Nyanja translations - all strings translated
                 'nav_features': 'Zinthu',
                 'nav_how_it_works': 'Momwe Imagwirira Ntchito',
                 'nav_testimonials': 'Umboni',
                 'nav_stats': 'Ziwerengero',
                 'dark_mode': 'Mdima',
                 'get_started': 'Yambani 🚀',
-                // UPDATED: Changed to match the new badge text
-                'hero_badge': '🇿🇲 Upangiri Wanu Wa Ntchito',
+                'hero_badge': '🏆 Wopambana pa JETS 2024',
                 'hero_title_line1': 'Pezani',
                 'hero_title_line2': 'Ntchito Yabwino',
                 'hero_title_line3': 'Yanu ku Zambia',
@@ -886,60 +656,233 @@
                 'trust_offline': '💻 Imagwira Popanda Intaneti',
                 'trust_zambia': '© Yopangidwira Zambia',
                 'trust_free': '💰 Yaulere 100%',
-                // ... (full Nyanja translations in the original file)
+                'features_tag': 'Zinthu',
+                'features_title': 'Chifukwa Chiyani Mungasankhe ZamPath?',
+                'features_subtitle': 'Zonse zomwe mukufuna kuti mupeze ntchito yabwino',
+                'feature_ai_title': 'Kufananiza ndi AI',
+                'feature_ai_desc': 'AI yathu yanzeru imasanthula zokonda zanu ndikukufananizani ndi ntchito zomwe mudzazikonde.',
+                'feature_subjects_title': 'Upangiri wa Maphunziro',
+                'feature_subjects_desc': 'Dziwani ndendende maphunziro omwe muyenera kusankha pa Form 3-4 kuti mukwaniritse cholinga chanu.',
+                'feature_global_title': 'Mwayi Padziko Lonse',
+                'feature_global_desc': 'Dziwani momwe mungagwirire ntchito kunja ndi njira zotsatizanatsatizana ndi maphunziro.',
+                'feature_compare_title': 'Fananizani Ntchito',
+                'feature_compare_desc': 'Fananizani ntchito 3 molingana — malipiro, maphunziro, ndi zina.',
+                'feature_pdf_title': 'Malipoti Osindikizidwa',
+                'feature_pdf_desc': 'Tsitsani zotsatira zanu ngati PDF kuti mugawane ndi makolo ndi aphunzitsi.',
+                'feature_offline_title': 'Imagwira Popanda Intaneti',
+                'feature_offline_desc': 'Palibe intaneti yofunika! Gwiritsani ntchito kulikonse, nthawi iliyonse — yabwino kumadera akumidzi.',
+                'how_tag': 'Momwe Imagwirira Ntchito',
+                'how_title': 'Pezani Njira Yanu mu Masitepe 3',
+                'how_subtitle': 'Ndi yafulere, yosavuta, komanso yaulere',
+                'step1_title': 'Yankhani Mafunso',
+                'step1_desc': 'Yankhani mafunso 30 osavuta okhudza zokonda zanu, maphunziro, ndi zomwe mumakonda.',
+                'step2_title': 'Kusanthula kwa AI',
+                'step2_desc': 'AI yathu imasanthula mayankho anu ndikupeza ntchito zomwe zikukuyenerani.',
+                'step3_title': 'Pezani Zotsatira',
+                'step3_desc': 'Pezani ntchito zomwe zikukuyenerani, maphunziro ofunika, ndi njira yopita patsogolo.',
+                'how_cta': 'Yambani Tsopano →',
+                'stat_careers': 'Ntchito Zopezeka',
+                'stat_institutions': 'Mabungwe a Zambia',
+                'stat_questions': 'Mafunso',
+                'stat_free': '% Yaulere Nthawi Zonse',
+                'testimonials_tag': 'Umboni',
+                'testimonials_title': 'Zomwe Ana Akunena',
+                'testimonials_subtitle': 'Umboni weniweni kuchokera kwa ophunzira',
+                'testimonial1_text': 'Sindimadziwa ntchito yomwe ndikufuna. ZamPath inandionetsa ntchito zomwe sindimadziwa kuti zilipo!',
+                'testimonial1_name': 'Mumba Chanda',
+                'testimonial1_location': 'Kabwe, Form 2',
+                'testimonial2_text': 'Maphunziro omwe anandilangiza anandithandiza kusankha maphunziro anga a Form 3 mwamphamvu.',
+                'testimonial2_name': 'McCarthy Nsalamba',
+                'testimonial2_location': 'Kabwe, Form 2',
+                'testimonial3_text': 'Makolo anga ndi ine tsopano tili ndi ndondomeko yabwino ya tsogolo langa. Zikomo ZamPath!',
+                'testimonial3_name': 'Gabriella Mutesa',
+                'testimonial3_location': 'Kabwe, Grade 7',
+                'cta_title': 'Mukonzeka Kupeza Njira Yanu?',
+                'cta_desc': 'Lowani nawo ophunzira ambiri ku Zambia omwe apeza ntchito yabwino ndi ZamPath.',
+                'cta_button': '🚀 Yambani Tsopano',
+                'cta_note': 'Ndi yaulere. Ndi yosavuta. Ikhoza kusintha moyo wanu.',
+                'footer_brand_desc': 'Njira yanu yopeza ntchito yabwino kwa ophunzira ku Zambia.',
+                'footer_quick_links': 'Maulalo',
+                'footer_features': 'Zinthu',
+                'footer_how_it_works': 'Momwe Imagwirira Ntchito',
+                'footer_testimonials': 'Umboni',
+                'footer_launch': '🚀 Yambani Career Quest',
+                'footer_contact': 'Lumikizanani Nafe',
+                'footer_email': '📧 Tilankhule',
+                'footer_heart': 'Yopangidwa ndi ❤️ kwa Ophunzira a Zambia',
+                'footer_jets': 'JETS 2026 — Digital Robotics ndi Intelligent Systems',
+                'footer_rights': 'Ufulu wonse ndi wa David Mutesa',
+                'install_app': '📲 Tsitsani App'
             },
             'bem': {
-                // Bemba translations - all strings translated
                 'nav_features': 'Ifintu',
                 'nav_how_it_works': 'Ishita Nga',
                 'nav_testimonials': 'Umboni',
                 'nav_stats': 'Ifingi',
                 'dark_mode': 'Mfifi',
                 'get_started': 'Tambukeni 🚀',
-                // UPDATED: Changed to match the new badge text
-                'hero_badge': '🇿🇲 Ubukwailo Bwenu Bwa Imilimo',
+                'hero_badge': '🏆 Wakawina pa JETS 2024',
                 'hero_title_line1': 'Sangana',
                 'hero_title_line2': 'Umilimo Uwama',
                 'hero_title_line3': 'Yenu mu Zambia',
-                // ... (full Bemba translations in the original file)
+                'hero_description': 'ZamPath isha chikwela kukwasha abaana ba Form 2 ukusanga imilimo ilefilwa na fyebo fyabo — yafuli kabili ishakwela Intaneti.',
+                'hero_cta': '🚀 Tambukeni Pa Nshila',
+                'hero_learn_more': 'Wishiba Ifingi ↓',
+                'trust_offline': '💻 Isha Chikwela Muleke Intaneti',
+                'trust_zambia': '© Yabombelwa Zambia',
+                'trust_free': '💰 Yafuli 100%',
+                'features_tag': 'Ifintu',
+                'features_title': 'Mwabipa Nga Mwasankula ZamPath?',
+                'features_subtitle': 'Fyonse ifyo mufwaya ukusanga umilimo uwama',
+                'feature_ai_title': 'Ukulinganisha na AI',
+                'feature_ai_desc': 'AI yishiba kusanga ifyo mwatemwa no kukulinganisha na imilimo imukatemwa.',
+                'feature_subjects_title': 'Ubukwailo bwa Amasambililo',
+                'feature_subjects_desc': 'Wishiba ndefye amasambililo ayakufwaya mu Form 3-4.',
+                'feature_global_title': 'Mwayi pa Calo Conshe',
+                'feature_global_desc': 'Wishiba nga mwakonsha ukubomba mu calo cinshi na nshila sha masambililo.',
+                'feature_compare_title': 'Linganisha Imilimo',
+                'feature_compare_desc': 'Linganisha imilimo 3 pamenga — amalipilo, amasambililo, ne fyebo fyabomba.',
+                'feature_pdf_title': 'Amakalata Yakushapila',
+                'feature_pdf_desc': 'Tola ifyo mwasanga nga PDF ukushabana na bafyashi ne bamwalisha.',
+                'feature_offline_title': 'Isha Chikwela Muleke Intaneti',
+                'feature_offline_desc': 'Tapali Intaneti! Ishibomfiwa conse, insa shonse — yawama ku mpanga.',
+                'how_tag': 'Ishita Nga',
+                'how_title': 'Sangani Nshila Yenu mu Mapu 3',
+                'how_subtitle': 'Yalepuka, yashita, kabili yafuli',
+                'step1_title': 'Yashanya Amepusho',
+                'step1_desc': 'Yashanya amepusho 30 yalepuka pa ifyo mutemwa, amasambililo, ne fyebo fyenu.',
+                'step2_title': 'Ukupima kwa AI',
+                'step2_desc': 'AI yashiba kupima fyayansho fyenu no kwasanga imilimo iingabwa.',
+                'step3_title': 'Sangani Ifyo Mwasanga',
+                'step3_desc': 'Sangani imilimo iingabwa, amasambililo ayakufwaya, ne nshila yakuya pa nshila.',
+                'how_cta': 'Tambukeni Sono →',
+                'stat_careers': 'Imilimo Ipepela',
+                'stat_institutions': 'Amakoleji ya Zambia',
+                'stat_questions': 'Amepusho',
+                'stat_free': '% Yafuli Insha Shonse',
+                'testimonials_tag': 'Umboni',
+                'testimonials_title': 'Ifyo Abana Bakwata',
+                'testimonials_subtitle': 'Umboni wa kashinku kufuma ku bana ba sukulu',
+                'testimonial1_text': 'Nshishibe umilimo ungafwaya. ZamPath yandilangile imilimo nshishibe nga ilipo!',
+                'testimonial1_name': 'Mumba Chanda',
+                'testimonial1_location': 'Kabwe, Form 2',
+                'testimonial2_text': 'Amasambililo bandilangile yandikwashishe ukusankula amasambililo ya Form 3.',
+                'testimonial2_name': 'McCarthy Nsalamba',
+                'testimonial2_location': 'Kabwe, Form 2',
+                'testimonial3_text': 'Bafyashi bangi na ine twalikwata inshila isuma ya bumushi bwandi. Twatotela ZamPath!',
+                'testimonial3_name': 'Gabriella Mutesa',
+                'testimonial3_location': 'Kabwe, Grade 7',
+                'cta_title': 'Mwakonka Ukusanga Nshila Yenu?',
+                'cta_desc': 'Ingilani mu bana ba Zambia abengi abasangile imilimo yawama na ZamPath.',
+                'cta_button': '🚀 Tambukeni Sono',
+                'cta_note': 'Ni yafuli. Ni yalepuka. Ingakwashe ukusinta umoyo wenu.',
+                'footer_brand_desc': 'Nshila yenu ya kusanga imilimo ku bana ba sukulu ba Zambia.',
+                'footer_quick_links': 'Amalangililo',
+                'footer_features': 'Ifintu',
+                'footer_how_it_works': 'Ishita Nga',
+                'footer_testimonials': 'Umboni',
+                'footer_launch': '🚀 Tambukeni Career Quest',
+                'footer_contact': 'Lanshanya Nefe',
+                'footer_email': '📧 Tutumikileni',
+                'footer_heart': 'Yabombwa na ❤️ ku Bana ba Zambia',
+                'footer_jets': 'JETS 2026 — Digital Robotics ne Intelligent Systems',
+                'footer_rights': 'Ubwisho bwonse ni bwa David Mutesa',
+                'install_app': '📲 Tuleni App'
             },
             'tonga': {
-                // Tonga translations - all strings translated
                 'nav_features': 'Zintu',
                 'nav_how_it_works': 'Nzila Yakubomba',
                 'nav_testimonials': 'Umboni',
                 'nav_stats': 'Ziwalo',
                 'dark_mode': 'Mukombwe',
                 'get_started': 'Tambukani 🚀',
-                // UPDATED: Changed to match the new badge text
-                'hero_badge': '🇿🇲 Bukkailo Bwenu Bwa Mibele',
+                'hero_badge': '🏆 Wakawina pa JETS 2024',
                 'hero_title_line1': 'Sangani',
                 'hero_title_line2': 'Mibele Mbote',
                 'hero_title_line3': 'Yenyu mu Zambia',
-                // ... (full Tonga translations in the original file)
+                'hero_description': 'ZamPath ibombezya akakwangwa kukwasha bana ba Form 2 kupeza mibele ilambana na zyebelo zyabo — yafuli kabili yakubomba muleke Intaneti.',
+                'hero_cta': '🚀 Tambukani Pa Njila',
+                'hero_learn_more': 'Balangani Mbali ↓',
+                'trust_offline': '💻 Ibomba Muleke Intaneti',
+                'trust_zambia': '© Yabolelwa Zambia',
+                'trust_free': '💰 Yafuli 100%',
+                'features_tag': 'Zintu',
+                'features_title': 'Lwani Mwasankula ZamPath?',
+                'features_subtitle': 'Zyoonse zyomukabila kupeza mibele mbote',
+                'feature_ai_title': 'Kulinganisha na AI',
+                'feature_ai_desc': 'AI yabotu yalanga zyebelo zyenu no kukulinganisha ku mibele imukatemwa.',
+                'feature_subjects_title': 'Bukkailo bwa Mbali',
+                'feature_subjects_desc': 'Balangani ndefye mbali zyomukabila mu Form 3-4.',
+                'feature_global_title': 'Mwayi pa Calo Conshe',
+                'feature_global_desc': 'Balangani mbuli mungabomba mu calo cinsi na nzila sya masambililo.',
+                'feature_compare_title': 'Linganisha Mibele',
+                'feature_compare_desc': 'Linganisha mibele 3 pamwe — malipilo, mbali, ni zintu zinyina.',
+                'feature_pdf_title': 'Makalata Yakushapanya',
+                'feature_pdf_desc': 'Tolani zintu zyomwasanga nga PDF kuti mushabane na babaana ni badunzi.',
+                'feature_offline_title': 'Ibabomba Muleke Intaneti',
+                'feature_offline_desc': 'Tapali Intaneti! Ibombezegwa konse, insiku zyoonse — yabotu ku mipanga.',
+                'how_tag': 'Nzila Yakubomba',
+                'how_title': 'Sangani Njila Yenyu mu Masitepe 3',
+                'how_subtitle': 'Yalepuka, yakubombwa, kabili yafuli',
+                'step1_title': 'Amunani Mibuzo',
+                'step1_desc': 'Amunani mibuzo 30 yalepuka pa zyebelo zyenu, mbali, ni zyozyomukabila.',
+                'step2_title': 'Kulanga kwa AI',
+                'step2_desc': 'AI yalanga mayansho enyu no kupeza mibele ilambana nanu.',
+                'step3_title': 'Sangani Zyomwasanga',
+                'step3_desc': 'Sangani mibele ilambana nanu, mbali zyomukabila, ni nzila yakuya kumbele.',
+                'how_cta': 'Tambukani Sono →',
+                'stat_careers': 'Mibele Ipepelwa',
+                'stat_institutions': 'Masukulu ya Zambia',
+                'stat_questions': 'Mibuzo',
+                'stat_free': '% Yafuli Insiku Zyoonse',
+                'testimonials_tag': 'Umboni',
+                'testimonials_title': 'Zyobana Bakwata',
+                'testimonials_subtitle': 'Umboni wa kashinku kufuma ku bana ba sukulu',
+                'testimonial1_text': 'Nciindisena mibele yomukabila. ZamPath yandilangile mibele nciindisena nga ilipo!',
+                'testimonial1_name': 'Mumba Chanda',
+                'testimonial1_location': 'Kabwe, Form 2',
+                'testimonial2_text': 'Mbali zyandilangile zyandikwassishe kusankula mbali za Form 3.',
+                'testimonial2_name': 'McCarthy Nsalamba',
+                'testimonial2_location': 'Kabwe, Form 2',
+                'testimonial3_text': 'Babaana bangu na ine tulikwata nzila yabotu ya bumwi bwangu. Twatotela ZamPath!',
+                'testimonial3_name': 'Gabriella Mutesa',
+                'testimonial3_location': 'Kabwe, Grade 7',
+                'cta_title': 'Mwakonkela Ukusanga Njila Yenyu?',
+                'cta_desc': 'Ingilani mu bana ba Zambia abengi abasangile mibele yabotu na ZamPath.',
+                'cta_button': '🚀 Tambukani Sono',
+                'cta_note': 'Ni yafuli. Ni yalepuka. Ingakwashe kusinta bumwi bwenu.',
+                'footer_brand_desc': 'Njila yenyu ya kupeza mibele ku bana ba sukulu ba Zambia.',
+                'footer_quick_links': 'Zilangililo',
+                'footer_features': 'Zintu',
+                'footer_how_it_works': 'Nzila Yakubomba',
+                'footer_testimonials': 'Umboni',
+                'footer_launch': '🚀 Tambukani Career Quest',
+                'footer_contact': 'Lansyani Nesyu',
+                'footer_email': '📧 Tutumikileni',
+                'footer_heart': 'Yabolelwa na ❤️ ku Bana ba Zambia',
+                'footer_jets': 'JETS 2026 — Digital Robotics ne Intelligent Systems',
+                'footer_rights': 'Zyoonse ni zya David Mutesa',
+                'install_app': '📲 Tolani App'
             }
         };
 
-        let landingCurrentLanguage = 'en'; // Start with English
+        let landingCurrentLanguage = 'en';
 
-        // Function to switch the language
         function switchLandingLanguage(lang) {
             landingCurrentLanguage = lang;
             
-            // Update active button state
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
             
-            // Update all elements with data-translate attribute
             document.querySelectorAll('[data-translate]').forEach(el => {
                 const key = el.dataset.translate;
                 const text = landingTranslations[lang]?.[key];
                 if (text) {
                     if (el.tagName === 'BUTTON' || el.tagName === 'A') {
-                        el.innerHTML = text; // For buttons and links, use innerHTML (supports emojis)
+                        el.innerHTML = text;
                     } else {
-                        el.textContent = text; // For other elements, use textContent
+                        el.textContent = text;
                     }
                 }
             });
@@ -956,10 +899,10 @@
                 installBtn.textContent = landingTranslations[lang]?.['install_app'] || '📲 Download App';
             }
             
-            localStorage.setItem('preferred_language', lang); // Save preference
+            localStorage.setItem('preferred_language', lang);
         }
 
-        // Load saved language preference
+        // Load language preference
         const savedLang = localStorage.getItem('preferred_language');
         if (savedLang && landingTranslations[savedLang]) {
             landingCurrentLanguage = savedLang;
@@ -1014,34 +957,36 @@
         // ============================================================
         // SECTION 8: PWA - INSTALL APP BUTTON
         // ============================================================
-        
-        let deferredPrompt; // Store the install prompt event
+        let deferredPrompt;
         const installBtn = document.getElementById('install-app-btn');
 
-        // Listen for the beforeinstallprompt event (Chrome/Edge/Android)
         window.addEventListener('beforeinstallprompt', function(e) {
-            e.preventDefault(); // Prevent Chrome's default prompt
-            deferredPrompt = e; // Store the event for later
-            installBtn.style.display = 'inline-block'; // Show the install button
+            // Prevent Chrome from automatically showing the prompt
+            e.preventDefault();
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+            // Show the install button
+            installBtn.style.display = 'inline-block';
             // Update button text based on current language
             installBtn.textContent = landingTranslations[landingCurrentLanguage]?.['install_app'] || '📲 Download App';
         });
 
-        // Install button click handler
         installBtn.addEventListener('click', function() {
             if (deferredPrompt) {
-                deferredPrompt.prompt(); // Show the install prompt
+                // Show the install prompt
+                deferredPrompt.prompt();
+                // Wait for the user to respond
                 deferredPrompt.userChoice.then(function(choiceResult) {
                     if (choiceResult.outcome === 'accepted') {
                         console.log('User accepted the install prompt');
-                        installBtn.style.display = 'none'; // Hide button after install
+                        installBtn.style.display = 'none';
                     } else {
                         console.log('User dismissed the install prompt');
                     }
                     deferredPrompt = null;
                 });
             } else {
-                // iOS Safari never fires beforeinstallprompt — show manual steps
+                // NEW: iOS Safari never fires beforeinstallprompt — show manual steps
                 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
                     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
                 if (isIOS) {
@@ -1058,13 +1003,9 @@
             installBtn.style.display = 'none';
         });
 
-        // ============================================================
-        // CONSOLE LOG: Informative message for developers
-        // ============================================================
         console.log('© ZamPath.ai landing page loaded successfully!');
         console.log('🌍 Languages: English, Nyanja, Bemba, Tonga');
         console.log('📲 PWA: Download App button ready');
-        console.log('🇿🇲 Your Career Counselling Guide — helping Zambian students find their path!');
     </script>
 
 </body>

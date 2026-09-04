@@ -1,47 +1,37 @@
 // ================================================================
 // ZAMPATH CAREER QUEST - SERVICE WORKER (V3)
 // ================================================================
-// What is a Service Worker?
-// It's a script that runs in the background, separate from your webpage.
-// It handles:
-//   1. Caching files so the app works OFFLINE
-//   2. Updating the app when new versions are available
-//   3. Intercepting network requests to serve cached files
+// V3 improvements:
+//  • Relative paths → works from ANY hosting folder (no more '/'-scope bugs)
+//  • Network-first for HTML → updates reach users promptly
+//  • Cache-first for versioned libraries → instant, offline-ready
+//  • Offline fallback page → app always loads, even with no connection
+//  • Clean activation → old caches deleted, clients claimed immediately
+//  • Robust SKIP_WAITING handling with client notification
 // ================================================================
 
-// ================================================================
-// CACHE VERSION: Increment this number whenever you update files
-// ================================================================
 const CACHE_VERSION = 4; // V3.2: new questions, why-box, offline banner, surprise me
 const CACHE_NAME = 'career-quest-v' + CACHE_VERSION;
 
-// ================================================================
-// APP SHELL: These are the core files that MUST be cached
-// Every user needs these to use the app offline
-// ================================================================
+// App shell — HTML pages are also matched at runtime (network-first)
 const APP_SHELL = [
-    './',                    // The root URL (index.html)
-    './index.html',          // The landing page
-    './app.html',            // The main app page
-    './style.css',           // All styles
-    './script.js',           // ALL JavaScript logic
-    './landingstyle.css',    // Landing page styles
-    './manifest.json'        // PWA manifest
+    './',
+    './index.html',
+    './app.html',
+    './style.css',
+    './script.js',
+    './landingstyle.css',
+    './manifest.json'
 ];
 
-// ================================================================
-// HEAVY LIBRARIES: Rarely change, cache them aggressively
-// ================================================================
+// Heavy libraries — rarely change, so cache them aggressively
 const LIB_URLS = [
-    './libs/chart.min.js',       // Radar chart library (200KB)
-    './libs/html2canvas.min.js', // PDF generation (100KB)
-    './libs/jspdf.umd.min.js'    // PDF creation (100KB)
+    './libs/chart.min.js',
+    './libs/html2canvas.min.js',
+    './libs/jspdf.umd.min.js'
 ];
 
-// ================================================================
-// OFFLINE FALLBACK: A simple page shown if NOTHING is cached
-// This is a data URI (inline) so it needs NO network request
-// ================================================================
+// Simple offline fallback (inlined SVG data URL — zero extra requests)
 const OFFLINE_FALLBACK =
     'data:text/html;charset=utf-8,' + encodeURIComponent(
         '<!DOCTYPE html><html><head><meta charset="utf-8">' +
@@ -56,17 +46,13 @@ const OFFLINE_FALLBACK =
         '</div></body></html>'
     );
 
-// ================================================================
-// INSTALL EVENT: When the service worker is first installed
-// This happens when a user visits the page for the first time
-// ================================================================
 self.addEventListener('install', function (event) {
     event.waitUntil(
         Promise.all([
-            // Cache the app shell files
             caches.open(CACHE_NAME).then(function (cache) {
                 console.log('📦 [SW] Caching app shell v' + CACHE_VERSION);
-                // Use individual puts so if ONE file fails, the rest still cache
+                // addAll fails as a whole if ONE file is missing — use
+                // individual puts so one 404 can never break installation.
                 return Promise.all(
                     APP_SHELL.map(function (url) {
                         return cache.add(url).catch(function (err) {
@@ -75,30 +61,23 @@ self.addEventListener('install', function (event) {
                     })
                 );
             }),
-            // Cache the heavy libraries
             caches.open(CACHE_NAME).then(function (cache) {
                 return Promise.all(
                     LIB_URLS.map(function (url) {
-                        return cache.add(url).catch(function () { /* Library optional */ });
+                        return cache.add(url).catch(function () { /* lib optional */ });
                     })
                 );
             })
         ]).then(function () {
-            // Force the service worker to activate immediately
             return self.skipWaiting();
         })
     );
 });
 
-// ================================================================
-// ACTIVATE EVENT: When the service worker starts running
-// Cleans up old caches and claims all open pages
-// ================================================================
 self.addEventListener('activate', function (event) {
     event.waitUntil(
         caches.keys()
             .then(function (cacheNames) {
-                // Delete any caches that aren't the current version
                 return Promise.all(
                     cacheNames.map(function (cacheName) {
                         if (cacheName !== CACHE_NAME) {
@@ -109,11 +88,10 @@ self.addEventListener('activate', function (event) {
                 );
             })
             .then(function () {
-                // Take control of all open pages immediately
                 return self.clients.claim();
             })
             .then(function () {
-                // Tell every open tab that a new version is live
+                // Let every open tab know a new version is live
                 return self.clients.matchAll({ includeUncontrolled: true }).then(function (clients) {
                     clients.forEach(function (client) {
                         client.postMessage({ type: 'UPDATE_AVAILABLE', version: CACHE_VERSION });
@@ -123,22 +101,14 @@ self.addEventListener('activate', function (event) {
     );
 });
 
-// ================================================================
-// FETCH EVENT: Intercepts every network request
-// This is where we decide: serve from cache or go to network?
-// ================================================================
 self.addEventListener('fetch', function (event) {
     var request = event.request;
 
     // Only handle same-origin GET requests
     if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) {
-        return; // Ignore cross-origin requests
+        return;
     }
 
-    // ================================================================
-    // HTML FILES: NETWORK FIRST (get fresh updates)
-    // If network fails, fall back to cache
-    // ================================================================
     var isHTML = request.mode === 'navigate' ||
         (request.headers.get('accept') || '').includes('text/html');
 
@@ -147,7 +117,6 @@ self.addEventListener('fetch', function (event) {
         event.respondWith(
             fetch(request)
                 .then(function (response) {
-                    // If we got a valid response, cache it for next time
                     if (response && response.status === 200) {
                         var copy = response.clone();
                         caches.open(CACHE_NAME).then(function (cache) {
@@ -157,7 +126,6 @@ self.addEventListener('fetch', function (event) {
                     return response;
                 })
                 .catch(function () {
-                    // Network failed: try to serve from cache
                     return caches.match(request).then(function (cached) {
                         return cached || caches.match('./app.html') || caches.match('./index.html');
                     }).then(function (fallback) {
@@ -170,25 +138,20 @@ self.addEventListener('fetch', function (event) {
         return;
     }
 
-    // ================================================================
-    // ASSETS: CACHE FIRST (fast + offline)
-    // Refresh in the background (stale-while-revalidate)
-    // ================================================================
+    // ---- Assets: CACHE FIRST (fast + offline), refresh in background ----
     event.respondWith(
         caches.match(request).then(function (cached) {
             if (cached) {
-                // Serve cached version immediately
-                // Meanwhile, update the cache in the background
+                // Stale-while-revalidate: serve instantly, refresh quietly
                 fetch(request).then(function (response) {
                     if (response && response.status === 200) {
                         caches.open(CACHE_NAME).then(function (cache) {
                             cache.put(request, response.clone());
                         });
                     }
-                }).catch(function () { /* Offline — cached copy still works */ });
+                }).catch(function () { /* offline — cached copy still works */ });
                 return cached;
             }
-            // Not in cache: go to network
             return fetch(request).then(function (response) {
                 if (response && response.status === 200) {
                     var copy = response.clone();
@@ -202,10 +165,6 @@ self.addEventListener('fetch', function (event) {
     );
 });
 
-// ================================================================
-// MESSAGE EVENT: Listens for SKIP_WAITING messages
-// This allows the user to force an update immediately
-// ================================================================
 self.addEventListener('message', function (event) {
     if (event.data && event.data.type === 'SKIP_WAITING') {
         self.skipWaiting().then(function () {
