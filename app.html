@@ -1,15 +1,14 @@
 <!-- ================================================================ -->
-<!-- CAREER QUEST - COMPLETE APPLICATION (V3 — FULLY UPGRADED)       -->
+<!-- CAREER QUEST - COMPLETE APPLICATION (V3.3 — PATHWAY FILTER)     -->
 <!-- ================================================================ -->
-<!-- WHAT'S NEW IN V3:                                               -->
-<!--  • CRITICAL FIX: #toast-container / #confetti-canvas /          -->
-<!--    #back-to-top were missing → toasts, celebration & scroll     -->
-<!--    button now work again (no more console crashes)              -->
-<!--  • 100% offline: Font Awesome CDN removed (pure emoji bell)     -->
-<!--  • Pinch-zoom enabled, safe-area aware for notched phones       -->
-<!--  • Chart.js fallback: radar chart still renders if lib missing  -->
-<!--  • Swipe left/right to navigate quiz questions on touch phones  -->
-<!--  • Service worker: relative path, registers after page load     -->
+<!-- WHAT'S NEW IN V3.3:                                              -->
+<!--  • NEW: "Cluster" / "Pathway" view toggle on results page        -->
+<!--  • NEW: Pathway filter chips (Natural Science, Social Science,   -->
+<!--    Business Studies, STEM, Creative Arts, Vocational streams)    -->
+<!--  • Every career now has accurate Zambian pathway data            -->
+<!--  • Landing page badge: "Your Career Counselling Guide" 🇿🇲       -->
+<!--  • Clean code: section-by-section, line-by-line comments        -->
+<!--  • All existing features preserved (dark mode, languages, etc.)  -->
 <!-- ================================================================ -->
 
 <!DOCTYPE html>
@@ -227,9 +226,20 @@
                     </div>
                 </div>
 
+                <!-- ================================================================ -->
+                <!-- V3.3 NEW: RESULTS TOOLBAR WITH CLUSTER / PATHWAY TOGGLE          -->
+                <!-- ================================================================ -->
                 <div class="results-toolbar">
                     <input type="search" class="search-bar" id="career-search" placeholder="🔍 Search careers..." aria-label="Search careers" data-translate="search_placeholder">
-                    <div class="filter-chips" id="filter-chips" role="group" aria-label="Filter by cluster"></div>
+                    
+                    <!-- V3.3: View toggle: Cluster | Pathway -->
+                    <div class="view-toggle" role="group" aria-label="Filter by cluster or pathway">
+                        <button class="view-toggle-btn active" data-view="cluster" id="view-cluster-btn" aria-pressed="true">📂 Cluster</button>
+                        <button class="view-toggle-btn" data-view="pathway" id="view-pathway-btn" aria-pressed="false">🗺️ Pathway</button>
+                    </div>
+                    
+                    <!-- Filter chips container — dynamically rendered -->
+                    <div class="filter-chips" id="filter-chips" role="group" aria-label="Filter options"></div>
                 </div>
 
                 <div id="career-matches" role="list" aria-label="Career match results"></div>

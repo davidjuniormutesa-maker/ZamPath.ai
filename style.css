@@ -1,10 +1,13 @@
 /* ============================================================ */
-/* CAREER QUEST - COMPLETE STYLESHEET (CONSISTENT)             */
+/* CAREER QUEST - COMPLETE STYLESHEET (V3.3)                   */
 /* ============================================================ */
 /* Now ALL cards and panels share the exact same styling:      */
 /* - Same background, border, border-radius, padding           */
 /* - Same box-shadow and hover lift effect                     */
 /* - Same typography and spacing                               */
+/*                                                              */
+/* V3.3 NEW: .view-toggle and .view-toggle-btn styles          */
+/*   for the Cluster / Pathway switching buttons.              */
 /* ============================================================ */
 
 :root {
@@ -646,7 +649,7 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
 #personalityChart { width: 100% !important; height: 100% !important; }
 
 /* ============================================================ */
-/* TOOLBAR                                                      */
+/* TOOLBAR (V3.3: added .view-toggle)                          */
 /* ============================================================ */
 .results-toolbar {
     display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center;
@@ -659,6 +662,42 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     min-height: 44px;
 }
 .search-bar:focus { border-color: var(--zm-green); outline: none; box-shadow: 0 0 0 3px var(--zm-green-glow); }
+
+/* V3.3: View Toggle – Cluster / Pathway buttons */
+.view-toggle {
+    display: flex;
+    gap: 4px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-xl);
+    padding: 3px;
+    border: 1px solid var(--border-light);
+    flex-shrink: 0;
+}
+.view-toggle-btn {
+    background: transparent;
+    border: none;
+    padding: 6px 16px;
+    border-radius: var(--radius-xl);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    color: var(--text-secondary);
+    font-family: inherit;
+    white-space: nowrap;
+    min-height: 36px;
+}
+.view-toggle-btn:hover:not(.active) {
+    background: var(--bg-hover);
+    color: var(--zm-green);
+}
+.view-toggle-btn.active {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: var(--shadow-green);
+}
+
+/* Filter chips container – same as before */
 .filter-chips {
     display: flex; gap: 6px; flex-wrap: wrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
     scrollbar-width: thin; padding-bottom: 4px;
@@ -1552,8 +1591,9 @@ body.dark-mode .bell-status-badge.not-installed { background: #451a03; color: #f
     .chart-container { height: 280px; }
     .career-card { flex-direction: column; align-items: flex-start; }
     .career-card-right { width: 100%; justify-content: space-between; padding-left: 44px; }
-    .results-toolbar { flex-direction: column; }
+    .results-toolbar { flex-direction: column; align-items: stretch; }
     .search-bar { min-width: 100%; }
+    .view-toggle { align-self: flex-start; }  /* keep toggle left on small screens */
     #comparison-selectors { grid-template-columns: repeat(2, 1fr); }
     .results-actions { flex-direction: column; align-items: stretch; }
     .results-actions button { width: 100%; }

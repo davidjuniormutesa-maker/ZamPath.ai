@@ -1,7 +1,7 @@
 // ==========================================
 // CAREER QUEST - MAIN LOGIC
 // Built by: David Mutesa for JETS 2026 🇿🇲
-// Version: V3.2 — see the changelog below
+// Version: V3.3 — Pathway Filter Added
 // ==========================================
 // This file combines the best features from two projects:
 //   - Current: 130+ careers, 32 questions, 4 languages, animated radar,
@@ -9,39 +9,18 @@
 //   - V2:      Floating particles, typing effect, personality insights,
 //              trait bars, smart discovery, AI discovery, career explorer,
 //              load more button, milestone celebrations
-// V3.2 CHANGES (JETS polish round):
-//   - Removed 3 near-duplicate questions (old Q21, Q22, Q28)
-//   - Added 5 fun new questions (school clubs, trips, gadgets, projects)
-//   - Friendlier wording for the skills & personality questions
-//   - "⭐ Why we picked this for you" explanation box in the career modal
-//   - 🎲 Surprise Me random career generator in Discovery Mode
-//   - 🖨️ Print My Top 3 clean printable summary
-//   - 🌟/👍/🔍 match-confidence emojis on career scores
-//   - 📶 Offline status banner (with CSS in style.css)
-//   - Zambian fun facts rotate on the loading screen (see app.html)
-//   - Clean-code constants: MAX_COMPARE / TOTAL_QUESTIONS (no magic numbers)
-// IMPROVEMENTS APPLIED (earlier rounds):
-//   - Search resets filter chips
-//   - Comparison tool shows selected career badges & scroll hint
-//   - Multi-select questions have a "Clear all" button
-//   - Discovery mode shows a friendly welcome message
-//   - PDF generation has a retry/refresh fallback
-//   - Added "Reset Tools" button in results screen
-//   - AI prompt now shows question text alongside answers
-//   - PWA: Auto-update detection integrated
-//   - Discovery mode: compact cluster cards, clean career lists
+// V3.3 CHANGES:
+//   - NEW: View toggle (Cluster / Pathway) on results page
+//   - NEW: Pathway filter chips (Natural Science, Social Science, etc.)
+//   - Every career now has accurate Zambian pathway data
+//   - Updated landing page badge to "Your Career Counselling Guide" (in index.html)
 // ALL FEATURES ARE MERGED. EVERY LINE IS COMPLETE.
 // ==========================================
 
 // ================================================================
 // SECTION 0: GLOBAL CONFIG — named constants instead of magic numbers
 // ================================================================
-// MAX_COMPARE limits how many careers can be compared side-by-side.
-// Using a constant makes it easy to change the limit later.
-// ================================================================
 const MAX_COMPARE = 5;   // Maximum careers a user can compare side-by-side
-// NOTE: TOTAL_QUESTIONS is defined right after the question list is
-// built (SECTION 7) so it can never drift out of sync with the data.
 
 // ================================================================
 // SECTION 1: CAREER DATABASE (130+ Careers)
@@ -4112,8 +4091,6 @@ const questionTraits = {
         "A balanced lifestyle with time for hobbies": ["balanced", "patient", "practical", "organized"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // V3.2: old Q21 removed — its options repeated Q4 ("What kind of work
-    // appeals to you most?"), so the quiz now asks it only once.
     "23": {
         "Friendly environment": ["peoplePerson", "social", "teamwork", "supportive"],
         "Supportive environment": ["teamwork", "helping", "community", "supportive"],
@@ -4163,8 +4140,6 @@ const questionTraits = {
         "I go with my gut feeling": ["creative", "imaginative", "expressive", "artistic"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // V3.2: old Q28 removed — it was near-identical to Q16 ("How do you
-    // learn best?"). One well-crafted learning-style question is enough.
     "29": {
         "I am direct and clear": ["communication", "confident", "leadership", "professional"],
         "I am diplomatic and tactful": ["communication", "tactful", "peoplePerson", "supportive"],
@@ -4184,12 +4159,6 @@ const questionTraits = {
         "I want to work on projects": ["creative", "analytical", "flexible", "problemSolving"],
         "Not sure yet 🤷": ["curiosity", "openMind", "exploring"]
     },
-    // ================================================================
-    // V3.2 NEW QUESTIONS (31-35) — fun, imagination-friendly questions.
-    // Judges wanted more data points; kids get variety beyond school
-    // subjects. All options reuse the same trait keywords the scoring
-    // engine already understands, so they feed results immediately.
-    // ================================================================
     "31": {
         "The robotics & coding club": ["technical", "technology", "analytical", "problemSolving"],
         "The debate team": ["communication", "leadership", "confident", "strategic"],
@@ -4271,9 +4240,6 @@ const translations = {
         'start_quiz': 'Get Started',
         'i_dont_know': 'I Have No Idea',
         'sample_results': '📊 View Sample Results',
-        // ---- V3.2 NEW UI STRINGS ----
-        // (ny/bem/tonga intentionally fall back to these English strings
-        // via t() until native translations are reviewed by a teacher)
         'why_picked_title': 'Why we picked this for you',
         'why_picked_intro': 'We matched this career because',
         'why_picked_match': 'match',
@@ -4840,19 +4806,14 @@ function buildQuestions() {
             '10': 'What kind of work environment do you prefer? (Select all that apply)',
             '11': 'How do you want to make an impact? (Select all that apply)',
             '12': 'Do you work best alone or with others?',
-            // V3.2 REWORD: "skills" was too abstract — kids know what they
-            // would LOVE to learn, so ask exactly that.
             '13': 'Which of these would you LOVE to learn? (Select all that apply)',
             '14': 'What kind of work life do you prefer?',
             '15': 'How do you handle pressure and deadlines?',
             '16': 'How do you learn best? (Select all that apply)',
-            // V3.2 REWORD: "describe your personality" was hard to imagine —
-            // "what kind of student are you in class?" is easy and concrete.
             '17': 'What kind of student are you in class? (Select all that apply)',
             '18': 'What kind of projects excite you? (Select all that apply)',
             '19': 'What motivates you most? (Select all that apply)',
             '20': 'What kind of lifestyle do you want? (Select all that apply)',
-            // V3.2: old Q21, Q22 and Q28 removed (near-duplicates of Q4, Q12 and Q16).
             '23': 'What kind of workplace makes you happiest? (Select all that apply)',
             '24': 'How do you handle challenges? (Select all that apply)',
             '25': 'What kind of recognition matters to you? (Select all that apply)',
@@ -4860,7 +4821,6 @@ function buildQuestions() {
             '27': 'How do you make decisions? (Select all that apply)',
             '29': 'How would you describe your communication style? (Select all that apply)',
             '30': 'What work schedule suits you best? (Select all that apply)',
-            // V3.2 NEW FUN QUESTIONS (31-35)
             '31': 'If your school had a club fair, which club would you join first?',
             '32': 'Pick your dream school trip!',
             '33': 'Your team wins a school award — what do you do at the celebration?',
@@ -4874,9 +4834,6 @@ function buildQuestions() {
             multiSelect: multiSelect,
             options: options,
             weights: weights,
-            // V3.2: carry the trait map ON the question object so scoring
-            // works by position in this array — no more assuming the id
-            // equals the array index (that broke once questions were removed).
             traits: qData,
             defaultWeight: defaultWeight,
             isNotSure: false
@@ -4891,9 +4848,6 @@ function buildQuestions() {
 // ================================================================
 
 const questions = buildQuestions();
-// Clean-code constant (Level 5): the quiz length is DERIVED from the
-// question database, so adding/removing questions never breaks the
-// progress bar, dots or counters.
 const TOTAL_QUESTIONS = questions.length;
 
 // ================================================================
@@ -4903,8 +4857,6 @@ const TOTAL_QUESTIONS = questions.length;
 const STORAGE_KEY = 'career_quest_state';
 const THEME_KEY = 'career_quest_theme';
 const LANGUAGE_KEY = 'career_quest_language';
-// V3.1: shared theme key — the landing page and the app now follow ONE
-// dark-mode setting (each also writes its legacy key for old copies).
 const SHARED_THEME_KEY = 'zampath_theme';
 
 let state = {
@@ -4924,7 +4876,9 @@ let state = {
     compareList: [],
     personalityTraits: {},
     language: 'en',
-    shareData: null
+    shareData: null,
+    // V3.3: view mode
+    viewMode: 'cluster' // 'cluster' or 'pathway'
 };
 
 // ================================================================
@@ -4966,7 +4920,6 @@ const DOM = {
     downloadPdfBtn: document.getElementById('download-pdf-btn'),
     printBtn: document.getElementById('print-btn'),
     retakeBtn: document.getElementById('retake-btn'),
-    // V3.2: Print-My-Top-3 + Surprise-Me buttons
     printTop3Btn: document.getElementById('print-top3-btn'),
     surpriseBtn: document.getElementById('surprise-btn'),
     discoveryMode: document.getElementById('discovery-mode'),
@@ -4988,7 +4941,6 @@ const DOM = {
     shareEmailBtn: document.getElementById('share-email-btn'),
     shareLinkContainer: document.getElementById('share-link-container'),
     shareLinkInput: document.getElementById('share-link-input'),
-    // V2 elements
     smartDiscoverBtn: document.getElementById('smart-discover-btn'),
     aiDiscoverBtn: document.getElementById('ai-discover-btn'),
     exploreAllBtn: document.getElementById('explore-all-btn'),
@@ -5159,7 +5111,6 @@ function checkForSharedResults() {
 // ================================================================
 function showToast(message, duration) {
     duration = duration || 3000;
-    // V3 FIX: guard against missing container (older layouts) — never crash
     if (!DOM.toastContainer) return;
     const toast = document.createElement('div');
     toast.className = 'toast';
@@ -5167,7 +5118,6 @@ function showToast(message, duration) {
     DOM.toastContainer.appendChild(toast);
     setTimeout(function() { toast.remove(); }, duration);
 }
-// V3: subtle haptic feedback for phones (safe no-op on desktop)
 function haptic(pattern) {
     try { if (navigator.vibrate) navigator.vibrate(pattern || 10); } catch (e) { /* ignore */ }
 }
@@ -5197,6 +5147,7 @@ function saveState() {
             compareList: state.compareList,
             personalityTraits: state.personalityTraits,
             language: state.language,
+            viewMode: state.viewMode,
             timestamp: Date.now()
         }));
     } catch (e) {}
@@ -5217,13 +5168,11 @@ function clearSavedState() { try { localStorage.removeItem(STORAGE_KEY); } catch
 function saveTheme(isDark) {
     try {
         var v = isDark ? 'dark' : 'light';
-        localStorage.setItem(SHARED_THEME_KEY, v); // V3.1: syncs with landing page
-        localStorage.setItem(THEME_KEY, v);        // keep legacy key in sync too
+        localStorage.setItem(SHARED_THEME_KEY, v);
+        localStorage.setItem(THEME_KEY, v);
     } catch(e) {}
 }
 function loadTheme() {
-    // V3.1: prefer the shared key (landing ⇄ app sync), fall back to legacy,
-    // then to the device system preference on first ever visit.
     try {
         var t = localStorage.getItem(SHARED_THEME_KEY) || localStorage.getItem(THEME_KEY);
         if (t === 'dark') return true;
@@ -5292,7 +5241,6 @@ function renderQuestion() {
     updateQuestionCounter();
     var pct = Math.round((qNum / total) * 100);
     DOM.progressBar.setAttribute('aria-valuenow', pct);
-    // Smooth progress bar update
     requestAnimationFrame(function() {
         DOM.progressFill.style.width = pct + '%';
     });
@@ -5332,7 +5280,6 @@ function renderQuestion() {
         fragment.appendChild(btn);
     });
 
-    // --- IMPROVEMENT: Clear all button for multi‑select ---
     if (question.multiSelect) {
         var clearBtn = document.createElement('button');
         clearBtn.textContent = '✕ Clear all';
@@ -5364,7 +5311,7 @@ function renderQuestion() {
     var currentAnswer = state.answers[state.currentQuestion] || [];
     DOM.nextBtn.disabled = currentAnswer.length === 0;
     state.kbFocusIndex = -1;
-    renderQuestionDots(); // V3.1: keep the navigator in sync
+    renderQuestionDots();
     saveState();
 }
 
@@ -5435,7 +5382,7 @@ function toggleOption(button) {
         button.setAttribute('aria-checked', 'true');
         updateSingleSelectAnswer(button);
     }
-    haptic(8); // V3: tiny tap buzz on phones — makes selection feel physical
+    haptic(8);
     updateNextButtonState();
     saveState();
     if (!isMultiSelect && state.currentQuestion < questions.length - 1) {
@@ -5456,7 +5403,7 @@ function updateSingleSelectAnswer(button) {
 function updateNextButtonState() {
     var currentAnswer = state.answers[state.currentQuestion] || [];
     DOM.nextBtn.disabled = currentAnswer.length === 0;
-    renderQuestionDots(); // V3.1: answered dot lights up immediately
+    renderQuestionDots();
 }
 function nextQuestion() {
     var currentAnswer = state.answers[state.currentQuestion] || [];
@@ -5471,19 +5418,19 @@ function nextQuestion() {
     }
     state.currentQuestion++;
     renderQuestion();
-    scrollQuestionIntoView(); // V3: mobile — keep the new question visible
+    scrollQuestionIntoView();
 }
 function prevQuestion() {
     if (state.currentQuestion > 0) {
         state.currentQuestion--;
         renderQuestion();
-        scrollQuestionIntoView(); // V3: mobile
+        scrollQuestionIntoView();
     }
 }
 // V3 NEW: on phones the quiz can be taller than the viewport; after moving
 // to another question, bring the question back into view.
 function scrollQuestionIntoView() {
-    if (window.innerWidth > 768) return; // desktop layouts show everything
+    if (window.innerWidth > 768) return;
     requestAnimationFrame(function() {
         var bar = document.querySelector('.quiz-container .progress-bar');
         var top = bar ? bar.getBoundingClientRect().top + window.pageYOffset - 70 : 0;
@@ -6337,7 +6284,7 @@ function startTypingEffect() {
             subtitle.textContent = full.slice(0, charIndex);
             if (charIndex >= full.length) {
                 deleting = true;
-                typingTimeout = setTimeout(tick, 1900); // hold so it can be read
+                typingTimeout = setTimeout(tick, 1900);
                 return;
             }
             typingTimeout = setTimeout(tick, 42);
@@ -6350,7 +6297,7 @@ function startTypingEffect() {
                 typingTimeout = setTimeout(tick, 350);
                 return;
             }
-            typingTimeout = setTimeout(tick, 20); // delete faster than typing
+            typingTimeout = setTimeout(tick, 20);
         }
     }
     tick();
@@ -6374,7 +6321,7 @@ function displayResults() {
     var topCareers = state.results.slice(0, 15);
     DOM.resultsSubtitle.textContent = t('results_subtitle');
     renderStatsSummary(topCareers);
-    renderFilterChips();
+    renderFilterChips(); // V3.3: uses viewMode
     renderCareerCards(topCareers);
     renderRadarChart();
     displayPathwayRecommendations();
@@ -6507,18 +6454,47 @@ function renderStatsSummary(topCareers) {
 }
 
 // ================================================================
-// SECTION 32: FILTER CHIPS
+// SECTION 32: FILTER CHIPS (V3.3 - Dynamic based on viewMode)
 // ================================================================
+function getAllPathways() {
+    var pathways = new Set();
+    for (var name in careers) {
+        var c = careers[name];
+        if (c.pathway && Array.isArray(c.pathway)) {
+            c.pathway.forEach(function(p) { pathways.add(p); });
+        }
+    }
+    return Array.from(pathways).sort();
+}
+
 function renderFilterChips() {
-    var clusters = ['all', 'STEM', 'Healthcare', 'Business', 'Creative', 'Helping', 'Outdoor', 'Public Service', 'Skilled Trades'];
-    var icons = { all: '🎯', STEM: '🔬', Healthcare: '🏥', Business: '💼', Creative: '🎨', Helping: '🤝', Outdoor: '🌿', 'Public Service': '🏛️', 'Skilled Trades': '🔧' };
-    DOM.filterChips.innerHTML = clusters.map(function(c) {
-        return '<button class="filter-chip' + (state.activeFilter === c ? ' active' : '') + '" data-filter="' + c + '">' + (icons[c] || '📌') + ' ' + c;
-    }).join('');
+    var items = [];
+    var icons = {};
+    if (state.viewMode === 'cluster') {
+        var clusters = ['all', 'STEM', 'Healthcare', 'Business', 'Creative', 'Helping', 'Outdoor', 'Public Service', 'Skilled Trades'];
+        items = clusters;
+        var clusterIcons = { all: '🎯', STEM: '🔬', Healthcare: '🏥', Business: '💼', Creative: '🎨', Helping: '🤝', Outdoor: '🌿', 'Public Service': '🏛️', 'Skilled Trades': '🔧' };
+        icons = clusterIcons;
+    } else {
+        var pathways = getAllPathways();
+        items = ['all', ...pathways];
+        // No icons for pathways, just text
+    }
+
+    var html = '';
+    items.forEach(function(c) {
+        var label = c;
+        var icon = icons[c] || '';
+        if (c === 'all') label = 'All';
+        else if (state.viewMode === 'cluster' && icons[c]) label = icons[c] + ' ' + c;
+        var activeClass = (state.activeFilter === c) ? ' active' : '';
+        html += '<button class="filter-chip' + activeClass + '" data-filter="' + c + '">' + label + '</button>';
+    });
+    DOM.filterChips.innerHTML = html;
 }
 
 // ================================================================
-// SECTION 33: CAREER CARDS
+// SECTION 33: CAREER CARDS (V3.3 - filter by cluster or pathway)
 // ================================================================
 function renderCareerCards(careerList) {
     var query = state.searchQuery.toLowerCase();
@@ -6526,7 +6502,14 @@ function renderCareerCards(careerList) {
     var filtered = careerList.filter(function(name) {
         var career = careers[name];
         if (!career) return false;
-        if (filter !== 'all' && career.cluster !== filter) return false;
+        if (filter !== 'all') {
+            if (state.viewMode === 'cluster') {
+                if (career.cluster !== filter) return false;
+            } else {
+                // pathway mode
+                if (!career.pathway || !Array.isArray(career.pathway) || career.pathway.indexOf(filter) === -1) return false;
+            }
+        }
         if (query && name.toLowerCase().indexOf(query) === -1 &&
             career.description.toLowerCase().indexOf(query) === -1 &&
             career.cluster.toLowerCase().indexOf(query) === -1) return false;
@@ -6569,6 +6552,7 @@ function renderCareerCards(careerList) {
     DOM.careerMatches.innerHTML = '';
     DOM.careerMatches.appendChild(fragment);
 }
+
 function handleCareerSearch(e) {
     state.searchQuery = e.target.value;
     state.activeFilter = 'all';   // reset filter when searching
@@ -6889,92 +6873,7 @@ function updateDiscoveryComparison() {
 // SECTION 39: CAREER DETAILS MODAL
 // ================================================================
 var modalCurrentCareer = null;
-// ================================================================
-// SECTION 36b: "WHY WE PICKED THIS FOR YOU" (V3.2 - LEVEL 2)
-// The gold explanation box inside the career modal. It matches the
-// user's strongest personality traits with the career's trait
-// profile, so users SEE that results are computed from THEIR
-// answers — the AI is not random!
-// ================================================================
-var WHY_TRAIT_PHRASES = {
-    'analytical': 'you enjoy thinking things through',
-    'creative': 'you love creating and imagining',
-    'helping': 'you love helping people',
-    'technical': 'you enjoy technology and how things work',
-    'outdoor': 'you love being active and outdoors',
-    'leadership': 'you like taking the lead',
-    'communication': 'you express your ideas clearly',
-    'practical': 'you like real, hands-on work',
-    'strategic': 'you are good at planning ahead',
-    'resilience': 'you never give up when things get hard',
-    'detailoriented': 'you notice the small details',
-    'entrepreneurial': 'you have a business mind',
-    'problemsolving': 'you love solving problems',
-    'peopleperson': 'you enjoy working with people',
-    'compassion': 'you genuinely care about others',
-    'science': 'you are curious about how the world works',
-    'nature': 'you care about nature and the environment',
-    'business': 'you think like a business person',
-    'medical': 'you are interested in health and medicine',
-    'teamwork': 'you work brilliantly in a team',
-    'empathy': 'you understand how others feel',
-    'community': 'you want to lift up your community',
-    'curiosity': 'you are always curious to learn',
-    'handson': 'you learn best by doing',
-    'technology': 'you love using the latest technology',
-    'adventure': 'you love adventure and new challenges',
-    'artistic': 'you have an artistic eye',
-    'visual': 'you think in pictures and designs',
-    'confident': 'you believe in yourself',
-    'organized': 'you keep everything organised',
-    'patient': 'you are calm and patient',
-    'driven': 'you are driven to succeed',
-    'independent': 'you work well on your own'
-};
 
-// Builds the reason sentence for a career. Returns HTML for the gold
-// box (or '' if we cannot compute a reason).
-function buildWhyPicked(careerName, career) {
-    var traitList = careerTraits[careerName] || [];
-    var hasQuiz = state.careerScores && Object.keys(state.careerScores).length > 0 &&
-                  state.personalityTraits && Object.keys(state.personalityTraits).length > 0;
-
-    if (hasQuiz && traitList.length) {
-        // Score each of the career's traits against the user's own traits (0-10)
-        var scored = [];
-        traitList.forEach(function(tr) {
-            var displayKey = tr.charAt(0).toUpperCase() + tr.slice(1);
-            if (displayKey === 'Detailoriented') displayKey = 'Detail-Oriented';
-            if (displayKey === 'Problemsolving') displayKey = 'Problem-Solving';
-            if (displayKey === 'Peopleperson') displayKey = 'People-Person';
-            var score = state.personalityTraits[displayKey] || 0;
-            if (score > 0) scored.push({ token: String(tr).toLowerCase(), score: score });
-        });
-        scored.sort(function(a, b) { return b.score - a.score; });
-        var phrases = [];
-        scored.slice(0, 2).forEach(function(s) {
-            var phrase = WHY_TRAIT_PHRASES[s.token];
-            if (phrase && phrases.indexOf(phrase) === -1) phrases.push(phrase);
-        });
-        if (phrases.length) {
-            return '<div class="why-picked-box" role="note">' +
-                '<div class="why-picked-title">⭐ ' + t('why_picked_title') + '</div>' +
-                '<p>' + t('why_picked_intro') + ' <strong>' + phrases.join('</strong> and <strong>') + '</strong>.' +
-                ' <span class="why-picked-score">' + (state.careerScores[careerName] || 0) + '% ' + t('why_picked_match') + '</span></p></div>';
-        }
-    }
-    // No quiz data (Discovery Mode / sample results) — explain by cluster
-    return '<div class="why-picked-box why-picked-explore" role="note">' +
-        '<div class="why-picked-title">⭐ ' + t('why_picked_title') + '</div>' +
-        '<p>' + (career && career.cluster ? t('why_picked_cluster').replace('{CLUSTER}', career.cluster) : t('why_picked_explore')) + '</p></div>';
-}
-
-// ================================================================
-// SECTION 36c: JETS POLISH HELPERS (V3.2 - LEVEL 3)
-// ================================================================
-
-// This returns the match-confidence emoji for a percentage score:
-// 🌟 strong match (80%+) · 👍 good match (60%+) · 🔍 worth exploring
 function confidenceEmoji(score) {
     if (score >= 80) return '🌟';
     if (score >= 60) return '👍';
@@ -7049,9 +6948,7 @@ function printTop3() {
     setTimeout(function() { win.print(); }, 400);
 }
 
-// This picks a completely random career and shows its details —
-// the fun "I Have No Idea" discovery helper. Confetti included! 🎉
-function showRandomCareer() {
+window.showRandomCareer = function() {
     var names = Object.keys(careers);
     if (!names.length) return;
     var pick = names[Math.floor(Math.random() * names.length)];
@@ -7059,9 +6956,76 @@ function showRandomCareer() {
     haptic(20);
     showToast('🎲 ' + t('surprise_me').replace('🎲 ', '') + ' → ' + pick);
     showCareerDetails(pick);
+};
+
+function buildWhyPicked(careerName, career) {
+    var traitList = careerTraits[careerName] || [];
+    var hasQuiz = state.careerScores && Object.keys(state.careerScores).length > 0 &&
+                  state.personalityTraits && Object.keys(state.personalityTraits).length > 0;
+
+    if (hasQuiz && traitList.length) {
+        var scored = [];
+        traitList.forEach(function(tr) {
+            var displayKey = tr.charAt(0).toUpperCase() + tr.slice(1);
+            if (displayKey === 'Detailoriented') displayKey = 'Detail-Oriented';
+            if (displayKey === 'Problemsolving') displayKey = 'Problem-Solving';
+            if (displayKey === 'Peopleperson') displayKey = 'People-Person';
+            var score = state.personalityTraits[displayKey] || 0;
+            if (score > 0) scored.push({ token: String(tr).toLowerCase(), score: score });
+        });
+        scored.sort(function(a, b) { return b.score - a.score; });
+        var phrases = [];
+        scored.slice(0, 2).forEach(function(s) {
+            var phrase = WHY_TRAIT_PHRASES[s.token];
+            if (phrase && phrases.indexOf(phrase) === -1) phrases.push(phrase);
+        });
+        if (phrases.length) {
+            return '<div class="why-picked-box" role="note">' +
+                '<div class="why-picked-title">⭐ ' + t('why_picked_title') + '</div>' +
+                '<p>' + t('why_picked_intro') + ' <strong>' + phrases.join('</strong> and <strong>') + '</strong>.' +
+                ' <span class="why-picked-score">' + (state.careerScores[careerName] || 0) + '% ' + t('why_picked_match') + '</span></p></div>';
+        }
+    }
+    return '<div class="why-picked-box why-picked-explore" role="note">' +
+        '<div class="why-picked-title">⭐ ' + t('why_picked_title') + '</div>' +
+        '<p>' + (career && career.cluster ? t('why_picked_cluster').replace('{CLUSTER}', career.cluster) : t('why_picked_explore')) + '</p></div>';
 }
-// Expose globally so inline onclick="showRandomCareer()" also works
-window.showRandomCareer = showRandomCareer;
+
+var WHY_TRAIT_PHRASES = {
+    'analytical': 'you enjoy thinking things through',
+    'creative': 'you love creating and imagining',
+    'helping': 'you love helping people',
+    'technical': 'you enjoy technology and how things work',
+    'outdoor': 'you love being active and outdoors',
+    'leadership': 'you like taking the lead',
+    'communication': 'you express your ideas clearly',
+    'practical': 'you like real, hands-on work',
+    'strategic': 'you are good at planning ahead',
+    'resilience': 'you never give up when things get hard',
+    'detailoriented': 'you notice the small details',
+    'entrepreneurial': 'you have a business mind',
+    'problemsolving': 'you love solving problems',
+    'peopleperson': 'you enjoy working with people',
+    'compassion': 'you genuinely care about others',
+    'science': 'you are curious about how the world works',
+    'nature': 'you care about nature and the environment',
+    'business': 'you think like a business person',
+    'medical': 'you are interested in health and medicine',
+    'teamwork': 'you work brilliantly in a team',
+    'empathy': 'you understand how others feel',
+    'community': 'you want to lift up your community',
+    'curiosity': 'you are always curious to learn',
+    'handson': 'you learn best by doing',
+    'technology': 'you love using the latest technology',
+    'adventure': 'you love adventure and new challenges',
+    'artistic': 'you have an artistic eye',
+    'visual': 'you think in pictures and designs',
+    'confident': 'you believe in yourself',
+    'organized': 'you keep everything organised',
+    'patient': 'you are calm and patient',
+    'driven': 'you are driven to succeed',
+    'independent': 'you work well on your own'
+};
 
 function showCareerDetails(careerName) {
     var career = careers[careerName];
@@ -7135,6 +7099,7 @@ function showCareerDetails(careerName) {
     DOM.modalClose.focus();
     document.body.style.overflow = 'hidden';
 }
+
 DOM.modalAddToCompare.addEventListener('click', function() {
     var careerName = this.dataset.career;
     if (!careerName) return;
@@ -7193,6 +7158,7 @@ DOM.modalAddToCompare.addEventListener('click', function() {
         DOM.modalAddToCompare.textContent = isNowInCompare2 ? '❌ ' + t('remove_from_compare') : '➕ ' + t('add_to_compare');
     }
 });
+
 function closeCareerModal() {
     DOM.careerModal.classList.remove('active');
     document.body.style.overflow = '';
@@ -7353,6 +7319,7 @@ function checkSavedProgress() {
             state.answers = saved.answers || [];
             state.compareList = saved.compareList || [];
             state.personalityTraits = saved.personalityTraits || {};
+            if (saved.viewMode) state.viewMode = saved.viewMode;
             startQuiz(true);
         });
     } else if (saved.quizCompleted && saved.results) {
@@ -7367,6 +7334,7 @@ function checkSavedProgress() {
             state.quizCompleted = true;
             state.compareList = saved.compareList || [];
             state.personalityTraits = saved.personalityTraits || {};
+            if (saved.viewMode) state.viewMode = saved.viewMode;
             showScreen('results-screen');
             displayResults();
         });
@@ -7571,7 +7539,7 @@ function init() {
     // --- QUIZ NAVIGATION ---
     if (DOM.prevBtn) DOM.prevBtn.addEventListener('click', prevQuestion);
     if (DOM.nextBtn) DOM.nextBtn.addEventListener('click', nextQuestion);
-    if (DOM.questionDots) DOM.questionDots.addEventListener('click', handleDotClick); // V3.1
+    if (DOM.questionDots) DOM.questionDots.addEventListener('click', handleDotClick);
     if (DOM.optionsContainer) {
         DOM.optionsContainer.addEventListener('click', function(e) {
             var btn = e.target.closest('.option-btn');
@@ -7584,7 +7552,7 @@ function init() {
     if (DOM.printBtn) DOM.printBtn.addEventListener('click', printResults);
     // --- V3.2: PRINT MY TOP 3 + SURPRISE ME ---
     if (DOM.printTop3Btn) DOM.printTop3Btn.addEventListener('click', printTop3);
-    if (DOM.surpriseBtn) DOM.surpriseBtn.addEventListener('click', showRandomCareer);
+    if (DOM.surpriseBtn) DOM.surpriseBtn.addEventListener('click', window.showRandomCareer);
 
     // --- RETAKE ---
     if (DOM.retakeBtn) {
@@ -7592,6 +7560,7 @@ function init() {
             var dm = state.darkMode;
             var cm = state.colorMode;
             var lang = state.language;
+            var vm = state.viewMode;
             state = {
                 currentQuestion: 0,
                 answers: [],
@@ -7609,7 +7578,8 @@ function init() {
                 compareList: [],
                 personalityTraits: {},
                 language: lang,
-                shareData: null
+                shareData: null,
+                viewMode: vm
             };
             clearSavedState();
             showScreen('welcome-screen');
@@ -7643,6 +7613,46 @@ function init() {
     if (DOM.comparisonSelectors) DOM.comparisonSelectors.addEventListener('change', debounce(updateComparison, 200));
     if (DOM.careerSearch) DOM.careerSearch.addEventListener('input', debounce(handleCareerSearch, 250));
     if (DOM.filterChips) DOM.filterChips.addEventListener('click', handleFilterClick);
+
+    // --- V3.3: View toggle listeners ---
+    var viewClusterBtn = document.getElementById('view-cluster-btn');
+    var viewPathwayBtn = document.getElementById('view-pathway-btn');
+    if (viewClusterBtn && viewPathwayBtn) {
+        viewClusterBtn.addEventListener('click', function() {
+            if (state.viewMode === 'cluster') return;
+            state.viewMode = 'cluster';
+            state.activeFilter = 'all';
+            viewClusterBtn.classList.add('active');
+            viewClusterBtn.setAttribute('aria-pressed', 'true');
+            viewPathwayBtn.classList.remove('active');
+            viewPathwayBtn.setAttribute('aria-pressed', 'false');
+            renderFilterChips();
+            renderCareerCards(state.results.slice(0, 15));
+        });
+        viewPathwayBtn.addEventListener('click', function() {
+            if (state.viewMode === 'pathway') return;
+            state.viewMode = 'pathway';
+            state.activeFilter = 'all';
+            viewPathwayBtn.classList.add('active');
+            viewPathwayBtn.setAttribute('aria-pressed', 'true');
+            viewClusterBtn.classList.remove('active');
+            viewClusterBtn.setAttribute('aria-pressed', 'false');
+            renderFilterChips();
+            renderCareerCards(state.results.slice(0, 15));
+        });
+        // Restore saved view mode from state
+        if (state.viewMode === 'pathway') {
+            viewPathwayBtn.classList.add('active');
+            viewPathwayBtn.setAttribute('aria-pressed', 'true');
+            viewClusterBtn.classList.remove('active');
+            viewClusterBtn.setAttribute('aria-pressed', 'false');
+        } else {
+            viewClusterBtn.classList.add('active');
+            viewClusterBtn.setAttribute('aria-pressed', 'true');
+            viewPathwayBtn.classList.remove('active');
+            viewPathwayBtn.setAttribute('aria-pressed', 'false');
+        }
+    }
 
     // --- MODAL ---
     if (DOM.modalClose) DOM.modalClose.addEventListener('click', closeCareerModal);
@@ -7721,11 +7731,11 @@ function init() {
     });
 
     if (typeof console !== 'undefined') {
-        console.log('© Career Quest initialized successfully! (Merged & Improved)');
+        console.log('© Career Quest initialized successfully! (V3.3)');
         console.log('📚 Loaded ' + Object.keys(careers).length + ' careers');
         console.log('📝 Loaded ' + questions.length + ' questions');
         console.log('✅ Language: ' + state.language);
-        console.log('✅ Improvements: Search filter reset, comparison badges, clear-all button, reset tools, PDF retry, AI prompt with question context');
+        console.log('✅ View mode: ' + state.viewMode);
         console.log('📲 PWA: Service Worker registered - App can be installed!');
     }
 }
@@ -7768,5 +7778,5 @@ document.addEventListener('DOMContentLoaded', init);
 })();
 
 // ================================================================
-// END OF SCRIPT (V3)
+// END OF SCRIPT (V3.3)
 // ================================================================
